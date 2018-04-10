@@ -1,10 +1,10 @@
 <?php 
 /********************************************* 
-Company:		Wits Technologies Ltd
-Developer:	Sammy Mwaura Waweru
-Mobile:			+254721428276
-Email:			sammy@witstechnologies.co.ke
-Website:		http://www.witstechnologies.co.ke/
+Company:		Finstock IT
+Developer:	    Sammy/Iddris
+Mobile:			(+254)721428276/0705007984
+Email:			/idd.otuya@outlook.com/sammy@witstechnologies.co.ke
+Website:		http://www.witstechnologies.co.ke/https://jacidd.com
 *********************************************/ 
 
 #Handle Errors 
