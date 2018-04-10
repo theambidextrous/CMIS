@@ -17,6 +17,11 @@
 <script type="text/javascript" src="<?=THEME_URL;?>/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!-- Metis Menu Plugin JavaScript -->
 <script type="text/javascript" src="<?=THEME_URL;?>/vendor/metisMenu/metisMenu.min.js"></script>
+<!-- Morris Charts JavaScript -->
+<script type="text/javascript" src="<?=THEME_URL;?>/vendor/raphael/raphael.min.js"></script>
+<script type="text/javascript" src="<?=THEME_URL;?>/vendor/morrisjs/morris.min.js"></script>
+<!-- DataTables JavaScript -->
+<script type="text/javascript" src="<?=THEME_URL;?>/vendor/datatables/datatables.min.js"></script>
 <!-- Bootstrap Datepicker JavaScript --> 
 <script type="text/javascript" src="<?=THEME_URL;?>/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="<?=THEME_URL;?>/vendor/bootstrap-datepicker/js/locales/bootstrap-datepicker.en-GB.min.js"></script>
@@ -24,8 +29,8 @@
 <script type="text/javascript" src="<?=THEME_URL;?>/vendor/jquery-timepicker/jquery.timepicker.min.js"></script>
 <!-- Multiselect lib json_decode -->
 <script type="text/javascript" src="<?=THEME_URL;?>/vendor/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
-<!-- DataTables JavaScript -->
-<script type="text/javascript" src="<?=THEME_URL;?>/vendor/datatables/datatables.min.js"></script>
+<!-- International number format JavaScript --> 
+<script type="text/javascript" src="<?=THEME_URL;?>/vendor/int-tel-input/build/js/intlTelInput.min.js"></script>
 <!-- Custom Theme JavaScript --> 
 <script type="text/javascript" src="<?=THEME_URL;?>/dist/js/sb-admin-2.min.js"></script>
 </body></html>

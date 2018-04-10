@@ -22,9 +22,7 @@ $(function() {
 			listDay: { buttonText: 'List Day' },
 			listWeek: { buttonText: 'List Week' }
 		},
-		events: [
-			<?php echo getCalendarEvents('Student'); ?>
-		]
+		events: <?php echo getCalendarEvents('Student',$_SESSION['CALENDAR_EVENTS']); ?>
 	});
 	
 });
@@ -48,3 +46,6 @@ $(function() {
   </div>
 </div>
 <!-- /.row -->
+<?php
+//unset($_SESSION['CALENDAR_EVENTS']);
+?>

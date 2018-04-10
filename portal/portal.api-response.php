@@ -27,12 +27,12 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
           require_once("$class_dir/class.OAuth.php");
           //Open database connection
           $conn = db_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
-          //Get requested task/default is add
-          $task = isset($_GET['task'])?$_GET['task']:"add";
-
-          $task = strtolower($task);
-          switch($task) {
-            case "add":
+					
+          //Get requested payment method
+          $paymentmethod = isset($_GET['paymentmethod'])?$_GET['paymentmethod']:"";
+          $paymentmethod = strtolower($paymentmethod);
+          switch($paymentmethod) {
+            case "pesapal":
               // Array to store the messages
               $CONFIRM = array();
               //INITIATE CREDENTIALS
@@ -41,6 +41,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
               $consumer_secret = PESAPAL_CONSUMER_SECRET;
               $statusrequestAPI = PESAPAL_STATUS_API;
               $methodrequestAPI = PESAPAL_DETAILS_API;
+							$pay_method = "PESAPAL";
 
               // Parameters sent to you by PesaPal IPN
               $pesapalNotification = $_GET['pesapal_notification_type'];
@@ -61,9 +62,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
                 $request_status->sign_request($signature_method, $consumer, $token);
 
                 //UPDATE PAYMENT STATUS TO PENDING AND ADD TRACKING_ID
-                $stud_full_name=$_SESSION['STUD_FNAME'].' '.$_SESSION['STUD_LNAME'];
-                $student_pay_ref=$_SESSION['STUD_ID_HASH'];
-								$updateSQL = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `transaction_tracking_id`='%s', `pay_status`='%s' WHERE `student_pay_ref`='%s' AND `pay_status`='%s'", $pesapalTrackingId, 'PENDING', $student_pay_ref, 'Not Started');
+								//$student_pay_ref = $_SESSION['STUD_ID_HASH'];
+								$updateSQL = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `transaction_tracking_id`='%s', `pay_status`='%s' WHERE `student_pay_ref`='%s' AND `pay_status`='%s'", $pesapalTrackingId, 'PENDING', $pesapal_merchant_reference, 'INCOMPLETE');
                 db_query($updateSQL,DB_NAME,$conn);
 
                 //REQUEST PAYMENT STATUS FROM PESAPAL
@@ -129,7 +129,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
 									curl_close($ch);
                   #############################################################
                   //BT JUST B4 THAT, CHECK IF THIS PAYMENT IS IN DB ALREADY!!
-                  $checkDuplicateSql = sprintf("SELECT `student_pay_ref` FROM `".DB_PREFIX."payment_refs` WHERE `pay_status` != '%s' AND `pay_status` != '%s' AND `transaction_tracking_id` = '%s'", 'PENDING', 'Not Started', $pesapalTrackingId);
+                  $checkDuplicateSql = sprintf("SELECT `student_pay_ref` FROM `".DB_PREFIX."payment_refs` WHERE `pay_status` != '%s' AND `pay_status` != '%s' AND `transaction_tracking_id` = '%s'", 'PENDING', 'INCOMPLETE', $pesapalTrackingId);
                   $result = db_query($checkDuplicateSql,DB_NAME,$conn);
                   //create success message
                   $CONFIRM['MSG'] = ConfirmMessage('Your payment '.$status.'. Check your email for further details. <a href="'.PARENT_HOME_URL.'">Click here to go back to the main page</a> or <a href="'.SYSTEM_URL.'">Click here to go back to your dashboard</a>');
@@ -138,7 +138,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
                     //go back home                   
                     redirect(PARENT_HOME_URL);
                   }
-                  //db_free_result($result);
+                  db_free_result($result);
 
                   //update db with new status now
 									$updateSQL = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `pay_status` = '%s', `pay_method` = '%s' WHERE `student_pay_ref` = '%s' AND `transaction_tracking_id` = '%s'", $status, $pay_method, $pesapal_merchant_reference, $pesapalTrackingId);
@@ -146,19 +146,12 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
                 }
                 //reload if payment is pending
                 if($status == "PENDING"){
-                  redirect("?do=return_api&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference");
+									//redirect( "?do=test_return_api&paymentmethod=pesapal&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference" );
                 }
                 //if payment succeded
                 if(db_query && $status != "PENDING" && $status != "FAILED" && $status != "INVALID"){
                   $resp="pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
-                  //ob_start();
-                  // echo $resp;
-                  //ob_flush();
-                  //update this student regfee payment in students relation
-									//$updateSQL = sprintf("UPDATE `".DB_PREFIX."students` SET `regfee` = %d WHERE `payment_ref` = '%s'", 1, $pesapal_merchant_reference);
-                  //db_query($updateSQL,DB_NAME,$conn);	
                   $_SESSION['MSG']=$CONFIRM['MSG'];
-                  $_SESSION['STUD_FULLNAME']=$stud_full_name;
                   //redirect to thank you
                   redirect("?do=thanks");
                 }
@@ -168,11 +161,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
                   //ob_start();
                   // echo $resp;
                   //ob_flush();
-                if(isset($_SESSION['IS_FEE'])){
-                  $ERROR['MSG'] = ErrorMessage('Your payment '.$status.'. Please <a href="?do=payment&action=fee" class="btn btn-primary">Go back and try again using a different method</a>');
-                }else{
                   $ERROR['MSG'] = ErrorMessage('Your payment '.$status.'. Please <a href="?do=register&task=pay" class="btn btn-primary">Go back and try again using a different method</a>');
-                }
                   //email user the failed payment issue
                   $amount = $_SESSION['AMOUNT'];
                   $name = $_SESSION['STUD_FULLNAME'];
@@ -186,8 +175,102 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
               }
               //break if no task case and default.
             break;
+						case "mpesa":
+						  require_once("$class_dir/class.mpesa.php");
+							$MerchantRequestID = $_SESSION['MERCHANTID'];
+							$CheckoutRequestID = $_SESSION['CHECKOUTREQUESTID'];
+							
+							$Mpesa = new Mpesa();
+							
+							$timestamp = date("Ymdhis");
+        			$password = base64_encode(MPESA_SHORTCODE.MPESA_PASSKEY.$timestamp);
+							$confirmquery = $Mpesa->STKPushQuery(MPESA_API_ENV, $CheckoutRequestID, MPESA_SHORTCODE, $password, $timestamp);
+							
+							$data = json_decode($confirmquery, true);						
+							
+							$status = "";
+							$redirect = 0;
+							$pay_method = "LIPA_NA_MPESA";							
+							
+							//[errorCode] => 500.001.1001, [errorMessage] => The transaction is being processed
+							if($data['errorCode']){
+								echo ErrorMessage("Response from M-Pesa server: [".$data['errorCode']."] ".$data['errorMessage'].". Try again or choose a different payment method.");
+								echo "<p><a href=\"?do=payment&paymentmethod=mpesa\" class=\"btn btn-success\">Try Again</a> <a href=\"?do=payment&paymentmethod=pesapal\" class=\"btn btn-danger\">Pay with PesaPal</a></p>";
+							}else{
+								//[ResponseCode] => 0, [ResponseDescription] => The service request has been accepted successsfully
+								//[MerchantRequestID] && [CheckoutRequestID] => SET
+								if(intval($data['ResponseCode']) == 0 && isset($data['ResultCode']) && !empty($data['MerchantRequestID']) && !empty($data['CheckoutRequestID'])){
+									switch(intval($data['ResultCode'])){
+										//COMPLETED
+										//[ResultCode] => 0, [ResultDesc] => The service request is processed successfully.
+										case 0:
+											$redirect = 1;
+											$status = "COMPLETED";									
+											$CONFIRM['MSG'] = ConfirmMessage('Your payment has COMPLETED. Check your email for further details. <a href="'.PARENT_HOME_URL.'">Click here to go back to the main page</a> or <a href="'.SYSTEM_URL.'">Click here to go back to your dashboard</a>');
+										break;
+										//FAILED
+										//[ResultCode] => 1, [ResultDesc] => [MpesaCB - ]The balance is insufficient for the transaction.
+										case 1:
+											$status = "FAILED";
+											echo AttentionMessage('Your payment has FAILED. The balance is insufficient for the transaction.');
+											echo "<p><a href=\"?do=payment&paymentmethod=mpesa\" class=\"btn btn-success\">Try Again</a> <a href=\"?do=payment&paymentmethod=pesapal\" class=\"btn btn-danger\">Pay with PesaPal</a></p>";
+										break;
+										//PROCESSING
+										//[ResultCode] => 1001, [ResultDesc] => [STK_CB - ]Unable to lock subscriber, a transaction is already in process for the current subscriber
+										case 1001:
+											$status = "PROCESSING";
+											echo AttentionMessage('Your payment is PROCESSING. A transaction is already in process. Check your phone for M-Pesa popup and enter your PIN.');
+											echo "<p><a href=\"?do=payment&paymentmethod=mpesa\" class=\"btn btn-success\">Try Again</a> <a href=\"?do=payment&paymentmethod=pesapal\" class=\"btn btn-danger\">Pay with PesaPal</a></p>";
+										break;
+										//CANCELLED
+										//[ResultCode] => 1032, [ResultDesc] => STK_CBRequest cancelled by user
+										case 1032:
+											$status = "CANCELLED";
+											echo AttentionMessage('Your payment has been CANCELLED. Try again or choose a different payment method.');
+											echo "<p><a href=\"?do=payment&paymentmethod=mpesa\" class=\"btn btn-success\">Try Again</a> <a href=\"?do=payment&paymentmethod=pesapal\" class=\"btn btn-danger\">Pay with PesaPal</a></p>";
+										break;
+										//FAILED
+										//[ResultCode] => 1037, [ResultDesc] => [STK_CB - ]DS timeout.
+										case 1037:
+											$status = "FAILED";
+											echo AttentionMessage('Your payment FAILED. The system has timed out. Try again or choose a different payment method.');
+											echo "<p><a href=\"?do=payment&paymentmethod=mpesa\" class=\"btn btn-success\">Try Again</a> <a href=\"?do=payment&paymentmethod=pesapal\" class=\"btn btn-danger\">Pay with PesaPal</a></p>";
+										break;
+										//FAILED										
+										//[ResultCode] => 2001, [ResultDesc] => [MpesaCB - ]The initiator information is invalid.
+										case 2001:
+											$status = "FAILED";
+											echo ErrorMessage('Your payment has FAILED. The details provided to M-Pesa were invalid. Try again or choose a different payment method.');
+											echo "<p><a href=\"?do=payment&paymentmethod=mpesa\" class=\"btn btn-success\">Try Again</a> <a href=\"?do=payment&paymentmethod=pesapal\" class=\"btn btn-danger\">Pay with PesaPal</a></p>";
+										break;
+										//PENDING
+										//For any other ResultCode
+										default:
+											//log errors
+											$errorsSql = sprintf("INSERT INTO `".DB_PREFIX."mpesa_errorcodes` (`TrackingID`, `ErrorCode`, `ErrorDescription`) VALUES ('%s','%s','%s')", $data['CheckoutRequestID'], $data['ResultCode'], $data['ResultDesc']);
+											db_query($errorsSql,DB_NAME,$conn);
+											$redirect = 1;
+											$status = "PENDING";
+											$CONFIRM['MSG'] = AttentionMessage('Your payment is PENDING. Response from M-Pesa server: ['.$data['ResultCode'].'] '.$data['ResultDesc'].'. Check your email for further details. <a href="'.PARENT_HOME_URL.'">Click here to go back to the main page</a> or <a href="'.SYSTEM_URL.'">Click here to go back to your dashboard</a>');
+										break;
+									}
+								}																								
+								
+								//Save update to DB	for different responses
+								if($status){
+									$updateSQL = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `pay_status` = '%s', `pay_method` = '%s' WHERE `student_pay_ref` = '%s' AND `transaction_tracking_id` = '%s'", $status, $pay_method, $data['MerchantRequestID'], $data['CheckoutRequestID']);
+									db_query($updateSQL,DB_NAME,$conn);	
+									
+									$_SESSION['MSG']=$CONFIRM['MSG'];
+									if($redirect){
+										redirect("?do=thanks");
+									}
+								}
+							}																			
+						break;
             default:
               echo ErrorMessage("Invalid request! The system failed to process your request. If the problem persists, please contact us.");
+						break;
           }
           //Close connection
           db_close($conn);

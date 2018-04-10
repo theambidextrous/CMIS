@@ -14,14 +14,14 @@
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/bootstrap/css/bootstrap.min.css">
 <!-- MetisMenu CSS -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/metisMenu/metisMenu.min.css">
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/datatables/datatables.min.css"/>
 <!-- jQuery Timepicker CSS --> 
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/jquery-timepicker/jquery.timepicker.min.css">
 <!-- Bootstrap Datepicker CSS --> 
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
 <!-- Multiselect lib -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css">
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/datatables/datatables.min.css"/>
 <!-- Custom Fonts -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/font-awesome/css/font-awesome.min.css">
 <!-- jQuery UI Theme -->
@@ -30,6 +30,8 @@
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/fullcalendar/fullcalendar.min.css">
 <!-- jQuery Fullcalendar Print CSS -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/fullcalendar/fullcalendar.print.min.css" media="print">
+<!-- jQuery International phone number format -->
+<link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/int-tel-input/build/css/intlTelInput.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/dist/css/sb-admin-2.min.css" media="all">
 <!-- CometChat CSS -->
@@ -42,7 +44,6 @@
 <![endif]-->
 <!-- jQuery -->
 <script type="text/javascript" src="<?=SYSTEM_URL;?>/javascript/jquery.min.js"></script>
-<script type="text/javascript" src="<?=THEME_URL;?>/vendor/fullcalendar/lib/moment.min.js"></script> 
 <!-- jQuery Cookie -->
 <script type="text/javascript" src="<?=SYSTEM_URL;?>/javascript/jquery.cookie.js"></script>
 <!-- jQuery Validator -->
@@ -51,9 +52,15 @@
 <script type="text/javascript" src="<?=SYSTEM_URL;?>/javascript/tinymce/jquery.tinymce.min.js"></script>
 <script type="text/javascript" src="<?=SYSTEM_URL;?>/javascript/tinymce/tinymce.min.js"></script>
 <!-- jQuery Fullcalendar -->
+<script type="text/javascript" src="<?=THEME_URL;?>/vendor/fullcalendar/lib/moment.min.js"></script> 
 <script type="text/javascript" src="<?=THEME_URL;?>/vendor/fullcalendar/fullcalendar.min.js"></script>
 <!-- CometChat JS -->
 <script type="text/javascript" src="<?=SYSTEM_URL;?>/cometchat/js.php"></script>
 </head>
 
 <body>
+<?php
+if( !empty(trim(GOOGLE_ANALYTICS_ID)) ){
+	echo add_google_analytics( GOOGLE_ANALYTICS_ID );
+}
+?>

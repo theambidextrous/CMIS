@@ -14,18 +14,59 @@ use PHPMailer\PHPMailer\Exception;
 <script language="javascript" type="text/javascript">
 <!--
 document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
+
+$(document).ready(function() {
+	var telInput = $("#phonenumber");
+	var validateMsg = $("#validate-msg");
+	
+	// initialise plugin
+	telInput.intlTelInput({
+		autoPlaceholder: false,
+		formatOnDisplay: true,
+		geoIpLookup: function(callback) {
+			jQuery.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+			var countryCode = (resp && resp.country) ? resp.country : "";
+			callback(countryCode);
+			});
+		},
+		initialCountry: "auto",
+		nationalMode: false,
+		preferredCountries: ['ke', 'ug', 'tz'],
+		utilsScript: "<?=THEME_URL?>/vendor/int-tel-input/lib/libphonenumber/build/utils.js"
+	});
+	
+	var reset = function() {
+		telInput.removeClass("error");
+		validateMsg.addClass("hide");
+	};
+	
+	// on blur: validate
+	telInput.blur(function() {
+		reset();
+		if ($.trim(telInput.val())) {
+			if (telInput.intlTelInput("isValidNumber")) {
+				validateMsg.addClass("hide");		
+			} else {				
+				validateMsg.removeClass("hide");
+				validateMsg.html( '<em id="phonenumber-error" class="error">Valid number is required.</em>' );
+			}
+		}
+	});
+	
+	// on keyup / change flag: reset
+	telInput.on("keyup change", reset);
+});
 //-->
 </script>
 
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="header-img"><a href="<?=PARENT_HOME_URL;?>"><img class="img-responsive" src="<?=SYSTEM_LOGO_URL;?>" alt="Logo"></a></div>
 			<div class="activate-panel panel panel-default">
 				<div class="panel-heading">
 				<div class = "row">
 					<div class= "col-md-3">
-						<h3 class="panel-title">Application Form</h3>
+					<div class="header-img" style = "margin-top:1px;"><a href="<?=PARENT_HOME_URL;?>"><img class="img-responsive" src="<?=SYSTEM_LOGO_URL;?>" alt="Logo"></a></div>
 					</div>
 					<div class = "col-md-9">
 					<?php echo getInnerMenu(PARENT_HOME_URL); ?>
@@ -33,9 +74,16 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 				</div>
 				</div>
 				<div class="panel-body">
-					<h2>Register Now</h2>
+					<h2>Course Registration Form</h2>
 					<p>*All fields marked with asteriks (*) are required to complete the application</p>
 					<p>*At the end of the application, you will be required to pay registration fee of <b>KES 1,000</b></p>
+					<h2>Application Guide</h2>
+					<div class= "row">
+					<div class= "col-md-12">
+					<iframe class="embed-responsive-item" style="width:100%; height: 350px;"src="https://www.youtube.com/embed/tZWMoNcpN1s?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<!-- <h4>Finstock Evarsity Course Application Guide</h4> -->
+					</div>
+					</div>
 					<div class="reg-wizard">
 						<div id="reg-step-1" class="col-xs-3 reg-wizard-step active">
 							<div class="text-center reg-wizard-stepnum">Step 1</div>
@@ -88,6 +136,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 						$CONFIRM = array();
 						// If course is avaialble in query string
 						$FIELDS['course'] = isset($_GET['course'])?$_GET['course']:"";
+						// Set default citizenship to Kenya 
+						$FIELDS['citizenship'] = "KE";
 						
 						$saved = false;
 						//Execute Commands
@@ -107,11 +157,11 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 							$FIELDS['citizenship'] = secure_string($_POST['citizenship']);							
 							$FIELDS['gender'] = secure_string($_POST['gender']);
 							$FIELDS['identityno'] = secure_string($_POST['identityno']);							
-							$FIELDS['institution'] = $_POST['institution'];
-							$FIELDS['certificate'] = $_POST['certificate'];
-							$FIELDS['fromyear'] = $_POST['fromyear'];
-							$FIELDS['toyear'] = $_POST['toyear'];
-							$FIELDS['grade'] = $_POST['grade'];
+							$FIELDS['institution'] = secure_string($_POST['institution']);
+							$FIELDS['certificate'] = secure_string($_POST['certificate']);
+							$FIELDS['fromyear'] = secure_string($_POST['fromyear']);
+							$FIELDS['toyear'] = secure_string($_POST['toyear']);
+							$FIELDS['grade'] = secure_string($_POST['grade']);
 							$FIELDS['course'] = secure_string($_POST['course']);
 							$FIELDS['StudyMode'] = secure_string($_POST['StudyMode']);
 							$FIELDS['trim'] = '1/1';//defaults to 1st yr/1st trimester
@@ -259,7 +309,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 								$FIELDS['certfile'] = $CertFilePath;
 								
 								//GET REGISTRATION FEE
-								$regsql = sprintf("SELECT `pay_amount` FROM `".DB_PREFIX."payment_categs` WHERE `payment_name` = 'registration'");
+								$regsql = sprintf("SELECT `pay_amount` FROM `".DB_PREFIX."payment_categs` WHERE `payment_name` = 'Registration'");
 								//Set the result and run the query
 								$result = db_query($regsql,DB_NAME,$conn);
 								$row = db_fetch_array($result);
@@ -364,8 +414,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 									<div class="row">
 										<div class="form-group col-sm-4">
 											<label for="phonenumber" class="">Phone/Mobile No. <abbr class="text-danger" title="required">*</abbr></label>
-											<input type="tel" class="form-control required phone" name="phonenumber" id="phonenumber" value="<?=$FIELDS['phonenumber'];?>">
-											<span class="text-danger"><?=$ERRORS['phonenumber'];?></span>
+											<input type="tel" class="form-control" autocomplete="off" name="phonenumber" id="phonenumber" value="<?=$FIELDS['phonenumber'];?>">
+											<span id="validate-msg" class="text-danger"><?=$ERRORS['phonenumber'];?></span>
 										</div>
 										<div class="form-group col-sm-4">
 											<label for="emailaddress" class="">Email Address <abbr class="text-danger" title="required">*</abbr></label>
@@ -520,7 +570,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 										</div>
 										<div class="form-group col-sm-6">
 											<label for="StudyMode" class="">Prefered Study Mode: <abbr class="text-danger" title="required">*</abbr></label> <?php echo sqlOption("SELECT `pay_id`, `payment_name` FROM `".DB_PREFIX."payment_categs` WHERE type = 'StudyMode'","StudyMode",$FIELDS['StudyMode']);?>
-											<span class="text-notice">Note: Online & Class mode attracts an extra KES 10,000(USD.100) || Online & Executive mode attracts extra KES 20,000(USD.200)</span>
+											<span class="text-notice" style="font-size: 10px;">Note: <b>Online</b> mode means you do not go for physical classes, no extra cost. <b>Online & Class</b> mode means you do both online and going for physical classes. It attracts an extra KES 10,000(USD.100). <b>Online & Executive</b> mode means you can do it online and also attend classes at Hotel or Restaurant e.g. Nairobi Club. You get refreshments during classes. It attracts extra KES 20,000(USD.200)</span>
 											<span class="text-danger"><?=$ERRORS['StudyMode'];?></span>
 										</div>
 									</div>
@@ -662,6 +712,12 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 										<input type="checkbox" name="declaration" id="declaration" value="1" class="required">
 										I have confirmed that the information I have given herein is correct.</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
 									</div>
+									<h3>Email use Consent <span class="text-danger">*</span></h3>
+									<div class="form-group checkbox">
+										<label for="declaration" class="">
+										<input type="checkbox" checked name="offers" id="offers" value="1" class="">
+										Let me receive other offers from Finstock Evarsity</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
+									</div>
 									<div class="form-group">
 										<label for="securitycode">Security Code: <span class="text-danger">*</span></label>
 										<?=recaptcha_get_html();?>
@@ -678,65 +734,26 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 						}
 					break;
 					case "pay":
-						//INITIATE A PAYMENT IN DB
-						$student_id = $_SESSION['STUD_ID'];
-						$student_pay_ref = $_SESSION['STUD_ID_HASH'];
-						$transaction_tracking_id = '';
-						$payment_amount = $_SESSION['AMOUNT'];
-						$pay_method = '';
-						$stud_tel = $_SESSION['STUD_TEL'];
-						$stud_full_name = $_SESSION['STUD_FNAME'].' '.$_SESSION['STUD_LNAME'];
-						$stud_email = $_SESSION['STUD_EMAIL'];
-						$pay_type = 'registration fee';
-						$pay_status = 'Not Started';
-						
-						//$pay_status
-						//RUN A DELETE FOR ALL NONE-STARTED PAYMENTS FOR THIS USER AND INSERT NEW.
-						$delDuplicate = sprintf("DELETE FROM `".DB_PREFIX."payment_refs` WHERE `student_pay_ref` = '%s' AND `pay_status` = '%s'", $student_pay_ref, $pay_status);
-						db_query($delDuplicate,DB_NAME,$conn);
-						
-						//INSERT A NEW ONE ON RELOAD ETC. 
-						$newPaymentSql = sprintf("INSERT INTO `".DB_PREFIX."payment_refs` (`student_id`, `student_pay_ref`, `transaction_tracking_id`, `payment_amount`, `pay_method`, `stud_tel`, `stud_full_name`, `stud_email`, `pay_type`, `pay_status`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $student_id, $student_pay_ref, $transaction_tracking_id, $payment_amount, $pay_method, $stud_tel, $stud_full_name, $stud_email, 'registration fee', 'Not Started');
-						//execute qry
-						db_query($newPaymentSql,DB_NAME,$conn);				  
-						
-						//INITIATE PAYMENT CREDENTIALS
-						$token = $params = NULL;
-						$consumer_key = PESAPAL_CONSUMER_KEY;
-						$consumer_secret = PESAPAL_CONSUMER_SECRET;
-						$signature_method = new OAuthSignatureMethod_HMAC_SHA1();
-						$iframelink = PESAPAL_IFRAME_API;
-						//get form details
-						$amount = $_SESSION['AMOUNT'];
-						$amount = number_format($amount, 2);//format amount to 2 decimal places
-						
-						$desc = SYSTEM_NAME." Fee Payment";
-						$type = "MERCHANT"; //default value = MERCHANT
-						$reference = $_SESSION['STUD_ID_HASH'];//unique order id of the transaction, generated by merchant
-						$first_name = $_SESSION['STUD_FNAME'];
-						$last_name = $_SESSION['STUD_LNAME'];
-						$email = $_SESSION['STUD_EMAIL'];
-						$phonenumber = $_SESSION['STUD_TEL'];//ONE of email or phonenumber is required
-						
-						$callback_url = SYSTEM_URL.'/portal/?do=return_api'; //redirect url, the page that will handle the response from pesapal.
-						
-						$post_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><PesapalDirectOrderInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" Amount=\"".$amount."\" Description=\"".$desc."\" Type=\"".$type."\" Reference=\"".$reference."\" FirstName=\"".$first_name."\" LastName=\"".$last_name."\" Email=\"".$email."\" PhoneNumber=\"".$phonenumber."\" xmlns=\"http://www.pesapal.com\" />";
-						$post_xml = htmlentities($post_xml);
-						$consumer = new OAuthConsumer($consumer_key, $consumer_secret);
-						
-						//post transaction to pesapal
-						$iframe_src = OAuthRequest::from_consumer_and_token($consumer, $token, "GET", $iframelink, $params);
-						$iframe_src->set_parameter("oauth_callback", $callback_url);
-						$iframe_src->set_parameter("pesapal_request_data", $post_xml);
-						$iframe_src->sign_request($signature_method, $consumer, $token);						
 						?>
-					<!-- Step 4 -->
-					<div id="step-4" class="form-sec">
-						<iframe src="<?php echo $iframe_src;?>" width="100%" height="700px"  scrolling="no" frameBorder="0">
-						<p>Browser unable to load iFrame</p>
-						</iframe>
-					</div>
-					<?php
+						<div class="col-md-12">
+							<h2>You are about to pay Ksh.<?php echo $_SESSION['AMOUNT']; ?></h2>
+							<h3>Select a payment method</h3>
+							<p>We support the following payment methods. Click on your preferred payment method:</p>
+							
+							<div class="row">
+								<!--
+								<div class="col-md-6">
+									<h3>Lipa na MPesa</h3>
+									<a href="?do=payment&paymentmethod=mpesa&paytype=Registration" title="Click to pay with MPesa"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/lipa-na-mpesa.png" alt="Lina na MPesa"></a>
+								</div>
+								-->
+								<div class="col-md-6">
+									<h3>PesaPal Payment</h3>
+									<a href="?do=payment&paymentmethod=pesapal&paytype=Registration" title="Click to pay with PesaPal"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/pesapal.jpg" alt="PesaPal Payment"></a>
+								</div>
+							</div>
+						</div>
+						<?php
 					break;
 					case "recover":					
 					?>
@@ -747,9 +764,9 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 						</div>
 						<p>Your account is already registered with us. We can help you regain access to your account by choosing one of the following options.</p>
 						<ul>
-						  <li><a href="#">Forgot your password? Click here to request a password reset.</a></li>
-							<li><a href="#">You registered but did not pay registration fee? Click here to make payment now.</a></li>
-							<li><a href="#">You registered and paid registration fee but did not receive instructions on how to access the portal? Click here for assistance.</a></li>
+						  <li><a href="?do=reset">Forgot your password? Click here to request a password reset.</a></li>
+							<li><a href="?do=login">You registered but did not pay registration fee? Click here to make payment now.</a></li>
+							<li><a href="?do=login">You registered and paid registration fee but did not receive instructions on how to access the portal? Click here for assistance.</a></li>
 							<li><a href="#">For any other help, please contact us.</a></li>
 						</ul>
 					</div>
@@ -757,6 +774,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 					break;
 					default:
 						echo ErrorMessage("Invalid request! The system failed to process your request. If the problem persists, please contact us.");
+					break;
 					}
 					
 					//Close connection
@@ -783,7 +801,6 @@ $(document).ready(function() {
 			firstname: "required",
 			middlename: "required",
 			physicaladdress: "required",
-			phonenumber: "required",
 			emailaddress: {
 				required: true,
 				email: true

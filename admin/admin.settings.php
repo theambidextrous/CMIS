@@ -82,7 +82,7 @@ function clearField(id){
                   }
               }
               ?>
-              <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=10&task=edit" title="Global Settings">Global Settings</a></li><li class="active">Email Templates</li></ol>
+              <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=settings&task=edit" title="Global Settings">Global Settings</a></li><li class="active">Email Templates</li></ol>
               <form>
 							
 							</form>
@@ -92,7 +92,7 @@ function clearField(id){
 		  if(isSuperAdmin() || isSystemAdmin()){
 		  ?>
             <div id="tabs-3" class="tab-pane">
-              <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=10&task=edit" title="Global Settings">Global Settings</a></li><li class="active">System Logs</li></ol>
+              <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=settings&task=edit" title="Global Settings">Global Settings</a></li><li class="active">System Logs</li></ol>
               <p><strong>PHP Version:</strong> <?=phpversion();?><br>
               <strong>MySQL Version:</strong> <?=db_version();?></p><hr>
               <?php

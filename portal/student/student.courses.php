@@ -216,7 +216,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 							<h3 style="color:#333;">Dear '.$student['StudentName'].',</h3>
 							<p style="text-align:justify;">We would like to let you know that your selection for units was successfully submitted and is under review. You have requested to register for the following units:</p>
 							<h3>Course: '.getCourseName($CourseID).'</h3>
-							'.getRegisteredStudentUnits($student['StudentID'], $CourseID, 'Pending').'							
+							'.getRegisteredStudentUnitsTable($student['StudentID'], $CourseID, 'Pending').'							
 							<h3>Total Course Fees:</h3>
 							<p>'.getCourseFeesStructure($CourseID, $student['StudyMode']).'</p>
 							<h3>What next?</h3>
@@ -341,7 +341,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 							</form>
 							
 							<h3>Registered units and tuition fees</h3>
-							<p>You can drop until before date()</p>
+							<p>You can drop until before</p>
 							<table width="100%" class="display table table-striped table-bordered table-hover">
 							<tbody>							
 							<?php

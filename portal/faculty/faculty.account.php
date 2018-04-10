@@ -137,10 +137,9 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Faculty | My Account";
 								
 								$body = "<html><head>
 								<title>$FacultyName - Account Updated</title>
-								</head><body><p>Dear $FacultyName, <br><br>You received this email because you updated your account on ".SYSTEM_NAME." website. 
-								----ADD MESSAGE HERE----
-								
-								<br><br>Sincerely,<br><br>".strtoupper(SYSTEM_SHORT_NAME)." ALERT NOTIFICATIONS<br>Email: ".INFO_EMAIL."<br>Website: ".SYSTEM_URL."</p></body></html>";
+								</head><body><p>Dear $FacultyName, <br><br>You received this email because you updated your account on ".SYSTEM_NAME." website.</p>
+								<p>If you did not make the change, please report the action to us immediately. Otherwise, you can just ignore this email if you're aware of this update on your account.</p>								
+								<p>Sincerely,<br><br>".strtoupper(SYSTEM_SHORT_NAME)." ALERT NOTIFICATIONS<br>Email: ".INFO_EMAIL."<br>Website: ".SYSTEM_URL."</p></body></html>";
 								$body = preg_replace('/\\\\/','', $body); //Strip backslashes
 								
 								switch(MAILER){
@@ -268,7 +267,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Faculty | My Account";
 							<div class="form-group">
 								<label for="MPhone">Mobile Phone: &nbsp;</label>
 								<input type="tel" value="<?=$faculty['MPhone']; ?>" name="MPhone" class="form-control required">
-								&nbsp;<span class="text-danger"><?=$ERRORS['MPhone'];?></span>
+								&nbsp;<span id="validate-msg" class="text-danger"><?=$ERRORS['MPhone'];?></span>
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-6">

@@ -9,7 +9,7 @@ $(document).ready(function() {
 		selector: 'textarea.tinymce',
 		height: 500,
 		theme: 'modern',
-		plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+		plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
 		toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | removeformat',
 		image_advtab: true,
 		content_css: "<?=SYSTEM_URL;?>/styles/tinymce.editor.css"
@@ -35,7 +35,7 @@ $(document).ready(function() {
       <?php
       //Required
 			$EditID = !empty($_GET['eid'])?$_GET['eid']:0;
-      $UnitID = !empty($_GET['UnitID'])?$_GET['UnitID']:$_SESSION['UnitID'];
+      		$UnitID = !empty($_GET['UnitID'])?$_GET['UnitID']:$_SESSION['UnitID'];
 			if(!empty($UnitID)){
 				$Unit = getUnitDetails($UnitID);
 				
@@ -64,14 +64,14 @@ $(document).ready(function() {
 					}
 					
 					if(isset($_POST['Edit']) && !empty($EditID)){
-						$sqlEditAssignment = sprintf("UPDATE `".DB_PREFIX."assignments` SET `UnitID`='%s', `Title`='%s', `Description`='%s' `Credits`='%s', `DateDue`='%s' WHERE `UID`=%d", $UnitID, $Title, $EncodedDescription, $Credits, $dbDateDue, $EditID);
+						$sqlEditAssignment = sprintf("UPDATE `".DB_PREFIX."assignments` SET `UnitID`='%s', `Title`='%s', `Description`='%s', `Credits`='%s', `DateDue`='%s' WHERE `UID`=%d", $UnitID, $Title, $EncodedDescription, $Credits, $dbDateDue, $EditID);
 						
 						//Execute the query or die if there is a problem
 						db_query($sqlEditAssignment,DB_NAME,$conn);
 						
 						//Check if saved
 						if(db_affected_rows($conn)){								
-							redirect("?tab=3&task=coursework&unitid=$UnitID&update=true");
+							redirect("?tab=5&task=coursework&unitid=$UnitID&update=true");
 						}else{
 							echo ErrorMessage("Failed to update the selected assignment.");
 						}
@@ -105,8 +105,7 @@ $(document).ready(function() {
 				?>
 				<h2><?=$UnitID;?> <small>(<?=$Unit['UName'];?>)</small></h2>
 				<h3>Available assignments for this unit</h3>
-				<button data-toggle="collapse" data-target="#newassignmentform" class="btn btn-success">Add New Assignment</button>
-				<p>&nbsp;</p>
+				<p class="text-right"><button data-toggle="collapse" data-target="#newassignmentform" class="btn btn-success">Add New Assignment</button></p>				
 				<form id="newassignmentform" class="collapse <?=$collapse;?>" method="post" action="" enctype="multipart/form-data">
 				<div id="newassignment">
 					<div class="row">							
@@ -138,7 +137,7 @@ $(document).ready(function() {
 							</div>
 							
 							<div class="form-group">
-								<input type="submit" name="<?=$action;?>" value="<?=$action;?> Assignment" class="btn btn-primary">
+								<input type="submit" name="<?=$action;?>" value="Save Changes" class="btn btn-primary">
 							</div>
 							
 						</div>							
@@ -146,37 +145,63 @@ $(document).ready(function() {
 				</div>
 				</form>
 				<?php
-				$sqlGetAssignments = sprintf("SELECT * FROM `".DB_PREFIX."assignments` WHERE `UnitID` = '%s' AND `deletedFlag` = %d", $UnitID, 0);
+				$sqlGetAssignments = sprintf("SELECT * FROM `".DB_PREFIX."assignments` WHERE `UnitID` = '%s' AND `deletedFlag` = %d ORDER BY `DateDue` ASC", $UnitID, 0);
 				//Execute the query or die if there is a problem
 				$resultGetAssignments = db_query($sqlGetAssignments,DB_NAME,$conn);
 				
 				//check if any rows returned
 				if(db_num_rows($resultGetAssignments)>0){
 					$count = 1;
+					$expired = 0;
 					echo '<div class="panel-group" id="accordion">';
-					while($row = db_fetch_array($resultGetAssignments)){
+					while($assignment = db_fetch_array($resultGetAssignments)){
+						$date_today = new DateTime();
+						$date_due = new DateTime($assignment['DateDue']);						
+						$diff = (int)$date_today->diff($date_due)->format("%r%a");
+						//echo $diff;
+						if($diff >= 14){
+							$expired = 0;
+							$class = "default";
+						}elseif($diff >= 7){
+							$expired = 0;
+							$class = "success";
+						}elseif($diff >= 3){
+							$expired = 0;
+							$class = "warning";
+						}elseif($diff >= 0){
+							$expired = 0;
+							$class = "danger";
+						}else{							
+							$expired = 1;
+							$class = "danger";
+						}
+						
+						$due = $expired==1?"Expired: ":"Due: ";
 						?>							
-							<div class="panel panel-default">
+							<div class="panel panel-<?php echo $class; ?>">
 								<div class="panel-heading">
-									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>" title="Click here to toggle collapse"><?php echo $row['Title']; ?></a> 
+									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>" title="Click here to toggle collapse"><?php echo $assignment['Title']; ?></a> 
 									<span class="right" style="float:right;">
-									<a href="?tab=3&task=coursework&action=edit&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['UID']; ?>" title="Edit this assignment"><i class="fa fa-edit"></i></a>&nbsp;
-									<?php if($row['disabledFlag'] == 0){?>
-									<a href="?tab=3&task=coursework&action=hide&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['UID']; ?>" title="Hide from students"><i class="fa fa-eye-slash"></i></a>&nbsp;
+									<small class="text-<?php echo $class; ?>"><?php echo $due.timeago($assignment['DateDue']); ?></small>
+									<a href="?tab=5&task=coursework&action=edit&unitid=<?php echo $assignment['UnitID']; ?>&eid=<?php echo $assignment['UID']; ?>" title="Edit this assignment"><i class="fa fa-edit"></i></a>&nbsp;
+									<?php if($assignment['disabledFlag'] == 0){?>
+									<a href="?tab=5&task=coursework&action=hide&unitid=<?php echo $assignment['UnitID']; ?>&eid=<?php echo $assignment['UID']; ?>" title="Hide from students"><i class="fa fa-eye-slash"></i></a>&nbsp;
 									<?php }else{ ?>
-									<a href="?tab=3&task=coursework&action=show&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['UID']; ?>" title="Show from students"><i class="fa fa-eye"></i></a> &nbsp;
+									<a href="?tab=5&task=coursework&action=show&unitid=<?php echo $assignment['UnitID']; ?>&eid=<?php echo $assignment['UID']; ?>" title="Show from students"><i class="fa fa-eye"></i></a> &nbsp;
 									<?php } ?>
-									<a href="?tab=3&task=coursework&action=remove&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['UID']; ?>" title="Remove this assignment"><i class="fa fa-trash"></i></a>
+									<a href="?tab=5&task=coursework&action=remove&unitid=<?php echo $assignment['UnitID']; ?>&eid=<?php echo $assignment['UID']; ?>" title="Remove this assignment"><i class="fa fa-trash"></i></a>
 									</span></h4>
 									
 								</div>
 								<div id="collapse<?php echo $count; ?>" class="panel-collapse collapse">
 									<div class="panel-body">
-									<h3><?php echo $row['Title']; ?></h3>
-									<p>Credits: <?php echo $row['Credits']; ?></p>
-									<p>Date Due: <?php echo fixdatelong($row['DateDue']); ?></p>
-									<h3>Assignment Content</h3>
-									<?php echo decode($row['Description']); ?>
+										<h3><?php echo $assignment['Title']; ?></h3>
+										<p>Credits: <?php echo $assignment['Credits']; ?></p>
+										<p>Date Due: <?php echo fixdatelong($assignment['DateDue']); ?></p>
+										<h3>Assignment Content</h3>
+										<?php echo decode($assignment['Description']); ?>
+										<h3>Assignment Submissions</h3>
+										<p></p>
 									</div>
 								</div>
 							</div>															

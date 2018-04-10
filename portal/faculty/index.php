@@ -37,6 +37,10 @@ $EditID = !empty($_SESSION['usrusername'])?$_SESSION['usrusername']:"";
 //Fetch faculty data
 $faculty = getFacultyDetails($EditID);
 
+$_SESSION['CALENDAR_EVENTS'] = !empty($_SESSION['CALENDAR_EVENTS'])?$_SESSION['CALENDAR_EVENTS']:array();
+//array_push($_SESSION['CALENDAR_EVENTS'], array('title' => 'Happy Birthday', 'start' => '2018-03-30'));
+//array_push($_SESSION['CALENDAR_EVENTS'], array('title' => 'New Day', 'start' => '2018-03-20'));
+
 switch ($tab) {
 	case 1: $menu1 = "active";
 break;
@@ -62,19 +66,59 @@ add_header();
 <script>
 <!--
 //JQuery Functions
-$(function() {
+$(document).ready(function() {
+	// International Phone format with validator
+	var telInput = $("input[type='tel']");
+	var validateMsg = $("#validate-msg");
+	
+	// initialise plugin
+	telInput.intlTelInput({
+		autoPlaceholder: false,
+		formatOnDisplay: true,
+		geoIpLookup: function(callback) {
+			jQuery.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+			var countryCode = (resp && resp.country) ? resp.country : "";
+			callback(countryCode);
+			});
+		},
+		initialCountry: "auto",
+		nationalMode: false,
+		preferredCountries: ['ke', 'ug', 'tz'],
+		utilsScript: "<?=THEME_URL?>/vendor/int-tel-input/lib/libphonenumber/build/utils.js"
+	});
+	
+	var reset = function() {
+		telInput.removeClass("error");
+		validateMsg.addClass("hide");
+	};
+	
+	// on blur: validate
+	telInput.blur(function() {
+		reset();
+		if ($.trim(telInput.val())) {
+			if (telInput.intlTelInput("isValidNumber")) {
+				validateMsg.addClass("hide");		
+			} else {				
+				validateMsg.removeClass("hide");
+				validateMsg.html( '<em id="phonenumber-error" class="error">Valid number is required.</em>' );
+			}
+		}
+	});
+	
+	// on keyup / change flag: reset
+	telInput.on("keyup change", reset);
 	
 	//Timepicker
 	$('.timepicker').timepicker({
-        'showDuration': true,
-        'timeFormat': 'g:ia'
-    });
+		'showDuration': true,
+		'timeFormat': 'g:ia'
+	});
 	
 	//Datepicker	
 	$('.datepicker').datepicker({
-        'format': 'm/d/yyyy',
-        'autoclose': true
-    });
+		'format': 'm/d/yyyy',
+		'autoclose': true
+	});
 
 });
 //
@@ -121,7 +165,7 @@ function checkAll(field){
         <ul class="dropdown-menu dropdown-lectures">
           <?php echo list_faculty_lectures_nav($faculty['FacultyID'],$tab); ?>
           <li>
-            <a class="text-center" href="?tab=2"><strong>View All Lectures</strong><i class="fa fa-angle-right"></i></a>
+            <a class="text-center" href="?tab=3"><strong>View All Lectures</strong><i class="fa fa-angle-right"></i></a>
           </li>
         </ul>
       </li>

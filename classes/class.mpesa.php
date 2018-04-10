@@ -443,6 +443,23 @@ class Mpesa {
         $curl_response = curl_exec($curl);
         return $curl_response;
     }
+		/**
+     *Use this function to get callback data posted in callback routes
+     */
+    public function properMSISDN($MSISDN){				
+				//Remove any parentheses and the numbers they contain:
+				$n = preg_replace("/\([0-9]+?\)/", "", $MSISDN);
+				//Strip spaces and non-numeric characters:
+				$n = preg_replace("/[^0-9]/", "", $n);
+				//Strip KE country code
+				$n = substr($n, 3);				
+				//Strip out leading zeros:
+				$n = ltrim($n, '0');
+				//Add KE country code without plus sign
+				$n = "254".$n;
+				
+        return $n;
+    }
     /**
      *Use this function to confirm all transactions in callback routes
      */

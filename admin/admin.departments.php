@@ -89,16 +89,16 @@ for ($i = 0; $i < $count; $i++){
 <td><?=$row["UID"]?></td>
 <td><?=$row["DeptID"]?></td>
 <td><?=$row["DName"]?></td>
-<td style="text-align:center"><a href="?tab=3&filter_field=DeptID&filter=<?=$row["DeptID"]?>"><?=getDepartmentCourses($row["DeptID"])?></a></td>
+<td style="text-align:center"><a href="?dispatcher=courses&filter_field=DeptID&filter=<?=$row["DeptID"]?>"><?=getDepartmentCourses($row["DeptID"])?></a></td>
 <td><?=getFacultyName($row["HOD"])?></td>
 <?php
 if($row['disabledFlag'] == 0){
-	echo "<td align=\"center\"><a href=\"admin.php?tab=2&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['DName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['DName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=departments&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['DName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['DName']."\"></a></td>";
 }else{
-	echo "<td align=\"center\"><a href=\"admin.php?tab=2&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['DName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['DName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=departments&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['DName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['DName']."\"></a></td>";
 }
 ?>
-<td><a href="admin.php?tab=2&task=view&recid=<?=$i ?>">View</a> | <a href="admin.php?tab=2&task=edit&recid=<?=$i ?>">Edit</a> | <a href="admin.php?tab=2&task=del&recid=<?=$i ?>">Delete</a></td>
+<td><a href="admin.php?dispatcher=departments&task=view&recid=<?=$i ?>">View</a> | <a href="admin.php?dispatcher=departments&task=edit&recid=<?=$i ?>">Edit</a> | <a href="admin.php?dispatcher=departments&task=del&recid=<?=$i ?>">Delete</a></td>
 </tr>
 <?php
 }
@@ -179,18 +179,18 @@ function showroweditor($row, $iseditmode, $ERRORS){
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=2&task=add">Add Department</a>
-<a class="btn btn-default" href="admin.php?tab=2&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=departments&task=add">Add Department</a>
+<a class="btn btn-default" href="admin.php?dispatcher=departments&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=2"><i class="fa fa-undo fa-fw"></i> Back to Departments</a>
+<a class="btn btn-default" href="admin.php?dispatcher=departments"><i class="fa fa-undo fa-fw"></i> Back to Departments</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=2&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=departments&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=2&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=departments&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <br />
@@ -204,15 +204,15 @@ function viewrec($recid){
   db_data_seek($res, $recid);
   $row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=2">Departments</a></li><li class="active">View Department</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=departments">Departments</a></li><li class="active">View Department</li></ol>
 <?php 
 showrecnav("view", $recid, $count);
 showrow($row, $recid);
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=2&task=add"><i class="fa fa-file-o fa-fw"></i> Add Department</a>
-<a class="btn btn-default" href="admin.php?tab=2&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Edit Department</a>
-<a class="btn btn-default" href="admin.php?tab=2&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i> Delete Department</a>
+<a class="btn btn-default" href="admin.php?dispatcher=departments&task=add"><i class="fa fa-file-o fa-fw"></i> Add Department</a>
+<a class="btn btn-default" href="admin.php?dispatcher=departments&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Edit Department</a>
+<a class="btn btn-default" href="admin.php?dispatcher=departments&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i> Delete Department</a>
 </div>
 <?php
 db_free_result($res);
@@ -272,12 +272,12 @@ function addrec() {
 	$row["Description"] = !empty($FIELDS['Description'])?$FIELDS['Description']:"";
 	$row["HOD"] = !empty($FIELDS['HOD'])?$FIELDS['HOD']:0;
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=2">Departments</a></li><li class="active">Add Department</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=departments">Departments</a></li><li class="active">Add Department</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=2"><i class="fa fa-undo fa-fw"></i> Back to Departments</a>
+<a class="btn btn-default" href="admin.php?dispatcher=departments"><i class="fa fa-undo fa-fw"></i> Back to Departments</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=2&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=departments&task=add" method="post">
 <input type="hidden" name="sql" value="insert">
 <?php
 showroweditor($row, false, $ERRORS);
@@ -285,7 +285,7 @@ showroweditor($row, false, $ERRORS);
 
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=2'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=departments'">
 </p>
 </form>
 <?php } ?>
@@ -336,16 +336,16 @@ function editrec($recid){
 	$row["Description"] = !empty($FIELDS['Description'])?$FIELDS['Description']:$row["Description"];
 	$row["HOD"] = !empty($FIELDS['HOD'])?$FIELDS['HOD']:$row["HOD"];
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=2">Departments</a></li><li class="active">Edit Department</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=departments">Departments</a></li><li class="active">Edit Department</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=2&task=edit&recid=<?=$recid?>" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=departments&task=edit&recid=<?=$recid?>" method="post">
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 <input type="hidden" name="sql" value="update">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
 <?php showroweditor($row, true, $ERRORS); ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Edit" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=2'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=departments'">
 </p>
 </form>
 <?php
@@ -366,9 +366,9 @@ function deleterec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=2">Departments</a></li><li>Delete Department</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=departments">Departments</a></li><li>Delete Department</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=2&task=del&recid=<?=$recid?>" method="post">
+<form action="admin.php?dispatcher=departments&task=del&recid=<?=$recid?>" method="post">
 <input type="hidden" name="sql" value="delete">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
 <?php showrow($row, $recid) ?>
@@ -410,7 +410,7 @@ function sql_insert($FIELDS){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to save successfully. Please try again later...");
 	}
-	redirect("admin.php?tab=2");
+	redirect("admin.php?dispatcher=departments");
 }
 
 function sql_update($FIELDS){
@@ -426,7 +426,7 @@ function sql_update($FIELDS){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=2");
+	redirect("admin.php?dispatcher=departments");
 }
 
 function sql_update_status($disabledFlag, $editID){
@@ -442,7 +442,7 @@ function sql_update_status($disabledFlag, $editID){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=2");
+	redirect("admin.php?dispatcher=departments");
 }
 
 function sql_delete(){
@@ -457,7 +457,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected department. Please try again later...");
 	}
-	redirect("admin.php?tab=2");
+	redirect("admin.php?dispatcher=departments");
 }
 
 function primarykeycondition(){

@@ -118,15 +118,15 @@ for ($i = 0; $i < $count; $i++){
 <td><?=$row["CName"]?></td>
 <td><?=$row["CLevel"]?></td>
 <td><?=$row["DeptID"]?></td>
-<td style="text-align:center"><a href="?tab=4&filter_field=CourseID&filter=<?=$row["CourseID"]?>"><?=getCourseUnits($row["CourseID"])?></a></td>
+<td style="text-align:center"><a href="?dispatcher=units&filter_field=CourseID&filter=<?=$row["CourseID"]?>"><?=getCourseUnits($row["CourseID"])?></a></td>
 <?php
 if($row['disabledFlag'] == 0){
-	echo "<td align=\"center\"><a href=\"admin.php?tab=3&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['CName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['CName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=courses&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['CName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['CName']."\"></a></td>";
 }else{
-	echo "<td align=\"center\"><a href=\"admin.php?tab=3&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['CName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['CName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=courses&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['CName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['CName']."\"></a></td>";
 }
 ?>
-<td><a href="admin.php?tab=3&task=view&recid=<?=$i ?>">View</a> | <a href="admin.php?tab=3&task=edit&recid=<?=$i ?>">Edit</a> | <a href="admin.php?tab=3&task=del&recid=<?=$i ?>">Delete</a></td>
+<td><a href="admin.php?dispatcher=courses&task=view&recid=<?=$i ?>">View</a> | <a href="admin.php?dispatcher=courses&task=edit&recid=<?=$i ?>">Edit</a> | <a href="admin.php?dispatcher=courses&task=del&recid=<?=$i ?>">Delete</a></td>
 </tr>        
 <?php
 }
@@ -164,7 +164,7 @@ unset($_SESSION['MSG']);
 					</tr>
 					<tr>
 					<td>Number of Units</td>
-					<td><a href="?tab=4&filter_field=CourseID&filter=<?=$row["CourseID"]?>"><?=getCourseUnits($row["CourseID"])?></a></td>
+					<td><a href="?dispatcher=units&filter_field=CourseID&filter=<?=$row["CourseID"]?>"><?=getCourseUnits($row["CourseID"])?></a></td>
 					</tr>
 					<tr>
 					<td valign="top">Course Fee</td>
@@ -198,16 +198,22 @@ function showroweditor($row, $iseditmode, $ERRORS){
 <p class="text-center small"><span class="text-danger">FIELDS MARKED WITH ASTERISKS (*) ARE REQUIRED</span></p>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="form-group">
     <label for="">Course Department:</label>
     <?php echo sqlOption("SELECT `DeptID`,`DName` FROM `".DB_PREFIX."departments` WHERE `disabledFlag` = 0 AND `deletedFlag` = 0","DeptID",$row['DeptID'],"--Select Department--");?>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="form-group">
     <label for="">Course ID: <span class="text-danger">*</span></label>
     <input type="text" value="<?=$row['CourseID']; ?>" name="CourseID" class="form-control required" /><span class="text-danger"><?=$ERRORS['CourseID'];?></span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+    <label for="">Course Type: <span class="text-danger">*</span></label>
+	<?php echo sqlOption("SELECT `TypeID`,`Type` FROM `".DB_PREFIX."course_types` WHERE 1","CourseType",$row['CourseType'],"--Select Course Type--");?>
     </div>
   </div>
 </div>
@@ -296,18 +302,18 @@ function showroweditor($row, $iseditmode, $ERRORS){
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=3&task=add">Add Course</a>
-<a class="btn btn-default" href="admin.php?tab=3&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=courses&task=add">Add Course</a>
+<a class="btn btn-default" href="admin.php?dispatcher=courses&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=3"><i class="fa fa-undo fa-fw"></i> Back to Courses</a>
+<a class="btn btn-default" href="admin.php?dispatcher=courses"><i class="fa fa-undo fa-fw"></i> Back to Courses</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=3&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=courses&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=3&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=courses&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -320,15 +326,15 @@ function viewrec($recid){
   db_data_seek($res, $recid);
   $row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=3">Courses</a></li><li class="active">View Course</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=courses">Courses</a></li><li class="active">View Course</li></ol>
 <?php 
 showrecnav("view", $recid, $count);
 showrow($row, $recid);
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=3&task=add"><i class="fa fa-file-o fa-fw"></i> Add Course</a>
-<a class="btn btn-default" href="admin.php?tab=3&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Edit Course</a>
-<a class="btn btn-default" href="admin.php?tab=3&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i> Delete Course</a>
+<a class="btn btn-default" href="admin.php?dispatcher=courses&task=add"><i class="fa fa-file-o fa-fw"></i> Add Course</a>
+<a class="btn btn-default" href="admin.php?dispatcher=courses&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Edit Course</a>
+<a class="btn btn-default" href="admin.php?dispatcher=courses&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i> Delete Course</a>
 </div>
 <?php
 db_free_result($res);
@@ -350,6 +356,7 @@ function addrec() {
 		$FIELDS['DeptID'] = secure_string($_POST['DeptID']);
 		$FIELDS['CourseID'] = secure_string(whitespace_trim(strtoupper($_POST['CourseID'])));
 		$FIELDS['CName'] = secure_string(ucwords($_POST['CName']));
+		$FIELDS['CourseType'] = secure_string($_POST['CourseType']);
 		$FIELDS['CLevel'] = secure_string($_POST['CLevel']);
 		$FIELDS['ApplicableFeeTitle'] = secure_string($_POST['ApplicableFeeTitle']);
 		$FIELDS['ApplicableFeeAmount'] = secure_string($_POST['ApplicableFeeAmount']);		
@@ -393,20 +400,21 @@ function addrec() {
 	$row["CLevel"] = !empty($FIELDS['CLevel'])?$FIELDS['CLevel']:"";
 	$row["Outline"] = !empty($FIELDS['Outline'])?decode($FIELDS['Outline']):"";
 	$row["Description"] = !empty($FIELDS['Description'])?decode($FIELDS['Description']):"";
+	$row['CourseType'] = !empty($FIELDS['CourseType'])?$FIELDS['CourseType']:"";
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=3">Courses</a></li><li class="active">Add Course</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=courses">Courses</a></li><li class="active">Add Course</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=3"><i class="fa fa-undo fa-fw"></i> Back to Courses</a>
+<a class="btn btn-default" href="admin.php?dispatcher=courses"><i class="fa fa-undo fa-fw"></i> Back to Courses</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=3&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=courses&task=add" method="post">
 <input type="hidden" name="sql" value="insert" />
 <?php
 showroweditor($row, false, $ERRORS);
 ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Save" />
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=3'" />
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=courses'" />
 </p>
 </form>
 <?php } ?>
@@ -424,6 +432,7 @@ function editrec($recid){
 	if(isset($_POST["Edit"])){
 		// Course info
 		$FIELDS['DeptID'] = secure_string($_POST['DeptID']);
+		$FIELDS['CourseType'] = secure_string($_POST['CourseType']);
 		$FIELDS['CourseID'] = secure_string(whitespace_trim(strtoupper($_POST['CourseID'])));
 		$FIELDS['CName'] = secure_string(ucwords($_POST['CName']));
 		$FIELDS['CLevel'] = secure_string($_POST['CLevel']);
@@ -462,17 +471,18 @@ function editrec($recid){
 	$row["CLevel"] = !empty($FIELDS['CLevel'])?$FIELDS['CLevel']:$row["CLevel"];
 	$row["Outline"] = !empty($FIELDS['Outline'])?decode($FIELDS['Outline']):$row["Outline"];
 	$row["Description"] = !empty($FIELDS['Description'])?decode($FIELDS['Description']):$row["Description"];
+	$row['CourseType'] = !empty($FIELDS['CourseType'])?$FIELDS['CourseType']:$row["CourseType"];
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=3">Courses</a></li><li class="active">Edit Course</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=courses">Courses</a></li><li class="active">Edit Course</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=3&task=edit&recid=<?=$recid?>" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=courses&task=edit&recid=<?=$recid?>" method="post">
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 <input type="hidden" name="sql" value="update" />
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>" />
 <?php showroweditor($row, true, $ERRORS); ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Edit" value="Save" />
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=3'" />
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=courses'" />
 </p>
 </form>
 <?php
@@ -493,9 +503,9 @@ function deleterec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=3">Courses</a></li><li class="active">Delete Course</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=courses">Courses</a></li><li class="active">Delete Course</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=3&task=del&recid=<?=$recid?>" method="post">
+<form action="admin.php?dispatcher=courses&task=del&recid=<?=$recid?>" method="post">
 <input type="hidden" name="sql" value="delete" />
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>" />
 <?php showrow($row, $recid) ?>
@@ -513,7 +523,7 @@ function sql_select(){
 	global $filterfield;
 	
 	$filterstr = isset($filter) ? "%". $filter ."%" : "";	
-	$sql = "SELECT `UID`, `CourseID`, `CName`, `CLevel`, `Outline`, `Description`, `EntryRequirements`, `CourseDuration`, `DurationDivisions`, `Fee`, `Instructor`, `DeptID`,`disabledFlag` FROM `".DB_PREFIX."courses`";
+	$sql = "SELECT * FROM `".DB_PREFIX."courses`";
 	if(isset($filterstr) && $filterstr!='' && isset($filterfield) && $filterfield!='') {
 	$sql .= " WHERE ". secure_string($filterfield) ." LIKE '". secure_string($filterstr) ."'";
 	}
@@ -541,7 +551,7 @@ function sql_insert($FIELDS){
 	global $conn;
 	
 	//Add new course
-	$sql = sprintf("INSERT INTO `".DB_PREFIX."courses` (`CourseID`,`CName`,`CLevel`,`Description`,`Outline`,`DeptID`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", $FIELDS['CourseID'], $FIELDS['CName'], $FIELDS['CLevel'], $FIELDS['Description'], $FIELDS['Outline'], $FIELDS['DeptID']);	
+	$sql = sprintf("INSERT INTO `".DB_PREFIX."courses` (`CourseID`,`CName`,`CLevel`,`Description`,`Outline`,`CourseType`, `DeptID`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", $FIELDS['CourseID'], $FIELDS['CName'], $FIELDS['CLevel'], $FIELDS['Description'], $FIELDS['Outline'], $FIELDS['CourseType'], $FIELDS['DeptID']);	
 	db_query($sql,DB_NAME,$conn);
 	
 	//Check if saved
@@ -550,14 +560,14 @@ function sql_insert($FIELDS){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to save successfully. Please try again later...");
 	}
-	redirect("admin.php?tab=3");
+	redirect("admin.php?dispatcher=courses");
 }
 
 function sql_update($FIELDS){
 	global $conn;
 	
 	//Update course
-	$sql = sprintf("UPDATE `".DB_PREFIX."courses` SET `CourseID` = '%s', `CName` = '%s', `CLevel` = '%s', `Outline` = '%s', `Description` = '%s', `DeptID` = '%s' WHERE " .primarykeycondition(). "", $FIELDS['CourseID'], $FIELDS['CName'], $FIELDS['CLevel'], $FIELDS['Outline'], $FIELDS['Description'], $FIELDS['DeptID']);		
+	$sql = sprintf("UPDATE `".DB_PREFIX."courses` SET `CourseID` = '%s', `CName` = '%s', `CLevel` = '%s', `Outline` = '%s', `Description` = '%s', `CourseType` = '%s', `DeptID` = '%s' WHERE " .primarykeycondition(). "", $FIELDS['CourseID'], $FIELDS['CName'], $FIELDS['CLevel'], $FIELDS['Outline'], $FIELDS['Description'], $FIELDS['CourseType'], $FIELDS['DeptID']);		
 	db_query($sql,DB_NAME,$conn);
 	
 	//Check if updated
@@ -566,7 +576,7 @@ function sql_update($FIELDS){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=3");
+	redirect("admin.php?dispatcher=courses");
 }
 
 function sql_update_status($disabledFlag, $editID){
@@ -582,7 +592,7 @@ function sql_update_status($disabledFlag, $editID){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=3");
+	redirect("admin.php?dispatcher=courses");
 }
 
 function sql_delete(){
@@ -597,7 +607,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected course. Please try again later...");
 	}
-	redirect("admin.php?tab=3");
+	redirect("admin.php?dispatcher=courses");
 }
 
 function primarykeycondition(){

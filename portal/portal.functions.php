@@ -13,12 +13,14 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 //exam functions
 function recordScore($params){
-	$Sid = $params[0];
-	$Eid = $params[1];
-	$score = $params[2];
-	$s = $params[3];
-	$u = $params[4];
 	global $conn;
+	
+	$Sid = secure_string($params[0]);
+	$Eid = secure_string($params[1]);
+	$score = secure_string($params[2]);
+	$s = secure_string($params[3]);
+	$u = secure_string($params[4]);
+	
 	db_query(sprintf("UPDATE `".DB_PREFIX."student_exams` SET `Status`= '%s', `ExamScore`= '%s', `unmarked`= '%s' WHERE `StudentID` = '%s' AND `ExamID` = %d", $s, $score, $u, $Sid, $Eid),DB_NAME,$conn);
 }
 function changeExamState($ExamID, $StudentID, $State){
@@ -118,16 +120,17 @@ function createsessions($username,$password) {
     }
 }
 //Clear user sessions and cookies
-function clearsessionscookies() {
+function clearsessionscookies() {	
 	unset($_SESSION['usrtype']);
 	unset($_SESSION['usrusername']);
 	unset($_SESSION['usrpassword']);
 	unset($_SESSION['usrTimeout']);
 	unset($_SESSION['CourseID']);
 	unset($_SESSION['UnitID']);
+	unset($_SESSION['userid']);
 	
 	//setcookie("gdusername", "",time()-60*60*24*100, "/"); 
-    setcookie("usrpassword", "",time()-60*60*24*100, "/");
+  setcookie("usrpassword", "",time()-60*60*24*100, "/");
 }
 //
 function activeSession(){
@@ -140,7 +143,7 @@ function activeSession(){
 			//session_destroy();			
 			markLoggedout();
 			clearsessionscookies();
-		    return false;
+		  return false;
 		}
 		else{
 			$_SESSION['usrTimeout'] = time();// Reset time
@@ -164,7 +167,7 @@ $menu = '
 			<li><a href="'.$base_url.'/">Home</a></li>
 			<li><a href="'.$base_url.'/about.php">About</a></li>
 			<li><a href="'.$base_url.'/schools">Schools</a></li>
-			<li><a href="'.$base_url.'/short_courses.php">Short Courses</a></li>
+			<li><a href="'.$base_url.'/short-courses">Short Courses</a></li>
 			<li><a href="'.$base_url.'/kasneb">KASNEB</a></li>
 			<li><a href="'.$base_url.'/cmis/portal/?do=apply">Jobs</a></li>
 			<li><a href="'.$base_url.'/contact.php">Contact Us</a></li>
@@ -189,7 +192,7 @@ function confirmUser($username,$password){
 		$user = mysqli_real_escape_string($conn,$username);
 	}
 	//Make a safe query
-	$query = sprintf("SELECT `UserType`,`LoginID`,`Password` FROM `".DB_PREFIX."portal` WHERE `LoginID` = '%s' AND `disabledFlag` = %d AND `deletedFlag` = %d AND `ApprovedFlag` = %d AND `LoggedIn` = %d", $user, 0, 0, 1, 0);
+	$query = sprintf("SELECT `UID`,`UserType`,`LoginID`,`Password` FROM `".DB_PREFIX."portal` WHERE `LoginID` = '%s' AND `disabledFlag` = %d AND `deletedFlag` = %d AND `ApprovedFlag` = %d AND `LoggedIn` = %d", $user, 0, 0, 1, 0);
 	//Execute the query
 	$result = db_query($query,DB_NAME,$conn);
 	
@@ -200,6 +203,7 @@ function confirmUser($username,$password){
 		
 		$_SESSION['usrtype'] = $row['UserType'];
 		$_SESSION['usrusername'] = $row['LoginID'];
+		$_SESSION['userid'] = $row['UID'];
 		
 		if(password_verify($password, $row['Password']))
 			return true;		
@@ -704,7 +708,7 @@ function getCurrentAcademicID($currentDate){
 	$currentDate = isset($currentDate)?$currentDate:date('Y-m-d');
 	//$currentDate = date('Y-m-d', strtotime($currentDate));
 	
-	$sqlGet = "SELECT `UID` FROM `".DB_PREFIX."academic_yrs` WHERE `RegDateOpen` > '".$currentDate."' AND `RegDateClosed` < '".$currentDate."'";
+	$sqlGet = "SELECT `UID` FROM `".DB_PREFIX."academic_yrs` WHERE DATE_FORMAT(`RegDateOpen`,'%Y-%m-%d') >= DATE_FORMAT('".$currentDate."','%Y-%m-%d') AND DATE_FORMAT(`RegDateClosed`,'%Y-%m-%d') <= DATE_FORMAT('".$currentDate."','%Y-%m-%d')";
 	//Execute the query
 	$resultGet = db_query($sqlGet,DB_NAME,$conn);
 	
@@ -788,7 +792,7 @@ function getUnitsByStatus($CourseID, $Status){
 	global $conn;
 	
 	//set sql
-	$unitsSql = sprintf("SELECT * FROM `".DB_PREFIX."units` AS U LEFT JOIN `".DB_PREFIX."units_registered` AS UR ON U.`UnitID` = UR.`UnitID` WHERE UR.`CourseID` = '%s' AND UR.`Status` = '%s' AND U.`disabledFlag` = 0 AND U.`deletedFlag` = 0 ORDER BY U.`YrTrim` ASC", $CourseID, $Status);
+	$unitsSql = sprintf("SELECT * FROM `".DB_PREFIX."units` AS U LEFT JOIN `".DB_PREFIX."units_registered` AS UR ON U.`UnitID` = UR.`UnitID` WHERE UR.`CourseID` = '%s' AND UR.`Status` = '%s' AND U.`disabledFlag` = 0 AND U.`deletedFlag` = 0 GROUP BY U.`UnitID`", $CourseID, $Status);
 	return db_query($unitsSql,DB_NAME,$conn);	
 }
 //Get assigned units for given Faculty ID
@@ -829,7 +833,16 @@ function getRegisteredStudentUnits($StudentID, $CourseID, $Status){
 	//Get registered units
 	$sqlCheck = sprintf("SELECT `UR`.`UnitID`, `U`.`UName` FROM `".DB_PREFIX."units_registered` AS `UR` RIGHT JOIN `".DB_PREFIX."units` AS `U` ON `UR`.`UnitID` = `U`.`UnitID` WHERE `UR`.`StudentID` = '%s' AND `UR`.`CourseID` = '%s' AND `UR`.`Status` = '%s'", $StudentID, $CourseID, $Status);	
 	//Execute the query
-	$resultGet = db_query($sqlCheck,DB_NAME,$conn);
+	return db_query($sqlCheck,DB_NAME,$conn);
+}
+// Get registered units for the given student ID
+function getRegisteredStudentUnitsTable($StudentID, $CourseID, $Status){
+	global $conn;
+	
+	//Get registered units
+	$sqlCheck = sprintf("SELECT `UR`.`UnitID`, `U`.`UName` FROM `".DB_PREFIX."units_registered` AS `UR` RIGHT JOIN `".DB_PREFIX."units` AS `U` ON `UR`.`UnitID` = `U`.`UnitID` WHERE `UR`.`StudentID` = '%s' AND `UR`.`CourseID` = '%s' AND `UR`.`Status` = '%s'", $StudentID, $CourseID, $Status);	
+	//Execute the query
+	$resultGet = getRegisteredStudentUnits($StudentID, $CourseID, $Status);
 	
 	$returnHTML = '';
 	//Check if any records
@@ -1183,65 +1196,9 @@ function list_attachments($MsgID){
 	return $attachmentList;
 }
 //
-function getCalendarEvents($UserType){	
-	$eventsJSON = "{
-		title: 'All Day Event',
-		start: '2018-02-01'
-	},
-	{
-		title: 'Long Event',
-		start: '2018-02-07',
-		end: '2018-02-10'
-	},
-	{
-		id: 999,
-		title: 'Repeating Event',
-		start: '2018-02-09T16:00:00'
-	},
-	{
-		id: 999,
-		title: 'Repeating Event',
-		start: '2018-02-16T16:00:00'
-	},
-	{
-		title: 'Conference',
-		start: '2018-02-11',
-		end: '2018-02-13'
-	},
-	{
-		title: 'Meeting',
-		start: '2018-02-12T10:30:00',
-		end: '2018-02-12T12:30:00'
-	},
-	{
-		title: 'Lunch',
-		start: '2018-02-12T12:00:00'
-	},
-	{
-		title: 'Meeting',
-		start: '2018-02-12T14:30:00'
-	},
-	{
-		title: 'Happy Hour',
-		start: '2018-02-12T17:30:00'
-	},
-	{
-		title: 'Dinner',
-		start: '2018-02-12T20:00:00'
-	},
-	{
-		title: 'Birthday Party',
-		start: '2018-02-13T07:00:00'
-	},
-	{
-		title: 'Click for Google',
-		url: 'http://google.com/',
-		start: '2018-02-28'
-	},
-	{
-		title: 'Valentines Day',				
-		start: '2018-02-14'
-	},";
+function getCalendarEvents($UserType, $calendarEvents=array()){	
+	
+	$eventsJSON = json_encode($calendarEvents, true);
 		
 	return $eventsJSON;
 }

@@ -71,7 +71,7 @@ $params = array($StudentID, $ExamID, $total_score, $ExamState, $unmarked);
 recordScore($params);
 
 echo '<div class="alert alert-success">
-<strong>Done</strong> You have completed your paper. Provisional Score is: <b>'.$total_score.'</b>
+<strong>Done</strong> You have completed your paper. Provisional(Without Open ended questions) Score is: <b>'.$total_score.'</b>
 </div>';
 //print_r($unmarked);
 
@@ -97,7 +97,7 @@ exit;
 			if(isset($_POST['start'])){
             $ExamID = $_POST['ExamID'];
                 //RESET STATUS OF THIS EXAM FOR THIS STUDENT
-                //changeExamState($ExamID, $student['StudentID'], 'STARTED');
+                changeExamState($ExamID, $student['StudentID'], 'STARTED');
                 Start_exam($ExamID, $student['StudentID']);
 			}else{
 				if(!empty(getStudentExams($student['StudentID']))){
@@ -317,7 +317,7 @@ endforeach;
   setTimer(<?php echo 0.2*60;  ?>, {
     2400: function () { display("notifier", "40 minutes left"); },
      900: function () { display("notifier", "15 to go");        },
-     0: function () { display("notifier", "Time is up. You cannot continue, please cliCK on SEND FOR MARKING to finish"); act();}
+     0: function () { display("notifier", "Time is up. You cannot continue, please click on SEND FOR MARKING to finish"); act();}
   });
 })()
 </script>

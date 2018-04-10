@@ -96,7 +96,6 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
       <div class="panel-body">
       
         <h1>Welcome, <?php echo $student['StudentName']; ?></h1>
-        <a href="?tab=2" class = "btn btn-primary"><h1>Register Units Here</h1></a>
         <h2>Announcements</h2>
         <div class="list-announcements">
           <?php echo list_announcements("Student"); ?>
@@ -175,7 +174,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
 							}
 					}
 					//proceed to pay
-					echo redirect('../?do=payment&action=fee');
+					echo redirect('../?do=payment&paytype=fee');
         }
         //echo '<h4>Total Fees for your: '. getPaymentStatus($TotalCourseFee, $TotalPaid) .'</h4>';
 				echo '<h4>Payment Status: '. getPaymentStatus($TotalCourseFee, $TotalPaid) .'</h4>';
@@ -213,119 +212,25 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
     </div>
     <!-- /.panel-default -->
 
-    <?php
-		$resChatRooms = db_query("SELECT * FROM `".DB_PREFIX."chat_room` WHERE `chat_room_name` = 'Student'",DB_NAME,$conn);
-		while( $row = db_fetch_array($resChatRooms) ){
-		?>
-		<div class="chat-panel panel panel-default">
-			<div class="panel-heading">
-				<i class="fa fa-comments fa-fw"></i> Chat
-				<div class="btn-group pull-right">
-					<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"><i class="fa fa-chevron-down"></i></button>
-					<ul class="dropdown-menu slidedown">
-						<li><a href="#"><i class="fa fa-refresh fa-fw"></i> Refresh</a></li>
-						<li><a href="#"><i class="fa fa-check-circle fa-fw"></i> Available</a></li>
-						<li><a href="#"><i class="fa fa-times fa-fw"></i> Busy</a></li>
-						<li><a href="#"><i class="fa fa-clock-o fa-fw"></i> Away</a></li>
-						<li class="divider"></li>
-						<li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Sign Out</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- /.panel-heading -->
-			<div id="result" class="panel-body">
-			</div>
-			<!-- /.panel-body -->
-			<div class="panel-footer">
-				<form id="chatForm">
-				<div class="input-group">
-					<input type="hidden" value="<?php echo $row['chat_room_id']; ?>" id="id">
-					<input type="hidden" value="<?php echo $student['StudentName']; ?>" id="usr">
-					<input type="text" id="msg" class="form-control input-sm" placeholder="Type your message here...">
-					<span class="input-group-btn"><button type="button" id="send_msg" class="btn btn-warning btn-sm">Send</button></span>
-				</div>
-				</form>
-			</div>
-			<!-- /.panel-footer -->
-		</div>
-		<!-- /.panel .chat-panel -->
-		<?php
-		}
-		?>
-
   </div>
 	<script type="text/javascript">
-
-	$(document).ready(function(){
-		/***** START CHAT SCRIPT	*****/
-		setInterval(function() {
-			displayResult();
-			var elem = document.getElementById('result');
-			elem.scrollTop = elem.scrollHeight;
-		}, 2000); // every 2 seconds
-		
-		/* Send Message	*/			
-		$('#send_msg').on('click', function(){
-			if($('#msg').val() == ""){
-				alert('Please write message first');
-			}else{
-				$msg = $('#msg').val();
-				$id = $('#id').val();
-				$usr = $('#usr').val();
-				$.ajax({
-					type: "POST",
-					url: "<?php echo $incl_dir; ?>/chat/chat.php",
-					data: {
-						msg: $msg,
-						id: $id,
-						usr: $usr,
-					},
-					success: function(){
-						displayResult();
-						$('#chatForm').trigger("reset");
-					}
-				});
-			}	
-		});
-	
-	});
-	
-	function displayResult(){
-		$id = $('#id').val();
-		$usr = $('#usr').val();
-		$.ajax({
-			url: '<?php echo $incl_dir; ?>/chat/chat.php',
-			type: 'POST',
-			async: false,
-			data:{
-				id: $id,
-				usr: $usr,
-				res: 1,
-			},
-			success: function(response){
-				$('#result').html(response);
-			}
-		});
-	}	
-	/***** END CHAT SCRIPT	*****/
-	
-	$("#btn-pay").attr("disabled", "disabled");
-  // autopopuplate amount to pay
-	function topay() {
-			var x = document.getElementById("amt").value;
-			if(x< <?php echo getMinPayable($TotalDue,$TotalCourseFee);?>){			
-				$("#btn-pay").attr("disabled", "disabled");
-				document.getElementById("topay").innerHTML = "The least you can pay is Ksh.<?php echo number_format(getMinPayable($TotalDue,$TotalCourseFee), 0);?>";
-			}
-			else{
-				$("#btn-pay").removeAttr("disabled");
-				document.getElementById("topay").innerHTML = 'You are about to pay KES '+x;
-			}
-			if(x==""){
-				$("#btn-pay").removeAttr("disabled");
-				document.getElementById("topay").innerHTML = 'You are about to pay KES '+<?php echo number_format($TotalDue, 0); ?>+' To Finstock Evarsity';
-			}
-	}
+		$("#btn-pay").attr("disabled", "disabled");
+    // autopopuplate amount to pay
+    function topay() {
+        var x = document.getElementById("amt").value;
+        if(x< <?php echo getMinPayable($TotalDue,$TotalCourseFee);?>){			
+          $("#btn-pay").attr("disabled", "disabled");
+          document.getElementById("topay").innerHTML = "The least you can pay is Ksh.<?php echo number_format(getMinPayable($TotalDue,$TotalCourseFee), 0);?>";
+        }
+        else{
+          $("#btn-pay").removeAttr("disabled");
+          document.getElementById("topay").innerHTML = 'You are about to pay KES '+x;
+        }
+        if(x==""){
+          $("#btn-pay").removeAttr("disabled");
+          document.getElementById("topay").innerHTML = 'You are about to pay KES '+<?php echo number_format($TotalDue, 0); ?>+' To Finstock Evarsity';
+        }
+    }
 	</script>
 </div>    
 <!-- /.row -->

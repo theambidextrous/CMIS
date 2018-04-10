@@ -38,9 +38,8 @@ class validator{
 	}
 	
 	function is_email($email) {
-		$regexp = "/^[^0-9][A-z0-9_.-]+([.][A-z0-9_-]+)*[@][A-z0-9_-]+([.][A-z0-9_]+)*[.][A-z]{2,4}$/";
-		return preg_match($regexp, $email);
-	}
+		return filter_var($email, FILTER_VALIDATE_EMAIL)?(TRUE):(FALSE);
+	}		
 	
 	function is_phone($phone) {
 		$stripped = preg_replace("/(\(|\)|\-|\+)/","",preg_replace("/([  ]+)/","",$phone));
@@ -84,19 +83,9 @@ class validator{
 		return checkdate($month, $day, $year);
 	}
 	
-	function is_url($url) { //Thanks to 4ice for the fix.
-
-        $urlregex = "((https?|ftp)\:\/\/)?"; // SCHEME 
-		$urlregex .= "([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?"; // User and Pass 
-		$urlregex .= "[a-z0-9+\$_-]+(\.[a-z0-9+\$_-]+)*"; // Host or IP (http://localhost)
-		//$urlregex .= "([a-z0-9-.]*)\.([a-z]{2,3})"; // Host or IP 
-		$urlregex .= "(\:[0-9]{2,5})?"; // Port 
-		$urlregex .= "(\/([a-z0-9+\$_-]\.?)+)*\/?"; // Path 
-		$urlregex .= "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?"; // GET Query 
-		$urlregex .= "(#[a-z_.-][a-z0-9+\$_.-]*)?"; // Anchor 
-        
-        return preg_match("/^$urlregex$/", $url)?TRUE:FALSE; 
-    }
+	function is_url($url) {
+		return filter_var($url, FILTER_VALIDATE_URL)?(TRUE):(FALSE); 
+  }
 	
 	function is_host($host) {
 		 //mail.xyz.com
@@ -109,20 +98,9 @@ class validator{
 		return preg_match("/^([0-9]){2,4}$/", $port);
 	}
 
-    function is_ip($ip) {
-      
-        if(!$ip or empty($ip))
-            return false;
-      
-        $ip=trim($ip);
-        if(preg_match("/^[0-9]{1,3}(.[0-9]{1,3}){3}$/",$ip)) {
-            foreach(explode(".", $ip) as $block)
-                if($block<0 || $block>255 )
-                    return false;
-            return true;
-        }
-        return false;
-    }
+	function is_ip($ip) {
+		return filter_var($ip, FILTER_VALIDATE_IP)?(TRUE):(FALSE); 
+	}
 
 }
 ?>

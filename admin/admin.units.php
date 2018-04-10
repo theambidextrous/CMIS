@@ -101,12 +101,12 @@ for ($i = 0; $i < $count; $i++){
 <td><?=get_year_trimesters($row["YrTrim"])?></td>
 <?php
 if($row['disabledFlag'] == 0){
-	echo "<td align=\"center\"><a href=\"admin.php?tab=4&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['UName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['UName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=units&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['UName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['UName']."\"></a></td>";
 }else{
-	echo "<td align=\"center\"><a href=\"admin.php?tab=4&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['UName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['UName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=units&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['UName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['UName']."\"></a></td>";
 }
 ?>
-<td><a href="admin.php?tab=4&task=view&recid=<?=$i ?>">View</a> | <a href="admin.php?tab=4&task=edit&recid=<?=$i ?>">Edit</a> | <a href="admin.php?tab=4&task=del&recid=<?=$i ?>">Delete</a></td>
+<td><a href="admin.php?dispatcher=units&task=view&recid=<?=$i ?>">View</a> | <a href="admin.php?dispatcher=units&task=edit&recid=<?=$i ?>">Edit</a> | <a href="admin.php?dispatcher=units&task=del&recid=<?=$i ?>">Delete</a></td>
 </tr>        
 <?php
 }
@@ -178,13 +178,13 @@ global $conn;
 								<div class="panel-heading">
 									<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>" title="Click here to toggle collapse"><?php echo $row['Title']; ?></a> 
 									<span class="right" style="float:right;">
-									<a href="?tab=3&task=coursework&action=edit&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Edit this lesson"><i class="fa fa-edit"></i></a>&nbsp;
+									<a href="?dispatcher=courses&task=coursework&action=edit&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Edit this lesson"><i class="fa fa-edit"></i></a>&nbsp;
 									<?php if($row['disabledFlag'] == 0){?>
-									<a href="?tab=3&task=coursework&action=hide&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Hide from students"><i class="fa fa-eye-slash"></i></a>&nbsp;
+									<a href="?dispatcher=courses&task=coursework&action=hide&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Hide from students"><i class="fa fa-eye-slash"></i></a>&nbsp;
 									<?php }else{ ?>
-									<a href="?tab=3&task=coursework&action=show&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Show from students"><i class="fa fa-eye"></i></a> &nbsp;
+									<a href="?dispatcher=courses&task=coursework&action=show&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Show from students"><i class="fa fa-eye"></i></a> &nbsp;
 									<?php } ?>
-									<a href="?tab=3&task=coursework&action=remove&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Remove this lesson"><i class="fa fa-trash"></i></a>
+									<a href="?dispatcher=courses&task=coursework&action=remove&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Remove this lesson"><i class="fa fa-trash"></i></a>
 									</span></h4>
 									
 								</div>
@@ -346,18 +346,18 @@ function showroweditor($row, $iseditmode, $ERRORS){
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=4&task=add">Add Unit</a>
-<a class="btn btn-default" href="admin.php?tab=4&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=units&task=add">Add Unit</a>
+<a class="btn btn-default" href="admin.php?dispatcher=units&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=4"><i class="fa fa-undo fa-fw"></i> Back to Units</a>
+<a class="btn btn-default" href="admin.php?dispatcher=units"><i class="fa fa-undo fa-fw"></i> Back to Units</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=4&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=units&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=4&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=units&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -370,15 +370,15 @@ function viewrec($recid){
   db_data_seek($res, $recid);
   $row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=4">Units</a></li><li class="active">View Unit</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=units">Units</a></li><li class="active">View Unit</li></ol>
 <?php 
 showrecnav("view", $recid, $count);
 showrow($row, $recid);
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=4&task=add"><i class="fa fa-file-o fa-fw"></i>Add Unit</a>
-<a class="btn btn-default" href="admin.php?tab=4&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit Unit</a>
-<a class="btn btn-default" href="admin.php?tab=4&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i>Delete Unit</a>
+<a class="btn btn-default" href="admin.php?dispatcher=units&task=add"><i class="fa fa-file-o fa-fw"></i>Add Unit</a>
+<a class="btn btn-default" href="admin.php?dispatcher=units&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit Unit</a>
+<a class="btn btn-default" href="admin.php?dispatcher=units&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i>Delete Unit</a>
 </div>
 <?php
 db_free_result($res);
@@ -465,19 +465,19 @@ function addrec() {
 	$row["Prerequisites"] = !empty($FIELDS['Prerequisites'])?$FIELDS['Prerequisites']:"";
 	$row["Corequisites"] = !empty($FIELDS['Corequisites'])?$FIELDS['Corequisites']:"";	
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=4">Units</a></li><li class="active">Add Unit</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=units">Units</a></li><li class="active">Add Unit</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=4"><i class="fa fa-undo fa-fw"></i> Back to Units</a>
+<a class="btn btn-default" href="admin.php?dispatcher=units"><i class="fa fa-undo fa-fw"></i> Back to Units</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=4&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=units&task=add" method="post">
 <input type="hidden" name="sql" value="insert">
 <?php
 showroweditor($row, false, $ERRORS);
 ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=4'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=units'">
 </p>
 </form>
 <?php } ?>
@@ -555,16 +555,16 @@ function editrec($recid){
 	$row["Prerequisites"] = !empty($FIELDS['Prerequisites'])?$FIELDS['Prerequisites']:$row["Prerequisites"];
 	$row["Corequisites"] = !empty($FIELDS['Corequisites'])?$FIELDS['Corequisites']:$row["Corequisites"];
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=4">Units</a></li><li class="active">Edit Unit</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=units">Units</a></li><li class="active">Edit Unit</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=4&task=edit&recid=<?=$recid?>" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=units&task=edit&recid=<?=$recid?>" method="post">
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 <input type="hidden" name="sql" value="update">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
 <?php showroweditor($row, true, $ERRORS); ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Edit" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=4'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=units'">
 </p>
 </form>
 <?php
@@ -585,9 +585,9 @@ function deleterec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=4">Units</a></li><li class="active">Delete Unit</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=units">Units</a></li><li class="active">Delete Unit</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=4&task=del&recid=<?=$recid?>" method="post">
+<form action="admin.php?dispatcher=units&task=del&recid=<?=$recid?>" method="post">
 <input type="hidden" name="sql" value="delete">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
 <?php showrow($row, $recid) ?>
@@ -642,7 +642,7 @@ function sql_insert($FIELDS){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to save successfully. Please try again later...");
 	}
-	redirect("admin.php?tab=4");
+	redirect("admin.php?dispatcher=units");
 }
 
 function sql_update($FIELDS){
@@ -658,7 +658,7 @@ function sql_update($FIELDS){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=4");
+	redirect("admin.php?dispatcher=units");
 }
 
 function sql_update_status($disabledFlag, $editID){
@@ -675,7 +675,7 @@ function sql_update_status($disabledFlag, $editID){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=4");
+	redirect("admin.php?dispatcher=units");
 }
 
 function sql_delete(){
@@ -690,7 +690,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected unit. Please try again later...");
 	}
-	redirect("admin.php?tab=4");
+	redirect("admin.php?dispatcher=units");
 }
 
 function primarykeycondition(){

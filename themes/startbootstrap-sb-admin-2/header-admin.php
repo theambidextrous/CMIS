@@ -12,18 +12,20 @@
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/bootstrap/css/bootstrap.min.css">
 <!-- MetisMenu CSS -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/metisMenu/metisMenu.min.css">
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/datatables/datatables.min.css"/>
 <!-- jQuery Timepicker CSS --> 
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/jquery-timepicker/jquery.timepicker.min.css">
 <!-- Bootstrap Datepicker CSS --> 
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
 <!-- Multiselect lib -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css">
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/datatables/datatables.min.css"/>
 <!-- Custom Fonts -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/font-awesome/css/font-awesome.min.css">
 <!-- jQuery UI Theme -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/jquery-ui/black-tie/jquery-ui.min.css">
+<!-- jQuery International phone number format -->
+<link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/vendor/int-tel-input/build/css/intlTelInput.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" type="text/css" href="<?=THEME_URL;?>/dist/css/sb-admin-2.min.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -44,3 +46,9 @@
 </head>
 
 <body>
+<?php
+if( !empty(trim(GOOGLE_ANALYTICS_ID)) ){
+	echo add_google_analytics( GOOGLE_ANALYTICS_ID );
+}
+?>
+

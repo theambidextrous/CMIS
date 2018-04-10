@@ -14,6 +14,48 @@ use PHPMailer\PHPMailer\Exception;
 <script language="javascript" type="text/javascript">
 <!--
 document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
+
+$(document).ready(function() {
+	var telInput = $("#phonenumber");
+	var validateMsg = $("#validate-msg");
+	
+	// initialise plugin
+	telInput.intlTelInput({
+		autoPlaceholder: false,
+		formatOnDisplay: true,
+		geoIpLookup: function(callback) {
+			jQuery.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+			var countryCode = (resp && resp.country) ? resp.country : "";
+			callback(countryCode);
+			});
+		},
+		initialCountry: "auto",
+		nationalMode: false,
+		preferredCountries: ['ke', 'ug', 'tz'],
+		utilsScript: "<?=THEME_URL?>/vendor/int-tel-input/lib/libphonenumber/build/utils.js"
+	});
+	
+	var reset = function() {
+		telInput.removeClass("error");
+		validateMsg.addClass("hide");
+	};
+	
+	// on blur: validate
+	telInput.blur(function() {
+		reset();
+		if ($.trim(telInput.val())) {
+			if (telInput.intlTelInput("isValidNumber")) {
+				validateMsg.addClass("hide");		
+			} else {
+				validateMsg.removeClass("hide");
+				validateMsg.html( '<em id="phonenumber-error" class="error">Valid number is required.</em>' );
+			}
+		}
+	});
+	
+	// on keyup / change flag: reset
+	telInput.on("keyup change", reset);
+});
 //-->
 </script>
 
@@ -53,6 +95,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 						$CONFIRM = array();
 						// If course is avaialble in query string
 						$FIELDS['course'] = isset($_GET['course'])?$_GET['course']:"";
+						// Set default citizenship to Kenya 
+						$FIELDS['citizenship'] = "KE";
 						
 						$saved = false;
 						//Execute Commands
@@ -67,7 +111,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 							$FIELDS['state'] = secure_string($_POST['state']);
 							$FIELDS['phonenumber'] = secure_string($_POST['phonenumber']);
 							$FIELDS['emailaddress'] = secure_string($_POST['emailaddress']);
-							$FIELDS['verifyemailaddress'] = secure_string($_POST['verifyemailaddress']);			//applicant university data
+							$FIELDS['verifyemailaddress'] = secure_string($_POST['verifyemailaddress']);//applicant university data
 							$FIELDS['university'] = secure_string($_POST['university']);	
 							$FIELDS['studno'] = secure_string($_POST['studno']);
 							$FIELDS['enrolled'] = secure_string($_POST['enrolled']);
@@ -79,6 +123,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 							$FIELDS['identityno'] = secure_string($_POST['identityno']);							
 							$FIELDS['course'] = secure_string($_POST['course']);
 							$FIELDS['StudyMode'] = secure_string($_POST['StudyMode']);
+							$FIELDS['Training'] = secure_string($_POST['Training']);
 							$FIELDS['trim'] = '1/1';//defaults to 1st yr/1st trimeste
 
 							$FIELDS['source'] = secure_string($_POST['source']);
@@ -166,6 +211,9 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 							//validate study mode
 							if($FIELDS['StudyMode'] == "None")
 							$ERRORS['StudyMode'] = "Please select your prefered Study Mode";
+
+							if($FIELDS['Training'] == "None")
+							$ERRORS['Training'] = "Please select your prefered Study Mode";
 							
 							if($FIELDS['declaration'] != 1)
 							$ERRORS['declaration'] = "You need to accept this declaration";							
@@ -236,7 +284,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 								$FIELDS['sponsorname'] = "None";
 								$FIELDS['sponsorcontact'] = 07;
 								//Add new student
-								$newClientSql = sprintf("INSERT INTO `".DB_PREFIX."students` (`StudentID`, `FName`, `MName`, `LName`, `Phone`, `Email`, `DOB`, `Gender`, `Address`, `City`, `State`, `PostCode`, `Country`, `IdentityNumber`, `IdentityImage`, `PassportPhoto`, `Courses`, `StudyMode`, `YrTrim`, `Sponsorship`, `SponsorName`, `SponsorContact`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $FIELDS['StudentID'], $FIELDS['firstname'], $FIELDS['middlename'], $FIELDS['surname'], $FIELDS['phonenumber'], $FIELDS['emailaddress'], $FIELDS['dbDob'], $FIELDS['gender'], $FIELDS['physicaladdress'], $FIELDS['city'], $FIELDS['state'], $FIELDS['postalcode'], $FIELDS['citizenship'], $FIELDS['identityno'], $FIELDS['identityimage'], $FIELDS['passportphoto'], $FIELDS['course'], $FIELDS['StudyMode'], $FIELDS['trim'], $FIELDS['sponsorship'], $FIELDS['sponsorname'], $FIELDS['sponsorcontact']);
+								$newClientSql = sprintf("INSERT INTO `".DB_PREFIX."students` (`StudentID`, `FName`, `MName`, `LName`, `Phone`, `Email`, `DOB`, `Gender`, `Address`, `City`, `State`, `PostCode`, `Country`, `IdentityNumber`, `IdentityImage`, `PassportPhoto`, `Courses`, `StudyMode`, `Training`, `YrTrim`, `Sponsorship`, `SponsorName`, `SponsorContact`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $FIELDS['StudentID'], $FIELDS['firstname'], $FIELDS['middlename'], $FIELDS['surname'], $FIELDS['phonenumber'], $FIELDS['emailaddress'], $FIELDS['dbDob'], $FIELDS['gender'], $FIELDS['physicaladdress'], $FIELDS['city'], $FIELDS['state'], $FIELDS['postalcode'], $FIELDS['citizenship'], $FIELDS['identityno'], $FIELDS['identityimage'], $FIELDS['passportphoto'], $FIELDS['course'], $FIELDS['StudyMode'], $FIELDS['Training'], $FIELDS['trim'], $FIELDS['sponsorship'], $FIELDS['sponsorname'], $FIELDS['sponsorcontact']);
 								//add new free registration
 								$newClientSql2 = sprintf("INSERT INTO `".DB_PREFIX."freecourse_registration`(`StudentID`, `UniversityID`, `University`, `StudyLevel`, `Program`) VALUES ('%s','%s','%s','%s','%s')", $FIELDS['StudentID'], $FIELDS['studno'], $FIELDS['university'], $FIELDS['level'], $FIELDS['enrolled']);
 								//Execute queries
@@ -246,34 +294,33 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 								//Check if saved
 								if(db_affected_rows($conn)){
 									//send email, echo message and exit
-											$succ = ConfirmMessage('Dear '.$FullName.', Your Application has been received, we will send your account login details via the email you provided. In the meantime, please <a href="'.PARENT_HOME_URL.'">See more about Evarsity</a>');
-											$subject = SYSTEM_NAME.' - Application Received';
-											//make body
-											$content='<html><head>
-											<title>'.$subject.'</title>
-											</head><body><div style="background-color:#E1CDB7; color:#000; width:600px; margin:0 auto;">
-											<div style="background:#C60; color:#FFF; min-width:584px; padding:8px;">
-											<h2 style="font-size:15px;font-weight:700;line-height:25px;"><em>'.strtoupper(SYSTEM_NAME).' APPLICATION</em></h2>
-											</div>
-											<div style="padding:15px;">
-											<h3 style="color:#333;">Dear '.$FullName.',</h3>
-											<p style="text-align:justify;">We at <a href="'.PARENT_HOME_URL.'">'.SYSTEM_NAME.'</a> would like to thank you for applying to study with us.</p>
-											<p style=" text-align:justify;">We would like to let you know that your application was successfully submitted and that our administrators are going through the information you provided for verification purposes and we will get back to you with an  <strong>Acount Login details</strong> soonest.</p><br />
-											<p style="color:#753b01;">All the best!<br /><br />
-											Admissions Office,<br />
-											'.SYSTEM_NAME.',<br />
-											'.COMPANY_ADDRESS.'<br />
-											TEL: '.COMPANY_PHONE.'<br />
-											EMAIL: '.INFO_EMAIL.'<br />
-											WEBSITE: '.PARENT_HOME_URL.'</p>
-											</div></div>
-											</body></html>';
-											//get email func
-											mail_config($FIELDS['emailaddress'], $FullName, $subject, $content);
+									$succ = ConfirmMessage('Dear '.$FullName.', Your Application has been received, we will send your account login details via the email you provided. In the meantime, please <a href="'.PARENT_HOME_URL.'">See more about Evarsity</a>');
+									$subject = SYSTEM_NAME.' - Application Received';
+									//make body
+									$content='<html><head>
+									<title>'.$subject.'</title>
+									</head><body><div style="background-color:#E1CDB7; color:#000; width:600px; margin:0 auto;">
+									<div style="background:#C60; color:#FFF; min-width:584px; padding:8px;">
+									<h2 style="font-size:15px;font-weight:700;line-height:25px;"><em>'.strtoupper(SYSTEM_NAME).' APPLICATION</em></h2>
+									</div>
+									<div style="padding:15px;">
+									<h3 style="color:#333;">Dear '.$FullName.',</h3>
+									<p style="text-align:justify;">We at <a href="'.PARENT_HOME_URL.'">'.SYSTEM_NAME.'</a> would like to thank you for applying to study with us.</p>
+									<p style=" text-align:justify;">We would like to let you know that your application was successfully submitted and that our administrators are going through the information you provided for verification purposes and we will get back to you with an  <strong>Acount Login details</strong> soonest.</p><br />
+									<p style="color:#753b01;">All the best!<br /><br />
+									Admissions Office,<br />
+									'.SYSTEM_NAME.',<br />
+									'.COMPANY_ADDRESS.'<br />
+									TEL: '.COMPANY_PHONE.'<br />
+									EMAIL: '.INFO_EMAIL.'<br />
+									WEBSITE: '.PARENT_HOME_URL.'</p>
+									</div></div>
+									</body></html>';
+									//get email func
+									mail_config($FIELDS['emailaddress'], $FullName, $subject, $content);
 
-											echo $succ;
-											exit();
-									//redirect("?do=register&task=pay&token=$Token");
+									echo $succ;
+									exit();
 								}				
 								else{
 									$saved = FALSE;
@@ -312,8 +359,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 										</div>
 										<div class="form-group col-sm-3">
 											<label for="phonenumber" class="">Phone/Mobile No. <abbr class="text-danger" title="required">*</abbr></label>
-											<input type="tel" class="form-control required phone" name="phonenumber" id="phonenumber" value="<?=$FIELDS['phonenumber'];?>">
-											<span class="text-danger"><?=$ERRORS['phonenumber'];?></span>
+											<input type="tel" class="form-control" autocomplete="off" name="phonenumber" id="phonenumber" value="<?=$FIELDS['phonenumber'];?>">
+											<span id="validate-msg" class="text-danger"><?=$ERRORS['phonenumber'];?></span>
 										</div>
 									</div>
 									<div class="row">
@@ -428,13 +475,17 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 										</div>
 									</div>
 									<div class="row">
-										<div class="form-group col-sm-6">
+										<div class="form-group col-sm-4">
 											<label for="course" class="">Name of course applying for: <abbr class="text-danger" title="required">*</abbr></label> <?php echo sqlOption("SELECT `CourseID`,`CName` FROM `".DB_PREFIX."courses` WHERE `disabledFlag` = 0 AND `deletedFlag` = 0 AND `CourseType` != 'Paid'","course",$FIELDS['course'],"--Select course--");?>
 											<span class="text-danger"><?=$ERRORS['course'];?></span>
 										</div>
-										<div class="form-group col-sm-6">
+										<div class="form-group col-sm-4">
 											<label for="StudyMode" class="">Prefered Study Mode: <abbr class="text-danger" title="required">*</abbr></label> <?php echo sqlOption("SELECT * FROM `".DB_PREFIX."study_modes` WHERE ModeStatus = 2","StudyMode",$FIELDS['StudyMode'],"--Select Study Mode--");?>
 											<span class="text-danger"><?=$ERRORS['StudyMode'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="Training" class="">Training Attended: <abbr class="text-danger" title="required">*</abbr></label> <?php echo sqlOption("SELECT TrainingID, Training FROM `".DB_PREFIX."trainings` WHERE 1","Training",$FIELDS['Training'],"--Select Training--");?>
+											<span class="text-danger"><?=$ERRORS['Training'];?></span>
 										</div>
 									</div>
 									<div class="row">
@@ -473,6 +524,12 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 										<label for="declaration" class="">
 										<input type="checkbox" name="declaration" id="declaration" value="1" class="required">
 										I have confirmed that the information I have given herein is correct.</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
+									</div>
+									<h3>Email use Consent <span class="text-danger">*</span></h3>
+									<div class="form-group checkbox">
+										<label for="declaration" class="">
+										<input type="checkbox" checked name="offers" id="offers" value="1" class="">
+										Let me receive other offers from Finstock Evarsity</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
 									</div>
 									<div class="form-group">
 										<label for="securitycode">Security Code: <span class="text-danger">*</span></label>
@@ -656,15 +713,7 @@ $(document).ready(function() {
 		 $("#reg-step-2").removeClass("complete").addClass("active");
 		 $("#reg-step-3").removeClass("active").addClass("disabled");
 	});
-	 
-	<?php
-	if($task == "pay"){
-	?>
-	// Binding back button on fourth step
-	$("#reg-step-1").removeClass("active").addClass("complete");
-	$("#reg-step-2, #reg-step-3").removeClass("disabled").addClass("complete");
-	$("#reg-step-4").removeClass("disabled").addClass("active");
-	<?php } ?>
+	
 });
 
 function getParameterByName(name, url) {

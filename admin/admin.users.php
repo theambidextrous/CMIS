@@ -36,7 +36,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> | System User";
               $a = isset($_GET["task"])?$_GET["task"]:"";
               $recid = intval(! empty($_GET['recid']))?$_GET['recid']:0;              
               $eid = intval(! empty($_GET['eid']))?$_GET['eid']:0; //User ID
-              $user = isset($_GET['user'])?$_GET['user']:""; //User email address
+              $userName = isset($_GET['user'])?$_GET['user']:""; //Username
               
               switch ($a) {
               case "add":
@@ -52,7 +52,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> | System User";
                 deleterec($recid);
                 break;
               case "resetpass":
-                resetrec($recid,$user);
+                resetrec($recid,$userName);
                 break;
               default:
                 select();
@@ -97,11 +97,11 @@ document.title = "<?=SYSTEM_SHORT_NAME?> | System User";
                   $resSql = sprintf("SELECT `logID`,`userID`,`loginDate`,`source` FROM `".DB_PREFIX."sys_users_logs` ORDER BY `loginDate` DESC LIMIT %d;", 20);
               }		
               ?>
-            <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=8">Manage Users</a></li><li class="active">Login History</li></ol>
+            <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=users">Manage Users</a></li><li class="active">Login History</li></ol>
             <div id="hideMsg"><?php if(isset($UsrMSG)) echo $UsrMSG;?></div>
             <p class="text-center">ADMIN LOGIN HISTORY</p>
             
-            <form name="view" method="post" action="admin.php?tab=8&task=view&userid=<?=$userID;?>#tabs-2">
+            <form name="view" method="post" action="admin.php?dispatcher=users&task=view&userid=<?=$userID;?>#tabs-2">
               <table width="100%" class="display table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
@@ -173,7 +173,7 @@ function select(){
 		sql_update_status($disabledFlag, $eid);
 	}
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=8">Manage Users</a></li><li class="active">System Users</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=users">Manage Users</a></li><li class="active">System Users</li></ol>
 
 <div id="hideMsg"><?php echo !empty($_SESSION['MSG'])?$_SESSION['MSG']:""; ?></div>
 
@@ -198,7 +198,7 @@ for ($i = 0; $i < $count; $i++){
 ?>
 <tr>
 <td><?=$row['ID']?></td>
-<td><a href="admin.php?tab=8&task=view&recid=<?=$i ?>&userid=<?=$row['ID']?>"><?=$row['FullName']?></a></td>
+<td><a href="admin.php?dispatcher=users&task=view&recid=<?=$i ?>&userid=<?=$row['ID']?>"><?=$row['FullName']?></a></td>
 <td><?=$row['Username']?></td>
 <td><?=$row["UserLevel"]?></td>
 <td><?=$row['Email']?></td>
@@ -210,9 +210,9 @@ if($row['loggedIn'] == 0){
 }
 if(isSuperAdmin()) {
 if($row['disabledFlag'] == 0){
-	echo "<td align=\"center\"><a href=\"admin.php?tab=8&enable=1&eid=".$row['ID']."\" title=\"Click to disable ".$row['Username']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['Username']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=users&enable=1&eid=".$row['ID']."\" title=\"Click to disable ".$row['Username']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['Username']."\"></a></td>";
 }else{
-	echo "<td align=\"center\"><a href=\"admin.php?tab=8&enable=0&eid=".$row['ID']."\" title=\"Click to enable ".$row['Username']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['Username']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=users&enable=0&eid=".$row['ID']."\" title=\"Click to enable ".$row['Username']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['Username']."\"></a></td>";
 }
 }else{
 if($row['disabledFlag'] == 0){
@@ -222,9 +222,9 @@ if($row['disabledFlag'] == 0){
 }
 }
 ?>
-<td><a href="admin.php?tab=8&task=view&recid=<?=$i ?>&userid=<?=$row['ID']?>">View</a> | 
+<td><a href="admin.php?dispatcher=users&task=view&recid=<?=$i ?>&userid=<?=$row['ID']?>">View</a> | 
 <?php if(isSuperAdmin()) { ?>
- <a href="admin.php?tab=8&task=edit&recid=<?=$i ?>&userid=<?=$row['ID']?>">Edit</a> | <a href="admin.php?tab=8&task=del&recid=<?=$i ?>&userid=<?=$row['ID']?>">Delete</a>
+ <a href="admin.php?dispatcher=users&task=edit&recid=<?=$i ?>&userid=<?=$row['ID']?>">Edit</a> | <a href="admin.php?dispatcher=users&task=del&recid=<?=$i ?>&userid=<?=$row['ID']?>">Delete</a>
 <?php }else{ ?>
  Edit | Delete
 <?php } ?>
@@ -318,7 +318,7 @@ function showroweditor($row, $iseditmode, $ERRORS){
           ?>
           <div class="form-group">
             <label for="">Reset Password:</label>
-            <span class=\"small\"><a href="admin.php?tab=8&amp;task=resetpass&amp;user=<?=$row['Email']?>">Click here to reset password for this account</a></span>
+            <span class=\"small\"><a href="admin.php?dispatcher=users&amp;task=resetpass&amp;user=<?=$row['Username']?>">Click here to reset password for this account</a></span>
           </div>
           <?php
       }
@@ -379,18 +379,18 @@ function showroweditor($row, $iseditmode, $ERRORS){
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=8&task=add">Add System User</a>
-<a class="btn btn-default" href="admin.php?tab=8&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=users&task=add">Add System User</a>
+<a class="btn btn-default" href="admin.php?dispatcher=users&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=8"><i class="fa fa-undo fa-fw"></i> Back to Users</a>
+<a class="btn btn-default" href="admin.php?dispatcher=users"><i class="fa fa-undo fa-fw"></i> Back to Users</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=8&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=users&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=8&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=users&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -403,17 +403,17 @@ function viewrec($recid){
   db_data_seek($res, $recid);
   $row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=8">Manage Users</a></li><li>View System User</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=users">Manage Users</a></li><li>View System User</li></ol>
 <?php 
 showrecnav("view", $recid, $count);
 showrow($row, $recid);
 ?>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr class="cms-list-table-navigation">
-<td><a class="btn btn-default" href="admin.php?tab=8&task=add"><i class="fa fa-file-o fa-fw"></i>Add User</a></td>
+<td><a class="btn btn-default" href="admin.php?dispatcher=users&task=add"><i class="fa fa-file-o fa-fw"></i>Add User</a></td>
 <?php if(isSuperAdmin()) { ?>
-<td><a class="btn btn-default" href="admin.php?tab=8&task=edit&recid=<?=$recid ?>&userid=<?=$row["ID"];?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit User</a></td>
-<td><a class="btn btn-default" href="admin.php?tab=8&task=del&recid=<?=$recid ?>&userid=<?=$row["ID"];?>"><i class="fa fa-trash-o fa-fw"></i>Delete User</a></td>
+<td><a class="btn btn-default" href="admin.php?dispatcher=users&task=edit&recid=<?=$recid ?>&userid=<?=$row["ID"];?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit User</a></td>
+<td><a class="btn btn-default" href="admin.php?dispatcher=users&task=del&recid=<?=$recid ?>&userid=<?=$row["ID"];?>"><i class="fa fa-trash-o fa-fw"></i>Delete User</a></td>
 <?php } ?>
 </tr>
 </table>
@@ -545,12 +545,12 @@ function addrec() {
 					$CONFIRM['MSG'] = ConfirmMessage("New System User has been added successfully");
 					$CONFIRM['MSG'] .= ConfirmMessage("Activation link has been sent to the email address provided. The user will be prompted to change their password before they can access the system.");
 					$_SESSION['MSG'] = $CONFIRM['MSG'];
-					redirect("admin.php?tab=8");
+					redirect("admin.php?dispatcher=users");
 				}
 			}else{
 				//Show error here
 				$_SESSION['MSG'] = ErrorMessage("Failed to save successfully. Please try again later...");
-				redirect("admin.php?tab=8");
+				redirect("admin.php?dispatcher=users");
 			}
 		}
 	}
@@ -562,19 +562,19 @@ function addrec() {
 	$row["UserLevel"] = !empty($FIELDS['UserLevel'])?$FIELDS['UserLevel']:"";;
 	$row["Enabled"] = !empty($FIELDS['Enabled'])?$FIELDS['Enabled']:0;
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=8">Manage Users</a></li><li class="active">Add System User</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=users">Manage Users</a></li><li class="active">Add System User</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=8"><i class="fa fa-undo fa-fw"></i> Back to System Users</a>
+<a class="btn btn-default" href="admin.php?dispatcher=users"><i class="fa fa-undo fa-fw"></i> Back to System Users</a>
 
 <p class="text-center"><?php echo !empty($ERRORS['MSG'])?$ERRORS['MSG']:"";?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=8&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=users&task=add" method="post">
 <input type="hidden" name="sql" value="insert">
 <?php
 showroweditor($row, false, $ERRORS);
 ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=8'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=users'">
 </p>
 </form>
 <?php } ?>
@@ -637,16 +637,16 @@ function editrec($recid){
 	$row["Enabled"] = !empty($FIELDS['Enabled'])?$FIELDS['Enabled']:$row["Enabled"];
 ?>
 
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=8">Manage Users</a></li><li class="active">Edit System User</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=users">Manage Users</a></li><li class="active">Edit System User</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=8&task=edit&recid=<?=$recid?>&userid=<?=$row["ID"];?>" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=users&task=edit&recid=<?=$recid?>&userid=<?=$row["ID"];?>" method="post">
 <p class="text-center"><?php echo !empty($ERRORS['MSG'])?$ERRORS['MSG']:"";?></p>
 <input type="hidden" name="sql" value="update">
 <input type="hidden" name="eid" value="<?=$row["ID"]; ?>">
 <?php showroweditor($row, true, $ERRORS); ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Edit" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=8'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=users'">
 </p>
 </form>
 <?php
@@ -667,9 +667,9 @@ function deleterec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res);
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=8">Manage Users</a></li><li class="active">Delete System User</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=users">Manage Users</a></li><li class="active">Delete System User</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=8&task=del&recid=<?=$recid?>&userid=<?=$row["ID"];?>" method="post">
+<form action="admin.php?dispatcher=users&task=del&recid=<?=$recid?>&userid=<?=$row["ID"];?>" method="post">
 <input type="hidden" name="sql" value="delete">
 <input type="hidden" name="eid" value="<?=$row["ID"]; ?>">
 <?php showrow($row, $recid) ?>
@@ -680,10 +680,12 @@ db_free_result($res);
 }
 ?>
 <?php
-function resetrec($recid, $user){
+function resetrec($recid, $userName){
 	global $incl_dir,$class_dir;
 	
 	require "$incl_dir/recaptchalib.php";
+
+	$userEmail = getSysUserEmail($userName);
 	
 	// Permission allowed IFF the logged in user is:
 	// (1). Account owner
@@ -691,7 +693,7 @@ function resetrec($recid, $user){
 	if(isSuperAdmin() || isSystemAdmin()){
 		$allowed = true;
 	}
-	elseif($user == $_SESSION['sysEmail']){
+	elseif($userName == $_SESSION['sysUsername']){
 		$allowed = true;
 	}
 	else{
@@ -704,7 +706,7 @@ function resetrec($recid, $user){
 	$thisToken = md5(time());
 	
 	//Retrieve info
-	if($allowed && !empty($user)){
+	if($allowed && !empty($userName)){
 		// Commands
 		if(isset($_POST["Reset"])){
 			// Validate Google reCAPTCHA
@@ -713,7 +715,7 @@ function resetrec($recid, $user){
 				$ERRORS['reCaptcha'] = "You're a robot. If not, please try again.";
 			}
 			else{
-				if(sql_reset($thisToken, $user)){
+				if(sql_reset($thisToken, $userName)){
 					//SEND RESET LINK//
 					// Mail function
 					$mail = new PHPMailer; // defaults to using php "mail()"
@@ -722,7 +724,7 @@ function resetrec($recid, $user){
 					$message = "<html><head>
 					<title>".SYSTEM_SHORT_NAME." - Reset Your Accoun</title>
 					</head><body>
-					<p>Dear $user, <br><br> You received this email because your account was updated by ".SYSTEM_NAME." Administrator. Your account has been reset and you will not be able to login until you complete the procedure below. <br><br> This email allows you to set a new password for your account by clicking on the link provided below. <br><br><strong>One Time Password Reset Link: </strong> <a href=\"".SYSTEM_URL."/admin/?do=activate&token=".$thisToken."\" target=\"_blank\"><strong>Click here to activate your account</strong></a><br><br>Sincerely,<br><br>".strtoupper(SYSTEM_SHORT_NAME)." ALERT NOTIFICATIONS<br>Email: ".INFO_EMAIL."<br>Website: ".PARENT_HOME_URL."</p>
+					<p>Dear $userName, <br><br> You received this email because your account was updated by ".SYSTEM_NAME." Administrator. Your account has been reset and you will not be able to login until you complete the procedure below. <br><br> This email allows you to set a new password for your account by clicking on the link provided below. <br><br><strong>One Time Password Reset Link: </strong> <a href=\"".SYSTEM_URL."/admin/?do=activate&token=".$thisToken."\" target=\"_blank\"><strong>Click here to activate your account</strong></a><br><br>Sincerely,<br><br>".strtoupper(SYSTEM_SHORT_NAME)." ALERT NOTIFICATIONS<br>Email: ".INFO_EMAIL."<br>Website: ".PARENT_HOME_URL."</p>
 					</body>
 					</html>";
 					
@@ -752,18 +754,18 @@ function resetrec($recid, $user){
 					$mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; 		
 					$mail->msgHTML($body);
 					$mail->isHTML(true); // send as HTML		
-					$mail->addAddress($user);
+					$mail->addAddress($userEmail);
 					
 					
 					if(!$mail->Send()) {
 						$ErrPage = curPageURL();
 						//Display Error Message
 						$ERRORS['MSG'] = ErrorMessage("Failed to send the Password Reset link. Error: ". $mail->ErrorInfo);
-						Error_alertAdmin("PHP Mailer",$ERRORS['MSG'],$ErrPage,$user);
+						Error_alertAdmin("PHP Mailer",$ERRORS['MSG'],$ErrPage,$userEmail);
 					}else{
 						//Display Confirmation Message
-						$_SESSION['MSG'] = ConfirmMessage("A password reset link has been sent to $user successfully. The link will allow the user to set a new password for this account.");
-						redirect("admin.php?tab=8");
+						$_SESSION['MSG'] = ConfirmMessage("A password reset link has been sent to $userEmail successfully. The link will allow the user to set a new password for this account.");
+						redirect("admin.php?dispatcher=users");
 					}
 					
 				}else{
@@ -773,17 +775,17 @@ function resetrec($recid, $user){
 			}
 		}
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=8">Manage Users</a></li><li class="active">Reset System User</li></ol>
-<form action="admin.php?tab=8&task=resetpass&recid=<?=$recid?>&user=<?=$user?>" method="post">
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=users">Manage Users</a></li><li class="active">Reset System User</li></ol>
+<form action="admin.php?dispatcher=users&task=resetpass&recid=<?=$recid?>&user=<?=$userName?>" method="post">
 <input type="hidden" name="sql" value="resetpass">
-<input type="hidden" name="user" value="<?=$user ?>">
+<input type="hidden" name="user" value="<?=$userName ?>">
 <table align="center" border="0" cellpadding="1" cellspacing="5">
 <tr><td style="text-align:center" colspan="2"><?php echo !empty($ERRORS['MSG'])?$ERRORS['MSG']:"";?></td></tr>
 <tr>
 <th style="text-align:center" colspan="2">PASSWORD RESET FORM</th>
 </tr>
 <tr>
-<td style="text-align:center" colspan="2"><span class="text-danger"><strong>This action will Reset Password and send an Activation Link to <?=$user?>. The user will be able to set a new password by clicking on the link provided in the email. Enter the security code and click the Send button below.</strong></span></td>
+<td style="text-align:center" colspan="2"><span class="text-danger"><strong>This action will Reset Password and send an Activation Link to <?=$userEmail?>. The user will be able to set a new password by clicking on the link provided in the email. Verify security captcha and click the reset button below.</strong></span></td>
 </tr>
 <tr>
 <td style="text-align:center" colspan="2"><?=recaptcha_get_html();?><br><span class="text-danger"><?=$ERRORS['reCaptcha']?></span></td>
@@ -844,7 +846,7 @@ function sql_insert($FIELDS){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to save successfully. Please try again later...");
 	}
-	redirect("admin.php?tab=8");
+	redirect("admin.php?dispatcher=users");
 	*/
     if(db_affected_rows($conn)){
 		return TRUE;
@@ -868,7 +870,7 @@ function sql_update($FIELDS){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=8");
+	redirect("admin.php?dispatcher=users");
 	*/
 	if(db_affected_rows($conn)){
 		return TRUE;
@@ -890,7 +892,7 @@ function sql_update_status($disabledFlag, $editID){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=8");
+	redirect("admin.php?dispatcher=users");
 }
 
 function sql_delete(){
@@ -905,7 +907,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected System User. Please try again later...");
 	}
-	redirect("admin.php?tab=8");
+	redirect("admin.php?dispatcher=users");
 }
 function sql_reset($thisToken, $thisUser){
 	global $conn;

@@ -141,10 +141,10 @@ for ($i = 0; $i < $count; $i++){
 		echo "<td>".$row['FromAdd']."</td>";	
 	}
 	?>	
-	<td><a href="admin.php?tab=7&task=view&recid=<?=$i ?>"><?=$row["Subject"]?></a></td>
+	<td><a href="admin.php?dispatcher=messages&task=view&recid=<?=$i ?>"><?=$row["Subject"]?></a></td>
 	<td><?=$row["Type"]?></td>
 	<td><?=$row['Source']?></td>
-	<td><a href="admin.php?tab=7&task=view&recid=<?=$i ?>">View</a> | <a href="admin.php?tab=7&task=del&recid=<?=$i ?>">Delete</a></td>
+	<td><a href="admin.php?dispatcher=messages&task=view&recid=<?=$i ?>">View</a> | <a href="admin.php?dispatcher=messages&task=del&recid=<?=$i ?>">Delete</a></td>
 	</tr>
 	<?php
 }
@@ -239,9 +239,9 @@ echo list_attachments($row['UID']);
 <tr>
 <td style="text-align:center" colspan="2">
 <div class="btn-group">
-<a class="btn btn-default" href="admin.php?tab=7&amp;task=reply&amp;recid=<?=$recid?>">Reply</a>
-<a class="btn btn-default" href="admin.php?tab=7&amp;task=replyall&amp;recid=<?=$recid?>">Reply All</a>
-<a class="btn btn-default" href="admin.php?tab=7&amp;task=del&amp;recid=<?=$recid?>">Delete</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages&amp;task=reply&amp;recid=<?=$recid?>">Reply</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages&amp;task=replyall&amp;recid=<?=$recid?>">Reply All</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages&amp;task=del&amp;recid=<?=$recid?>">Delete</a>
 </div>
 </td>
 </tr>
@@ -305,16 +305,16 @@ function showpagenav() {
   global $folder;
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=7&task=add">Add Message</a>
-<a class="btn btn-default" href="admin.php?tab=7&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=messages&task=add">Add Message</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages&task=reset">Reset Filters</a>
 </div>
 <div style="float:right;">
 <form class="form-inline" role="form">
 <div class="form-group">
 <label for="folder">Select Folder:</label> <select name="jumpFolder" id="jumpFolder" onchange="MM_jumpMenu('parent',this,0)" class="form-control">
 <?php if($folder == "outbox") $folder2 = ' selected="selected"'; else $folder1 = ' selected="selected"';?>
-<option<?=$folder1?> value="admin.php?tab=7&amp;folder=inbox">Inbox</option>
-<option<?=$folder2?> value="admin.php?tab=7&amp;folder=outbox">Outbox</option>
+<option<?=$folder1?> value="admin.php?dispatcher=messages&amp;folder=inbox">Inbox</option>
+<option<?=$folder2?> value="admin.php?dispatcher=messages&amp;folder=outbox">Outbox</option>
 </select>
 </div>
 </form>
@@ -323,11 +323,11 @@ function showpagenav() {
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=7"><i class="fa fa-undo fa-fw"></i> Back to Messages</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages"><i class="fa fa-undo fa-fw"></i> Back to Messages</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=7&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=7&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -340,7 +340,7 @@ function viewrec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res); 
 	?>
-	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=7">Messages</a></li><li>View Message</li></ol>
+	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=messages">Messages</a></li><li>View Message</li></ol>
 	<?php 
 	showrecnav("view", $recid, $count);
 	showrowdetailed($row, $recid);
@@ -532,12 +532,12 @@ function addrec() {
 						Error_alertAdmin("PHP Mailer","Failed to send new message-".$MailERR,$ErrPage,$Email);
 						//Display Warning Message
 						$_SESSION['MSG'] = AttentionMessage("The message was saved successfully but the system failed to send your email to the specified recipients. However, once they login to the system, they should be able to see the message under the messages tab on their dashboard.");
-						redirect("admin.php?tab=7&recid=$recid");
+						redirect("admin.php?dispatcher=messages&recid=$recid");
 					}else{
 						$sent = true;
 						//Display Confirmation Message
 						$_SESSION['MSG'] = ConfirmMessage("Message sent successfully");
-						redirect("admin.php?tab=7&recid=$recid");
+						redirect("admin.php?dispatcher=messages&recid=$recid");
 					}					
 				}else{
 					$sent = false;
@@ -558,12 +558,12 @@ function addrec() {
 	$row["Subject"] = !empty($FIELDS['Subject'])?$FIELDS['Subject']:$row['Subject'];
 	$row["Message"] = !empty($FIELDS['Message'])?$FIELDS['Message']:$row['Message'];
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=7">Messages</a></li><li class="active">Add Message</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=messages">Messages</a></li><li class="active">Add Message</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=7"><i class="fa fa-undo fa-fw"></i> Back to Messages</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages"><i class="fa fa-undo fa-fw"></i> Back to Messages</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form class="form-horizontal" id="validateform" enctype="multipart/form-data" action="admin.php?tab=7&task=add" method="post">
+<form class="form-horizontal" id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=messages&task=add" method="post">
 <input type="hidden" name="sql" value="insert">
 <?php
 showroweditor($row, false, $ERRORS);
@@ -572,7 +572,7 @@ showroweditor($row, false, $ERRORS);
 <input type="hidden" name="FromAdd" value="<?=$row['FromAdd']?>">
 <input type="hidden" name="Type" value="<?=$row['Type']?>">
 <input class="btn btn-primary" type="submit" name="Add" value="Send">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=7'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=messages'">
 </p>
 </form>
 <?php } ?>
@@ -759,7 +759,7 @@ function editrec($recid, $action){
 						$sent = true;
 						//Display Confirmation Message
 						$_SESSION['MSG'] = ConfirmMessage("Message sent successfully");
-						redirect("admin.php?tab=7&recid=$recid");
+						redirect("admin.php?dispatcher=messages&recid=$recid");
 					}
 				}else{
 					$sent = false;
@@ -837,11 +837,11 @@ function editrec($recid, $action){
 	}
 	
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=7">Messages</a></li><li class="active">Read Message</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=messages">Messages</a></li><li class="active">Read Message</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=7&task=view&recid=<?=$recid?>"><i class="fa fa-undo fa-fw"></i> Back to Messages</a>
+<a class="btn btn-default" href="admin.php?dispatcher=messages&task=view&recid=<?=$recid?>"><i class="fa fa-undo fa-fw"></i> Back to Messages</a>
 
-<form class="form-horizontal" id="validateform" enctype="multipart/form-data" action="admin.php?tab=7&task=<?=$action?>&recid=<?=$recid?>" method="post">
+<form class="form-horizontal" id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=messages&task=<?=$action?>&recid=<?=$recid?>" method="post">
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 <input type="hidden" name="sql" value="update">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
@@ -850,7 +850,7 @@ function editrec($recid, $action){
 <input type="hidden" name="FromAdd" value="<?=$row['FromAdd']?>">
 <input type="hidden" name="Type" value="<?=$row['Type']?>">
 <input class="btn btn-primary" type="submit" name="Reply" value="<?=ucwords($action)?>">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=7'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=messages'">
 </p>
 </form>
 <?php
@@ -871,9 +871,9 @@ function deleterec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=7">Messages</a></li><li class="active">Delete Message</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=messages">Messages</a></li><li class="active">Delete Message</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=7&task=del&recid=<?=$recid?>" method="post">
+<form action="admin.php?dispatcher=messages&task=del&recid=<?=$recid?>" method="post">
 <input type="hidden" name="sql" value="delete">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
 <?php showrow($row, $recid) ?>
@@ -945,7 +945,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected client. Please try again later...");
 	}
-	redirect("admin.php?tab=7");
+	redirect("admin.php?dispatcher=messages");
 }
 
 function primarykeycondition(){

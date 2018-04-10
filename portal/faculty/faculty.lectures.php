@@ -9,7 +9,7 @@ $(document).ready(function() {
 		selector: 'textarea.tinymce',
 		height: 500,
 		theme: 'modern',
-		plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+		plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
 		toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | removeformat',
 		image_advtab: true,
 		content_css: "<?=SYSTEM_URL;?>/styles/tinymce.editor.css"
@@ -148,12 +148,14 @@ $(document).ready(function() {
 						$UploadType = isset($_POST['UploadType'])?secure_string($_POST['UploadType']):"";						
 						$UploadContent = isset($_POST['UploadContent'])?$_POST['UploadContent']:"";
 						$EncodedUploadContent = encode(secure_string($UploadContent));
+						$UploadBy = $faculty['FacultyID'];
+						$UploadDate = date('Y-m-d H:i:s');
 						
 						if($PLID == "None"){
 							$PLID = 0;
 						}
 						
-						$sqlAddLesson = sprintf("INSERT INTO `".DB_PREFIX."lessons` (`PLID`, `UnitID`, `Title`, `Description`, `UploadType`, `UploadContent`) VALUES ('%s','%s','%s','%s','%s','%s')",$PLID, $UnitID, $Title, $Description, $UploadType, $EncodedUploadContent);
+						$sqlAddLesson = sprintf("INSERT INTO `".DB_PREFIX."lessons` (`PLID`, `UnitID`, `Title`, `Description`, `UploadType`, `UploadContent`, `UploadBy`, `UploadDate`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')",$PLID, $UnitID, $Title, $Description, $UploadType, $EncodedUploadContent, $UploadBy, $UploadDate);
 						
 						//Execute the query or die if there is a problem
 						db_query($sqlAddLesson,DB_NAME,$conn);
@@ -171,8 +173,7 @@ $(document).ready(function() {
 					?>
 			  	<h2>Manage Coursework</h2>
 					<h3 class="text-uppercase text-primary"><?=$unit["UName"];?> <span class="small text-muted"><?=$unit["UnitID"];?></span></h3>
-					<button data-toggle="collapse" data-target="#newlessonform" class="btn btn-success">Add New Lesson</button>
-					<p>&nbsp;</p>
+					<p class="text-right"><button data-toggle="collapse" data-target="#newlessonform" class="btn btn-success">Add New Lesson</button></p>
 					<form id="newlessonform" class="collapse <?=$collapse;?>" method="post" action="" enctype="multipart/form-data">
 					<div id="newlesson">
 					  <div class="row">							
@@ -263,11 +264,6 @@ $(document).ready(function() {
 						echo '</div>';
 					}
         break;
-			  case "assignment":
-			  	echo "<h2>Manage Assignments</h2>";
-					echo '<h3 class="text-uppercase text-primary">'. $unit["UName"] .' <span class="small text-muted">'. $unit["UnitID"] .'</span></h3>';
-			  
-				break;
 				default:
 					//Execute the query
 					$resultGetUnits = getFacultyUnits($faculty['FacultyID']);
@@ -280,7 +276,7 @@ $(document).ready(function() {
 							echo "<h2>".$unit['UnitID']."</h2>";
 							echo "<h3 class=\"text-uppercase text-primary\">".$unit['UName']."</h3>";
 							echo "<p>".$unit['Description']."</p>";
-							echo "<p align=\"right\"><a href=\"?tab=3&task=view&unitid=".$unit['UnitID']."\">View Unit Details</a> | <a href=\"?tab=3&task=coursework&unitid=".$unit['UnitID']."\">Add Coursework</a> | <a href=\"?tab=3&task=assignment&unitid=".$unit['UnitID']."\">Add Assignment</a> | <a href=\"?tab=3&task=attendance&unitid=".$unit['UnitID']."\">Check Attendance</a></p><hr>";
+							echo "<p align=\"right\"><a href=\"?tab=3&task=view&unitid=".$unit['UnitID']."\">View Unit Details</a> | <a href=\"?tab=3&task=coursework&unitid=".$unit['UnitID']."\">Add Coursework</a> | <a href=\"?tab=5&UnitID=".$unit['UnitID']."\">Add Assignment</a> | <a href=\"?tab=3&task=attendance&unitid=".$unit['UnitID']."\">Check Attendance</a></p><hr>";
 							echo "</div>";
 						}
 					}else{

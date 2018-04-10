@@ -37,6 +37,11 @@ $EditID = !empty($_SESSION['usrusername'])?$_SESSION['usrusername']:"";
 //Fetch student data
 $student = getStudentDetails($EditID);
 
+$_SESSION['CALENDAR_EVENTS'] = !empty($_SESSION['CALENDAR_EVENTS'])?$_SESSION['CALENDAR_EVENTS']:array();
+//array_push($_SESSION['CALENDAR_EVENTS'], array('title' => 'Happy Birthday', 'start' => $student['DOB']));
+//array_push($_SESSION['CALENDAR_EVENTS'], array('title' => 'Happy Birthday', 'start' => '2018-03-18'));
+//array_push($_SESSION['CALENDAR_EVENTS'], array('title' => 'New Day', 'start' => '2018-03-20'));
+
 switch ($tab) {
 	case 1: $menu1 = "active";
 break;
@@ -48,15 +53,13 @@ break;
 break;
 	case 5: $menu5 = "active";
 break;
-  case 6: $menu6 = "active";
-break;
-	case 10: $menu10 = "active";
+	case 6: $menu6 = "active";
 break;
 	case 7: $menu7 = "active";
 break;
-	case 8: $menu8 = "active";
+	case 10: $menu10 = "active";
 break;
-	case 9: $menu9 = "active";
+	case 8: $menu8 = "active";
 break;
 }
 
@@ -65,7 +68,47 @@ add_header();
 <script>
 <!--
 //JQuery Functions
-$(function() {
+$(document).ready(function() {
+	// International Phone format with validator
+	var telInput = $("input[type='tel']");
+	var validateMsg = $("#validate-msg");
+	
+	// initialise plugin
+	telInput.intlTelInput({
+		autoPlaceholder: false,
+		formatOnDisplay: true,
+		geoIpLookup: function(callback) {
+			jQuery.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+			var countryCode = (resp && resp.country) ? resp.country : "";
+			callback(countryCode);
+			});
+		},
+		initialCountry: "auto",
+		nationalMode: false,
+		preferredCountries: ['ke', 'ug', 'tz'],
+		utilsScript: "<?=THEME_URL?>/vendor/int-tel-input/lib/libphonenumber/build/utils.js"
+	});
+	
+	var reset = function() {
+		telInput.removeClass("error");
+		validateMsg.addClass("hide");
+	};
+	
+	// on blur: validate
+	telInput.blur(function() {
+		reset();
+		if ($.trim(telInput.val())) {
+			if (telInput.intlTelInput("isValidNumber")) {
+				validateMsg.addClass("hide");		
+			} else {				
+				validateMsg.removeClass("hide");
+				validateMsg.html( '<em id="phonenumber-error" class="error">Valid number is required.</em>' );
+			}
+		}
+	});
+	
+	// on keyup / change flag: reset
+	telInput.on("keyup change", reset);
 	
 	//Timepicker
 	$('.timepicker').timepicker({
@@ -172,8 +215,8 @@ function checkAll(field){
           <a href="#" class="<?=$menu2?>"><i class="fa fa-graduation-cap fa-fw"></i> Course Details<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
               <li><a href="?tab=2&task=view&CourseID=<?=$CourseID?>">Course Outline</a></li>
-              <li><a href="?tab=2&task=register&CourseID=<?=$CourseID?>"> Register Now</a></li>
-							<li><a href="?tab=2&task=courseunits&CourseID=<?=$CourseID?>"> Registered Units</a></li>
+              <li><a href="?tab=2&task=register&CourseID=<?=$CourseID?>">Register Now</a></li>
+							<li><a href="?tab=2&task=courseunits&CourseID=<?=$CourseID?>">Registered Units</a></li>
               <li><a href="?tab=2&task=coursework&CourseID=<?=$CourseID?>">Course Work</a></li>
             </ul>
           </li>
@@ -181,7 +224,7 @@ function checkAll(field){
           <li><a href="?tab=3" class="<?=$menu3?>"><i class="fa fa-calendar fa-fw"></i> Calendar</a></li>
           <li><a href="?tab=4" class="<?=$menu4?>"><i class="fa fa-edit fa-fw"></i> Assignments</a></li>
           <li><a href="?tab=5" class="<?=$menu5?>"><i class="fa fa-bell fa-fw"></i> Attendance</a></li>
-          <li><a href="?tab=9" class="<?=$menu9?>"><i class="fa fa-book fa-fw"></i> Upcoming Exams</a></li>
+					<li><a href="?tab=10" class="<?=$menu10?>"><i class="fa fa-book fa-fw"></i> Upcoming Exams</a></li>
           <li><a href="?tab=6" class="<?=$menu6?>"><i class="fa fa-file fa-fw"></i> Resources</a></li>
           <li><a href="?tab=7" class="<?=$menu7?>"><i class="fa fa-comments fa-fw"></i> Messages</a></li>
           <li>
@@ -214,15 +257,15 @@ function checkAll(field){
 	  break;
 	  case 3:
 	  	require_once('student.calendar.php');
+		break;
+		case 10:
+	  	require_once('student.exams.php');
 	  break;
 	  case 4:
 	  	require_once('student.assignments.php');
 	  break;
 	  case 5:
 	  	require_once('student.attendance.php');
-    break;
-    case 9:
-	  	require_once('student.exams.php');
 	  break;
 	  case 6:
 	  	require_once('student.files.php');

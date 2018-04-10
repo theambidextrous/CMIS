@@ -89,14 +89,14 @@ for ($i = 0; $i < $count; $i++){
 ?>
 <tr>
 <td><?=$i+1;?></td>
-<td><a href="?tab=5&filter_field=StudentID&filter=<?=$row["student_id"]?>"><?=$row["student_id"]?></a></td>
+<td><a href="?dispatcher=students&filter_field=StudentID&filter=<?=$row["student_id"]?>"><?=$row["student_id"]?></a></td>
 <td><?=$row["pay_type"]?></td>
 <td style="text-align:right"><?=$row["payment_amount"]?></td>
 <td style="text-align:right"><?=$row["payment_due"]?></td>
 <td><?=$row["pay_method"]?></td>
 <td><?=fixdatelong($row["pay_time"])?></td>
 <td><?=$row["pay_status"]?></td>
-<td><a href="admin.php?tab=9&task=view&recid=<?=$i ?>">View</a></td>
+<td><a href="admin.php?dispatcher=payments&task=view&recid=<?=$i ?>">View</a></td>
 </tr>
 <?php
 }
@@ -160,18 +160,18 @@ function showroweditor($row, $iseditmode, $ERRORS){
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=9&task=add">Add Payment</a>
-<a class="btn btn-default" href="admin.php?tab=9&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=payments&task=add">Add Payment</a>
+<a class="btn btn-default" href="admin.php?dispatcher=payments&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=9"><i class="fa fa-undo fa-fw"></i> Back to Payments</a>
+<a class="btn btn-default" href="admin.php?dispatcher=payments"><i class="fa fa-undo fa-fw"></i> Back to Payments</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=9&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=payments&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=9&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=payments&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <br />
@@ -185,15 +185,15 @@ function viewrec($recid){
   db_data_seek($res, $recid);
   $row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=9">Payments</a></li><li class="active">View Payment</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=payments">Payments</a></li><li class="active">View Payment</li></ol>
 <?php 
 showrecnav("view", $recid, $count);
 showrow($row, $recid);
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=9&task=add"><i class="fa fa-file-o fa-fw"></i> Add Payment</a>
-<a class="btn btn-default" href="admin.php?tab=9&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Edit Payment</a>
-<a class="btn btn-default" href="admin.php?tab=9&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i> Delete Payment</a>
+<a class="btn btn-default" href="admin.php?dispatcher=payments&task=add"><i class="fa fa-file-o fa-fw"></i> Add Payment</a>
+<a class="btn btn-default" href="admin.php?dispatcher=payments&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Edit Payment</a>
+<a class="btn btn-default" href="admin.php?dispatcher=payments&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i> Delete Payment</a>
 </div>
 <?php
 db_free_result($res);
@@ -253,12 +253,12 @@ function addrec() {
 	$row["Description"] = !empty($FIELDS['Description'])?$FIELDS['Description']:"";
 	$row["HOD"] = !empty($FIELDS['HOD'])?$FIELDS['HOD']:0;
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=9">Payments</a></li><li class="active">Add Payment</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=payments">Payments</a></li><li class="active">Add Payment</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=9"><i class="fa fa-undo fa-fw"></i> Back to Payments</a>
+<a class="btn btn-default" href="admin.php?dispatcher=payments"><i class="fa fa-undo fa-fw"></i> Back to Payments</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=9&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=payments&task=add" method="post">
 <input type="hidden" name="sql" value="insert">
 <?php
 showroweditor($row, false, $ERRORS);
@@ -266,7 +266,7 @@ showroweditor($row, false, $ERRORS);
 
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=9'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=payments'">
 </p>
 </form>
 <?php } ?>
@@ -317,16 +317,16 @@ function editrec($recid){
 	$row["Description"] = !empty($FIELDS['Description'])?$FIELDS['Description']:$row["Description"];
 	$row["HOD"] = !empty($FIELDS['HOD'])?$FIELDS['HOD']:$row["HOD"];
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=9">Payments</a></li><li class="active">Edit Payment</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=payments">Payments</a></li><li class="active">Edit Payment</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=9&task=edit&recid=<?=$recid?>" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=payments&task=edit&recid=<?=$recid?>" method="post">
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 <input type="hidden" name="sql" value="update">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
 <?php showroweditor($row, true, $ERRORS); ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Edit" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=9'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=payments'">
 </p>
 </form>
 <?php
@@ -347,9 +347,9 @@ function deleterec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=9">Payments</a></li><li>Delete Payment</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=payments">Payments</a></li><li>Delete Payment</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=9&task=del&recid=<?=$recid?>" method="post">
+<form action="admin.php?dispatcher=payments&task=del&recid=<?=$recid?>" method="post">
 <input type="hidden" name="sql" value="delete">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
 <?php showrow($row, $recid) ?>

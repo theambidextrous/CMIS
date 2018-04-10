@@ -152,12 +152,12 @@ $row = db_fetch_array($res);
 <td><?=$row["ExamDuration"]?></td>
 <?php
 if($row['disabledFlag'] == 0){
-echo "<td align=\"center\"><a href=\"admin.php?tab=10&enable=1&eid=".$row['ExamID']."\" title=\"Click to close ".$row['ExamName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['ExamName']."\"></a> Open to Students</td>";
+echo "<td align=\"center\"><a href=\"admin.php?dispatcher=exams&enable=1&eid=".$row['ExamID']."\" title=\"Click to close ".$row['ExamName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['ExamName']."\"></a> Open to Students</td>";
 }else{
-echo "<td align=\"center\"><a href=\"admin.php?tab=10&enable=0&eid=".$row['ExamID']."\" title=\"Click to open ".$row['ExamName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['ExamName']."\"></a> Not Open to Students</td>";
+echo "<td align=\"center\"><a href=\"admin.php?dispatcher=exams&enable=0&eid=".$row['ExamID']."\" title=\"Click to open ".$row['ExamName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['ExamName']."\"></a> Not Open to Students</td>";
 }
 ?>
-<td><a href="admin.php?tab=10&task=view&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Manage</a> | <a href="admin.php?tab=10&task=edit&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Edit</a> | <a href="admin.php?tab=10&task=del&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Delete</a></td>
+<td><a href="admin.php?dispatcher=exams&task=view&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Manage</a> | <a href="admin.php?dispatcher=exams&task=edit&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Edit</a> | <a href="admin.php?dispatcher=exams&task=del&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Delete</a></td>
 </tr>        
 <?php
 }
@@ -268,7 +268,7 @@ global $conn,$class_dir;
             }else{
             $_SESSION['MSG'] = WarnMessage("No changes made!");
             }
-            //redirect("admin.php?tab=10");
+            //redirect("admin.php?dispatcher=exams");
         }
 
       }
@@ -334,7 +334,7 @@ global $conn,$class_dir;
         </script>
         <div class="modal fade" id="addUnits" tabindex="-1" role="dialog" aria-labelledby="addUnitsLabel">
         <div class="modal-dialog modal-lg" role="document">
-            <form class="form" name="assign-lectures" method="post" action="admin.php?tab=10&task=view&recid=<?=$recid?>&examID=<?=$row["ExamID"]?>&action=add">
+            <form class="form" name="assign-lectures" method="post" action="admin.php?dispatcher=exams&task=view&recid=<?=$recid?>&examID=<?=$row["ExamID"]?>&action=add">
             <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -442,7 +442,7 @@ global $conn,$class_dir;
         </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <form name="units" method="post" action="admin.php?tab=10&task=view&recid=<?=$recid?>">
+        <form name="units" method="post" action="admin.php?dispatcher=exams&task=view&recid=<?=$recid?>">
         <div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>
         <p class="text-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnits">Add a Question</button></p>
         <table width="100%" class="table table-striped table-bordered table-hover">
@@ -537,7 +537,7 @@ global $conn,$class_dir;
             <td>'.$fa['FacultyName'].'</td>
             <td>'.$fa['Email'].'</td>
             <td>'.$fa['MPhone'].'</td>
-            <td><a href="admin.php?tab=10&task=view&recid='.$fa['FacultyID'].'&examID='.$row['ExamID'].'">Activate</a>
+            <td><a href="admin.php?dispatcher=exams&task=view&recid='.$fa['FacultyID'].'&examID='.$row['ExamID'].'">Activate</a>
             </tr>';	
         endforeach;
         echo "</tbody>";
@@ -571,7 +571,7 @@ global $conn,$class_dir;
                 <td>'.$r['Email'].'</td>
                 <td>'.$r['Phone'].'</td>
                 <td>'.$r['Courses'].'</td>
-                <td><a href="admin.php?tab=10&task=view&recid='.$r['StudentID'].'&examID='.$row['ExamID'].'">Activate</a>
+                <td><a href="admin.php?dispatcher=exams&task=view&recid='.$r['StudentID'].'&examID='.$row['ExamID'].'">Activate</a>
                 </tr>';		
             }
             echo "</tbody>";
@@ -583,9 +583,9 @@ global $conn,$class_dir;
     </div>
 
 <div class="quick-nav btn-group">
-    <a class="btn btn-default" href="admin.php?tab=10&task=add"><i class="fa fa-file-o fa-fw"></i>Add Exam</a>
-    <a class="btn btn-default" href="admin.php?tab=10&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit Exam</a>
-    <a class="btn btn-default" href="admin.php?tab=10&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i>Delete Exam</a>
+    <a class="btn btn-default" href="admin.php?dispatcher=exams&task=add"><i class="fa fa-file-o fa-fw"></i>Add Exam</a>
+    <a class="btn btn-default" href="admin.php?dispatcher=exams&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit Exam</a>
+    <a class="btn btn-default" href="admin.php?dispatcher=exams&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i>Delete Exam</a>
 </div>
 
 </div>
@@ -667,18 +667,18 @@ global $a;
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=10&task=add">Create Exam</a>
-<a class="btn btn-default" href="admin.php?tab=10&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=exams&task=add">Create Exam</a>
+<a class="btn btn-default" href="admin.php?dispatcher=exams&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=10"><i class="fa fa-undo fa-fw"></i> Back to Exams</a>
+<a class="btn btn-default" href="admin.php?dispatcher=exams"><i class="fa fa-undo fa-fw"></i> Back to Exams</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=10&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=exams&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=10&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=exams&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -697,7 +697,7 @@ if($row['disabledFlag'] == 0){
     $row["Status"] = "Disabled";
 }	 
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=10">Exams</a></li><li class="active">View Exams</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=exams">Exams</a></li><li class="active">View Exams</li></ol>
 <?php 
 showrecnav("view", $recid, $count);
 showrowdetailed($row, $recid);
@@ -745,7 +745,7 @@ if(isset($_POST["Add"])){
         if(sql_insert($FIELDS)){
             //Display Confirmation Message
             $_SESSION['MSG'] = ConfirmMessage("New Exam has been added successfully.");
-            redirect("admin.php?tab=10");
+            redirect("admin.php?dispatcher=exams");
         }else{
             //Display Error Message
             $ERRORS['MSG'] = ErrorMessage("Failed to create new exam. Check to confirm if all fields are well populated and try again.");
@@ -763,19 +763,19 @@ $row["ExamDeadline"] = !empty($FIELDS['ExamDeadline'])?$FIELDS['ExamDeadline']:"
 $row["ExamDuration"] = !empty($FIELDS['ExamDuration'])?$FIELDS['ExamDuration']:"";
 $row["ExamID"] = !empty($FIELDS['ExamID'])?$FIELDS['ExamID']:"";
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=10">Exams</a></li><li class="active">Create Exam</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=exams">Exams</a></li><li class="active">Create Exam</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=10"><i class="fa fa-undo fa-fw"></i> Back to Exams</a>
+<a class="btn btn-default" href="admin.php?dispatcher=exams"><i class="fa fa-undo fa-fw"></i> Back to Exams</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=10&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=exams&task=add" method="post">
 <input type="hidden" name="sql" value="insert" />
 <?php
 showroweditor($row, false, $ERRORS);
 ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Save" />
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=10'" />
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=exams'" />
 </p>
 </form>
 <?php } ?>
@@ -865,11 +865,11 @@ if(isset($_POST["Edit"])){
             if(!$mail->Send()) {
                 //Display Confirmation Message
                 $_SESSION['MSG'] = ConfirmMessage("Exam details have been updated successfully");
-                redirect("admin.php?tab=10");
+                redirect("admin.php?dispatcher=exams");
             }else{
                 //Display Confirmation Message
                 $_SESSION['MSG'] = ConfirmMessage("Exam details have been updated and emailed successfully.");
-                redirect("admin.php?tab=10");
+                redirect("admin.php?dispatcher=exams");
             }
         }
         else{
@@ -893,9 +893,9 @@ $row["ExamDeadline"] = !empty($FIELDS['ExamDeadline'])?$FIELDS['ExamDeadline']:$
 $row["ExamDuration"] = !empty($FIELDS['ExamDuration'])?$FIELDS['ExamDuration']:$row['ExamDuration'];
 $row["ExamID"] = !empty($FIELDS['ExamID'])?$FIELDS['ExamID']:$row['ExamID'];
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=10">Exams</a></li><li class="active">Edit Exams</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=exams">Exams</a></li><li class="active">Edit Exams</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=10&task=edit&recid=<?=$recid?>" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=exams&task=edit&recid=<?=$recid?>" method="post">
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 <input type="hidden" name="sql" value="update" />
 <input type="hidden" name="eid" value="<?=$row["ExamID"] ?>" />
@@ -903,7 +903,7 @@ $row["ExamID"] = !empty($FIELDS['ExamID'])?$FIELDS['ExamID']:$row['ExamID'];
 <?php showroweditor($row, true, $ERRORS); ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Edit" value="Save" />
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=10'" />
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=exams'" />
 </p>
 </form>
 <?php
@@ -924,9 +924,9 @@ $count = sql_getrecordcount();
 db_data_seek($res, $recid);
 $row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=10">Exam</a></li><li class="active">Delete Exam</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=exams">Exam</a></li><li class="active">Delete Exam</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=10&task=del&recid=<?=$recid?>" method="post">
+<form action="admin.php?dispatcher=exams&task=del&recid=<?=$recid?>" method="post">
 <input type="hidden" name="sql" value="delete" />
 <input type="hidden" name="eid" value="<?=$row["ExamID"] ?>" />
 <?php showrow($row, $recid) ?>
@@ -1003,7 +1003,7 @@ if(db_affected_rows($conn)>0){
 }else{
     $_SESSION['MSG'] = WarnMessage("No changes made!");
 }
-redirect("admin.php?tab=10");
+redirect("admin.php?dispatcher=exams");
 }
 //UPDATE EXAM TO STUDENTS IN THAT UNIT
 function sql_update_status($disabledFlag, $editID){
@@ -1021,7 +1021,7 @@ function sql_update_status($disabledFlag, $editID){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=10");
+	redirect("admin.php?dispatcher=exams");
 }
 // DELETE AN EXAM = NOT REALLY, JUST HIDE.
 function sql_delete(){
@@ -1035,7 +1035,7 @@ if(db_affected_rows($conn)>0){
 }else{
     $_SESSION['MSG'] = ErrorMessage("Failed to delete selected Exam. Please try again later...");
 }
-redirect("admin.php?tab=10");
+redirect("admin.php?dispatcher=exams");
 }
 //PREPARE UPDATE CONDITION
 function primarykeycondition(){
@@ -1054,7 +1054,7 @@ return $pk;
 function manage_exam_questions(){
 	global $conn;
 	?>
-	    <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=10">Exams</a></li><li class="active">Exam Questions</li></ol>
+	    <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=exams">Exams</a></li><li class="active">Exam Questions</li></ol>
 		<p>This list shows all questions in the system for all active exams.</p>
 		<form name="announcements" method="post" action="#tabs-2">
 		<div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>

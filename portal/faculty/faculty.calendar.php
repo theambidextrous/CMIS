@@ -22,9 +22,7 @@ $(function() {
 			listDay: { buttonText: 'List Day' },
 			listWeek: { buttonText: 'List Week' }
 		},
-		events: [
-			<?php echo getCalendarEvents('Faculty'); ?>
-		]
+		events: <?php echo getCalendarEvents('Faculty',$_SESSION['CALENDAR_EVENTS']); ?>
 	});
 	
 });

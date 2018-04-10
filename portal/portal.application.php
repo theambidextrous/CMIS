@@ -14,20 +14,59 @@ use PHPMailer\PHPMailer\Exception;
 <script language="javascript" type="text/javascript">
 <!--
 document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
+
+$(document).ready(function() {
+	var telInput = $("#phonenumber");
+	var validateMsg = $("#validate-msg");
+	
+	// initialise plugin
+	telInput.intlTelInput({
+		autoPlaceholder: false,
+		formatOnDisplay: true,
+		geoIpLookup: function(callback) {
+			jQuery.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+			var countryCode = (resp && resp.country) ? resp.country : "";
+			callback(countryCode);
+			});
+		},
+		initialCountry: "auto",
+		nationalMode: false,
+		preferredCountries: ['ke', 'ug', 'tz'],
+		utilsScript: "<?=THEME_URL?>/vendor/int-tel-input/lib/libphonenumber/build/utils.js"
+	});
+	
+	var reset = function() {
+		telInput.removeClass("error");
+		validateMsg.addClass("hide");
+	};
+	
+	// on blur: validate
+	telInput.blur(function() {
+		reset();
+		if ($.trim(telInput.val())) {
+			if (telInput.intlTelInput("isValidNumber")) {
+				validateMsg.addClass("hide");		
+			} else {
+				validateMsg.removeClass("hide");
+				validateMsg.html( '<em id="phonenumber-error" class="error">Valid number is required.</em>' );
+			}
+		}
+	});
+	
+	// on keyup / change flag: reset
+	telInput.on("keyup change", reset);
+});
 //-->
 </script>
 
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="header-img">
-				<a href="<?=PARENT_HOME_URL;?>"><img class="img-responsive" src="<?=SYSTEM_LOGO_URL;?>" alt="Logo"></a>
-			</div>
 			<div class="activate-panel panel panel-default">
 				<div class="panel-heading">
 					<div class = "row">
 						<div class= "col-md-3">
-							<h3 class="panel-title">Evarsity Job Application Form</h3>
+						<div class="header-img" style = "margin-top:1px;"><a href="<?=PARENT_HOME_URL;?>"><img class="img-responsive" src="<?=SYSTEM_LOGO_URL;?>" alt="Logo"></a></div>
 						</div>
 						<div class = "col-md-9">
 							<?php echo getInnerMenu(PARENT_HOME_URL); ?>
@@ -35,33 +74,40 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 					</div>
 				</div>
 				<div class="panel-body">
+					<div class = "row">
+					<div class= "col-md-6">
 					<h2>Job Summary</h2> 
 					<p>We are inviting you to share your knowledge with others through an online lecturing position at our Evarsity.<br>
 					Qualification Level: Diploma or Degree or Masters or PhD.<br>
 					Experience Level: Entry level <br>
 					Experience Length: 1 year </p>
-
+					
 					<h2>Job Description</h2>
-
-<p>1. To prepare schemes of work and  lesson  plans for online lecturing<br>
-2. To lecture students on self selected courses using online tutorial aids such as Videos, Pdfs, Chats.<br>
-3. To administer CATS, Quizzes and assignments online<br>
-4. To administer exams online</p>
-
-<h2>Requirements</h2>
-
-<p>1. Be a diploma holder for you to qualify to lecture certificate students in your area of study<br>
-2. Be a degree holder for you to qualify to lecture certificate and diploma students in your area of study<br>
-3. Be a Masters holder for you to qualify to lecture certificate, diploma and degree  students in your area of study <br>
-4. Be a Ph.D holder for you to qualify to lecture certificate, diploma, degree, Masters and Ph.D  students in your area of study<br> 
-
-<h2>Extra Requirements</h2>
-
-<p>1. Have a Certified Online Trainer (COT) qualification from Finstock Evarsity.</p>
-
-<h2>Compensation</h2>
-
-<p>The compensation rate is kes 1000 (usd 10) per hour per unit for short courses, international courses, HRMPEB courses.   The compensation rate is kes 500 ( usd 5)  per hour per unit for KASNEB courses and school programs (Diplomas and Certificates).</p>
+					
+					<p>1. To prepare schemes of work and  lesson  plans for online lecturing<br>
+					2. To lecture students on self selected courses using online tutorial aids such as Videos, Pdfs, Chats.<br>
+					3. To administer CATS, Quizzes and assignments online<br>
+					4. To administer exams online</p>
+					<h2>Requirements</h2>
+					
+					<p>1. Be a diploma holder for you to qualify to lecture certificate students in your area of study<br>
+					2. Be a degree holder for you to qualify to lecture certificate and diploma students in your area of study<br>
+					</div>
+					<div class= "col-md-6">
+					<iframe style="min-width:500px; height: 450px;"src="https://www.youtube.com/embed/owaUV2O836E?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<h4>Finstock Evarsity Job Application Guide</h4>
+					</div>
+					</div>
+					3. Be a Masters holder for you to qualify to lecture certificate, diploma and degree  students in your area of study <br>
+					4. Be a Ph.D holder for you to qualify to lecture certificate, diploma, degree, Masters and Ph.D  students in your area of study<br> 
+					
+					<h2>Extra Requirements</h2>
+					
+					<p>1. Have a Certified Online Trainer (COT) qualification from Finstock Evarsity.</p>
+					
+					<h2>Compensation</h2>
+					
+					<p>The compensation rate is kes 1000 (usd 10) per hour per unit for short courses, international courses, HRMPEB courses.   The compensation rate is kes 500 ( usd 5)  per hour per unit for KASNEB courses and school programs (Diplomas and Certificates).</p>
 
 					<h2>Apply Now</h2>
 					<style>
@@ -120,12 +166,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 					//Open database connection
 					$conn = db_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 					//Get requested task/default is add
-					$task = isset($_GET['task'])?$_GET['task']:"add";
-					//echo getCourseUnits("CHRPL001")[0]['UName'];
-					// $units = (getCourseUnits("CHRPL001"));
-					// foreach($units as $u):
-					// 	echo $u['UID'].' '.$u['UnitID'].'<br>';
-					// endforeach;
+					$task = isset($_GET['task'])?$_GET['task']:"add";					
 					$task = strtolower($task);
 					switch($task) {
 						case "add":
@@ -133,8 +174,9 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 						$FIELDS = array();
 						$ERRORS = array();
 						$CONFIRM = array();
-						// If course is avaialble in query string
-						//$FIELDS['cot'] = isset($_GET['cot'])?$_GET['cot']:"";
+						
+						// Set default citizenship to Kenya 
+						$FIELDS['citizenship'] = "KE";
 						
 						$saved = false;
 						//Execute Commands
@@ -158,17 +200,17 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 							$FIELDS['course'] = $_POST['course'];
 							$FIELDS['course'] = implode(",", $FIELDS['course']);
 							//EDUCATION : ARRAYS
-							$FIELDS['institution'] = $_POST['institution'];
-							$FIELDS['certificate'] = $_POST['certificate'];
-							$FIELDS['fromyear'] = $_POST['fromyear'];
-							$FIELDS['toyear'] = $_POST['toyear'];
-							$FIELDS['grade'] = $_POST['grade'];
+							$FIELDS['institution'] = secure_string($_POST['institution']);
+							$FIELDS['certificate'] = secure_string($_POST['certificate']);
+							$FIELDS['fromyear'] = secure_string($_POST['fromyear']);
+							$FIELDS['toyear'] = secure_string($_POST['toyear']);
+							$FIELDS['grade'] = secure_string($_POST['grade']);
 							//WORK EXPERIENCE : ARRAYS
-							$FIELDS['employer'] = $_POST['employer'];
-							$FIELDS['job_title'] = $_POST['job_title'];
-							$FIELDS['fromyr'] = $_POST['fromyr'];
-							$FIELDS['toyr'] = $_POST['toyr'];
-							$FIELDS['roles'] = $_POST['roles'];
+							$FIELDS['employer'] = secure_string($_POST['employer']);
+							$FIELDS['job_title'] = secure_string($_POST['job_title']);
+							$FIELDS['fromyr'] = secure_string($_POST['fromyr']);
+							$FIELDS['toyr'] = secure_string($_POST['toyr']);
+							$FIELDS['roles'] = secure_string($_POST['roles']);
 							//ONLINE TRAINING COUSE
 							$FIELDS['cot'] = secure_string($_POST['cot']);
 							$FIELDS['pursue'] = secure_string($_POST['pursue']);
@@ -360,7 +402,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 							
 								
 								//GET REGISTRATION FEE
-								$regsql = sprintf("SELECT `pay_amount` FROM `".DB_PREFIX."payment_categs` WHERE `payment_name` = 'registration'");
+								$regsql = sprintf("SELECT `pay_amount` FROM `".DB_PREFIX."payment_categs` WHERE `payment_name` = 'Registration'");
 								//Set the result and run the query
 								$result = db_query($regsql,DB_NAME,$conn);
 								$row = db_fetch_array($result);
@@ -405,13 +447,13 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 								
 								//Add new as student if is_yes pursuer cot
 								if($FIELDS['cot']==0 && $FIELDS['pursue']==1){
-									$FIELDS['coz']="COT";
+									$FIELDS['course']="COT";
 									$FIELDS['trim']= "1/1";
 								$newStudentSql = sprintf("INSERT INTO `".DB_PREFIX."students` 
 								(`StudentID`, `FName`, `MName`, `LName`, `Phone`, `Email`, `DOB`, `Gender`, `Address`, `City`, `State`, `PostCode`, `Country`, `IdentityNumber`, `IdentityImage`, `PassportPhoto`, `Courses`, `YrTrim`) 
 								VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", 
 								$FIELDS['StudentID'], $FIELDS['firstname'], $FIELDS['middlename'], $FIELDS['surname'], $FIELDS['phonenumber'], $FIELDS['emailaddress'], $FIELDS['dbDob'], $FIELDS['gender'], $FIELDS['physicaladdress'], 
-								$FIELDS['city'], $FIELDS['state'], $FIELDS['postalcode'], $FIELDS['citizenship'], $FIELDS['identityno'], $FIELDS['identityimage'], $FIELDS['passportphoto'], $FIELDS['coz'], $FIELDS['trim']);								
+								$FIELDS['city'], $FIELDS['state'], $FIELDS['postalcode'], $FIELDS['citizenship'], $FIELDS['identityno'], $FIELDS['identityimage'], $FIELDS['passportphoto'], $FIELDS['course'], $FIELDS['trim']);								
 								db_query($newStudentSql,DB_NAME,$conn);
 							 }
 								
@@ -462,7 +504,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 									$_SESSION['STUD_LNAME'] = $FIELDS['surname'];
 									$_SESSION['STUD_EMAIL'] = $FIELDS['emailaddress'];
 									$_SESSION['STUD_TEL'] = $FIELDS['phonenumber'];
-									$_SESSION['COURSE_ID'] = $FIELDS['coz'];
+									$_SESSION['COURSE_ID'] = $FIELDS['course'];
 									
 									//Proceed to pay
 									redirect("?do=apply&task=pay&token=$Token");
@@ -510,8 +552,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 								<div class="row">
 									<div class="form-group col-sm-4">
 										<label for="phonenumber" class="">Phone/Mobile No. <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="tel" class="form-control required phone" name="phonenumber" id="phonenumber" value="<?=$FIELDS['phonenumber'];?>">
-										<span class="text-danger"><?=$ERRORS['phonenumber'];?></span>
+										<input type="tel" class="form-control" autocomplete="off" name="phonenumber" id="phonenumber" value="<?=$FIELDS['phonenumber'];?>">
+										<span id="validate-msg" class="text-danger"><?=$ERRORS['phonenumber'];?></span>
 									</div>
 									<div class="form-group col-sm-4">
 										<label for="emailaddress" class="">Email Address <abbr class="text-danger" title="required">*</abbr></label>
@@ -819,6 +861,12 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 										<input type="checkbox" name="declaration" id="declaration" value="1" class="required">
 										I have confirmed that the information I have given herein is correct.</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
 								</div>
+								<h4>Email use Consent <span class="text-danger">*</span></h4>
+									<div class="form-group checkbox">
+										<label for="declaration" class="">
+										<input type="checkbox" checked name="offers" id="offers" value="1" class="">
+										Keep me posted about Finstock Evarsity Products</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
+									</div>
 								<div class="form-group">
 									<label for="securitycode">Security Code: <span class="text-danger">*</span></label>
 									<?=recaptcha_get_html();?>
@@ -835,68 +883,30 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Application Form";
 						}
 					break;
 					case "pay":
-						//INITIATE A PAYMENT IN DB
-						$student_id = $_SESSION['STUD_ID'];
-						$student_pay_ref = $_SESSION['STUD_ID_HASH'];
-						$transaction_tracking_id = '';
-						$payment_amount = $_SESSION['AMOUNT'];
-						$pay_method = '';
-						$stud_tel = $_SESSION['STUD_TEL'];
-						$stud_full_name = $_SESSION['STUD_FNAME'].' '.$_SESSION['STUD_LNAME'];
-						$stud_email = $_SESSION['STUD_EMAIL'];
-						$pay_type = 'registration fee';
-						$pay_status = 'Not Started';
-						
-						//$pay_status
-						//RUN A DELETE FOR ALL NONE-STARTED PAYMENTS FOR THIS USER AND INSERT NEW.
-						$delDuplicate = sprintf("DELETE FROM `".DB_PREFIX."payment_refs` WHERE `student_pay_ref` = '%s' AND `pay_status` = '%s'", $student_pay_ref, $pay_status);
-						db_query($delDuplicate,DB_NAME,$conn);
-						
-						//INSERT A NEW ONE ON RELOAD ETC. 
-						$newPaymentSql = sprintf("INSERT INTO `".DB_PREFIX."payment_refs` (`student_id`, `student_pay_ref`, `transaction_tracking_id`, `payment_amount`, `pay_method`, `stud_tel`, `stud_full_name`, `stud_email`, `pay_type`, `pay_status`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $student_id, $student_pay_ref, $transaction_tracking_id, $payment_amount, $pay_method, $stud_tel, $stud_full_name, $stud_email, 'registration fee', 'Not Started');
-						//execute qry
-						db_query($newPaymentSql,DB_NAME,$conn);				  
-						
-						//INITIATE PAYMENT CREDENTIALS
-						$token = $params = NULL;
-						$consumer_key = PESAPAL_CONSUMER_KEY;
-						$consumer_secret = PESAPAL_CONSUMER_SECRET;
-						$signature_method = new OAuthSignatureMethod_HMAC_SHA1();
-						$iframelink = PESAPAL_IFRAME_API;
-						//get form details
-						$amount = $_SESSION['AMOUNT'];
-						$amount = number_format($amount, 2);//format amount to 2 decimal places
-						
-						$desc = SYSTEM_NAME." Fee Payment";
-						$type = "MERCHANT"; //default value = MERCHANT
-						$reference = $_SESSION['STUD_ID_HASH'];//unique order id of the transaction, generated by merchant
-						$first_name = $_SESSION['STUD_FNAME'];
-						$last_name = $_SESSION['STUD_LNAME'];
-						$email = $_SESSION['STUD_EMAIL'];
-						$phonenumber = $_SESSION['STUD_TEL'];//ONE of email or phonenumber is required
-						
-						$callback_url = SYSTEM_URL.'/portal/?do=return_api'; //redirect url, the page that will handle the response from pesapal.
-						
-						$post_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><PesapalDirectOrderInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" Amount=\"".$amount."\" Description=\"".$desc."\" Type=\"".$type."\" Reference=\"".$reference."\" FirstName=\"".$first_name."\" LastName=\"".$last_name."\" Email=\"".$email."\" PhoneNumber=\"".$phonenumber."\" xmlns=\"http://www.pesapal.com\" />";
-						$post_xml = htmlentities($post_xml);
-						$consumer = new OAuthConsumer($consumer_key, $consumer_secret);
-						
-						//post transaction to pesapal
-						$iframe_src = OAuthRequest::from_consumer_and_token($consumer, $token, "GET", $iframelink, $params);
-						$iframe_src->set_parameter("oauth_callback", $callback_url);
-						$iframe_src->set_parameter("pesapal_request_data", $post_xml);
-						$iframe_src->sign_request($signature_method, $consumer, $token);						
 						?>
-					<!-- Step 4 -->
-					<div id="step-4" class="form-sec">
-						<iframe src="<?php echo $iframe_src;?>" width="100%" height="700px"  scrolling="no" frameBorder="0">
-						<p>Browser unable to load iFrame</p>
-						</iframe>
-					</div>
-					<?php
+						<div class="col-md-12">
+							<h2>You are about to pay Ksh.<?php echo $_SESSION['AMOUNT']; ?></h2>
+							<h3>Select a payment method</h3>
+							<p>We support the following payment methods. Click on your preferred payment method:</p>
+							
+							<div class="row">
+								<!--
+								<div class="col-md-6">
+									<h3>Lipa na MPesa</h3>
+									<a href="?do=payment&paymentmethod=mpesa&paytype=Registration" title="Click to pay with MPesa"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/lipa-na-mpesa.png" alt="Lina na MPesa"></a>
+								</div>
+								-->
+								<div class="col-md-6">
+									<h3>PesaPal Payment</h3>
+									<a href="?do=payment&paymentmethod=pesapal&paytype=Registration" title="Click to pay with PesaPal"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/pesapal.jpg" alt="PesaPal Payment"></a>
+								</div>
+							</div>
+						</div>
+						<?
 					break;
 					default:
 						echo ErrorMessage("Invalid request! The system failed to process your request. If the problem persists, please contact us.");
+					break;
 					}
 					
 					//Close connection

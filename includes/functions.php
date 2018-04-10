@@ -48,6 +48,19 @@ function add_footer( $section = "" ){
 	}
 }
 
+function add_google_analytics( $TrackingID ){
+	return "
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src=\"https://www.googletagmanager.com/gtag/js?id=".$TrackingID."\"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', '".$TrackingID."');
+	</script>
+	";
+}
+
 /* Confirm/Success Message */
 function ConfirmMessage($str){
 	return "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><i class=\"fa fa-thumbs-up fa-fw\"></i> $str </div>";
@@ -69,40 +82,47 @@ function ErrorMessage($str){
 if (get_magic_quotes_gpc()) {
 	$_GET = array_map("strip_slashes_recursive", $_GET);
 	$_POST = array_map("strip_slashes_recursive", $_POST);
+	$_SESSION = array_map("strip_slashes_recursive", $_SESSION);
 	$_COOKIE = array_map("strip_slashes_recursive", $_COOKIE);
 }
 //
 function add_slashes_recursive( $variable ){
-    if(is_string($variable)){
-        return addslashes($variable);
+	if(is_string($variable)){
+		return addslashes($variable);
 	}
-    elseif(is_array($variable)){
-        foreach($variable as $i => $value){
-            $variable[$i] = add_slashes_recursive($value);
+	elseif(is_array($variable)){
+		foreach($variable as $i => $value){
+			$variable[$i] = add_slashes_recursive($value);
 		}
 	}
-    return $variable;
+	return $variable;
 }
 //
 function strip_slashes_recursive($variable){
-    if(is_string($variable)){
-        return stripslashes($variable);
+	if(is_string($variable)){
+		return stripslashes($variable);
 	}
-    elseif(is_array($variable)){
-        foreach($variable as $i => $value){
-            $variable[$i] = strip_slashes_recursive($value);
+	elseif(is_array($variable)){
+		foreach($variable as $i => $value){
+			$variable[$i] = strip_slashes_recursive($value);
 		}
-    }
-    return $variable; 
+	}
+	return $variable; 
+}
+//Recursive trimming with array support
+function trimming($arr){
+	return is_array($arr) ? array_map('trimming', strip_slashes_recursive($arr)) : trim(strip_slashes_recursive($arr));
 }
 //DB Secure String
 function secure_string($string){
-	global $conn;
+	//ADDED ARRAY CHECK
+	$trimmedStr = trimming($string);
+	///proceed to magic q
 	if (get_magic_quotes_gpc()) {
-		return strip_slashes_recursive($string);
-	} else {
-		return mysqli_real_escape_string($conn,$string);
-	}
+		return $trimmedStr;
+	}else{
+		return add_slashes_recursive($trimmedStr);
+	}	
 }
 //
 function encode($string){
@@ -126,7 +146,6 @@ function truncate($value,$length){
 	return clean_string($value);
 	//return $value;
 }
-
 function clean_string($string){
 	//$string = preg_replace('/\s*$^\s*/m', "\n", $string);
 	//return preg_replace('/[ \t]+/', ' ', $string);
@@ -433,31 +452,66 @@ function Error_alertAdmin($error_type, $error_msg, $page, $reply_to){
 	
 }
 //Allowed documents for upload
-function allowed_doc_mime_types(){
-	return array(
-	'image/gif',
-	'image/jpg',
-	'image/jpeg',
-	'image/png',
-	'image/psd',
-	'image/bmp',
-	'image/tiff',
-	'image/jp2',
-	'image/iff',
-	'image/vnd.wap.wbmp',
-	'image/xbm',
-	'image/vnd.microsoft.icon',
-	'image/webp',
-	'application/octet-stream',
-	'application/x-shockwave-flash',
-	'text/richtext',
-	'application/pdf',
-	'application/msword',
-	'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-	'application/vnd.ms-excel',
-	'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-	'application/vnd.ms-powerpoint',
-	'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+function allowed_doc_mime_types($type="all"){
+	switch($type){
+		case "all":
+		return array(
+			'image/gif',
+			'image/jpg',
+			'image/jpeg',
+			'image/png',
+			'image/psd',
+			'image/bmp',
+			'image/tiff',
+			'image/jp2',
+			'image/iff',
+			'image/vnd.wap.wbmp',
+			'image/xbm',
+			'image/vnd.microsoft.icon',
+			'image/webp',
+			'application/octet-stream',
+			'application/x-shockwave-flash',
+			'text/richtext',
+			'application/pdf',
+			'application/msword',
+			'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+			'application/vnd.ms-excel',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'application/vnd.ms-powerpoint',
+			'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+		break;
+		case "documents":
+		return array(
+			'text/richtext',
+			'application/pdf',
+			'application/msword',
+			'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+			'application/vnd.ms-excel',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'application/vnd.ms-powerpoint',
+			'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+		break;
+		case "images":
+		return array(
+			'image/gif',
+			'image/jpg',
+			'image/jpeg',
+			'image/png',
+			'image/psd',
+			'image/bmp',
+			'image/tiff',
+			'image/jp2',
+			'image/iff',
+			'image/vnd.wap.wbmp',
+			'image/xbm',
+			'image/vnd.microsoft.icon',
+			'image/webp',
+			'application/octet-stream',
+			'application/x-shockwave-flash');
+		break;
+		case "videos":
+		break;
+	}	
 }
 //Generate a friendly name
 function friendlyName($name){//post slug

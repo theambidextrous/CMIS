@@ -63,9 +63,6 @@ break;
 case "test":
 	require_once('portal.test.php');
 break;
-case "test-mpdf":
-	require_once('portal.test-mpdf.php');
-break;
 case "payment":
 	require_once('portal.payment.php');
 break;

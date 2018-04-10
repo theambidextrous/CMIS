@@ -37,36 +37,49 @@ function getAddressGroups($group = "All"){
 	}
 	return $group;
 }
-function makeSMS($name, $message){
+function makeSMS($message){
+	return str_replace("[NAME]",",".PHP_EOL,$message);
+}
+function makeSMSOne($name, $message){
 	return str_replace("[NAME]",$name.",".PHP_EOL,$message);
 }
-function getCleanRecipients($group){
+function getCleanRecipientsOne($group){
 	if(!empty($group)){
 		global $conn;
 		$keys = array();
 		$values = array();
-			$sql = sprintf("SELECT CONCAT(Fname,' ',Mname) AS name, PhoneOne FROM `".DB_PREFIX."addressbook` WHERE `deletedFlag` = %d AND `PhoneOne` !='' AND ContactGroup ='%s'", 0, $group);
+			$sql = sprintf("SELECT Fname AS name, PhoneOne FROM `".DB_PREFIX."addressbook` WHERE `deletedFlag` = %d AND `PhoneOne` !='' AND ContactGroup ='%s'", 0, $group);
 			$res = db_query($sql,DB_NAME,$conn);
 				while($row = db_fetch_array($res)){
 					//remove spaces
 					$row['PhoneOne'] = str_replace(" ", "",$row['PhoneOne']);
-					array_push($keys, $row['name']);
+					if(!empty($row['name'])){
+						array_push($keys, $row['name']);
+					}else{
+						array_push($keys, '.');
+					}
 					if( substr( $row['PhoneOne'], 0, 2 ) === "07" && strlen($row['PhoneOne']) == 10 ){
 						$phone = '+254'.(int)$row['PhoneOne'];
 						array_push($values, $phone);
 					}elseif( substr( $row['PhoneOne'], 0, 4 ) === "2547" && strlen($row['PhoneOne']) == 12 ){
 						$phone = '+'.$row['PhoneOne'];
 						array_push($values, $phone);
-					}elseif( substr( $row['PhoneOne'], 0, 5 ) === "25407" ){
+					}elseif( substr( $row['PhoneOne'], 0, 5 ) === "25407" && strlen($row['PhoneOne']) == 13 ){
 						$phone = strstr($row['PhoneOne'], '0');
 						$phone = '+254'.(int)$phone;
 						array_push($values, $phone);
-					}elseif( substr( $row['PhoneOne'], 0, 6 ) === "+25407" ){
+					}elseif( substr( $row['PhoneOne'], 0, 6 ) === "+25407" && strlen($row['PhoneOne']) == 14 ){
 						$phone = strstr($row['PhoneOne'], '0');
+						$phone = '+254'.(int)$phone;
+						array_push($values, $phone);
+					}elseif( substr( $row['PhoneOne'], 0, 1 ) === "7" && strlen($row['PhoneOne']) == 9 ){
+						$phone = '+254'.(int)$phone;
+						array_push($values, $phone);
+					}elseif( substr( $row['PhoneOne'], 0, 5 ) === "+2547" && strlen($row['PhoneOne']) == 13 ){
 						$phone = '+254'.(int)$phone;
 						array_push($values, $phone);
 					}else{
-						array_push($values, $row['PhoneOne']);	
+						//array_push($values, $row['PhoneOne']);	
 					}
 				}
 	//combine keys & values
@@ -74,6 +87,42 @@ function getCleanRecipients($group){
 	foreach ($keys as $i => $key):
 		$recipients[$key] = $values[$i];
 	endforeach;
+	return $recipients;
+	}
+}
+function getCleanRecipients($group){
+	if(!empty($group)){
+		global $conn;
+		$values = array();
+			$sql = sprintf("SELECT PhoneOne FROM `".DB_PREFIX."addressbook` WHERE `deletedFlag` = %d AND `PhoneOne` !='' AND ContactGroup ='%s'", 0, $group);
+			$res = db_query($sql,DB_NAME,$conn);
+				while($row = db_fetch_array($res)){
+					$row['PhoneOne'] = str_replace(" ", "",$row['PhoneOne']);
+					if( substr( $row['PhoneOne'], 0, 2 ) === "07" && strlen($row['PhoneOne']) == 10 ){
+						$phone = '+254'.(int)$row['PhoneOne'];
+						array_push($values, $phone);
+					}elseif( substr( $row['PhoneOne'], 0, 4 ) === "2547" && strlen($row['PhoneOne']) == 12 ){
+						$phone = '+'.$row['PhoneOne'];
+						array_push($values, $phone);
+					}elseif( substr( $row['PhoneOne'], 0, 5 ) === "25407" && strlen($row['PhoneOne']) == 13){
+						$phone = strstr($row['PhoneOne'], '0');
+						$phone = '+254'.(int)$phone;
+						array_push($values, $phone);
+					}elseif( substr( $row['PhoneOne'], 0, 6 ) === "+25407" && strlen($row['PhoneOne']) == 14){
+						$phone = strstr($row['PhoneOne'], '0');
+						$phone = '+254'.(int)$phone;
+						array_push($values, $phone);
+					}
+					elseif( substr( $row['PhoneOne'], 0, 1 ) === "7" && strlen($row['PhoneOne']) == 9){
+						$phone = $row['PhoneOne'];
+						$phone = '+254'.$phone;
+						array_push($values, $phone);
+					}else{
+						//do nothing
+					}
+				}
+	//return comma list of phones
+	$recipients =implode(",",$values);
 	return $recipients;
 	}
 }
@@ -454,7 +503,7 @@ function checkAllowedSysUsers(){
 function getSysUsername($userID){
 	global $conn;
 	
-	$sqlUsers = sprintf("SELECT `ID`,`Username` FROM `".DB_PREFIX."sys_users` WHERE `ID` = '%d' AND `deletedFlag` = 0", $userID);
+	$sqlUsers = sprintf("SELECT `Username` FROM `".DB_PREFIX."sys_users` WHERE `ID` = '%d' AND `deletedFlag` = 0", $userID);
 	//Execute the query
 	$resultUser = db_query($sqlUsers,DB_NAME,$conn);
 	
@@ -463,7 +512,23 @@ function getSysUsername($userID){
 		return $rowUser['Username'];
 	}
 	else{
-		return "N/A";
+		return false;
+	}
+}
+//Get user email given the system username
+function getSysUserEmail($username){
+	global $conn;
+	
+	$sqlUsers = sprintf("SELECT `Email` FROM `".DB_PREFIX."sys_users` WHERE `Username` = '%s' AND `deletedFlag` = 0", $username);
+	//Execute the query
+	$resultUser = db_query($sqlUsers,DB_NAME,$conn);
+	
+	if(db_num_rows($resultUser)>0){
+		$rowUser = db_fetch_array($resultUser);
+		return $rowUser['Email'];
+	}
+	else{
+		return false;
 	}
 }
 //Get username given the token ID
@@ -609,7 +674,22 @@ function getStudentStudyMode($StudentID){
 		return $rowGet['payment_name'];
 	}
 	else{
-		return "Online";
+		return "Online (Free Training)";
+	}
+}
+function getCourseData($CourseID){
+	global $conn;
+	
+	$sqlGet = sprintf("SELECT * FROM `".DB_PREFIX."courses`  WHERE `CourseID` = '%s' AND `deletedFlag` = 0", $CourseID);
+	//Execute the query
+	$resultGet = db_query($sqlGet,DB_NAME,$conn);
+	
+	if(db_num_rows($resultGet)>0){
+		$rowGet = db_fetch_array($resultGet);
+		return $rowGet;
+	}
+	else{
+		return null;
 	}
 }
 //
@@ -639,7 +719,7 @@ function getCourseFeesStructure($CourseID, $StudyMode){
 		$sqlGet = sprintf("
 		SELECT `payment_name`,`pay_amount` FROM `".DB_PREFIX."payment_categs` WHERE `assoc_course` = 'All' AND `type` = 'Fee' OR `assoc_course` LIKE '%s' 
 		UNION
-		 SELECT `payment_name`,`pay_amount` FROM `".DB_PREFIX."payment_categs` WHERE `pay_id` = %d", "%".$CourseID."%", $StudyMode);
+		 SELECT `payment_name`,`pay_amount` FROM `".DB_PREFIX."payment_categs` WHERE `pay_id` = %d AND `type` = 'StudyMode'", "%".$CourseID."%", $StudyMode);
 		//mExecute the query
 		$resultGet = db_query($sqlGet,DB_NAME,$conn);
 		
@@ -674,6 +754,16 @@ function getAllDepartments(){
 	global $conn;
 	
 	$sql = "SELECT COUNT(*) FROM `".DB_PREFIX."departments`";
+	$res = db_query($sql,DB_NAME,$conn);
+	$row = db_fetch_array($res);
+	reset($row);
+	return current($row);
+}
+//get enrollments per unit
+function getEnrolments($UnitID){
+	global $conn;
+	
+	$sql = "SELECT COUNT(Distinct StudentID) FROM `".DB_PREFIX."units_registered` WHERE UnitID = '$UnitID'";
 	$res = db_query($sql,DB_NAME,$conn);
 	$row = db_fetch_array($res);
 	reset($row);
@@ -809,6 +899,39 @@ function getUnitName($UnitID){
 		return NULL;
 	}
 }
+function getStudentData($StudentID){
+	global $conn;
+	
+	$sqlGet = sprintf("SELECT * FROM `".DB_PREFIX."students` WHERE `StudentID` = '%s'", $StudentID);
+	//Execute the query
+	$resultGet = db_query($sqlGet,DB_NAME,$conn);	
+	$data = array();
+	if(db_num_rows($resultGet)>0){
+		while( $rowGet = db_fetch_array($resultGet) ){
+		$data = $rowGet;
+		}
+		return $data;
+	}
+	else{
+		return NULL;
+	}
+}
+// function sql_select_enrollments($UnitID){
+// 	global $conn;
+
+// 	$sql = "SELECT * FROM `".DB_PREFIX."units_registered` WHERE `UnitID` = '$UnitID'";	
+// 	$resultGet = db_query($sql,DB_NAME,$conn);	
+// 	$data = array();
+// 	if(db_num_rows($resultGet)>0){
+// 		while( $rowGet = db_fetch_array($resultGet) ){
+// 		$data = $rowGet;
+// 		}
+// 		return $data;
+// 	}
+// 	else{
+// 		return NULL;
+// 	}
+// }
 //Get registered units per course given student ID
 function registeredUnits($StudentID, $CourseID){
 	global $conn;
@@ -905,7 +1028,7 @@ function list_message_snapshots($UserEmail){
 			while($message = db_fetch_array($res)){
 				$msgHTML .= '
 				<li>
-					<a href="?tab=7">
+					<a href="?dispatcher=messages">
 						<div>
 							<strong>'. $message['FromAdd'] .'</strong>
 							<span class="pull-right text-muted">

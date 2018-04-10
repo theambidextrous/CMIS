@@ -94,7 +94,7 @@ function select(){
 	<td><?=TrimSentTo($row['SentTo'])?></td>
 	<td><?=$row['SentBy']?></td>
 	<td><?=date("Y-m-d H:i:s a", strtotime($row["SentDate"]))?></td>
-	<td><a href="admin.php?tab=12&task=view&recid=<?=$row['UID'] ?>">View</a> | <a href="admin.php?tab=12&task=del&recid=<?=$row['UID'] ?>">Resend</a></td>
+	<td><a href="admin.php?dispatcher=sms&task=view&recid=<?=$row['UID'] ?>">View</a> | <a href="admin.php?dispatcher=sms&task=del&recid=<?=$row['UID'] ?>">Resend</a></td>
 	</tr>
 	<?php
 	}
@@ -189,18 +189,18 @@ global $a;
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=12&task=add">New SMS</a>
-<a class="btn btn-default" href="admin.php?tab=12&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=sms&task=add">New SMS</a>
+<a class="btn btn-default" href="admin.php?dispatcher=sms&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=12"><i class="fa fa-undo fa-fw"></i> Back to SMS</a>
+<a class="btn btn-default" href="admin.php?dispatcher=sms"><i class="fa fa-undo fa-fw"></i> Back to SMS</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=12&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=sms&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=12&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=sms&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -213,7 +213,7 @@ function viewrec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res); 
 	?>
-	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=12">SMS</a></li><li>View SMS</li></ol>
+	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=sms">SMS</a></li><li>View SMS</li></ol>
 	<?php 
 	showrecnav("view", $recid, $count);
 	showrowdetailed($row, $recid);
@@ -240,6 +240,7 @@ function addrec() {
 		$FIELDS['SentBy'] = secure_string(ucwords($_POST['SentBy']));
 		$FIELDS['SentTo'] = $_POST['SentTo'];
 		$FIELDS['SentFrom'] = secure_string($_POST['SentFrom']);
+		$To = implode (", ", $FIELDS['SentTo']);
 		
 		// Validator data
 		$check = new validator();
@@ -263,34 +264,24 @@ function addrec() {
 				$issent = 0;
 			foreach($FIELDS['SentTo'] as $group):
 				$recipients = getCleanRecipients($group);
-				//exit;
-				//$recipients = array("Idd Otuya"=>"+254705007984", "John Kimani"=>"+254721280285");
-				foreach($recipients as $recip=>$recphone):
-				$message_final= makeSMS($recip, $message);
-				//send message
+				$message_final= makeSMS($message);
 				try 
 					{ 
-				$results = $gateway->sendMessage($recphone, $message_final, "FinEvarsity");
-						foreach($results as $result):
-							//update sms logs
-							$sql = sprintf("INSERT INTO `".DB_PREFIX."smslogs`(`Phone`, `Status`, `MessageID`, `Cost`) VALUES ('%s', '%s', '%s', '%s')", $result->number, $result->status, $result->messageId, $result->cost);
-							db_query($sql,DB_NAME,$conn);
-						endforeach;
+				$gateway->sendMessage($recipients, $message_final, "FinEvarsity");
 					}
 					catch ( FinstockSMSException $e )
 					{
 						$ERRORS['MSG'] = $e->getMessage();
 					}
 					$issent++;
-				endforeach;
-
-			//save the message sent once against the group it was sent to
-			$sql = sprintf("INSERT INTO `".DB_PREFIX."sms`(`SmsSubject`, `SMS`, `SentBy`, `SentTo`, `SentFrom`) VALUES ('%s', '%s', '%s', '%s', '%s')", $FIELDS['Subject'], $FIELDS['SMS'], $FIELDS['SentBy'], $group, $FIELDS['SentFrom']);
-			db_query($sql,DB_NAME,$conn);
 			endforeach;
+			//save the message sent once 
+			$sql = sprintf("INSERT INTO `".DB_PREFIX."sms`(`SmsSubject`, `SMS`, `SentBy`, `SentTo`, `SentFrom`) VALUES ('%s', '%s', '%s', '%s', '%s')", $FIELDS['Subject'], $FIELDS['SMS'], $FIELDS['SentBy'], $To, $FIELDS['SentFrom']);
+			db_query($sql,DB_NAME,$conn);
+
 			if($issent > 0 ){
-			$_SESSION['MSG'] = ConfirmMessage("SMS sent and a copy saved successfully.");
-			redirect("admin.php?tab=12");
+			$_SESSION['MSG'] = ConfirmMessage("SMS sent and a copy saved successfully");
+			redirect("admin.php?dispatcher=sms");
 			}else{
 			$ERRORS['MSG'] = "Error sending message";
 			}
@@ -304,19 +295,19 @@ function addrec() {
 	$row["SentTo"] = !empty($FIELDS['SentTo'])?$FIELDS['SentTo']:"";
 	$row["SentFrom"] = !empty($FIELDS['SentFrom'])?$FIELDS['SentFrom']:"";
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=12">SMS</a></li><li class="active">New SMS</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=sms">SMS</a></li><li class="active">New SMS</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=12"><i class="fa fa-undo fa-fw"></i> Back to SMS</a>
+<a class="btn btn-default" href="admin.php?dispatcher=sms"><i class="fa fa-undo fa-fw"></i> Back to SMS</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=12&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=sms&task=add" method="post">
 <input type="hidden" name="sql" value="insert" />
 <?php
 showroweditor($row, false, $ERRORS);
 ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Send" />
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=12'" />
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=sms'" />
 </p>
 </form>
 <?php } ?>
@@ -365,7 +356,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected SMS. Please try again later...");
 	}
-	redirect("admin.php?tab=12");
+	redirect("admin.php?dispatcher=sms");
 }
 
 function primarykeycondition(){

@@ -121,15 +121,15 @@ for ($i = 0; $i < $count; $i++){
 <td><?=$row["Title"]." ".$row["FacultyName"]?></td>
 <td><?=$row["Departments"]?></td>
 <td><?=$row["WPhone"]?></td>
-<td><?="<a href=\"admin.php?tab=7&amp;task=add&amp;email=".$row['Email']."\" title=\"Send Email\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/mail.png\" height=\"22\" width=\"22\" alt=\"Send\"></a>";?></td>
+<td><?="<a href=\"admin.php?dispatcher=messages&amp;task=add&amp;email=".$row['Email']."\" title=\"Send Email\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/mail.png\" height=\"22\" width=\"22\" alt=\"Send\"></a>";?></td>
 <?php
 if($row['disabledFlag'] == 0){
-	echo "<td align=\"center\"><a href=\"admin.php?tab=6&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['LName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['LName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=faculties&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['LName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['LName']."\"></a></td>";
 }else{
-	echo "<td align=\"center\"><a href=\"admin.php?tab=6&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['LName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['LName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=faculties&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['LName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['LName']."\"></a></td>";
 }
 ?>
-<td><a href="admin.php?tab=6&task=view&recid=<?=$i ?>&facultyID=<?=$row['FacultyID'] ?>">Manage</a> | <a href="admin.php?tab=6&task=edit&recid=<?=$i ?>&facultyID=<?=$row['FacultyID'] ?>">Edit</a> | <a href="admin.php?tab=6&task=del&recid=<?=$i ?>&facultyID=<?=$row['FacultyID'] ?>">Delete</a></td>
+<td><a href="admin.php?dispatcher=faculties&task=view&recid=<?=$i ?>&facultyID=<?=$row['FacultyID'] ?>">Manage</a> | <a href="admin.php?dispatcher=faculties&task=edit&recid=<?=$i ?>&facultyID=<?=$row['FacultyID'] ?>">Edit</a> | <a href="admin.php?dispatcher=faculties&task=del&recid=<?=$i ?>&facultyID=<?=$row['FacultyID'] ?>">Delete</a></td>
 </tr>        
 <?php
 }
@@ -176,7 +176,7 @@ function showrowdetailed($row, $recid){
 		}
 		// Confirm update
 		$_SESSION['MSG'] = ConfirmMessage("New lectures have been added!");
-		redirect("?tab=6&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-2");						
+		redirect("?dispatcher=faculties&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-2");						
 	}
 	
 	if($Action == 'drop' && !empty($_GET['unitid'])){
@@ -186,7 +186,7 @@ function showrowdetailed($row, $recid){
 		db_query($sqlDelete,DB_NAME,$conn);
 		// Confirm remove
 		$_SESSION['MSG'] = ConfirmMessage("Selected lectures have been removed!");
-		redirect("?tab=6&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-2");	
+		redirect("?dispatcher=faculties&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-2");	
 	}
 
 	if(isset($_POST['Update'])){	
@@ -312,10 +312,10 @@ function showrowdetailed($row, $recid){
 						<p>This appointment is conditional on demonstrating e-training competency by completing the <a href="'.SYSTEM_URL.'/portal/?do=register&course=COT">Certified Online Trainer (COT)</a> course offered at Finstock Evarsity.</p>
 	
 						<h3>Acceptance/Non acceptance </h3>
-						<p>Please communicate your acceptance/non acceptance of these terms in the next 14 days and ensure that  you have completed the COT course before communicating your decision.</p>
+						<p>Please communicate your acceptance/non acceptance of these terms in the next 3 months and ensure that  you have completed the COT course before communicating your decision.</p>
 						
 						<h3>Terms and Conditions </h3>
-						<p>*Terms and conditions apply, we reserve the right to amend this terms provided we give you adequate notice. </p>
+						<p>*Terms and conditions apply, we reserve the right to amend these terms provided we give you adequate notice. </p>
 	
 						<br><img src ="'.EMAIL_SIGNATURE_STAMP.'" style="float:right; width:160px; height:auto;"/>
 						Yours truly,<br><br>
@@ -356,12 +356,12 @@ function showrowdetailed($row, $recid){
 						if(!$mail->Send()) {
 							//failure
 							$_SESSION['MSG'] = ErrorMessage("An Appointment letter could not be sent. Please try again later.");
-							redirect("?tab=6&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-3");	
+							redirect("?dispatcher=faculties&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-3");	
 						}
 						else{
 							//success
 							$_SESSION['MSG'] = ConfirmMessage("You have approved ".$row['FacultyName'].". An Appointment letter has been sent successfully.");
-							redirect("?tab=6&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-3");
+							redirect("?dispatcher=faculties&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-3");
 						}	
 							//end mailer	
 					}//end if there was update
@@ -373,7 +373,7 @@ function showrowdetailed($row, $recid){
 					if(UpdateAppliedUnits($row["FacultyID"], $_POST['appliedUnitIDs'])){
 						// Confirm remove
 						$_SESSION['MSG'] = ConfirmMessage("Selected lectures have been removed!");
-						redirect("?tab=6&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-3");	
+						redirect("?dispatcher=faculties&task=view&recid=$recid&facultyID=".$row["FacultyID"]."#sub-tabs-3");	
 					}
 				}
 				break;
@@ -406,7 +406,7 @@ function showrowdetailed($row, $recid){
           <table class="table table-bordered table-striped">
           <tr><td><strong>Faculty ID:</strong> </td><td><?=$row["FacultyID"]; ?></td></tr>
           <tr><td><strong>Portal Status:</strong> </td><td><?=$row["Status"]; ?></td></tr>
-          <tr><td><strong>Email:</strong> </td><td><a href="admin.php?tab=7&task=add&email=<?=$row["Email"]; ?>" title="Send Email"><?=$row["Email"]; ?></a></td></tr>
+          <tr><td><strong>Email:</strong> </td><td><a href="admin.php?dispatcher=messages&task=add&email=<?=$row["Email"]; ?>" title="Send Email"><?=$row["Email"]; ?></a></td></tr>
           <tr><td><strong>Work Phone:</strong> </td><td><?=$row["WPhone"]; ?></td></tr>
           <tr><td><strong>Gender:</strong> </td><td><?=$row["Gender"]; ?></td></tr>     
           </table>
@@ -440,7 +440,7 @@ function showrowdetailed($row, $recid){
 			</script>
       <div class="modal fade" id="addLectures" tabindex="-1" role="dialog" aria-labelledby="addLecturesLabel">
         <div class="modal-dialog modal-lg" role="document">
-          <form name="assign-lectures" method="post" action="admin.php?tab=6&task=view&recid=<?=$recid?>&action=add">
+          <form name="assign-lectures" method="post" action="admin.php?dispatcher=faculties&task=view&recid=<?=$recid?>&action=add">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -487,7 +487,7 @@ function showrowdetailed($row, $recid){
               <td>".$units['UName']."</td>
               <td>".getCourseName($units['CourseID'])."</td>
               <td>".get_year_trimesters($units['YrTrim'])."</td>
-              <td><a href=\"admin.php?tab=6&task=view&recid=$recid&action=drop&unitid={$units['UnitID']}\">Remove</a></td>
+              <td><a href=\"admin.php?dispatcher=faculties&task=view&recid=$recid&action=drop&unitid={$units['UnitID']}\">Remove</a></td>
               </tr>";
               $count++;
           }
@@ -520,7 +520,7 @@ function showrowdetailed($row, $recid){
 			//-->
 			</script>
 			<p>&nbsp;</p>
-			<form name="units" method="post" action="admin.php?tab=6&task=view&recid=<?=$recid?>&facultyID=<?=$row["FacultyID"]?>">
+			<form name="units" method="post" action="admin.php?dispatcher=faculties&task=view&recid=<?=$recid?>&facultyID=<?=$row["FacultyID"]?>">
 			<div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>
       <table width="100%" class="display table table-striped table-bordered table-hover">      
       <thead>
@@ -667,9 +667,9 @@ function showrowdetailed($row, $recid){
 		</div>
     
     <div class="quick-nav btn-group">
-      <a class="btn btn-default" href="admin.php?tab=6&task=add"><i class="fa fa-file-o fa-fw"></i>Add Faculty</a>
-      <a class="btn btn-default" href="admin.php?tab=6&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit Faculty</a>
-      <a class="btn btn-default" href="admin.php?tab=6&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i>Delete Faculty</a>
+      <a class="btn btn-default" href="admin.php?dispatcher=faculties&task=add"><i class="fa fa-file-o fa-fw"></i>Add Faculty</a>
+      <a class="btn btn-default" href="admin.php?dispatcher=faculties&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit Faculty</a>
+      <a class="btn btn-default" href="admin.php?dispatcher=faculties&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i>Delete Faculty</a>
     </div>
     
   </div>
@@ -767,12 +767,12 @@ global $a;
     
     <div class="form-group">
     <label for="">Work Phone: <span class="text-danger">*</span></label>
-    <input <?=$ERRORS['WPhone']?> type="text" value="<?=$row['WPhone']; ?>" name="WPhone" class="form-control required">
+    <input <?=$ERRORS['WPhone']?> type="tel" value="<?=$row['WPhone']; ?>" name="WPhone" class="form-control required">
     </div>
     
     <div class="form-group">
     <label for="">Mobile Phone:</label>
-    <input <?=$ERRORS['MPhone']?> type="text" value="<?=$row['MPhone']; ?>" name="MPhone" class="form-control">
+    <input <?=$ERRORS['MPhone']?> type="tel" value="<?=$row['MPhone']; ?>" name="MPhone" class="form-control">
     </div>
     
     <div class="form-group">
@@ -854,18 +854,18 @@ global $a;
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=6&task=add">Add Faculty</a>
-<a class="btn btn-default" href="admin.php?tab=6&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=faculties&task=add">Add Faculty</a>
+<a class="btn btn-default" href="admin.php?dispatcher=faculties&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=6"><i class="fa fa-undo fa-fw"></i> Back to Faculties</a>
+<a class="btn btn-default" href="admin.php?dispatcher=faculties"><i class="fa fa-undo fa-fw"></i> Back to Faculties</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=6&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=faculties&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=6&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=faculties&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -884,7 +884,7 @@ function viewrec($recid){
 		$row["Status"] = "Disabled";
 	}	 
 	?>
-	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=6">Faculties</a></li><li class="active">View Faculty</li></ol>
+	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=faculties">Faculties</a></li><li class="active">View Faculty</li></ol>
 	<?php 
 	showrecnav("view", $recid, $count);
 	showrowdetailed($row, $recid);
@@ -996,7 +996,7 @@ function addrec() {
 			if(sql_insert($FIELDS)){
 				//Display Confirmation Message
 				$_SESSION['MSG'] = ConfirmMessage("New faculty has been added successfully");
-				redirect("admin.php?tab=6");
+				redirect("admin.php?dispatcher=faculties");
 			}else{
 				//Display Error Message
 				$ERRORS['MSG'] = ErrorMessage("Failed to create new faculty. Check to confirm if all fields are well populated and try again.");
@@ -1022,19 +1022,19 @@ function addrec() {
 	$row["Country"] = !empty($FIELDS['Country'])?$FIELDS['Country']:"KE";
 	$row["FacultyID"] = !empty($FIELDS['FacultyID'])?$FIELDS['FacultyID']:"";
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=6">Faculties</a></li><li class="active">Add Faculty</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=faculties">Faculties</a></li><li class="active">Add Faculty</li></ol>
 
-<a id="back" href="admin.php?tab=6"><i class="fa fa-undo fa-fw"></i> Back to Faculties</a>
+<a id="back" href="admin.php?dispatcher=faculties"><i class="fa fa-undo fa-fw"></i> Back to Faculties</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=6&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=faculties&task=add" method="post">
 <input type="hidden" name="sql" value="insert">
 <?php
 showroweditor($row, false, $ERRORS);
 ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=6'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=faculties'">
 </p>
 </form>
 <?php } ?>
@@ -1126,9 +1126,74 @@ function editrec($recid){
 		}
 		else{
 			if(sql_update($FIELDS)){
+				$mail = new PHPMailer;
+				//Send a message to user
+				$Subject = $FIELDS['FacultyID']." - Account Updated";
+				$bodyemail = '<html><head>
+				<title>'.$Subject.'</title>
+				</head><body><div style="background-color:#E1CDB7; color:#000; width:600px; margin:0 auto;">
+				<div style="background:#C60; color:#FFF; min-width:584px; padding:8px;">
+				<h2 style="font-size:15px;font-weight:700;line-height:25px;"><em>'.strtoupper(SYSTEM_NAME).' ACCOUNT UPDATE</em></h2>
+				</div>
+				<div style="padding:15px;">
+				<h3 style="color:#333;">Dear '.$FIELDS['FacultyName'].',</h3>
+				<p style="text-align:justify;">We at <a href="'.PARENT_HOME_URL.'" target="_blank">'.SYSTEM_NAME.'</a> would like to thank you for applying to teach with us. Your account has been updated and you should now be able to access your lecturer portal.</p>
+				<p style="text-align:justify;">Below are your portal access details:<br />
+				Name: '.$FIELDS['FacultyName'].'<br />
+				Portal URL: <a href="'.SYSTEM_URL.'" target="_blank">'.SYSTEM_URL.'</a><br />
+				Faculty Number: '.$FIELDS['FacultyID'].'<br />
+				Username: '.$FIELDS['FacultyID'].'<br />';
+				if(empty($FIELDS['VerifyPass'])){
+					$bodyemail .= 'Password: (Password not changed)';
+				}else{
+					$bodyemail .= 'Password: <a href=\"'.SYSTEM_URL.'/portal/?do=activate&token='.$FIELDS['Token'].'\" target=\"_blank\"><strong>Click here to set your account password</strong></a>';
+				}
+				$bodyemail .= '</p>
+				<h3>What next?</h3>
+				<p style="text-align:justify;">Use the link above to login to the portal and get started.</p>
+				<p>Careers Office,<br />
+				'.SYSTEM_NAME.',<br />
+				'.COMPANY_ADDRESS.'<br />
+				TEL: '.COMPANY_PHONE.'<br />
+				EMAIL: '.INFO_EMAIL.'<br />
+				WEBSITE: '.PARENT_HOME_URL.'</p>
+				</div></div>
+				</body></html>';
+				$body = preg_replace('/\\\\/','', $bodyemail); //Strip backslashes
+				switch(MAILER){
+				case 'smtp':
+				$mail->isSMTP(); // telling the class to use SMTP
+				$mail->SMTPDebug = 0;
+				$mail->SMTPAuth = SMTP_AUTH; // enable SMTP authentication
+				$mail->SMTPSecure = SMTP_SECU; // sets the prefix to the servier
+				$mail->Host = SMTP_HOST; // SMTP server
+				$mail->Port = SMTP_PORT; // set the SMTP port for the HOST server
+				$mail->Username = SMTP_USER;
+				$mail->Password = SMTP_PASS;
+				break;
+				case 'sendmail':
+				$mail->isSendmail(); // telling the class to use SendMail transport
+				break;
+				case 'mail':
+				$mail->isMail(); // telling the class to use mail function
+				break;
+				}
+				$mail->setFrom(MAILER_FROM_EMAIL, MAILER_FROM_NAME);
+				$mail->Subject = $Subject;
+				$mail->AltBody = "To view the message, please use an HTML compatible email viewer!";
+				$mail->msgHTML($body);
+				$mail->addAddress($FIELDS['Email'], $FIELDS['FacultyName']);
+				if(!$mail->Send()) {
+					//Display Confirmation Message
+					$_SESSION['MSG'] = ConfirmMessage("Faculty details have been updated successfully");
+					redirect("admin.php?dispatcher=faculties");
+				}else{
+					//Display Confirmation Message
 				//Display Confirmation Message
-				$_SESSION['MSG'] = ConfirmMessage("Faculty has been updated successfully.");
-				redirect("admin.php?tab=6");
+				$_SESSION['MSG'] = ConfirmMessage("Faculty has been updated emailed successfully.");
+				redirect("admin.php?dispatcher=faculties");
+				}
+				
 			}else{
 				//Display Error Message
 				$ERRORS['MSG'] = WarnMessage("No changes made. Check to confirm if all fields are well populated and try again.");
@@ -1160,9 +1225,9 @@ function editrec($recid){
 	$row["Country"] = !empty($FIELDS['Country'])?$FIELDS['Country']:$row['Country'];
 	$row["FacultyID"] = !empty($FIELDS['FacultyID'])?$FIELDS['FacultyID']:$row['FacultyID'];
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=6">Faculties</a></li><li class="active">Edit Faculty</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=faculties">Faculties</a></li><li class="active">Edit Faculty</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=6&task=edit&recid=<?=$recid?>" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=faculties&task=edit&recid=<?=$recid?>" method="post">
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 <input type="hidden" name="sql" value="update">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
@@ -1170,7 +1235,7 @@ function editrec($recid){
 <?php showroweditor($row, true, $ERRORS); ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Edit" value="Save">
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=6'">
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=faculties'">
 </p>
 </form>
 <?php
@@ -1191,9 +1256,9 @@ function deleterec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=6">Faculties</a></li><li class="active">Delete Faculty</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=faculties">Faculties</a></li><li class="active">Delete Faculty</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=6&task=del&recid=<?=$recid?>" method="post">
+<form action="admin.php?dispatcher=faculties&task=del&recid=<?=$recid?>" method="post">
 <input type="hidden" name="sql" value="delete">
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>">
 <?php showrow($row, $recid) ?>
@@ -1268,7 +1333,7 @@ function manage_announcements($UserType){
 						if(db_affected_rows($conn)>0){
 							$_SESSION['MSG'] = ConfirmMessage("Announcement added successfully");
 							//Redirect
-							redirect("admin.php?tab=6#tabs-2");
+							redirect("admin.php?dispatcher=faculties#tabs-2");
 						}else{
 							$ERRORS['MSG'] = ErrorMessage("Failed to add new announcement. Please try again later.");
 						}
@@ -1280,7 +1345,7 @@ function manage_announcements($UserType){
 						if(db_affected_rows($conn)>0){
 							$_SESSION['MSG'] = ConfirmMessage("Announcement updated successfully");
 							//Redirect
-							redirect("admin.php?tab=6#tabs-2");
+							redirect("admin.php?dispatcher=faculties#tabs-2");
 						}else{
 							$ERRORS['MSG'] = WarnMessage("No changes made!");
 						}
@@ -1301,9 +1366,9 @@ function manage_announcements($UserType){
 				$PublishTo = !empty($PublishTo)?$PublishTo:fixdatepicker($rowAnnounce['PublishTo']);
 			}
 			?>
-            <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=6">Faculties</a></li><li><a href="admin.php?tab=6#tabs-2">Announcements</a></li><li class="active"><?=ucwords($action)?> Announcements</li></ol>
+            <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=faculties">Faculties</a></li><li><a href="admin.php?dispatcher=faculties#tabs-2">Announcements</a></li><li class="active"><?=ucwords($action)?> Announcements</li></ol>
             <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-            <form id="validateform" enctype="multipart/form-data" action="admin.php?tab=6&subtab=announcements&action=<?=$action?>&eid=<?=$editID?>#tabs-2" method="post">
+            <form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=faculties&subtab=announcements&action=<?=$action?>&eid=<?=$editID?>#tabs-2" method="post">
             <table align="center" border="0" cellpadding="1" cellspacing="1">
             <tr><td style="text-align:center" colspan="2"><strong><?=strtoupper($action)?> ANNOUNCEMENT</strong></td></tr>
             <tr><td style="text-align:center" colspan="2"><span class="text-danger"><strong>FIELDS MARKED WITH ASTERISKS (*) ARE REQUIRED</strong></span></td></tr>
@@ -1324,7 +1389,7 @@ function manage_announcements($UserType){
             <td><input class="datepickerto required" type="text" value="<?=$PublishTo; ?>" name="PublishTo"><span class="text-danger"><?=$ERRORS['PublishTo'];?></span></td>
             </tr>
             <tr>
-            <td style="text-align:center" colspan="2"><input type="submit" name="Save" value="Save"> <input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=6#tabs-2'"></td>
+            <td style="text-align:center" colspan="2"><input type="submit" name="Save" value="Save"> <input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=faculties#tabs-2'"></td>
             </tr>
             </table>
             </form>
@@ -1366,11 +1431,11 @@ function manage_announcements($UserType){
 		}
 		//-->
 		</script>
-		<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=6">Faculties</a></li><li class="active">Announcements</li></ol>
+		<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=faculties">Faculties</a></li><li class="active">Announcements</li></ol>
     	<p>Announcements you add here will be published to all faculties who login to the portal. To send announcements to specific faculties, please use the messages tab.</p>
 		<form name="announcements" method="post" action="#tabs-2">
         <div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>
-        <a class="btn btn-primary" href="admin.php?tab=6&subtab=announcements&action=add#tabs-2">Add Announcement</a>
+        <a class="btn btn-primary" href="admin.php?dispatcher=faculties&subtab=announcements&action=add#tabs-2">Add Announcement</a>
         <p class="text-center lead">FACULTY ANNOUNCEMENTS</p>
 		<table width="100%" class="display table table-striped table-bordered table-hover">
 		<thead>
@@ -1391,7 +1456,7 @@ function manage_announcements($UserType){
 			  <td>".$announce['Title']."</td>
 			  <td>".$announce['Announcement']."</td>
 			  <td>".$announce['PublishFrom']." to ".$announce['PublishTo']."</td>
-			  <td><a href=\"?tab=6&subtab=announcements&action=view&eid=".$announce['UID']."#tabs-2\" title=\"View\">View</a> | <a href=\"?tab=6&subtab=announcements&action=edit&eid=".$announce['UID']."#tabs-2\" title=\"View\">Edit</a></td>
+			  <td><a href=\"?dispatcher=faculties&subtab=announcements&action=view&eid=".$announce['UID']."#tabs-2\" title=\"View\">View</a> | <a href=\"?dispatcher=faculties&subtab=announcements&action=edit&eid=".$announce['UID']."#tabs-2\" title=\"View\">Edit</a></td>
 			  <td align=\"center\"><input type=\"checkbox\" id=\"selectedIDs\" name=\"announcementIDs[]\" value=\"".$announce['UID']."\"></td>
 			  </tr>";		
 		  }
@@ -1472,7 +1537,7 @@ function show_loginhistory(){
 	}
 	//-->
 	</script>
-	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=6">Faculties</a></li><li class="active">Login History</li></ol>
+	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=faculties">Faculties</a></li><li class="active">Login History</li></ol>
 	<form name="fac_logins" method="post" action="#tabs-3">
     <div id="hideMsg"><?php if(isset($UsrMSG)) echo $UsrMSG;?></div>
     <p class="text-center lead">FACULTY LOGIN HISTORY</p>
@@ -1623,7 +1688,7 @@ function sql_update_status($disabledFlag, $editID){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=6");
+	redirect("admin.php?dispatcher=faculties");
 }
 
 function sql_delete(){
@@ -1638,7 +1703,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected faculty. Please try again later...");
 	}
-	redirect("admin.php?tab=6");
+	redirect("admin.php?dispatcher=faculties");
 }
 
 function primarykeycondition(){	

@@ -130,12 +130,12 @@ for ($i = 0; $i < $count; $i++){
 <td><?=$row["StudentName"]?></td>
 <td><?=$row["Courses"]?></td>
 <td><?=$row["Phone"]?></td>
-<td><?="<a href=\"admin.php?tab=7&amp;task=add&amp;email=".$row['Email']."\" title=\"Send Email\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/mail.png\" height=\"22\" width=\"22\" alt=\"Send\"></a>";?></td>
+<td><?="<a href=\"admin.php?dispatcher=messages&amp;task=add&amp;email=".$row['Email']."\" title=\"Send Email\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/mail.png\" height=\"22\" width=\"22\" alt=\"Send\"></a>";?></td>
 <?php
 if($row['disabledFlag'] == 0){
-	echo "<td align=\"center\"><a href=\"admin.php?tab=5&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['StudentName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['StudentName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=students&enable=1&eid=".$row['UID']."\" title=\"Click to disable ".$row['StudentName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['StudentName']."\"></a></td>";
 }else{
-	echo "<td align=\"center\"><a href=\"admin.php?tab=5&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['StudentName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['StudentName']."\"></a></td>";
+	echo "<td align=\"center\"><a href=\"admin.php?dispatcher=students&enable=0&eid=".$row['UID']."\" title=\"Click to enable ".$row['StudentName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Enable ".$row['StudentName']."\"></a></td>";
 }
 ?>
 <?php
@@ -145,7 +145,7 @@ if($row['approved'] == 0){
 	echo "<td align=\"center\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"approve ".$row['StudentName']."\"></td>";
 }
 ?>
-<td><a href="admin.php?tab=5&task=view&recid=<?=$i ?>&studentID=<?=$row['StudentID'] ?>">Manage</a> | <a href="admin.php?tab=5&task=edit&recid=<?=$i ?>&studentID=<?=$row['StudentID'] ?>">Edit</a> | <a href="admin.php?tab=5&task=del&recid=<?=$i ?>&studentID=<?=$row['StudentID'] ?>">Delete</a></td>
+<td><a href="admin.php?dispatcher=students&task=view&recid=<?=$i ?>&studentID=<?=$row['StudentID'] ?>">Manage</a> | <a href="admin.php?dispatcher=students&task=edit&recid=<?=$i ?>&studentID=<?=$row['StudentID'] ?>">Edit</a> | <a href="admin.php?dispatcher=students&task=del&recid=<?=$i ?>&studentID=<?=$row['StudentID'] ?>">Delete</a></td>
 </tr>        
 <?php
 }
@@ -199,7 +199,7 @@ global $conn,$class_dir;
           <tr><td><strong>Portal Status:</strong> </td><td><?=$row["Status"]; ?></td></tr>
           <tr><td><strong>Registration Date:</strong> </td><td><?=fixdatelong($row["RegDate"]); ?></td></tr>
           <tr><td><strong>Courses:</strong> </td><td><?=$row["Courses"]; ?></td></tr>        
-          <tr><td><strong>Email:</strong> </td><td><a href="admin.php?tab=7&task=add&email=<?=$row["Email"]; ?>" title="Send Email"><?=$row["Email"]; ?></a></td></tr>
+          <tr><td><strong>Email:</strong> </td><td><a href="admin.php?dispatcher=messages&task=add&email=<?=$row["Email"]; ?>" title="Send Email"><?=$row["Email"]; ?></a></td></tr>
           <tr><td><strong>Phone:</strong> </td><td><?=$row["Phone"]; ?></td></tr>
           <tr><td><strong>Gender:</strong> </td><td><?=$row["Gender"]; ?></td></tr>
           <tr><td><strong>Birthday:</strong> </td><td><?=fixdateshortdob($row['DOB'])?></td></tr>
@@ -248,7 +248,7 @@ global $conn,$class_dir;
 										}
 										// Confirm
 										$_SESSION['MSG'] = ConfirmMessage("Selected units have been updated!");
-										redirect("?tab=5&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
+										redirect("?dispatcher=students&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
 								}
 								break;
 								case "drop":
@@ -261,7 +261,7 @@ global $conn,$class_dir;
 										}
 										// Confirm
 										$_SESSION['MSG'] = ConfirmMessage("Selected units have been dropped!");
-										redirect("?tab=5&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
+										redirect("?dispatcher=students&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
 								}
 								break;
 								case "add";
@@ -284,12 +284,13 @@ global $conn,$class_dir;
 									}
 									// Confirm
 									$_SESSION['MSG'] = ConfirmMessage("New units have been added!");
-									redirect("?tab=5&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
+									redirect("?dispatcher=students&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
 								}
 								break;
 								case "approve":									
 								if( !empty($selectedCourseID) ){
-									require_once("$class_dir/mpdf/autoload.php");																				
+									require_once("$class_dir/mpdf/autoload.php");									//get course type
+									$couseType = trim(getCourseData($selectedCourseID)['CourseType']);				$RegFeeExp = trim(getCourseData($selectedCourseID)['RegFeeExp']);
 									//Send a message to user
 									$Subject = $row['StudentID']." - Admission Letter";
 									$bodyemail = '<html><head>
@@ -380,11 +381,12 @@ global $conn,$class_dir;
 									text-align: justify;
 									}
 									</style>';
+									if( $couseType != "Free"){
 									$pdf_content = '<h3>Congratulations!</h3>
 									<p>I am pleased to inform you that following your application to pursue <strong>'.getCourseName($selectedCourseID).'</strong> with us, we have offered you admission to study this course. Your student number is <strong>'.$row['StudentID'].'</strong>. The programme is offered in <strong>'.getCourseDepartmentName($selectedCourseID).'</strong>. Your study mode will be <strong>'.getStudentStudyMode($row['StudentID']).'</strong>.</p>
 									<h3>E-learning System Access</h3>
 									<p><strong>'.SYSTEM_NAME.'</strong> is a modern institution with a state-of-the-art E-learning system to facilitate your education. Your coursework, assignments, CATs and some exams will be administered through this system. Majority of the interaction with administration and/or lecturers will be facilitated through the system. For you to enjoy this resource, you need a confidential access which is as follows:<br>
-									Go to <a href="'.SYSTEM_URL.'">'.SYSTEM_URL.'</a> and login using the credentials provided on email.</p>
+									Go to <a href="'.SYSTEM_URL.'">'.SYSTEM_URL.'</a> and login using the credentials that will be provided via email later.</p>
 									<h3>Starting of classes & Access to Lessons</h3>
 									<p>Classes start immediately and you will access lessons once you pay <b>fees</b>. Fees are payable in two ways; <b>one-off</b> or in <b>installments</b></p>
 									<h3>Fees Payable</h3>
@@ -403,6 +405,31 @@ global $conn,$class_dir;
 									<img src ="'.EMAIL_SIGNATURE_IMG.'" style="width:92px; height:auto;"/><br><br>
 									'.EMAIL_SIGNATURE_NAME.'<br>
 									'.EMAIL_SIGNATURE_TITLE.'.';
+									}else{
+										$pdf_content = '<h3>Congratulations!</h3>
+									<p>I am pleased to inform you that following your application to pursue <strong>'.getCourseName($selectedCourseID).'</strong> with us, we have offered you admission to study this course. Your student number is <strong>'.$row['StudentID'].'</strong>. The programme is offered in <strong>'.getCourseDepartmentName($selectedCourseID).'</strong>. Your study mode will be <strong>'.getStudentStudyMode($row['StudentID']).'</strong>.</p>
+									<h3>E-learning System Access</h3>
+									<p><strong>'.SYSTEM_NAME.'</strong> is a modern institution with a state-of-the-art E-learning system to facilitate your education. Your coursework, assignments, CATs and some exams will be administered through this system. Majority of the interaction with administration and/or lecturers will be facilitated through the system. For you to enjoy this resource, you need a confidential access which is as follows:<br>
+									Go to <a href="'.SYSTEM_URL.'">'.SYSTEM_URL.'</a> and login using the credentials that will be provided via email later.</p>
+									<h3>Starting of classes & Access to Lessons</h3>
+									<p>Classes start immediately and you will access lessons once you login</b>. </p>
+									<h3>Fees Payable</h3>
+									<p>The fee payable for this course are as follows however, we have waived the whole amount for you.<br>
+									<div style="width:80%;margin:0 auto;">
+									'.getCourseFeesStructure($selectedCourseID, $row['StudyMode']).'
+									</div>
+									</p>
+									<h3>Course Units</h3>
+									<p>For you to be certified as having completed the above course, you must pass all the '.getCourseUnits($selectedCourseID).' units. These units are:</p>
+									<ol>
+									'.getCourseUnitList($selectedCourseID).'
+									</ol>
+									<br><img src ="'.EMAIL_SIGNATURE_STAMP.'" style="float:right; width:160px; height:auto;"/>
+									Yours truly,<br><br>
+									<img src ="'.EMAIL_SIGNATURE_IMG.'" style="width:92px; height:auto;"/><br><br>
+									'.EMAIL_SIGNATURE_NAME.'<br>
+									'.EMAIL_SIGNATURE_TITLE.'.';
+									}
 									
 									$mpdf = new \Mpdf\Mpdf();
 									
@@ -443,14 +470,14 @@ global $conn,$class_dir;
 									if(!$mail->Send()) {
 										//failure
 										$_SESSION['MSG'] = ErrorMessage("Your attempt to approve ".$row['StudentName']." to persue ".$selectedCourseID." has failed due to an error caused by the MAIL function. An admission letter could not be sent. Please try again later.");
-										redirect("?tab=5&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
+										redirect("?dispatcher=students&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
 									}
 									else{
 										//Approve
 										UpdateApproved($row['StudentID']);
 										//success
 										$_SESSION['MSG'] = ConfirmMessage("You have approved ".$row['StudentName']." to persue ".$selectedCourseID.". An admission letter has been sent successfully.");
-										redirect("?tab=5&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
+										redirect("?dispatcher=students&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
 									}
 								}
 								break;
@@ -516,13 +543,13 @@ global $conn,$class_dir;
 									if(!$mail->Send()) {
 										//failure
 										$_SESSION['MSG'] = ErrorMessage("Your attempt to reject ".$row['StudentName']." from persuing ".$selectedCourseID." has failed due to an error caused by the MAIL function. A reject letter could not be sent. Please try again later.");
-										redirect("?tab=5&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
+										redirect("?dispatcher=students&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
 									}else{
 										//Reject
 										UpdateRejected($row['StudentID']);
 										//success											
 										$_SESSION['MSG'] = ConfirmMessage("You have rejected ".$row['StudentName']." from persuing ".$selectedCourseID.". A rejection letter has been sent successfully.");
-										redirect("?tab=5&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
+										redirect("?dispatcher=students&task=view&recid=$recid&studentID=".$row['StudentID']."#sub-tabs-2");
 									}
 								break;
 						}
@@ -547,7 +574,7 @@ global $conn,$class_dir;
 				</script>
 				<div class="modal fade" id="addUnits" tabindex="-1" role="dialog" aria-labelledby="addUnitsLabel">
 					<div class="modal-dialog modal-lg" role="document">
-						<form class="form-inline" name="assign-lectures" method="post" action="admin.php?tab=5&task=view&recid=<?=$recid?>&studentID=<?=$row["StudentID"]?>&action=add#sub-tabs-2">
+						<form class="form-inline" name="assign-lectures" method="post" action="admin.php?dispatcher=students&task=view&recid=<?=$recid?>&studentID=<?=$row["StudentID"]?>&action=add#sub-tabs-2">
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -594,7 +621,7 @@ global $conn,$class_dir;
 				<?php			
 				//Loop foreach($CourseIDs as &$CourseID)
 				while(list(, $CourseID) = each($CourseIDs)) {
-					echo "<tr><td colspan=\"6\"><a class=\"btn btn-sm btn-success\" href=\"admin.php?tab=5&task=view&action=approve&recid=$recid&studentID={$row['StudentID']}&courseID=$CourseID\">Approve</a> <a class=\"btn btn-sm btn-danger\" href=\"admin.php?tab=5&task=view&action=reject&recid=$recid&studentID={$row['StudentID']}&courseID=$CourseID\">Reject</a> <strong>($CourseID) ".getCourseName($CourseID)."</strong></td></tr>";
+					echo "<tr><td colspan=\"6\"><a class=\"btn btn-sm btn-success\" href=\"admin.php?dispatcher=students&task=view&action=approve&recid=$recid&studentID={$row['StudentID']}&courseID=$CourseID\">Approve</a> <a class=\"btn btn-sm btn-danger\" href=\"admin.php?dispatcher=students&task=view&action=reject&recid=$recid&studentID={$row['StudentID']}&courseID=$CourseID\">Reject</a> <strong>($CourseID) ".getCourseName($CourseID)."</strong></td></tr>";
 			
 					$resUnits = registeredUnits($row["StudentID"], $CourseID);			
 					if(db_num_rows($resUnits)>0){				
@@ -690,9 +717,9 @@ global $conn,$class_dir;
 		</div>
     
     <div class="quick-nav btn-group">
-      <a class="btn btn-default" href="admin.php?tab=5&task=add"><i class="fa fa-file-o fa-fw"></i>Add Student</a>
-      <a class="btn btn-default" href="admin.php?tab=5&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit Student</a>
-      <a class="btn btn-default" href="admin.php?tab=5&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i>Delete Student</a>
+      <a class="btn btn-default" href="admin.php?dispatcher=students&task=add"><i class="fa fa-file-o fa-fw"></i>Add Student</a>
+      <a class="btn btn-default" href="admin.php?dispatcher=students&task=edit&recid=<?=$recid ?>"><i class="fa fa-pencil-square-o fa-fw"></i>Edit Student</a>
+      <a class="btn btn-default" href="admin.php?dispatcher=students&task=del&recid=<?=$recid ?>"><i class="fa fa-trash-o fa-fw"></i>Delete Student</a>
     </div>
     
   </div>
@@ -733,7 +760,7 @@ global $a;
   <div class="col-md-4">
     <div class="form-group">
     <label for="">Phone: <span class="text-danger">*</span></label>
-    <input <?=$ERRORS['Phone']?> type="text" value="<?=$row['Phone']; ?>" name="Phone" class="form-control required" />
+    <input <?=$ERRORS['Phone']?> type="tel" value="<?=$row['Phone']; ?>" name="Phone" class="form-control required" />
     </div>
   </div>
   <div class="col-md-4">
@@ -851,18 +878,18 @@ global $a;
 function showpagenav() {
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=5&task=add">Add Student</a>
-<a class="btn btn-default" href="admin.php?tab=5&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=students&task=add">Add Student</a>
+<a class="btn btn-default" href="admin.php?dispatcher=students&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=5"><i class="fa fa-undo fa-fw"></i> Back to Students</a>
+<a class="btn btn-default" href="admin.php?dispatcher=students"><i class="fa fa-undo fa-fw"></i> Back to Students</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=5&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=students&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=5&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=students&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -881,7 +908,7 @@ function viewrec($recid){
 		$row["Status"] = "Disabled";
 	}	 
 	?>
-	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=5">Students</a></li><li class="active">View Student</li></ol>
+	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=students">Students</a></li><li class="active">View Student</li></ol>
 	<?php 
 	showrecnav("view", $recid, $count);
 	showrowdetailed($row, $recid);
@@ -1055,11 +1082,11 @@ function addrec() {
 				if(!$mail->Send()) {
 					//Display Confirmation Message
 					$_SESSION['MSG'] = ConfirmMessage("New student has been created successfully.");
-					redirect("admin.php?tab=5");
+					redirect("admin.php?dispatcher=students");
 				}else{
 					//Display Confirmation Message
 					$_SESSION['MSG'] = ConfirmMessage("New student has been created and emailed successfully.");
-					redirect("admin.php?tab=5");
+					redirect("admin.php?dispatcher=students");
 				}
 			}else{
 				//Display Error Message
@@ -1084,19 +1111,19 @@ function addrec() {
 	$row["Country"] = !empty($FIELDS['Country'])?$FIELDS['Country']:"KE";
 	$row["StudentID"] = !empty($FIELDS['StudentID'])?$FIELDS['StudentID']:"";
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=5">Students</a></li><li class="active">Add Student</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=students">Students</a></li><li class="active">Add Student</li></ol>
 
-<a class="btn btn-default" href="admin.php?tab=5"><i class="fa fa-undo fa-fw"></i> Back to Students</a>
+<a class="btn btn-default" href="admin.php?dispatcher=students"><i class="fa fa-undo fa-fw"></i> Back to Students</a>
 
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=5&task=add" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=students&task=add" method="post">
 <input type="hidden" name="sql" value="insert" />
 <?php
 showroweditor($row, false, $ERRORS);
 ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Add" value="Save" />
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=5'" />
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=students'" />
 </p>
 </form>
 <?php } ?>
@@ -1251,11 +1278,11 @@ function editrec($recid){
 				if(!$mail->Send()) {
 					//Display Confirmation Message
 					$_SESSION['MSG'] = ConfirmMessage("Student details have been updated successfully");
-					redirect("admin.php?tab=5");
+					redirect("admin.php?dispatcher=students");
 				}else{
 					//Display Confirmation Message
 					$_SESSION['MSG'] = ConfirmMessage("Student details have been updated and emailed successfully.");
-					redirect("admin.php?tab=5");
+					redirect("admin.php?dispatcher=students");
 				}
 			}
 			else{
@@ -1286,9 +1313,9 @@ function editrec($recid){
 	$row["Country"] = !empty($FIELDS['Country'])?$FIELDS['Country']:$row['Country'];
 	$row["StudentID"] = !empty($FIELDS['StudentID'])?$FIELDS['StudentID']:$row['StudentID'];
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=5">Students</a></li><li class="active">Edit Student</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=students">Students</a></li><li class="active">Edit Student</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
-<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=5&task=edit&recid=<?=$recid?>" method="post">
+<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=students&task=edit&recid=<?=$recid?>" method="post">
 <p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 <input type="hidden" name="sql" value="update" />
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>" />
@@ -1297,7 +1324,7 @@ function editrec($recid){
 <?php showroweditor($row, true, $ERRORS); ?>
 <p class="text-center">
 <input class="btn btn-primary" type="submit" name="Edit" value="Save" />
-<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=5'" />
+<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=students'" />
 </p>
 </form>
 <?php
@@ -1318,9 +1345,9 @@ function deleterec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res);  
 ?>
-<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=5">Students</a></li><li class="active">Delete Student</li></ol>
+<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=students">Students</a></li><li class="active">Delete Student</li></ol>
 <?php showrecnav("del", $recid, $count); ?>
-<form action="admin.php?tab=5&task=del&recid=<?=$recid?>" method="post">
+<form action="admin.php?dispatcher=students&task=del&recid=<?=$recid?>" method="post">
 <input type="hidden" name="sql" value="delete" />
 <input type="hidden" name="eid" value="<?=$row["UID"] ?>" />
 <?php showrow($row, $recid) ?>
@@ -1395,7 +1422,7 @@ function manage_announcements($UserType){
 						if(db_affected_rows($conn)>0){
 							$_SESSION['MSG'] = ConfirmMessage("Announcement added successfully");
 							//Redirect
-							redirect("admin.php?tab=5#tabs-2");
+							redirect("admin.php?dispatcher=students#tabs-2");
 						}else{
 							$ERRORS['MSG'] = ErrorMessage("Failed to add new announcement. Please try again later.");
 						}
@@ -1407,7 +1434,7 @@ function manage_announcements($UserType){
 						if(db_affected_rows($conn)>0){
 							$_SESSION['MSG'] = ConfirmMessage("Announcement updated successfully");
 							//Redirect
-							redirect("admin.php?tab=5#tabs-2");
+							redirect("admin.php?dispatcher=students#tabs-2");
 						}else{
 							$ERRORS['MSG'] = WarnMessage("No changes made!");
 						}
@@ -1428,14 +1455,14 @@ function manage_announcements($UserType){
 				$PublishTo = !empty($PublishTo)?$PublishTo:fixdatepicker($rowAnnounce['PublishTo']);
 			}
 			?>
-			<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=5">Students</a></li><li><a href="admin.php?tab=5#tabs-2">Announcements</a></li><li class="active"><?=ucwords($action)?> Announcements</li></ol>
+			<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=students">Students</a></li><li><a href="admin.php?dispatcher=students#tabs-2">Announcements</a></li><li class="active"><?=ucwords($action)?> Announcements</li></ol>
 			<p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 			<p class="text-center"><strong><?=strtoupper($action)?> ANNOUNCEMENT</strong></p>
 			<p class="text-center"><span class="text-danger"><strong>FIELDS MARKED WITH ASTERISKS (*) ARE REQUIRED</strong></span></p>
 			<div class="row">
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
-					<form id="validateform" enctype="multipart/form-data" action="admin.php?tab=5&subtab=announcements&action=<?=$action?>&eid=<?=$editID?>#tabs-2" method="post">										
+					<form id="validateform" enctype="multipart/form-data" action="admin.php?dispatcher=students&subtab=announcements&action=<?=$action?>&eid=<?=$editID?>#tabs-2" method="post">										
 					<div class="form-group">
 						<label for="">Title:</label>
 						<input class="form-control" type="text" value="<?=$Title; ?>" name="Title">
@@ -1453,7 +1480,7 @@ function manage_announcements($UserType){
 						</div>
 					</div>
 					<div class="form-group">
-					  <div class="text-center"><input class="btn btn-primary" type="submit" name="Save" value="Save">&nbsp;<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?tab=5#tabs-2'"></div>
+					  <div class="text-center"><input class="btn btn-primary" type="submit" name="Save" value="Save">&nbsp;<input class="btn btn-default" type="button" name="cancel" value="Cancel" onclick="javascript:location.href='admin.php?dispatcher=students#tabs-2'"></div>
 					</div>
 					</form>
 			  </div>
@@ -1498,11 +1525,11 @@ function manage_announcements($UserType){
 		}
 		//-->
 		</script>
-		<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=5">Students</a></li><li class="active">Announcements</li></ol>
+		<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=students">Students</a></li><li class="active">Announcements</li></ol>
 		<p>Announcements you add here will be published to all students who login to the portal. To send announcements to specific students, please use the messages tab.</p>
 		<form name="announcements" method="post" action="">
 		<div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>
-		<a class="btn btn-primary" href="admin.php?tab=5&subtab=announcements&action=add#tabs-2">Add Announcement</a>        
+		<a class="btn btn-primary" href="admin.php?dispatcher=students&subtab=announcements&action=add#tabs-2">Add Announcement</a>        
 		<p class="text-center">STUDENT ANNOUNCEMENTS</p>
 		<table width="100%" class="display table table-striped table-bordered table-hover">				
 		<thead>
@@ -1523,7 +1550,7 @@ function manage_announcements($UserType){
 			  <td>".$announce['Title']."</td>
 			  <td>".$announce['Announcement']."</td>
 			  <td>".$announce['PublishFrom']." to ".$announce['PublishTo']."</td>
-			  <td><a href=\"?tab=5&subtab=announcements&action=view&eid=".$announce['UID']."#tabs-2\" title=\"View\">View</a> | <a href=\"?tab=5&subtab=announcements&action=edit&eid=".$announce['UID']."#tabs-2\" title=\"Edit\">Edit</a></td>
+			  <td><a href=\"?dispatcher=students&subtab=announcements&action=view&eid=".$announce['UID']."#tabs-2\" title=\"View\">View</a> | <a href=\"?dispatcher=students&subtab=announcements&action=edit&eid=".$announce['UID']."#tabs-2\" title=\"Edit\">Edit</a></td>
 			  <td align=\"center\"><input type=\"checkbox\" id=\"selectedIDs\" name=\"announcementIDs[]\" value=\"".$announce['UID']."\"></td>
 			  </tr>";		
 		  }
@@ -1603,7 +1630,7 @@ function show_loginhistory(){
 	}
 	//-->
 	</script>
-	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=5">Students</a></li><li class="active">Login History</li></ol>
+	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=students">Students</a></li><li class="active">Login History</li></ol>
 	<form name="std_logins" method="post" action="#tabs-3">
 	<div id="hideMsg"><?php if(isset($UsrMSG)) echo $UsrMSG;?></div>
 	<p class="text-center">STUDENT LOGIN HISTORY</p>
@@ -1763,7 +1790,7 @@ function sql_update_status($disabledFlag, $editID){
 	}else{
 		$_SESSION['MSG'] = WarnMessage("No changes made!");
 	}
-	redirect("admin.php?tab=5");
+	redirect("admin.php?dispatcher=students");
 }
 
 function sql_delete(){
@@ -1778,7 +1805,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected student. Please try again later...");
 	}
-	redirect("admin.php?tab=5");
+	redirect("admin.php?dispatcher=students");
 }
 
 function primarykeycondition(){

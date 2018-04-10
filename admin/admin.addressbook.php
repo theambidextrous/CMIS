@@ -155,7 +155,7 @@ function select(){
 	<td><?=$row['PhoneOne']?></td>
 	<td><?=$row['PhoneTwo']?></td>
 	<td><?=$row["PhoneThree"]?></td>
-	<td><a href="admin.php?tab=11&task=view&recid=<?=$row['UID'] ?>">View</a> | <a href="admin.php?tab=11&task=del&recid=<?=$row['UID'] ?>">Delete</a></td>
+	<td><a href="admin.php?dispatcher=addressbook&task=view&recid=<?=$row['UID'] ?>">View</a> | <a href="admin.php?dispatcher=addressbook&task=del&recid=<?=$row['UID'] ?>">Delete</a></td>
 	</tr>
 	<?php
 	}
@@ -244,18 +244,18 @@ function showpagenav() {
   global $folder;
 ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-primary" href="admin.php?tab=11&task=add">Add Contact</a>
-<a class="btn btn-default" href="admin.php?tab=11&task=reset">Reset Filters</a>
+<a class="btn btn-primary" href="admin.php?dispatcher=addressbook&task=add">Add Contact</a>
+<a class="btn btn-default" href="admin.php?dispatcher=addressbook&task=reset">Reset Filters</a>
 </div>
 <?php } ?>
 
 <?php function showrecnav($a, $recid, $count) { ?>
 <div class="quick-nav btn-group">
-<a class="btn btn-default" href="admin.php?tab=11"><i class="fa fa-undo fa-fw"></i> Back to Address book</a>
+<a class="btn btn-default" href="admin.php?dispatcher=addressbook"><i class="fa fa-undo fa-fw"></i> Back to Address book</a>
 <?php if ($recid > 0) { ?>
-<a class="btn btn-default" href="admin.php?tab=11&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=addressbook&task=<?=$a ?>&recid=<?=$recid - 1 ?>"><i class="fa fa-arrow-left fa-fw"></i> Prior Record</a>
 <?php } if ($recid < $count - 1) { ?>
-<a class="btn btn-default" href="admin.php?tab=11&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
+<a class="btn btn-default" href="admin.php?dispatcher=addressbook&task=<?=$a ?>&recid=<?=$recid + 1 ?>"><i class="fa fa-arrow-right fa-fw"></i> Next Record</a>
 <?php } ?>
 </div>
 <?php } ?>
@@ -268,7 +268,7 @@ function viewrec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res); 
 	?>
-	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?tab=11">Address book</a></li><li>View Cotact</li></ol>
+	<ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=addressbook">Address book</a></li><li>View Cotact</li></ol>
 	<?php 
 	showrecnav("view", $recid, $count);
 	showrowdetailed($row, $recid);
@@ -289,20 +289,25 @@ function editrec($recid, $action){
 
 <?php 
 function deleterec($recid){
-
+	global $conn;
+		$sql = "UPDATE `".DB_PREFIX."addressbook` SET `deletedFlag` = 1 WHERE `UID` = '$recid' ";
+		db_query($sql,DB_NAME,$conn);
+		$_SESSION['MSG'] = ConfirmMessage("Record Deleted");
+			redirect("admin.php?dispatcher=addressbook");
+	return null;
 }
 ?>
 <?php
 function sql_select(){
 	global $conn;
-		$sql = "SELECT * FROM `".DB_PREFIX."addressbook`";
+		$sql = "SELECT * FROM `".DB_PREFIX."addressbook` WHERE `deletedFlag` = 0";
 		$res = db_query($sql,DB_NAME,$conn);
 	return $res;
 }
 
 function sql_getrecordcount(){
 	global $conn;
-		$sql = "SELECT COUNT(*) FROM `".DB_PREFIX."addressbook`";		
+		$sql = "SELECT COUNT(*) FROM `".DB_PREFIX."addressbook` WHERE `deletedFlag` = 0";		
 		$res = db_query($sql,DB_NAME,$conn);
 		$row = db_fetch_array($res);
 		reset($row);	
@@ -324,7 +329,7 @@ function sql_delete(){
 	}else{
 		$_SESSION['MSG'] = ErrorMessage("Failed to delete selected record. Please try again later...");
 	}
-	redirect("admin.php?tab=11");
+	redirect("admin.php?dispatcher=addressbook");
 }
 
 function primarykeycondition(){
