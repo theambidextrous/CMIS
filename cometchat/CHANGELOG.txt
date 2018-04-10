@@ -1,0 +1,4249 @@
+------------------------------------------------------------------------------------
+ CometChat Change Log
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+CometChat v7.0.6 (2018-02-28)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Audio/Video Chat
+  - Fixed issue with File Transfer for guest users in CometChat Cloud
+  - Fixed issue while renaming group name for CometChat Cloud
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v7.0.5 (2018-02-22)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with guest login for CometChat Cloud
+  - Miscellaneous Bug fixes
+
++ Features
+
+  + Web
+  - Added Javascript API to send messages in the group
+  - Added Javascript API for Audio/video Chat
+
+------------------------------------------------------------------------------------
+CometChat v7.0.4 (2018-02-19)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with chatWith Javascript API for Embedded Layout
+  - Fixed issue with chatWithUID Javascript API for Embedded Layout
+
+------------------------------------------------------------------------------------
+CometChat v7.0.3 (2018-02-12)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with load earlier messages for MSSQL Databases
+  - Fixed issue with Unban members option missing in groups for Embedded Layout
+  - Fixed issue with Audio/Video Chat UI for IE Browser
+  - Fixed issue when deleting group messages in Embedded Layout
+  - Miscellaneous CSS and UI Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v7.0.2 (2018-02-09)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while logging out in Embedded Layout
+  - Fixed issue with multiple message alerts during Kick and Ban in group
+  - Fixed UI and CSS issues in Docked Layout
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v7.0.1 (2018-02-06)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Joomla CMS plugin
+  - Fixed issue with friends functionality for custom integrations
+  - Fixed issue with multiple message alerts when deleting a group
+  - Fixed issue with mooSocial Integration for CometChat Cloud
+
++ Features
+
+  + Web
+  - Added API to list users and their details for CometChat Cloud
+  - Added option to show offline users in Contacts list for CometChat Cloud
+
+------------------------------------------------------------------------------------
+CometChat v7.0.0 (2018-01-30)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Guest login in Social Authentication
+  - Fixed issue while logging in mobile devices for Social Authentication
+  - Miscellaneous Bug fixes
+
++ Features
+
+  + Web
+  - Added Role Based Access Control for Joomla CMS
+
+------------------------------------------------------------------------------------
+CometChat v6.9.29 (2018-01-23)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Added support for Voice & Video Chat in modern mobile browsers (beta)
+  - Changed the appearance for Voice & Video Chat
+  - Fixed issue with Jomsocial plugins
+  - Fixed issue with Sharetribe Integration for CometChat Cloud
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Web
+  - Added setting to disable Docked Layout in CometChat Admin Panel
+
+------------------------------------------------------------------------------------
+CometChat v6.9.28 (2018-01-17)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Graph in CometChat Admin Panel Dashboard
+  - Fixed issue while searching detailed logs in CometChat Admin Panel
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Web
+  - Added OpenCart Integration
+
+------------------------------------------------------------------------------------
+CometChat v6.9.27 (2018-01-16)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with sound notification in Groups for Embedded Layout
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Web
+  - Added Graphical Representation in CometChat Admin Panel Dashboard
+
+------------------------------------------------------------------------------------
+CometChat v6.9.26 (2018-01-12)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while Receiving unread messages
+  - Fixed issue with Audio/Video Chat in Group
+  - Fixed issue with Guest stats count in CometChat Admin Panel Dashboard
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Web
+  - Added New updated WordPress Plugin
+
+------------------------------------------------------------------------------------
+CometChat v6.9.25 (2018-01-09)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with stats count in CometChat Admin Panel Dashboard
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Web
+  - Added Guest login feature with Social Authentication
+
+------------------------------------------------------------------------------------
+CometChat v6.9.24 (2018-01-02)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while displaying stickers in Real Time Monitor Window
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Web
+  - Added reporting feature in the CometChat Admin Panel Dashboard
+
+------------------------------------------------------------------------------------
+CometChat v6.9.23 (2017-12-29)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with duplicate guest name
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.9.22 (2017-12-28)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Guest list when friend list is configued
+  - Miscellaneous Bug fixes
+
+  + Android App & SDK
+  - Fixed issue with message Sync in Groups
+  - Fixed issue with Group auto join notification
+  - Fixed issue while launching CometChat with particular Contact & or Group
+  - Fixed issue while fetching images with AWS server
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.9.21 (2017-12-28)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Authentication mode in Admin Panel for CometChat Cloud
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Web
+  - New UI for Audio chat in one on one conversation
+
+
+------------------------------------------------------------------------------------
+CometChat v6.9.20 (2017-12-19)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with stickers
+  - Miscellaneous Bug fixes
+
+  + iOS App
+  - Fixed Bug in Groups
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.9.19 (2017-12-18)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with auto open Chat Box when new message arrives
+  - Fixed issue with Groups for MSSQL Databases
+  - Fixed issue while Updating Firebase keys for Social login in Admin Panel
+
++ Enhancements
+
+  + Web
+  - Added new stickers for Christmas Celebration
+  - Added new CometChat layout for Mobile Browsers
+  - Added new feature to export CometChat messages log
+
+------------------------------------------------------------------------------------
+CometChat v6.9.18 (2017-12-12)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while updating Appearance in CometChat Admin Panel
+  - Fixed issue while loading CometChat Admin Panel after an update to latest version
+  - Optimized SQL queries for better performance
+
+------------------------------------------------------------------------------------
+CometChat v6.9.17 (2017-12-11)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Optimized SQL queries for better performance
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.9.16 (2017-12-08)
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Moodle Integration
+  - Fixed issue with Recent Chat list
+  - Miscellaneous Bug fixes
+
+  + CometChat Server
+  - Fixed issue while creating Groups
+
+------------------------------------------------------------------------------------
+CometChat v6.9.15
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with sound notification for new message
+  - Fixed JavaScript issue with getUnreadMessageCount API
+  - Fixed CometChat login issue with Safari Browser
+  - Miscellaneous Bug fixes
+
+  + Android App & SDK
+  - Fixed issue while Sorting time for Messages
+  - Fixed issue with Ban/Unban members in Group
+  - Added Kick functionality in Group
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.9.14
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Android App & SDK
+  - Fixed issue with CometService
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Android App & SDK
+  - Added Background Service for optimization
+  - Added pagination for messages received in onMessageReceived callback in subscribe method
+
+------------------------------------------------------------------------------------
+CometChat v6.9.13
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Wordpress Cloud Plugin
+  - Added UI and CSS fixes for Embedded Layout
+  - Fixed issue while deleting Group
+  - Fixed issue while updating License Key in CometChat Admin Panel
+  - Fixed JS conflict issue while creating a group
+
++ Enhancements
+
+  + Web
+  - Added new Javascript API to check if Group already exists
+  - Added new RestFul API to check if Group already exists
+
+------------------------------------------------------------------------------------
+CometChat v6.9.12
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with message count for Docked Layout
+  - Fixed issue with ILIAS Integration
+  - Fixed issue with Report Conversation feature
+  - Fixed issue with Audio/Video Chat in Desktop Messenger
+
+  + CometChat Server
+  - Fixed issue with Real-time Translate in Group
+
+  + iOS App
+  - Fixed issue with audio note file size
+  - Fixed issue with Navigation Bar on iOS 11
+
+------------------------------------------------------------------------------------
+CometChat v6.9.11
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Announcement Feature for MSSQL databases
+  - Fixed issue while updating status message
+  - Fixed scrolling issue with Recent Chat list
+
++ Features
+
+  + Web
+  - Added Voice Note feature (Premium Edition and higher)
+
+------------------------------------------------------------------------------------
+CometChat v6.9.10
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with WoltLab Integration
+  - Fixed CSS conflicts issue with CometChat
+  - Fixed issue of Group being visible, even after being deleted by the owner
+  - Fixed issue with Pop-up message in Group
+
+------------------------------------------------------------------------------------
+CometChat v6.9.9
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + CometChat Server
+  - Fixed issue with NULL value in Group response for iOS Apps
+
+------------------------------------------------------------------------------------
+CometChat v6.9.8
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Custom Integration
+  - Fixed issue while loading Group messages
+  - Fixed issue while loading CometChat for different languages
+  - Fixed issue while adding Members in the Group
+  - Fixed issue with Ban, Unban and Kick functionality in the Group
+  - Fixed issue with XSS vulnerability
+
+  + Android App & SDK
+  - Fixed issue with memory management while loading images
+  - Fixed issue with frame drop of Audio/Video calls.
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Web
+  - Added settings in CometChat Admin Panel to set the time, after which Contacts tab will refresh
+  - Added settings in CometChat Admin Panel to set the time, after which user will be considered as offline
+
+------------------------------------------------------------------------------------
+CometChat v6.9.7
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with delete option in Group list
+  - Fixed issue with Audio/Video chat Window for Embedded Layout
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.9.6
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + CometChat Server
+  - Fixed issue with Audio/Video chat in Mobile Apps
+
+------------------------------------------------------------------------------------
+CometChat v6.9.5
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issues with Drupal Integration
+  - Fixed issues with Crea8social Integration
+  - Fixed issues with Sharetribe Integration for CometChat Cloud
+  - Fixed issue while scrolling users in group
+  - Fixed issue with CometChat in IE Browser
+  - Fixed issue while restoring CometChat state
+  - Miscellaneous Bug fixes
+
+  + CometChat Server
+  - Fixed issue with chat login in Mobile Apps
+
+  + Android App & SDK
+  - Fixed issue with message sorting
+  - Fixed issue with screen share in Group
+  - Miscellaneous Bug fixes
+
+  + iOS App
+  - Fixed issue with Navigation Bar on iOS 11
+  - Miscellaneous Bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.9.4
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issues related to compatibility with PHP version below 5.5
+
+  + Android App & SDK
+  - Miscellaneous Bug fixes
+
++ Enhancements
+
+  + Android App & SDK
+  - Added receiver for screenshare
+
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+CometChat v6.9.3
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with loader in Embedded Layout.
+
+------------------------------------------------------------------------------------
+CometChat v6.9.2
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with loading Embedded Layout.
+
+------------------------------------------------------------------------------------
+CometChat v6.9.1
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with kick/ban not reflecting in real-time
+  - Miscellaneous Bug fixes
+
+  + Android App & SDK
+  - Fixed UI issue with Audio/Video Broadcast
+  - Fixed issue with guest login
+  - Fixed issue with Local Storage backward compatibility
+  - Miscellaneous Bug fixes
+
+  + CometChat Server
+  - Fixed issue with login for Dating Script integration
+
++ Enhancements
+
+  + Android App & SDK
+  - Added select all feature for broadcast message
+  - Added search user feature for broadcast message
+
+------------------------------------------------------------------------------------
+CometChat v6.9.0
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Optimize response while sending message
+  - Fixed issue with CometService
+  - Fixed issue with message scrolling in textarea for Docked Layout
+  - Fixed UI and CSS fixes for Broadcast Message
+  - Miscellaneous bug fixes
+
+  + Android App & SDK
+  - Fixed issue with Audio/Video Broadcast
+  - Miscellaneous Bug fixes
+
+  + iOS SDK
+  - New SDK with source code for UI
+
+  + CometChat Server
+  - Fixed issue with Unban response
+
++ Features
+
+  + Web
+  - Added settings to align Docked Layout to the left
+
+------------------------------------------------------------------------------------
+CometChat v6.8.11
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed UI and CSS fixes for Audio/Video Chat
+  - Miscellaneous bug fixes
+
+  + Android App & SDK
+  - Fixed issue with the response of Broadcast Message feature
+  - Fixed issue with Invite users in a Group
+  - Fixed issue with camera switch for Audio/Video Chat
+  - Fixed issue with camera switch for Audio/Video Broadcast
+
+------------------------------------------------------------------------------------
+CometChat v6.8.10
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issues with Wordpress Plugin
+  - Fixed issues with Xenforo Integration
+  - Fixed issue with Read Receipt Notification
+  - Fixed issue with Recent Chat list
+  - Fixed issue with Logo not appearing in Desktop Messenger
+
+  + Android App & SDK
+  - Fixed issue while loading older messages in One-on-one Chat
+  - Fixed issue while deleting Groups
+  - Fixed issue while renaming Groups
+  - Miscellaneous bug fixes
+
+  + iOS App
+  - Fixed issue with Color your text feature
+  - Fixed issue when joining Audio/Video Broadcast in One-on-one Chat
+
++ Enhancements
+
+  + Web
+  - Added support for Credits deduction in Role Based Access Control
+  - Improved Caching of resource files using CDN for CometChat Cloud
+  - Added RestFul API for Collaborative Document
+
+------------------------------------------------------------------------------------
+CometChat v6.8.9
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Android SDK
+  - Upgraded sample app with CometChat as dependencies
+  - Fixed Audio Call avatar issue
+  - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.8.8
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Android SDK
+  - Fixed issue with Delivery Messages and ReadMessages
+  - Fixed issue with Offline messages on the network switch
+  - Fixed issue of notification click
+  - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.8.6
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Laravel integration
+  - Fixed issue when updating Role Base Access settings from CometChat Admin Panel
+  - Fixed issue when disconnecting Audio/Video calls
+
+  + Android SDK
+  - Fixed issue with image capture crash on Android Nougat
+  - Fixed issue with displaying user count
+  - Fixed issue with Emojis
+  - Fixed issue with creating Group
+  - Fixed issue with receiveing message
+
++ Features
+
+  + Web
+  - Added RESTful API to block and unblock users
+  - Added Profile image in chat box for Docked Layout
+
+  + Android SDK
+  - Added Whiteboard and Screen sharing features
+  - Added invite user functionality in Audio/Video Broadcast feature
+
+------------------------------------------------------------------------------------
+CometChat v6.8.5
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with JomSocial integration
+  - Fixed issue while loading CometChat in mobile browsers
+  - Fixed issue while updating settings in Admin Panel for MSSQL Databases
+
+  + CometChat Server
+  - Fixed issue while downloading media files in CometChat Cloud
+
++ Features
+
+  + iOS SDK
+  - New SDK (Beta) with source code for UI
+
+------------------------------------------------------------------------------------
+CometChat v6.8.4
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while downloading media files
+  - Fixed issue while installing CometChat for PostgreSQL Databases
+  - Fixed issue with unread messages for PostgreSQL Databases
+
+------------------------------------------------------------------------------------
+CometChat v6.8.3
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with duplicate messages
+  - Fixed issue with loading Javascript and CSS files
+  - Fixed issue with phpBB integration
+
+  + CometChat Server
+  - Fixed issue with duplicate notification
+
+------------------------------------------------------------------------------------
+CometChat v6.8.2
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with loading group users for  MSSQL Databases
+  - Miscellaneous bug fixes
+
++ Features
+
+  + iOS SDK
+  - New SDK (Beta) with source code for UI
+
+------------------------------------------------------------------------------------
+CometChat v6.8.1
+------------------------------------------------------------------------------------
+
++ Fixes
+
++ Web
+- Fixed login issue with Drupal CMS
+- Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.8.0
+------------------------------------------------------------------------------------
+
++ Features
+
+  + Web
+  - Role Based Access Control now available for CometChat Cloud
+
+  + Android SDK
+  - Download the SDK directly from JCenter!
+  - Xamarin Component updated with new Android architecture
+
++ Enhancements
+
+  + Web
+  - Improved Caching using Content Delivery Network for CometChat Cloud
+  - One Signal Push Notification support
+
++ Fixes
+
+  + Web
+  - Fixed User Status issue
+  - Fixed issues with MSSQL integration
+
+------------------------------------------------------------------------------------
+CometChat v6.7.5
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with File Sharing Feature
+  - Fixed issue with BuddyPress Inbox Synchronisation
+  - Fixed issues with MSSQL Integration
+  - Minor Bug Fixes
+
+  + Android App
+  - Fixed issue with Handwrite Feature
+  - Miscellaneous Bug Fixes
+
+  + Android SDK
+  - Fixed issue with Handwrite Feature
+  - Miscellaneous Bug Fixes
+
+  + iOS App
+  - Added Fix for Amazon S3
+  - Fixed issue with duplicate messages
+  - Added push notification event on leaving a group
+
+------------------------------------------------------------------------------------
+CometChat v6.7.4
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed AV chat Automatic Close issue
+
+  + Android App
+  - Fixed AWS Video issue
+  - Clear conversation issue fixed
+
+  + Android SDK
+  - Audio and Video Call improvements
+  - Miscellaneous bug fixes
+
+  + iOS App
+  - Fixed AWS Video, Image, Audio issue
+
+  + CometChat Server
+  - Fixed issue with social login in Mobile Apps
+
+------------------------------------------------------------------------------------
+CometChat v6.7.3
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed login issue with cometchat for safari mobile browser in embeded layout
+  - Fixed issue while loading group for PostgreSQL Databases
+  - Fixed issue while loading group for  MSSQL Databases
+  - Fixed issue with Last seen
+
+
+  + Android App
+  - Fixed issue with App crash
+
+  + Enhancements
+
+  + Web
+  - Added new hooks for groups
+
+
+------------------------------------------------------------------------------------
+CometChat v6.7.2
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Social Authentication for Wordpress
+  - Fixed issue with Role Base Access Control for Wordpress
+
+  + Android App
+  - Fixed issue with Writeboard
+
+------------------------------------------------------------------------------------
+CometChat v6.7.1
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while downloading Audio file
+  - Fixed issue while sending stickers in Group
+  - Fixed issue with creategroup RESTful API for PostgreSQL Databases
+  - Miscellaneous bug fixes
+
+  + Android App
+  - Fixed issue while sending offline messages
+  - Fixed issue with duplicate messages
+  - Fixed logged out issue for Blocked user
+
+  + Android SDK
+  - Firebase Push Notification
+  - New Architecture with UI source
+
+  + iOS App
+  - Fixed issue while downloading images
+  - Fixed issue with duplicate messages
+  - Fixed issues with Writeboard and Voice & Video Broadcast
+  - Fixed App crash issue on App launch
+
+------------------------------------------------------------------------------------
+CometChat v6.7.0
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with online user count in Group
+
+------------------------------------------------------------------------------------
+CometChat v6.6.19
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while Updating Base URL in CometChat Admin Panel
+  - Fixed issue with preview media files in File Transfer Feature
+  - Minor Bug Fixes
+
+  + CometChat Server
+  - Fixed issue with social login in Mobile Apps
+
+  + iOS App
+  - Fixed issue with duplicate Message
+  - Minor Bug Fixes
+
++ Enhancements
+
+  + Web
+  - Added settings to view online users in Groups
+
+------------------------------------------------------------------------------------
+CometChat v6.6.18
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with joining Group (in cross-domain environment)
+  - Fixed Disabled CometChat setting issue in Admin Panel
+  - Fixed UI and CSS fixes for Last seen feature
+  - Fixed issue in RESTful API while Adding Group Users
+
+
+  + CometChat Server
+  - Fixed issue with fetching Group Messages in Mobile Apps
+
+------------------------------------------------------------------------------------
+CometChat v6.6.17
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Message count in Embedded Layout (One-on-one Chat)
+  - Fixed issue with Message loading in Embedded Layout (Group Chat)
+  - Fixed issue while Searching Ban Users in CometChat Admin Panel
+  - Fixed issue chatWith JavaScript API for Mobile Browsers
+  - Fixed issue with Block User Feature for MSSQL Databases
+
+  + Android SDK
+  - Fixed issue with join Conference for Group Chat
+  - Added local ID field for Offline Message when sending Image, Video, Audio, File, Stickers
+  - Added Ionic 2 Plugin in SDK package
+
+  + iOS SDK
+  - Fixed issue for Message ordering in Group Chat
+  - Fixed issue for Audio calls in Group Chat
+
++ Enhancements
+
+  + Web
+  - Added support for PostgreSQL Databases
+  - Added Role Base Access Control for Wordpress
+
+------------------------------------------------------------------------------------
+CometChat v6.6.16
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with duplicate message in Group with CometService
+  - Fixed issue with clearing Guest Entries using Clean Up feature
+
+------------------------------------------------------------------------------------
+CometChat v6.6.15
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Group logs in CometChat Admin Panel
+  - Fixed issue with Message Broadcast (in cross-domain environment)
+  - Fixed issue with re-sizing textarea while sending Message in Groups for Docked Layout
+
+------------------------------------------------------------------------------------
+CometChat v6.6.14
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Recent Tab list
+  - Fixed issue with Announcement and File transfer Feature for MSSQL databases
+
+  + Android SDK
+  - Fixed issue while receiving messages from iOS devices
+
+  + iOS SDK
+  - Fixed issue with Message Sync
+
++ Enhancements
+
+  + Web
+  - Added new stickers for true friends
+
+  + Android SDK
+  - Added new stickers for true friends
+
+  + iOS SDK
+  - Added new stickers for true friends
+
+------------------------------------------------------------------------------------
+CometChat v6.6.13
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while doing an Auto Update in CometChat
+
+------------------------------------------------------------------------------------
+CometChat v6.6.12
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with closing the popup when rejecting an Audio/Video call
+  - Fixed issue with addFriend RESTful API
+  - Fixed logout issue for Desktop Messenger
+
+  + Android SDK
+  - Fixed issue with back button while inviting users to a group
+  - Fixed a rare bug with loading group messages
+  - UI Fixes for creating a group
+
++ Enhancements
+
+  + Web
+  - Moved to Firebase for social login feature (for sites with no user management)
+
+------------------------------------------------------------------------------------
+CometChat v6.6.11
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue with Real-time Translate feature
+  - Fixed issue with sending long messages in groups
+
+  + Android SDK
+  - Fixed compatibility issues
+  - Added chatroom ID parameter when sending Image, Video, Audio, Stickers
+
+  + iOS SDK
+  - Fixed Group messages issue
+  - Minor Bug Fixes
+
++ Enhancement
+
+  + Web
+  - Added new API to get all Push Notification channels
+  - Added new custom hooks for CometChat
+
+------------------------------------------------------------------------------------
+CometChat v6.6.10
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+  - Fixed issue while doing an Auto Update in CometChat for Plugin
+  - Fixed issue with tabs in Embedded Layouts
+  - Fixed issue with RESTful API's for MSSQL databases
+  - Fixed issue with Group messages for MSSQL databases
+
+  + Android App
+  - Fixed issue with Bots response in chatrooms.
+
++ Enhancement
+
+  + Web
+  - Clean the group messages while deleting Group
+
+------------------------------------------------------------------------------------
+CometChat v6.6.9
+------------------------------------------------------------------------------------
+
++ Fixes
+
++ Web
+- Fixed issue with Group messages
+- Fixed UI issue with Editor in Wordpress Plugin
+- Fixed issue when updating username for logged-in users
+- Fixed issue with JavaScript API to open Group ChatBox
+
++ Android App
+- Fixed an issue with Recent Tab
+- Fixed message syncing issue with CometService
+- Fixed rare case for duplicate message issue
+- Fixed AWS media files issue
+
++ iOS App
+- Fixed message syncing issue with CometService
+- Fixed rare case for duplicate message issue
+
+------------------------------------------------------------------------------------
+CometChat v6.6.8
+------------------------------------------------------------------------------------
+
+  + Fixes
+
+  + Web
+  - Fixed issue with Bots response while sending message
+  - Fixed issue with RESTful API's for Groups
+  - Fixed issue while synchronizing messages in CMS
+  - Fixed issue while deleting messages from Groups
+
+------------------------------------------------------------------------------------
+CometChat v6.6.7
+------------------------------------------------------------------------------------
+
+  + Fixes
+
+  + Web
+  - Fixed issue while scrolling under more section in Embedded Layouts
+  - Fixed issue while doing an Auto Update in CometChat
+  - Fixed issue with RESTful API's
+  - Fixed issue while synchronizing messages in JomSocial CMS with CometChat
+  - Fixed issue with tabs in Embedded Layouts
+
+------------------------------------------------------------------------------------
+CometChat v6.6.6
+------------------------------------------------------------------------------------
+
+  + Fixes
+
+  + Web
+  - Fixed issue while loading CometChat Admin Panel after an update to latest version.
+
+------------------------------------------------------------------------------------
+CometChat v6.6.5
+------------------------------------------------------------------------------------
+
+  + Fixes
+
+  + Web
+  - Fixed logout issue with Social Login
+  - Miscellaneous Bug Fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.6.4
+------------------------------------------------------------------------------------
+
+  + Fixes
+
+  + Web
+  - Fixed issue with images in Announcement
+  - Fixed issue with Inbox message sync for PHPFox
+  - Fixed issue with Wordpress Integration
+  - Fixed issue with Audio/Video chat
+  - Fixed issue with phpBB integration
+  - Fixed issue with Social Login
+  - Miscellaneous Bug Fixes
+
+  + Enhancement
+
+  + Web
+  - Added an option to resize Chat Boxes in Docked Layout
+
+------------------------------------------------------------------------------------
+CometChat v6.6.3
+------------------------------------------------------------------------------------
+
+ + Fixes
+
+ + Web
+  - Fixed issue with Push Notification in Mobile Apps for Group Chat
+
+------------------------------------------------------------------------------------
+CometChat v6.6.2
+------------------------------------------------------------------------------------
+
+ + Fixes
+
+ + Web
+  - Fixed issue with Push Notification in Mobile Apps
+  - Fixed issue with Javascript API to get Unread Message Count
+
+------------------------------------------------------------------------------------
+CometChat v6.6.1
+------------------------------------------------------------------------------------
+
+ + Fixes
+
+ + Web
+  - Fixed issue while searching detailed logs in CometChat Admin Panel
+  - Fixed issue with CometChat message synchronization in JomSocial CMS
+  - Fixed issue with Cron feature
+  - Miscellaneous Bug Fixes
+
++ iOS
+  - Added fix for Group unread message count in the Recent List
+  - Added fix for count in Recent Tab
+  - Miscellaneous Bug Fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.6.0
+------------------------------------------------------------------------------------
+
++ Enhancement
+
++ Web
+  - Added new Javascript API to get Unread Message Count
+  - Added new Javascript API to Chat with Group
+  - Launched New CometChat Wordpress Installer
+  - Added support for MSSQL databases
+
+ + Android SDK
+  - New SDK (Beta) with source code for UI
+
+ + Fixes
+
+ + Web
+  - Fixed issue with audio/video chat window, which would close automatically during calls
+  - Fixed issue while previewing media files (in cross-domain environment)
+
+------------------------------------------------------------------------------------
+CometChat v6.5.23
+------------------------------------------------------------------------------------
+
++ Fixes
+
++ Web
+  - Fixed issue with the text messages in Embedded layout
+  - Fixed issue with the RESTful APIs.
+
+------------------------------------------------------------------------------------
+CometChat v6.5.22
+------------------------------------------------------------------------------------
+
++ Fixes
+
++ Web
+  - Fixed issue with cron
+  - Fixed issue with carriage return & line feed in announcement
+  - Added fix while accepting an AV Chat
+  - Fixed issue with auto open chatbox in Embedded layouts
+  - Added Fix for continuous beep notification in Embedded layouts
+  - Added Fix for message count in Embedded layouts
+
++ Enhancement
+
++ Web
+  - Added option to upload logo for Desktop Messenger from CometChat Admin Panel
+
+------------------------------------------------------------------------------------
+CometChat v6.5.21
+------------------------------------------------------------------------------------
+
++ Fixes
+
++ Web
+  - Fixed issue while joining AV Broadcast
+  - Added fix while cancelling an Audio call
+  - Fixed issue with avatars for Blocked Users
+
+------------------------------------------------------------------------------------
+CometChat v6.5.20
+------------------------------------------------------------------------------------
+
++ Fixes
+
++ Web
+  - Fixed login issues with CometChat Admin Panel
+  - Fixed issue with Load Earlier Messages in Groups
+  - Added fix for duplicate end call message, while ending an Audio call
+  - Added fix while rejecting an Audio call
+  - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.5.19
+------------------------------------------------------------------------------------
+
++ Fixes
+
++ Web
+  - Fixed issue while restoring CometChat state
+  - Fixed right to left alignment issue with Emojis pop up
+  - Fixed empty response issue while sending the message
+
+------------------------------------------------------------------------------------
+CometChat v6.5.18
+------------------------------------------------------------------------------------
+
++ Fixes
+
++ Web
+  - Fixed issue while embedding private Groups
+  - Fixed issue to block pop ups on AV Chat for non SSL sites
+  - Fixed issue while inviting users in Groups
+
++ Android
+  - Fixed issue while initializing audio/video broadcast and chat
+
+------------------------------------------------------------------------------------
+CometChat v6.5.17
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with message order in one on one chat for Embedded layouts
+    - Miscellaneous bug fixes
+
+  + Android
+    - Fixed issue with app updation
+    - Fixed issue with app theme color
+
+------------------------------------------------------------------------------------
+CometChat v6.5.16
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue in Javascript API for minimizing chatboxes
+    - Fixed issue with Real Time Monitoring in CometChat Admin Panel
+    - Fixed cross platform issue with AV chat
+    - Fixed issue with Collaborative Document
+
+  + iOS
+    - Added to show limited set of users in Recent chat.
+    - Fixed issue with message sound.
+    - Fixed multiple message issue in Group.
+    - Added Select All option for Broadcast and invite messages.
+    - Added fix for Langauge Translation.
+    - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.5.15
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with Update for Joomla and Social Engine CMSes
+    - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.5.14
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with chat history plugin
+    - Fixed issue with group messages
+
+  + Android
+    - Fixed UI issue with guest login button
+    - Fixed issue with non-text messages
+    - Fixed issue with CometService
+
+------------------------------------------------------------------------------------
+CometChat v6.5.13
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with session handler
+    - Fixed issue with update
+
+------------------------------------------------------------------------------------
+CometChat v6.5.12
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with message sanitization
+    - Fixed issue with Sound Notifications on incoming Smilies in Embedded Layouts
+    - Fixed the issue with BASE URL for Joomla CMS
+    - Fixed the issue EasySocial Plugin
+    - Fixed issue with CometChat Admin Panel session
+    - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.5.11
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with Smilies
+    - Fixed warnings for JS and CSS caching headers
+    - Resolved CSS conflicts with Joomla CMS
+    - Miscellaneous bug fixes
+
+  + Android
+    - Miscellaneous bug fixes
+
++ Enhancement
+  + Android
+    - Added new setting to restrict the number of users shown in the Recent tab
+
+------------------------------------------------------------------------------------
+CometChat v6.5.10
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with BASE URL
+    - Fixed issue with AutoUpdate feature
+    - Fixed issue with Whiteboard and Collaborative Documents
+    - Miscellaneous bug fixes
+
+  + Android
+    - Fixed issue with SoundCloud helper Bot
+    - Fixed issue with media sharing on Android 7.0
+
++ Enhancement
+  + Web
+    - Separated MySQL queries from core PHP code
+    - Improved error logging
+
+------------------------------------------------------------------------------------
+CometChat v6.5.9
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with sending messages when using Javascript API for Mobile Browser
+    - Fixed issue with Handwriting and File transfer feature
+    - Fixed issue with Mobile push notifications
+    - Fixed log out issue in Social Engine PHP integration
+    - Fixed CSS conflicts with Joomla CMS
+    - UI fixes for tabs in Embedded layout
++ Enhancement
+  + Web
+    - Added new setting to restrict number of users shown in Recent tab
+
+------------------------------------------------------------------------------------
+CometChat v6.5.8
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with setting Base URL for new installations
+    - Fixed issue with sending messages in Groups when using Mobile Browser
+    - Fixed issue with session handler in Admin Panel
+    - Fixed issues with language variables in JavaScript
+
++ Enhancement
+  + Web
+    - RESTful API to create user now returns users information if the user already exists
+    - Added a new setting to open CometChat in the same window when using Mobile Browser
+
+------------------------------------------------------------------------------------
+CometChat v6.5.7
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed issue with Kick/Ban feature in Groups
+    - Fixed issue with Guest login
+    - Fixed issue with Collaborative document feature
+
++ Enhancement
+  + Web
+    - Default language can be overridden via query string
+
+------------------------------------------------------------------------------------
+CometChat v6.5.6
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed login issue in Admin Panel
+
+------------------------------------------------------------------------------------
+CometChat v6.5.5
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Fixed log out issue in Admin Panel
+    - Fixed issue with PHP header in Admin Panel
+    - Fixed issue with Content Type header in CSS output
+    - Fixed Contacts tab disabled warning
+
+------------------------------------------------------------------------------------
+CometChat v6.5.4
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Web
+    - Added Legacy CometService to resolve JS conflicts with Mootools
+    - Fixed login issue in Embedded layout
+    - Fixed issue with real time translation when CometService is enabled
+    - Fixed issue with incoming video call notification
+    - UI fixes for Audio/Video Chat
+    - UI fixes for Embedded layout when only one Chat tab is enabled
+
+  + Plugnis
+    - Modified Social Engine Plugin to resolve JS conflicts with Mootools
+    - Fixed issue with username for Jomsocial Inbox
+
++ Enhancements
+  - Added RESTfull API for group management
+
+------------------------------------------------------------------------------------
+CometChat v6.5.3
+------------------------------------------------------------------------------------
+
++ Fixes
+
+  + Desktop Messenger
+    - Fixed issue with incoming/outgoing video call notification
+    - Fixed issue with sound notification for new incoming messages
+    - Fixed issue with Desktop Notifications
+    - Other Miscellaneous fixes
+
+  + iOS App
+    - UI Fixes in Login Screen
+    - Fixed issue with recent conversations on logout
+    - Fixed issues with the messages on joining a group
+    - Optimized code for Recent chats to improve the app performance
+
+  + Web
+    - Fixed issue with vbulletin integration for cloud
+    - Fixed issue with embedded layout in mobile browser
+    - Added an api to authenticate the user on cloud for custom integration
+
++ Enhancements
+  + Collaborative document and Whiteboard will now resume the previous session.
+
+------------------------------------------------------------------------------------
+CometChat v6.5.2
+------------------------------------------------------------------------------------
+
++ Fixes
+  - Added new option in admin panel to permanently delete messages on clearing the conversation in chat box by user
+  - Optimized Wordpress and Buddypress integrations by resolving bootstrap conflicts
+  - Fixed call disconnect issue with CometService A/V call and broadcast
+  - Fixed issue with JS conflicts on Social Engine plugin
+  - Fixed issue with SSL in Ready-to-use Bots
+
++ Android App
+  - Fixed issue with language change not reflecting while viewing profile
+  - Fixed issue with group and one on one messages
+  - Fixed A/V chat and broadcast with CometService
+  - Fixed screen share issue with CometService
+  - Optimized UI on incoming call screen
+  - Fixed issue with group chat users
+  - Improved app performance
+
+------------------------------------------------------------------------------------
+CometChat v6.5.1
+------------------------------------------------------------------------------------
+
++ Enhancements
+  - Added User Login API for Web
++ Fixes
+  - Added UI and CSS fixes for Bots
+  - Added UI and CSS fixes for Forgot Password feature in CometChat Admin Panel
+  - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.5.0
+------------------------------------------------------------------------------------
+
++ Enhancements
+  - Added Ready-to-use Bots
+  - Added Forgot Password feature for CometChat Admin Panel
++ Fixes
+  - Fixed issue with browser caching
+  - Fixed issue with beep notification in groups
+  - Fixed issue with incoming/outgoing video calls in Mobile Apps
++ Plugin
+  - Updated CometChat plugin for Buddypress
+  - Updated CometChat plugin for Boonex Dolphin
+  - Added an option to replace subject title in emails
+
+------------------------------------------------------------------------------------
+CometChat v6.4.9
+------------------------------------------------------------------------------------
+
++ Fixes
+  + Bug Fixes
+    - Fixed issue with embedded layouts in mobile browser
+    - Fixed issue with similies for CometChat web
+    - Fixed issue with message timestamp for CometChat web
+    - Fixed issue with block feature and guest mode
+    - Fixed issue with updating chatbox after sending message for CometChat web
+    - Fixed issue with updating general settings in cloud administration panel
+    - Added setting for site's sign up URL in CometChat administration panel for mobile apps
+
+------------------------------------------------------------------------------------
+CometChat v6.4.8
+------------------------------------------------------------------------------------
+
++ Fixes
+  + Bug Fixes
+    - Optimized CometService calls
+    - Added CSS fixes for users list in Docked layout
+
+------------------------------------------------------------------------------------
+CometChat v6.4.7
+------------------------------------------------------------------------------------
+
++ Fixes
+  + Bug Fixes
+    - Added fix for css conflicts with Boonex and Social Engine
+    - Added fix for Whiteboard in mobileapps
+    - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.4.6
+------------------------------------------------------------------------------------
+
++ Fixes
+  + Bug Fixes
+    - Added fix for istyping notifications
+    - Added fix for read receipts
+    - Added fix messages reordering
+    - UI fixes for the recent, contact and group tabs
+    - Added option to synchronize message over all devices
+    - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.4.5
+------------------------------------------------------------------------------------
+
++ Fixes
+  + Bug Fixes
+    - Optimized SQL query for the recent list
+    - UX fixes for the emoji keyboard for groups in Embedded layout
+    - UI fixes for the recent list for an image response from a bot
+    - UI fixes for the chatbox features dropdown for groups in Docked layout
+    - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.4.4
+------------------------------------------------------------------------------------
+
++ Fixes
+  + Bug Fixes
+    - Added fix for duplicate messages in Groups
+    - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.4.3
+------------------------------------------------------------------------------------
+
++ Fixes
+  + Bug Fixes
+    - Added fix for duplicate messages in Groups
+    - Fixed issue with Mobilewebapp
+
+------------------------------------------------------------------------------------
+CometChat v6.4.2
+------------------------------------------------------------------------------------
+
++ Fixes
+  +Administration Panel
+    - Fixed issue with Features menu
+
+  + Bug Fixes
+    - Added fix for duplicate messages
+    - Fixed issue with Chathistory plugin on cross-domain
+    - Fixed alert issue with banned user in groups
+    - UI fix for invite users in groups
+    - Miscellaneous UI fixes for Docked and Embedded layouts
+    - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.4.1
+------------------------------------------------------------------------------------
+
++ Fixes
+  +Administration Panel
+    - Fixed issue with cron job
+    - Fixed the issue of rebuild bots
+
+  + Bug Fixes
+    - Fixed issues with Guest login
+    - Fixed issues with Translate Conversation
+    - Fixed push notification issues in Handwritten messages
+    - Fixed message counter issue in Groups
+    - Fixed CSS conflicts issue in Socialengine
+    - Fixed duplicate message issue
+    - Fixed the issue with Stickers and Smilies
+
+------------------------------------------------------------------------------------
+CometChat v6.4.0
+------------------------------------------------------------------------------------
+
++ Features
+  - Added CometChat synchronization on browser amongst tabs
+  - Added option to disable 'recent', 'contact' and 'groups' tabs
+  - New UI for audio/video chat in one on one conversation
+  - New UI and responsive administration panel
+  - Force update released for CometChat
+  - Moved bots into 'more' section
+  - Added offline message queue
+  - Added 'last seen' feature
+  - Added 'recent' tab
+
+
++Android App
+- Added user status message history
+- Added offline message queue
+- Moved bots to 'more' section
+- Miscellaneous bug fixes
+- Added 'view profile'
+- Added 'recent' tab
+- Optimized code
+
+
++Android SDK
+- Added ban/unban user functionality in chatroom module
+- Added kick users functionality in chatroom module
+- Added user status message history
+- Added 'recent' tab in ReadyUI
+- Added offline message queue
+- Moved bots to 'more' section
+- Added 'view profile'
+
++iOS App
+- Added user status message history
+- Added offline message queue
+- Enhanced language mapping
+- Moved bots to 'more' section
+- Miscellaneous bug fixes
+- Added 'view profile'
+- Added 'recent' tab
+- Optimized code
+
++iOS SDK
+- Added ban/unban user functionality in chatroom module
+- Added kick users functionality in chatroom module
+- Added new SuccessCallback for leave chatroom
+- Added user status message history
+- Added 'recent' tab in ReadyUI
+- Added offline message queue
+- Moved bots to 'more' section
+- Added 'view profile'
+
+------------------------------------------------------------------------------------
+CometChat v6.3.8
+------------------------------------------------------------------------------------
+
++ Fixes
++CometChat Server
+- Fixed the issue with group messages when CometService is disabled.
+
++Enhancements
++Web
+- New JS API to trigger smart polling
+
+------------------------------------------------------------------------------------
+CometChat v6.3.7
+------------------------------------------------------------------------------------
+
++ Fixes
++Administration Panel
+- Fixed the issue with auto-update
+
++CometChat Server
+- Fixed issues with character encoding in JSON response
+- Miscellaneous server side fixes Mobile Apps and SDK
+
++Enhancements
++CometChat Server
+- Added an API to create a group
+
+------------------------------------------------------------------------------------
+CometChat v6.3.6
+------------------------------------------------------------------------------------
+
++ Fixes
++Docked
+- Fixed the issue with Advertisements in Group
+- Fixed the issue with invite users in Invitation only Groups
+- Added the option to Hide the bar for non-logged in users
+- Fixed the css issues in Games module
+- Fixed the login issue in PhpFox CMS
+- Fixed the issue with view users in Groups
+
++App
+- Miscellaneous minor bug fixes(iOS)
+
+ +SDK
+- Fixed an issue with Audio/Video call and Audio call(iOS)
+
+------------------------------------------------------------------------------------
+CometChat v6.3.5
+------------------------------------------------------------------------------------
+
++ Fixes
++Docked
+- Fixed the issue with Audio/Video Broadcast
+- Fixed the issue with anchor tag in PhpFox Neutron app
+- Fixed issue with Screenshare in Group
+- Fixed issue with view users in Group
+- Fixed issue invite user and scroll issue in Group
+- Fixed issue with avatar in Wordpress and buddypress
+
++App
+- Fixed issue with bot list(Android)
+- Fixed issue with hide/show share app button from CometChat Administration Panel(Android)
+- Fixed issue with login screen design(Android)
+
++SDK
+- Fixed issue with message notification
+
+------------------------------------------------------------------------------------
+CometChat v6.3.4
+------------------------------------------------------------------------------------
+
++ Fixes
++Docked
+- Fixed the issue with Advertisements Extensions
+- Fixed the issue Update color values in DB while installation
+- SQL Query optimization for fetching new messages.
+- Fixed the CSS conflict issue
+- Fixed the Language conflicts issue
+- Fixed the invite link issue in private chatrooms
+- Fixed the REST API issue
+
++App
+- Fixed issues with Chinese and other languages.
+- Fixed issues with Single Player Games(iOS)
+- Fixed issues with Color Your Text feature(iOS)
+- Miscellaneous fixes for Handwrite/Whiteboard/Writeboard(iOS)
+- Fixed issue with empty bot list(Android)
+- Fixed issues with Real Time Translation(Android)
+
++SDK
+- Added sample app for Ionic
+- Fixed incoming call bugs (Android)
+- Fixed Xamarin class not found Bug(Android)
+- Added prompts for the permissions even at runtime(Android)
+- Added rounded corners for Video and Image Preview(iOS)
+- Miscellaneous fixes for handwrite(iOS)
+- Added unban users option in chatroom(iOS)
+- Fixed issues with Color Your Text feature(iOS)
+- Fixed issue with incoming and outgoing call ringtone (iOS)
+- Fixed issue with sound notification on a new incoming message(iOS)
+- Fixed Reachability duplicate issue(iOS)
+
+------------------------------------------------------------------------------------
+CometChat v6.3.3
+------------------------------------------------------------------------------------
+
++ Fixes
++Docked
+ - Fixed the issue of multiple desktop notification when CometChat is opened in multiple tabs
+ - Fixed the login issue in Broadcast module
+ - Added fix for JS loading
+ - Fixed the issue while displaying enabled plugins
+ - Added fix for unban group user
+ - Fixed the issue of CometChat bar appearing within iframes of various CMS
+ - Fixed the CSS conflict issue in Elgg
+ - Miscellaneous bug fixes
+
++Embedded
+ - Fixed the issue of multiple desktop notification when CometChat is opened in multiple tabs
+ - Fixed the login issue in Broadcast module
+ - Added fix for JS loading
+ - Fixed the issue while displaying enabled plugins
+ - Added fix for unban group user
+ - Fixed the issue with embedded group
+ - Fixed the stickers issue in one-on-one chat when Cometservice is enabled
+ - Added CSS fix for animation
+ - Fixed the issue while embedding CometChat
+ - Fixed the login issue in WebApp and DM
+
++Administration Panel
+ - Added settings in the CometChat Administration Panel to show/hide username in groups
+
++Plugin
+ - Fixed the compatbility issue of CometChat with phpFox (version 4.4+)
+
++Android App
+ - Added fix for title issue in Firebase push notification
+ - Lazy loading for better performance and lesser RAM consumption.
+ - Language issue fixed
+
++Android SDK
+ - Image picker issue fixed.
+ - Create Chatroom API 24 issue fixed.
+ - Added Logout Method in Ready UI.
+
++iOS App
+ - Language related changes.
+ - Miscellaneous bug fixes.
+
+ +iOS SDK
+ - Miscellaneous bug fixes
+
+------------------------------------------------------------------------------------
+CometChat v6.3.2
+------------------------------------------------------------------------------------
+
++ Fixes
++Docked
+ - Added CSS fix for UI
+ - Fixed scroll issues in Chatboxes
+ - Updated certificates for webRTC
+ - Created new API for user details
+ - Added CSS fix in Audio / Video chat, Audio chat and Broadcast plugin
+
++Embedded
+ - Added CSS fix for UI
+ - Created new API for user details
+ - Fixed the issue of reloading groups in Firefox browser
+ - Added CSS fix in Audio / Video chat, Audio chat and Broadcast plugin
+ - Fixed cross domain issues
+ - Fixed the issue of embedded groups in Internet Explorer
+ - Added CSS fix for bots in Internet Explorer
+
++Administration Panel
+ - Added fix for Auto upgrade
+ - Added fix for Report conversation
+
+ +Plugin
+ - Fixed issue with CometChat in PhpFox
+ - Fixed issue with CometChat in Wordpress
+ - Fixed issue with CometChat Integration in Crea8Social
+ - Fixed issue with CometChat Integration in Chameleon
+ - Fixed issue with CometChat Integration in BoonEx: Dolphin
+
++Android App
+ - Bot List handling fixed.
+ - Miscellaneous bug fixes
+
+ +Android SDK
+  - Announcement issue fixed for Ready UI.
+  - Smiley Keyboard issue fixed for Ready UI.
+  - Block User issue fixed for Ready UI.
+  - Dynamic Permissions for Ready UI.
+  - Miscellaneous bug fixes
+
++iOS  App
+- Minor language changes.
+- Performance enhancement by cleaning up unnecessary codes.
+- miscellaneous bug fixes.
+
++iOS SDK
+- Performance enhancement by cleaning up unnecessary codes.
+- Added Rename/Delete option in chatroomslist which are available in "other chatrooms" list section.
+- Fixed an issue with chatwindow.
+- Fixed an issue with bots avatar.
+- Fixed an issue with bot gif image.
+- Fixed an issue with wrapper of files.
+- Minor language changes.
+
+------------------------------------------------------------------------------------
+CometChat v6.3.1
+------------------------------------------------------------------------------------
+
++ Fixes
+ +Docked
+  - Fixed the issue of Advertisement extension
+  - Code cleanup of data structures
+  - Added CSS fix for Filetransfer plugin
+  - Fixed CSS conflicts with CMS
+
+ +Embedded
+  - Added CSS fix for buttons
+  - Code cleanup of data structures
+  - Fixed the issue of Advertisement extension
+  - Fixed language issue in bots
+  - Added CSS fix in Filetransfer plugin
+
+ +Desktop Messenger
+  - Fixed issue of preview image
+
+ +Administration Panel
+  - Added CSS for setting buttons
+
+ +Android App
+  - Upgraded Audio and Video calling libraries for better performance
+  - Fixed White Color text bug in Group Chat.
+  - Miscellaneous bug fixes
+
+ +Android SDK
+  - Upgraded Audio and Video calling libraries for better performance
+  - Miscellaneous bug fixes
+
+ +iOS App
+  - Made necessary changes in the Hybrid Heartbeat
+  - Language related changes
+  - Miscellaneous bug fixes
+
+ +iOS SDK
+  - Miscellaneous bug fixes
+
+ +Updated Integration for
+  - Moosocial
+
+------------------------------------------------------------------------------------
+CometChat v6.3.0
+------------------------------------------------------------------------------------
+
++ Features
+  - Added Bots extention for all the platforms
+  - Added Auto Update functionality
+  - Added Stack implementation for chatboxes in Docked layout
+  - Added option for custom color
+  - Reduced network calls
+
++ Fixes
+  +Docked
+  - Fixed the issue of Block user plugin
+  - Added fix for logout option in Social Login
+  - Fixed the issue of Stickers
+  - Fixed alignment issue of rename group icon and unread message count
+  - Added username in group chat for Mobile Webapp
+  - Fixed alignment issue of delete group icon
+  - Fixed push notification issue for deleted groups
+  - Added fix for cross domain issues
+  - Fixed scroll issues in Docked layout
+  - Added fixes for CSS conflicts
+  - Miscellaneous bug fixes
+
+  +Embedded
+  - Fixed mesasge count issue for unread messages
+  - Fixed the issue of Handwrite plugin in DM
+  - Fixed alignment issue of rename group icon and unread message count
+  - Fixed responsive issue in DM and Embedded layout
+  - Added fix for cross domain issues
+  - Fixed issues in group after enabling Comet service
+
+  +Administration Panel
+  - Added DEV MODE and ERROR LOGGING option in the CometChat Administration Panel
+
+  +Android App
+  - Replaced Picasso with Glide for better performance and gif support
+  - Added new Hybrid Heartbeat service for One-on-One and Group Chat combined
+  - Added Social Login link on the login page
+  - Added "Unban user" option in a groups
+  - Made the floating action menu dynamic
+  - Fixed login page icon for white labelled apps
+  - Miscellaneous bug fixes
+
+  +Android SDK
+  - Added New UI for ReadyUI SDK
+  - Added new LoginCallback for readyUI which provides the notification channel information and Notifies whenever a new message is received and a chat window is launched/closed
+  - Added new Hybrid Heartbeat which for SDK One-on-One and Group Chat combined
+  - Integrated Firebase Push Notification in SDK
+  - Miscellaneous bug fixes
+
+  +iOS App
+  - Added new Hybrid Heartbeat service for One-on-One and Group Chat combined
+  - Added support for response content-type html and json
+  - Miscellaneous bug fixes
+
+  +iOS SDK
+  - Added New UI for ReadyUI SDK
+  - Added change language for Ready UI
+  - Added new LoginCallback for readyUI which provides the notification channel information and Notifies whenever a new message is received and a chat window is launched/closed
+  - Added new Hybrid Heartbeat which for SDK One-on-One and Group Chat combined
+  - Integrated Firebase Push Notification in SDK
+  - Changed login response from html to json
+  - Fixed Timestamp issue with received images, handwrite message in both One-on-One and Group Chat
+  - Fixed Timestamp of received text file is getting overlapped with below sent text message in group
+  - Fixed an issue with number of blocked users
+  - Fixed an issue with user status
+  - Fixed App crash issue on logout callback
+  - Added support for response content-type html and json
+  - Miscellaneous bug fixes
+
+
+------------------------------------------------------------------------------------
+CometChat v6.2.5
+------------------------------------------------------------------------------------
+
++ Fixes
+ +Docked
+  - Fixed the logout issue in IPB
+  - Fixed the issue with conflict in IDs with IPB
+
+ +Embedded
+  - Fixed the logout issue in IPB
+  - Fixed the issue with conflict in IDs with IPB
+
++Administration Panel
+ - Fixed the issue with direct link of chatroom
+ - Fixed the issue of deleting minified js and css file after clearing cache
+
+------------------------------------------------------------------------------------
+CometChat v6.2.4
+------------------------------------------------------------------------------------
+
++ Fixes
+ +Docked
+  - Fixed scrolling issue for previous messages on clicking Load earlier
+  - Stopped chatrooms heartbeat from being called after logout
+  - Fixed Change language option not appearing in transliterate plugin
+  - Added CSS fix for Social Login
+
+ +Embedded
+  - Removed grouping of users under different social networks
+  - Added CSS Fix for welcome message
+  - Fixed scrolling issue with view users
+  - CSS fixes for Games, Translate this page, Realtime translate plugin
+  - Fixed issue of Facebook fan page
+  - Stopped chatrooms heartbeat from being called after logout
+  - Fixed scroll to bottom issue in group while reloading
+  - Fixed delete option for admin created groups
+  - Fixed the issue of load earlier message being deleted on clearing conervsation
+  - Fixed the issue of search functionality while switching among tabs
+  - Fixed CSS issue for message counter
+
+------------------------------------------------------------------------------------
+ CometChat v6.2.3
+------------------------------------------------------------------------------------
+
++ Fixes
+ +Docked
+  - Added Advertisement feature
+  - Fixed issue with Italian language
+  - Fixed issue with groupByDate functionality
+  - Fixed sound notification issue
+
+ +Embedded
+  - Added Advertisement feature
+  - Fixed issue with Italian language
+  - Fixed issue with Group seperation
+  - Fixed CSS and scroll issue in Twitter module
+  - Fixed group search issue
+
+  +Plugin
+  - Fixed issue with upgrade CometChat in Wordpress
+
+------------------------------------------------------------------------------------
+ CometChat v6.2.2
+------------------------------------------------------------------------------------
+
++ Fixes
+ +Docked
+  - Added fix for incorrect message count when CometService is enabled
+  - CSS fix for messages with multiple emojis
+  - Added fix for delete group message option when earlier messages are loaded
+  - Fixed issue with new messages indicator in browser title
+  - CSS fixes
+
+ +Embedded
+  - Added fix for incorrect message count when CometService is enabled
+  - Fixed issue with Save Conversation plugin
+  - Fixed issue with File Transfer plugin on mobile devices
+  - Fixed issue with new messages indicator in browser title
+  - CSS fixes
+
+------------------------------------------------------------------------------------
+ CometChat v6.2.1
+------------------------------------------------------------------------------------
+
++ Fixes
+ - Added fix for embedding groups
+ - Added fix for embedding a particular group
+ - Fixed issue with groups deleted from CometChat administration panel
+ - Fixed jQuery conflict issue
+
+------------------------------------------------------------------------------------
+ CometChat v6.2.0
+------------------------------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -Fixed issue regarding current session messages getting disappeared on re-opening the chatbox
+    -Fixed issue with french language
+    -Fixed beep issue in groups
+    -Fixed alignment issue of timestamp for self messages
+    -Fixed issue with minimized chatboxes/groups not opening on clicking from the Contact/Groups tab
+    -Fixed Save Conversation issue
+    -Fixed safari browser compatibility issue
+    -Fixed window resize issue
+    -CSS fixes for unblock users
+    -Fixed issue with chatroom scroll
+    -Fixed kick/ban issue in groups
+    -Fixed issue with group participants count
+    -Fixed issue with clear conversation
+    -Fixed logs not working for chatrooms in administration panel
+    -Fixed issue with edit guest name
+    -Fixed animation issues with chatbox
+    -Added separation for joined and other groups
+    -CSS fixes for new notification pop-up
+    -Fixed the issue regarding user count in group's list
+    -CSS fixes for messages with emojis
+    -Fixed issue with ordering of chatboxes
+    -Fixed issue with delete Groups functionality
+    -Fixed the issue regarding number of messages being fetched after page reload
+    -Fixed time stamp issues with video file
+    -Added fix for invite users in groups
+    -Fixed issue with re-sizing textarea while sending text along with smilies
+    -Added fix for social login
+    -Fixed issue with window resizing
+    -Fixed issue with grouping messages by date
+    -Added fix for block user plugin
+    -Added fix for state of chatbox and opened tab
+    -Added fix for chatboxes going behind the website content on few CMSes
+    -Fixed issue with chatboxes in safari browsers
+    -CSS fixes for handwrite plugin
+    -Added new message notification count in groups
+    -CSS fixes for ban/unban users
+    -Mobile browser compatibility
+
+  +Embedded
+    -Fixed issue with french language
+    -Fixed Save Conversation issue
+    -CSS fixes for invite users
+    -Added separator in view users to differentiate between users and moderators
+    -Fixed file transfer and smiley issue
+    -Fixed counter issue
+    -Fixed beep issue in groups
+    -CSS fixes for popup notification
+    -Fixed logs not working for chatrooms in administration panel
+    -Fixed animation issues with chatbox
+    -Added separation for joined and other groups
+    -CSS fixes for new notification pop-up
+    -Fixed scrolling issues in chatbox and userlist
+    -CSS fixes for messages with emojis
+    -Fixed the issue regarding user count in group's list
+    -CSS fixes for password pop-up in password protected groups
+    -Fixed issue with ordering of chatboxes
+    -Added "Leave group" option
+    -Fixed issue regarding animation not working in safari browsers
+    -Fixed issue with window resizing
+    -Fixed issue with grouping messages by date
+    -Added fix for Save Conversation plugin
+    -Added fix for block user plugin
+    -Added fix for state of chatbox and opened tab
+    -Added CSS fixes for broadcast message module
+    -CSS fixes for handwrite plugin
+    -CSS fixes for ban/unban users
+    -Mobile browser compatibility
+
+  + Deprecated (removed from current release)
+    -Theme Changer module
+
+------------------------------------------------------------------------------------
+ CometChat v6.2.0 BETA 12
+------------------------------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -Fixed issue with resizing of textbox while sending multi-line messages
+    -Fixes for user list in chatroom
+    -CSS fixes for handwrite plugin
+    -CSS fixes for audio/video, broadcast and chat buttons
+    -Added fix for kick/ban option
+    -Modified the icon for scroll to top and bottom button
+    -Fixed CSS conflicts create group button
+
+  +Embedded
+    -Fixed issue with resizing of textbox while sending multi-line messages
+    -Fixed scroll issue with chatbox
+    -Added fixes for plugins list
+    -Added social login feature
+    -CSS fixes for handwrite plugin
+    -CSS fixes for audio/video chat buttons
+    -Modified the default setting of sound and popup notifications
+    -Fixed issue with audio call button disappearing
+    -Modified the icon for scroll to top and bottom button
+
+------------------------------------------------------------------------------------
+ CometChat v6.2.0 BETA 11
+------------------------------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -Fixed ticks issue with read messages
+    -CSS fixes for Chats window
+    -CSS fixes for buttons
+
+  +Embedded
+    -CSS fixes for buttons
+    -Fixed issue with updating status
+    -Added tooltip notification for user status
+    -Added CSS fixes for status of user
+    -Added CSS fixes for emoji messages in one-on-one chat
+
+-------------------------------------------------------------------------------------
+ CometChat v6.2.0 BETA 10
+------------------------------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -CSS fixes for chatbox
+    -Fixed issue with kick/ban in groups
+    -Added CSS fixes for unban user option
+    -Added CSS fixes for view user option
+    -Added CSS fix for emojis
+    -Fixed CSS conflict issue for user online/offline notification
+    -Added fix for status update
+
+  +Embedded
+    -Added fix for guest name option
+    -Added CSS fix for More option
+    -Removed Save Changes button from More option
+    -Fixed image dimension issue with handwrite messages
+    -Added CSS fixes for New Group option
+    -Added CSS fixes for emojis
+    -Fixed CSS and scrolling issues in unban users option
+
+------------------------------------------------------------------------------------
+ CometChat v6.2.0 BETA 9
+------------------------------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -Fixed Scroll issues
+    -Fixed placeholder issue when sending messages in groups
+    -Fixed alignment issue when sharing just image/emoji/handwrite/sticker etc
+    -Fixed the issue of 'Unban User' option not appearing to Moderators in groups
+    -Fixed the 'chatWith' functionality issue
+    -Removed separate popup box for 'Unban User's' list
+    -Removed hardcoded languages
+    -Fixed CSS issue in online/offline user notifications and fix for long user names in notifications
+    -Fixed Guest chat UI
+    -Fixed CSS issues for handwrite, time and users tab
+    -Removed "Save Changes" button from the More setting option and modified the saving mechanism
+    -Fixed issue with Announcement notification
+
+  +Embedded
+    -Fixed the issue of previously selected users appearing as selected after reopening the broadcast module
+    -Fixed the rename chatroom issue
+    -Fixed the delete icon hover issue
+
+-------------------------------------------------------------
+ CometChat v6.2.0 BETA 8
+-------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -Fixed scroll and popup transition issue with Create new group option
+    -Fixed scroll disappearing issue in group
+    -Fixed issue with renaming Group
+    -Fixed arrow issue with bottom navigation menu
+    -CSS fixes for announcement notification
+
+  +Embedded
+    -Modified the option to change the guest name and added CSS fixes
+    -Fixed CSS issues with stickers popup
+    -Updated languages
+    -Added CSS fixes for Report conversation
+    -Added view profile option in the top navigation
+    -Fixed arrow issue with bottom navigation menu
+
+-------------------------------------------------------------
+ CometChat v6.2.0 BETA 7
+-------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -Fixed list disappearing issues in broadcast message module
+    -Fixes for CSS conflicts with chatbox text
+    -Fixed issue with message conflicts in groups and one-on-one chat
+    -Modified the look of color your text plugin
+    -CSS fixes for handwrite message
+    -Fixed undefined settings variables names
+    -Fixed issue with sound notification in group
+    -Fixed timestamp overlapping issue with Handwritten messages
+    -Fixed delete message functionality for Owners, Moderators and Users
+    -Fixed CSS conflict with invisible option button
+    -Changed stickers styling
+
+  +Embedded
+    -Fixed list disappearing issues in broadcast message module
+    -CSS fixes for Search UI
+    -CSS fixes for send, delivered notification tick
+    -CSS fix for plugin window
+    -CSS fixes for chatbox text
+    -Fixed scroll height issue with view users list in chatroom
+    -Added a message "No online users does not appear" when no user is online
+    -Enlarged emojis when only single emoji is sent
+    -CSS fixes for handwrite message
+    -Updated languages for broadcast message module
+    -Fixed issue with sound notification in group
+    -Fixed issue with load earlier not appearing in new chatbox
+    -Fixed issue with handwrite message preview
+
+
+-------------------------------------------------------------
+ CometChat v6.2.0 BETA 6
+-------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -UI and CSS fixes for Broadcast message module
+    -Fixed issue with status message of users not displayed in broadcast message module
+    -Fixed spacing issue with popout icons
+    -Fixed CSS conflicts issues with text field
+    -Updated Date display for announcements
+    -Fixed the issue of timestamp overlapping when message sent/read delivery is enabled
+    -Fixed the issue with isTyping functionality
+    -Fixed CSS when No online user/groups found
+
+  +Embedded
+    -UI and CSS fixes for Broadcast message module
+    -Updated Date display for announcements
+    -Fixed issue with status message of users not displayed in broadcast message module
+    -Fixed day/time CSS issue in chatroom
+    -Modified resizing of textbox while sending multi-line messages
+    -Added isTyping feature
+    -CSS fixes for textbox
+    -Added message "No group found" when search returns no matching groups
+
+  +Renamed themes to layouts in administration panel
+
+-------------------------------------------------------------
+ CometChat v6.2.0 BETA 5
+-------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -Added preview option for handwritten messages
+    -Added option to rename a group
+    -Fixed issues with isTyping
+    -Fixed the issue regarding modules dragging
+    -CSS issues with popup modules
+    -Moved color your text plugin to top navigation menu
+    -Fixed incorrect mouse cursor for scroll up and scroll bottom buttons
+    -Added fix for CSS conflict with search user option
+    -Added option to change Guest name
+    -Changed search icon
+    -Fixed text-alignment issues with smiley message
+    -Fixed CSS issues for no user/groups
+    -Closed the preview on clicking on the overlay for images
+    -Enlarge the emojis when only a single emoji is present in a message
+    -Changed stickers styling
+
+  +Embedded
+    -Added preview option for handwritten messages
+    -CSS issues with popup modules
+    -Added view users option as a part of chatbox in chatroom module
+    -Moved color your text plugin to top navigation menu
+    -Fixed incorrect mouse cursor for scroll up and scroll bottom buttons
+    -Changed divider color similar to other icons
+    -Closed the preview on clicking on the overlay for images
+    -Added CSS fix for stickers
+    -Added option for kick/ban/chat in the userlist of chatroom
+    -Fixed scroll issue with chat history plugin
+    -Added CSS fix for smilies
+    -Fixed issue with loadEarlier message not appearing for new users
+
+
+-------------------------------------------------------------
+ CometChat v6.2.0 BETA 4
+-------------------------------------------------------------
+
++ Fixes
+  +Docked
+  -Added fix for title bar message
+  -CSS issue with long names in user list
+  -Added fix so that when the message contains smiley and text it should show the bubble in background
+  -Fixed CSS and animation issue with unblock user option
+  -Added CSS fixes for delete button
+  -Scroll bar issues
+  -Removed right/left shadow in the chat box navigation
+
+  +Embedded
+  -Fixed animation issue with unblock user option
+  -Remove alert message for closing all plugins on blocking user in the chatboxes.
+  -Added fix for browser desktop notification
+  -CSS fixes for chatroom
+  -Added CSS fix for Style plugin
+
+-------------------------------------------------------------
+ CometChat v6.2.0 BETA 3
+-------------------------------------------------------------
+
++ Fixes
+  +Docked
+   -Changed Style plugin layout
+   -Changed CSS of Delete message
+   -Fixed the issue with scroll bar when messages are fetched using Load Earlier messages
+   -Fixed the issue with scroll does not work in one-on-one chat and up/bottom arrows appear at the incorrect location
+   -Fixed CSS issues in games module
+
+  +Embedded
+    -Added fix for Load Earlier messages
+    -Changed Style plugin layout
+    -Fixed CSS issues with user list in Broadcast message module
+    -Fixed CSS issues for blocked and invite user list
+    -CSS fix for day/time
+    -Removed username and changed CSS of delete message option in chatroom
+
+
+-------------------------------------------------------------
+ CometChat v6.2.0 BETA 2
+-------------------------------------------------------------
+
++ Fixes
+  +Docked
+    -If you click on "Pencil" navigation (in the Chats menu), the whole bottom screen jumps
+    -Delete message not appearing for load earlier messages
+    -CSS fix for  'New Chat' option
+    -Issue with Stickers width
+    -Double border issue in Chat History plugin
+    -Fixed issue with navigation menu not appearing.
+    -CSS fixes for "Load Earlier Message" and "Date/Day" display
+    -Issue with pointing direction of "Arrow" for navigation button
+    -issue with double scroll bars in games module
+    -Make the divider hidden if only one item in the popup box
+
+  +Embedded
+    -Close new group window when new group is created
+    -CSS fixes for "Load Earlier Message" and "Date/Day" display
+    -Issue with pointing direction of "Arrow" for navigation button
+    -issue with double scroll bars in games module
+    -Fixed issue with 'New' indicator in chatroom
+    -Fixed smilies popup does not close if we close the chatbox using escape button
+    -Make the divider hidden if only one item in the popup box
+
+-------------------------------------------------------------
+ CometChat v6.2.0 BETA 1
+-------------------------------------------------------------
+
+Features
+
++ New UI
+
+Enhancements
+
++ Add new CometChat plugins for:
+  -Crea8social
+  -PHPFox app for marketplace
+
++ Updated Integration for:
+  -ILIAS
+  -Moodle
+  -Laravel 5
+  -PHPFox Neutron
+
++ Updated plugins for:
+  -Joomla
+  -BoonEx Dolphin
+  -Joomla extensions
+  -BuddyPress/WordPress
+  -SocialEngine
+
++ Fixes
+  -Fixed the cc_lang cookie bug Thanks to Luke Paris (Github: Paradoxis)
+
++ Deprecated (removed from current release)
+  -Jabber plugin
+  -Older themes
+
+-------------------------------------------------------------
+ CometChat v6.1
+-------------------------------------------------------------
+
+Features
+
++ Integration of Google Analytics
++ Messages grouped by dates
++ Deep linking in Webapp
++ Support for Social login in Desktop Messenger
++ Scroll to top/bottom for chat messages
++ User Settings for read-receipts
++ Added AWS bucket option for File transfer and Handwrite plugins
+
+Enhancements
++ Embedded Chatrooms in Synergy theme for iOS devices
++ A setting to show private chat option for friends only in Chatrooms
++ Banned users now no longer appear in users Who's online list
++ Updated Integration for:
+  - EasySocial
+  - Elgg
+  - PhpBB
+  - SocialEngine
+  - vBulletin4
+  - vBulletin-Tapatalk
+  - Codeignitor
++ Updated Plugins for:
+  - Buddypress
+  - Wordpress
+  - vBulletin4
+
+Fixes
++ Fixed issue with uploading new language
++ Fixed issue with message receipts synchronization
++ Fixed messages issues in Chatrooms while using CometService
++ Fixed GTalk extension issue
++ Fixed issue with updating colors from administration panel
++ Fixed issue with Games module on iOS devices
++ Fixed issue with messages after executing Cron
++ Fixed issue with Chatroom names with ' if created through administration panel
++ Added fix so that favicon doesn't match apple-touch-icon
++ Fixed space issue in notification of new online user
++ Added fix for Moderator IDs even accepts usernames
++ Fixed scroll issue for embedded chatroom in mobile browser
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+Mobile App 2.6.5
+-------------------------------------------------------------
+
+Features
+
++ Added handwrite plugin
++ Styles plugin for chatroom
++ Scroll to top and bottom
++ Messages grouped by dates
++ Sent time now appears inside chat bubble
+
+Fixes
+
++ Fixed issue regarding chatroom crash
++ Solved file uploading issue from Home tab
++ Deleted Announcements now no longer appear
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+Mobile SDK 1.6.1
+-------------------------------------------------------------
+
+Android
+-------
+Features
+
++ Added Whiteboard plugin
++ Added Writeboard plugin
++ Added Screenshare plugin
++ User can now participate in multiple chatrooms
++ Added Single player game module in Custom UI
+
+iOS
+-------
+Features
+
++ Added Whiteboard plugin
++ Added Writeboard plugin
++ Added Screenshare plugin
++ User can now participate in multiple chatrooms
++ Added Single player game module in Custom UI
+
+Bug Fixes:
+
+- Miscellaneous bug fixes.
+
+-------------------------------------------------------------
+Mobile App 2.6.2
+-------------------------------------------------------------
+
+Features
+
++ Deep linking
++ Add JamRoom URL for login
++ Remove logout button on Phone number login
+
+Fixes
+
++ Fixed issue regarding audio conference in Android app
+
+-------------------------------------------------------------
+Mobile App 2.6.1
+-------------------------------------------------------------
+
+Fixes
+
++ Fixed issue regarding CometChat Cloud URL
+
+-------------------------------------------------------------
+ CometChat v6
+-------------------------------------------------------------
+
+Features
+
++ Ability to change chatroom name for owners and moderators
++ New Integrations
+  - crea8social
+  - Chameleon
+  - SuiteCRM
+  - PHPfox Neutron
++ 100s of tweaks for overall product enhancement
+
+Enhancements
+
++ Moved configuration settings to database for seamless future updates
++ Only chatrooms mode in Synergy theme
++ Revised UI for Administration panel
++ Option to disable create chatroom for guests
++ Updated Integration for:
+  - SkaDate
+  - PHPfox Neutron
+  - mooSocial
+  - IPB
+  - SocialEngine
+  - WordPress
+  - BuddyPress
++ Updated Plugins for:
+  - vBulletin 4
+  - vBulletin 4 (Tapatalk)
+  - vBulletin 5
+  - WordPress
+  - BoonEx Dolphin
+  - SkaDate
+  - phpBB
+  - phpFox Nebula
+  - PHPfox Neutron
+
+Fixes
+
++ Fixed issues with message receipts
++ Fixed issue with blocked user image for Synergy and Glass Theme
++ Fixed issue with invite users in Audio/Video Broadcast plugin
++ Fixed issue with File transfer download link when using CometService
++ Added missing Twitter follow image for Synergy Theme
++ Fixed issue with Invite users list in chatrooms
++ Fixed issue with desktop notification for Synergy Theme
++ Fixed issues with multiple chatrooms
++ Fixed issue with stickers messages when using Real Time Translate and CometService
++ Fixed issue with chatWith API on Mobile Tab
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+Desktop Messenger v2.0
+-------------------------------------------------------------
+
+Features
+
++ Guest Login
+
+Enhancements
+
++ Remember Me feature displays username and password of the user
+
+Fixes
+
++ Fixed issues regarding multiple chatrooms
+
+-------------------------------------------------------------
+Mobile App 2.5.9
+-------------------------------------------------------------
+
+Fixes
+
++ Fixed issue regarding Social Authentication in CometChat app for CometChat cloud.
+
+-------------------------------------------------------------
+Mobile App 2.5.8
+-------------------------------------------------------------
+
+Features
+
++ Added Support for Social Authentication in CometChat app for CometChat cloud.
+
+-------------------------------------------------------------
+Mobile App 2.5.7
+-------------------------------------------------------------
+
+Fixes
+
++ Fixed issue regarding emojis.
+
+-------------------------------------------------------------
+Mobile App 2.5.6
+-------------------------------------------------------------
+
+Fixes
+
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+Mobile App 2.5.5
+-------------------------------------------------------------
+
+Fixes
+
++ Fixed issue regarding double messages in chatroom.
+
+-------------------------------------------------------------
+Mobile App 2.5.4
+-------------------------------------------------------------
+
+Fixes
+
++ Fixed issue regarding video chat.
+
+-------------------------------------------------------------
+Mobile App 2.5.3
+-------------------------------------------------------------
+
+Fixes
+
++ Optimized CometChat app.
+
+-------------------------------------------------------------
+Mobile App 2.5.2
+-------------------------------------------------------------
+
+Fixes
+
++ Fixed issue regarding incorrect unread message count in chatroom.
+
+-------------------------------------------------------------
+ CometChat v5.9.0
+-------------------------------------------------------------
+
+Features
+
++ New ready-to-use plugins for super simple installation for:
+  - Simple Machines Forum
+  - Oxwall
+  - Vanilla Forums
+  - EasyDiscuss
++ CometChat Integration for:
+  - Moodle
+  - Yii framework
+  - Yii 2.0 framework
++ Multiple chatrooms
++ Load earlier messages in chatrooms
++ Audio only plugin in Chatrooms
++ New WebRTC technology for Screenshare.
+
+Enhancements
+
++ Mobile compatibility for Synergy theme
++ Updated Integration for:
+  - Laravel 5
+  - Social Engine
+  - Xenforo-Tapatalk
+
+Fixes
+
++ Fixed issue with Report Conversation plugin
++ Fixed issue with Broadcast message module
++ Fixed issues with OpenTok:
+  - Audio/Video Chat initialization
+  - Invite user in Audio/Video Chat and Broadcast.
+  - Audio/Video Broadcast in chatrooms
+  - 'Turn on/off video' button in Audio/Video broadcast.
+
+-------------------------------------------------------------
+Mobile SDK 1.6.0
+-------------------------------------------------------------
+
+Android
+-------
+Features
+
++ Added Ready UI feature
++ Added Cordova plugin
+
+iOS
+-------
+Features
+
++ Added Ready UI feature
++ Added Cordova plugin
+
+-------------------------------------------------------------
+Mobile App 2.5.1
+-------------------------------------------------------------
+
+Features
+
++ Support Single Player games.
+
+Fixes
+
++ Fixed issue regarding wrong unread message count.
++ Fixed Smiley re-size issue.
+
+-------------------------------------------------------------
+Mobile App 2.5.0
+-------------------------------------------------------------
+
+Features
+
++ Tab swipe.
+
+Enhancements
+
++ Enhancements in share via CometChat feature to supports all file formats.
++ Enhancements buddylist storage functionality.
+
+Fixes
+
++ Fixed issue with chatroom message from an user who is not present in buddylist in case of site has friends functionality.
+
+-------------------------------------------------------------
+Mobile SDK 1.5.2
+-------------------------------------------------------------
+
+Android
+-------
+Features
+
++ Ability to send and receive stickers
++ Ability to show sent, delivered, read message ticks in one-on-one chat( Requires CometService and CometChat 5.7 onwards )
+
+iOS
+-------
+Features
+
++ Ability to send and receive stickers
++ Ability to show sent, delivered, read message ticks in one-on-one chat ( Requires CometService and CometChat 5.7 onwards )
+
+-------------------------------------------------------------
+Mobile App 2.4.0
+-------------------------------------------------------------
+
+Features
+
++ Share Via CometChat to share Image and Video from Photo Gallery, file explorer.
++ Added support for Whiteboard.
++ Ability to receive any files.
++ Ability to zoom images.
+
+Fixes
+
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+ CometChat v5.8.0
+-------------------------------------------------------------
+
+Features
+
++ New HTML5 whiteboard plugin
++ CometChat is now compatible with selfhosted CometService
++ New ready-to-use plugins for super simple installation for:
+  - Boonex Dolphin with Inbox message sync and usergroup restrictions
+  - ILIAS with Inbox message sync and usergroup restrictions
+  - SocialEngine with Inbox message sync and usergroup restrictions
+  - Drupal with usergroup restrictions
+  - VBulletin 5 with usergroup restrictions
+  - MyBB with usergroup restrictions
+  - SkaDate with Inbox message sync and usergroup restrictions
+
+Enhancements
+
++ Sent, delivered and read receipts for plugin messages (when using CometService)
+
+Fixes
+
++ Fixed issue with offline messages when using CometService
++ Invitation only chatrooms are now visible in lobby to invited users
++ CometChat plugin now works with memcached Xenforo
++ Fixed issues with transliterate and two player games plugins on SSL
++ Fixed issue with file transfer modal window in mobile browsers
++ Fixed issue with Load Earlier Messages in Hangout Theme
++ Fixed issue with theme changer module
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+Mobile SDK 1.5.1
+-------------------------------------------------------------
+
+Android
+-------
+Features
+
++ Added support to emojis
+
+Enhancements
+
++ Added message storage support with database in sample app
++ Removed httpmime library from SDK, support from httpmime 4.1.3 added
+
+iOS
+-------
+Features
+
++ Added support to emojis
+
+Enhancements
+
++ Added message storage support with database in sample app
+
+-------------------------------------------------------------
+Mobile SDK 1.5.0
+-------------------------------------------------------------
+
+Android
+-------
+Features
+
++ Added support to AVBroadcast for OneonOne chat
+
+iOS
+-------
+Features
+
++ Added support to AVBroadcast for OneonOne chat
+
+-------------------------------------------------------------
+Mobile App 2.3.3
+-------------------------------------------------------------
+
+Fixes
+
++ Old user name, status, avatar is getting displayed when logged in with different user rapidly
++ Onclick of buddy in chatroom members check for buddy present or not, if not then call addnew buddy with loader
++ Self messages are getting black in chatroom
++ When user is trying to make a video call then call is disconnecting automatically and 'Call to User busy' is displaying
++ When user is calling to another user for video chat then video call is being disconnected.
++ No notification is displayed when user launch + minimize and then again launch the app with no internet connection. Need to display the notification 'Sorry! Internet connection is not available, please try again.'  everytime when user launch the app with no internet data.
+
+-------------------------------------------------------------
+Mobile App 2.3.2
+-------------------------------------------------------------
+
+Fixes
+
++ Facebook login app logo issue
++ Login with Gmail, unable to go back
++ App opens multiple time when login with facebook
++ Negative user badge count
++ User badge count is not decrementing once app is opened from notification
++ Synchronizing status and status message of logged in user with web if same user is loggedin from both places
++ Next button is not clickable
++ Checking for null name in video calling screen
+
+-------------------------------------------------------------
+Mobile App 2.3.1
+-------------------------------------------------------------
+
+Fixes
+
++ Changing chat.pcs.com url to https
+
+-------------------------------------------------------------
+Mobile SDK 1.4.9
+-------------------------------------------------------------
+
+Android
+-------
+Features
+
++ Added support to Parse push notification in sample app
++ Added isTyping feature
++ Added Multidex support in sample app
++ Added setCometChatUrl function
+
+iOS
+-------
+Features
+
++ Added support to Parse push notification in sample app
++ Added isTyping feature
++ Added setCometChatUrl function
+
+-------------------------------------------------------------
+Mobile SDK 1.4.8
+-------------------------------------------------------------
+
+Android
+-------
+Features
+
++ Ability to send/receive any file
++ User management for custom coded site
+
+iOS
+-------
+
+Features
+
++ Ability to send/receive any file
++ User management for custom coded site
+
+-------------------------------------------------------------
+Mobile App 2.3.0
+-------------------------------------------------------------
+
+Features
+
++ Ability to send and receive Stickers
++ Audio/Video Conferencing
++ Audio/Video Broadcast
++ Ability to send and receive Voice Messages
++ Ability to view Last seen
++ Message receipts (Sent, Delivered, Read) (when using CometService)
++ Ability to when user is typing.. (when using CometService)
++ Broadcast Message
+
+Enhancements
+
++ Added push notification support for Audio/Video Chat
++ Notification Counter in tab bar
+
+Fixes
++ Bug Fixes
+
+-------------------------------------------------------------
+Mobile SDK 1.4.7
+-------------------------------------------------------------
+
+Android
+-------
+
+Features
+
++ Ability to Make/receive Audio only call
++ Ability to send/receive audio files
++ Ability to Broadcast text messages
+
+Enhancements
++ Changes in AV chat functions
+
+Fixes
++ Bug fixes
+
+iOS
+-------
+Features
+
++ Ability to Make/receive Audio only call
++ Ability to send/receive audio files
++ Ability to Broadcast text messages
+
+Enhancements
++ Changes in AV chat functions
+
+Fixes
++ Bug fixes
+
+-------------------------------------------------------------
+Mobile SDK 1.4.6
+-------------------------------------------------------------
+
+Android
+-------
++ Bug fixes in COD user management for createUser method
+
+iOS
+-------
++ Bug fixes in COD user management for createUser method
+
+-------------------------------------------------------------
+ CometChat v5.7.0
+-------------------------------------------------------------
+
+Features
+
++ New Stickers Plugin! Take interactivity to a whole new level!
++ RESTful APIs for User Management for custom coded sites
++ Sent, delivered and read receipts for messages (when using CometService)
++ Last Seen feature which allows users to see when their friends were last online
++ Is typing... feature (when using CometService)
+
+Enhancements
+
++ Audio, video and images sent using file transfer can be viewed before downloading
++ Adding compatibility of chatWith Javascript function in mobile browser
++ Audio/Video call, Audio call and Broadcast plugins are now compatible with Internet Explorer 11+ and Safari 7+
+
+Fixes
+
++ Fixed issue with avatar in Synergy Theme
++ Fixed issue with Gtalk Chat
++ Fixed issue with mobile browsers when Social Login is enabled in Synergy Theme
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+ Desktop Messenger v2.0
+-------------------------------------------------------------
+
+Features
+
++ All plugins are now supported
++ Announcements, Broadcast Message, Chatrooms, Facebook, Games, RealTime Translate, Theme changer, Translate Page and Twitter modules are now supported
++ Jabber and Advertisement extensions are now supported
++ Desktop notification for new messages
+
+Enhancements
+
++ Revamped the UI completely
++ Performance improvements
+
+-------------------------------------------------------------
+ CometChat v5.6.4
+-------------------------------------------------------------
+
+Feature
+
++ All-New Desktop Messenger
+
+Fixes
+
++ Fixed issues with Gtalk chat with window mode in synergy theme
++ Fixed issues with pusher transport
++ Fixed bar padding issue with hangout theme
++ Fixed issues with chatrooms in firefox browser
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+Mobile SDK v1.4.5
+-------------------------------------------------------------
+
+iOS
+-------
+- Bug fixes in COD user management
+
+-------------------------------------------------------------
+Mobile SDK v1.4.4
+-------------------------------------------------------------
+
+iOS
+-------
++ UI Bug fixes for SDK Test App
++ Bug fixes in CometChatSDK.framework
+
+-------------------------------------------------------------
+Mobile SDK v1.4.3
+-------------------------------------------------------------
+
+Android
+--------
++ Login with userid function added for Cloud login
+
+iOS
+-------
++ Login with userid function added for Cloud login
+
+-------------------------------------------------------------
+Mobile SDK v1.4.2
+-------------------------------------------------------------
+
+iOS
+-------
++ Minor bug fixes
+
+-------------------------------------------------------------
+ CometChat v5.6.3
+-------------------------------------------------------------
+
+Features
+
++ Glass Theme - a flat bar theme which gives a translucent look to CometChat
++ Push notification for Audio/Video chat and Audio chat plugins
+
+Enhancements
+
++ New HTML5 single player games module
++ Light box mode popups are now available for embedded synergy theme
+
+Fixes
+
++ Added social login for mobile webapp
++ Fixed issues with chatbox syncing
++ Fixed issues with status messages
++ Fixed issues with blocked mode
++ Fixed issue with block plugin
++ Fixed issues with theme changer module
++ Fixed issues with dynamic chatrooms
++ Fixed issue with new message counter in chatrooms
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+Mobile SDK v1.4.1
+-------------------------------------------------------------
+
+Android
+--------
++ Invite user to Chatroom function modified
++ Error codes revamped
++ 'getPluginInfo()' function added
++ Guest login response modified
++ Simulate Capture Photo/Share Photo from gallery added for OneOnOne and Chatroom Chat in CometChat SDK Sample App
++ Simulate Capture Video/Share Video from gallery added for OneOnOne and Chatroom Chat in CometChat SDK Sample App
++ Simulate block/unblock user in CometChat SDK Sample App
+
+iOS
+--------
++ Invite user to Chatroom function modified
++ Error codes revamped
++ 'getPluginInfo' function added
++ Simulate Capture Photo/Share Photo from photo library added for OneOnOne and Chatroom Chat in CometChat SDK Sample App
++ Simulate Capture Video/Share Video from photo library added for OneOnOne and Chatroom Chat in CometChat SDK Sample App
++ Simulate block/unblock user in CometChat SDK Sample App
+
+-------------------------------------------------------------
+Mobile SDK v1.4.0
+-------------------------------------------------------------
+
+iOS
+--------
++ Guest login bug fixed
++ Guest login response modified
+
+-------------------------------------------------------------
+ All-New Mobile Apps v2.2.2
+-------------------------------------------------------------
+
++ Bug Fixes
+
+-------------------------------------------------------------
+Mobile SDK v1.3.9
+-------------------------------------------------------------
+
+Android
+--------
++ Revamped OneOnOne and Chatroom Chat layout in CometChat SDK Sample App
++ Simulate imageSharing,changeStatus/statusMessage and setTranslation language for OneOnOne and Chatroom Chat in CometChat SDK Sample App
++ Fixed logout bug fixes
++ Fixed the bug for no gotOnlineList() invoked after block user
+
+iOS
+--------
++ Revamped OneOnOne and Chatroom Chat layout in CometChat SDK Sample App
++ Simulate imageSharing,changeStatus/statusMessage and setTranslation language for OneOnOne and Chatroom Chat in CometChat SDK Sample App
+
+-------------------------------------------------------------
+ All-New Mobile Apps v2.2.1
+-------------------------------------------------------------
+
++ Bug Fixes
+
+-------------------------------------------------------------
+Mobile SDK v1.3.8
+-------------------------------------------------------------
+
+Android
+--------
++ Bug fixes
+
+-------------------------------------------------------------
+Mobile SDK v1.3.7
+-------------------------------------------------------------
+
+Android
+--------
++ Delete Chatroom functionality added
++ 'subscribeToChatroom' method modified, 'onKicked()' and 'onBanned()' callback removed,'onActionMessageReceived()' callback added
++ Bug fixes
+
+iOS
+--------
++ Delete Chatroom functionality added
++ 'subscribeToChatroom' method modified, 'onKicked' and 'onBanned' callback blocks removed,'onActionMessageReceived' callback block added
++ Logs formatted
+
+-------------------------------------------------------------
+ All-New Mobile Apps v2.0.0
+-------------------------------------------------------------
+
++ Ability to enable/disable message notifications
++ Revamped User Interface
++ Easy way to demo CometChat
++ Support for Guest login
++ Support for Social login
++ Support for CometChat Cloud & Network
++ View User Profile Feature
++ View Chatroom Members Feature
++ Theming
++ Improved Audio Video Call Experience
++ Bug Fixes
+
+-------------------------------------------------------------
+Mobile SDK v1.3.6
+-------------------------------------------------------------
+
+Android
+--------
++ Translate Conversation for 'OneOnOne' and 'Chatroom'
++ Switch camera for Audio/Video Chat and Group Audio/Video Chat added
+
+iOS
+--------
++ Translate Conversation for 'OneOnOne' and 'Chatroom'
++ Switch camera for Audio/Video Chat and Group Audio/Video Chat added
+
+-------------------------------------------------------------
+Mobile SDK v1.3.5
+-------------------------------------------------------------
+
+Android
+--------
++ CometChat Cloud support added
++ Chatroom type enum added for createChatroom
+
+
+iOS
+--------
++ CometChat Cloud support added
++ Chatroom type enum added for createChatroom
+
+-------------------------------------------------------------
+Mobile SDK v1.3.0
+-------------------------------------------------------------
+
+Android
+--------
++ Revamp UI of Sample App
++ 'isLoggedIn' function deprecated
++ Bug fixes
+
+iOS
+--------
++ Revamp UI of Sample App
++ Removed login retry attempts
++ 'isLoggedIn' function deprecated
+
+-------------------------------------------------------------
+Mobile SDK v1.2.4
+-------------------------------------------------------------
+
+Android
+--------
++ Added dev mode support
++ Bug fix for isCometChatInstalled
+
+iOS
+--------
++ Added dev mode support
+
+-------------------------------------------------------------
+Mobile SDK v1.2.3
+-------------------------------------------------------------
+
+Android
+--------
++ Minor bug fix with group AV chat endcall
++ Fetch app settings for each instance
+
+iOS
+--------
++ Fetch app settings for each instance
+
+-------------------------------------------------------------
+Mobile SDK v1.2.2
+-------------------------------------------------------------
+
+iOS
+--------
++ Minor bug fix in Check cometchat installation method.
+
+-------------------------------------------------------------
+Mobile SDK v1.2.1
+-------------------------------------------------------------
+
+iOS
+--------
++ Handled datatype of "old" field in received message response
++ Create chatroom response bug fixed
++ WebRTC channel bug fixed
+
+-------------------------------------------------------------
+Mobile SDK v1.2.0
+-------------------------------------------------------------
+
+Android
+--------
++ Added function to check CometChat is installed on specified URL
+
+iOS
+--------
++ Added function to check CometChat is installed on specified URL
+
+-------------------------------------------------------------
+ CometChat v5.6.2
+-------------------------------------------------------------
+
+Features
+
++ CometChat is now compatible with Tapatalk app for vBulletin and Xenforo forums.
+
+Enhancements
+
++ You can now choose to show blocked users in Who's Online list.
+
+Fixes
+
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+ CometChat v5.6.1
+-------------------------------------------------------------
+
+Features
+
++ New ready-to-use plugins for super simple installation for:
+  - XenForo with Inbox message sync and usergroup restrictions
+  - BuddyPress with Inbox message sync and usergroup restrictions
+  - PHPFox with Inbox message sync
+  - vBulletin with usergroup restrictions
+  - WordPress with usergroup restrictions
+  - Community Builder with usergroup restrictions
+  - Kunena with usergroup restrictions
+  - Jamroom with usergroup restrictions
+  - concrete5
+
+Enhancements
+
++ Chatroom invite messages now displays chatroom name
++ Added Advertisement in Chatrooms for Synergy theme
+
+Fixes
+
++ Fixed issues with Guest Mode
++ Fixed issues with Filetransfer plugin in Firefox Browser
++ Fixed issues with Screensharing, A/V Broadcast and Whiteboard plugins
++ Fixed issue with minimizeAll and chatWith API's in Synergy theme
++ Fixed issues with Link and Avatar in cross-domain environment
++ Fixed issues with French language
+
+-------------------------------------------------------------
+Mobile SDK v1.1.9
+-------------------------------------------------------------
+
+Android
+--------
++ Critical group AV chat bug fix
++ Better compatible with CometChat 5.5 for AV chat
++ Fixed a bug due to which subscribe polling was throwing exceptions
++ Minor bug fixes
+
+-------------------------------------------------------------
+Mobile SDK v1.1.8
+-------------------------------------------------------------
+
+Android
+--------
++ Bug fixes
+
+iOS
+--------
++ Custom emoji message bug fixed.
+
+-------------------------------------------------------------
+ CometChat v5.6.0
+-------------------------------------------------------------
+
+Features
+
++ Embed CometChat into your site using our new embeddable theme!
++ Enable your users to reach out to multiple users at once with the help of our Broadcast Message Module
++ Have a voice call using our Audio only chat plugin
++ Embed Private Chatrooms into your site pages
+
+Enhancements
+
++ Cross-domain support for all plugins
++ High resolution smileys!
++ 'Load more messages' and 'Chat history plugin' are now compatible with CometService
+
+Fixes
+
++ Fixed issues with Clear Conversation
++ Fixed issues with Hangout theme
++ Fixed issues with status messages
++ Fixed issues with Mobile Tab
++ 100's of miscellaneous fixes & tweaks
+
+-------------------------------------------------------------
+ All-New Mobile Apps v1.5.6
+-------------------------------------------------------------
+
++ Performance Enhancements
++ Bug Fixes
+
+-------------------------------------------------------------
+ Mobile SDK v1.1.7
+-------------------------------------------------------------
+
++ Added ability to fetch chat history
+
+-------------------------------------------------------------
+ Mobile SDK v1.1.6
+-------------------------------------------------------------
+
++ Added AV chat to chatrooms
++ Bug fixes and code optimization
+
+-------------------------------------------------------------
+ Mobile SDK v1.1.5
+-------------------------------------------------------------
+
++ Added setStatus and setStatusMessage feature (Feature)
+
+-------------------------------------------------------------
+ Mobile SDK v1.1.4
+-------------------------------------------------------------
+
++ Added noise cancellation in audio/video chat (Feature)
++ Disabled message resend mechanism (Bug fix)
+
+-------------------------------------------------------------
+ Mobile SDK v1.1.3
+-------------------------------------------------------------
+
++ Added unique parameter for identifying each platform (Bug fix)
+
+-------------------------------------------------------------
+ Mobile SDK v1.1.2
+-------------------------------------------------------------
+
++ URL validation rectified (Bug fix)
+
+-------------------------------------------------------------
+ Mobile SDK v1.1.1
+-------------------------------------------------------------
+
++ Added login with username and password (Feature)
++ Added function to check the current version number
+
+-------------------------------------------------------------
+ Mobile SDK v1.1.0
+-------------------------------------------------------------
+
++ Added Audio/Video calling (Feature)
+
+-------------------------------------------------------------
+ All-New Mobile Apps v1.5
+-------------------------------------------------------------
+
++ Video Sharing
++ Real-time Translation
++ Announcements
++ Invite Phone Contacts via SMS
++ Block/Unblock user
++ Set Status & Status Message
++ Performance Enhancements
++ Bug Fixes
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.8
+-------------------------------------------------------------
+
++ Fixed bug with realtime announcement
++ Fixed bug with image sharing
+
+-------------------------------------------------------------
+ CometChat v5.5.0
+-------------------------------------------------------------
+
+Features
+
++ Social Login for sites without any login system
++ Load Earlier Messages in one-on-one chat
++ Owner and moderators can now delete chatrooms
+
+Enhancements
+
++ Network call load reduced for message sending
++ New message indicator in chatrooms can be enabled/disabled from the Administration Panel
++ Enhanced security for file transfer
++ Easily add moderators to chatrooms and ban users using usernames instead of user IDs
+
+Fixes
+
++ Fixed issue with username in CometService
++ Fixed issue with cross-domain
++ Fixed issues with Mobile Webapp
++ Fixed minor CSS issues in themes
++ Fixed issue with Save conversation plugin
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.7
+-------------------------------------------------------------
+
++ Added video sharing
++ Enhanced network calls (Android)
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.6
+-------------------------------------------------------------
+
++ Reduced dependencies
++ Removed unused classes and functions
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.5
+-------------------------------------------------------------
+
++ Bug fixes
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.4
+-------------------------------------------------------------
+
++ Added image sharing
++ Revised login function
++ Bug fixes
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.3
+-------------------------------------------------------------
+
++ Added error codes for block/unblock feature
++ Function name to fetch blocked users changed from getBlockedUsers to getBlockedUserList
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.2
+-------------------------------------------------------------
+
++ Added user block/unblock feature
++ Added ability to fetch blocked users
++ Bug fixes
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.1
+-------------------------------------------------------------
+
++ \' slashes bug
++ Slowing of SDK due to large number of friends
+
+-------------------------------------------------------------
+ Mobile SDK v1.0.0
+-------------------------------------------------------------
+
++ Initial release of SDK
+
+-------------------------------------------------------------
+ All-New Mobile Apps v1.0.1
+-------------------------------------------------------------
+
+Features
+
++ Video chat using WebRTC
++ Smiley Keyboard
++ Invite users into chatrooms
++ Leave chatroom
++ Offline support
+
+Enhancements
+
++ Revamped the UI completely
++ Performance improvements
+
+-------------------------------------------------------------
+ CometChat v5.4.0
+-------------------------------------------------------------
+
+Features
+
++ WebRTC support for Audio/Video Chat!
++ Desktop notifications for chat messages
++ Joomla, JomSocial and Easysocial plugins with Inbox message sync and usergroup restrictions
+
+Enhancements
+
++ Self diagnostic code and auto-healer
++ Reduced network footprint
+
+Fixes
+
++ Fixed freezing issue in Hangout theme on window resize
++ Fixed Desktop notifications issues
++ Fixed issues in cron job
++ Fixed Administration Panel crash issues
++ Fixed Smilies layout in window mode
++ Fixed issues in Clear conversation plugin
++ Fixed issues in Chat history plugin
++ Fixed issue with users staying in deleted chatroom rooms
++ Fixed Home & Scroll To Top modules in Hangouts and Facebook theme
++ Fixed popup window sizes issues in Administration Panel
+
+-------------------------------------------------------------
+ CometChat v5.3.0
+-------------------------------------------------------------
+
+Features
+
++ New Facebook Theme!
++ Status Message now appears in Hangouts theme
++ Updated Games module with higher quality games
++ Now mobile icon is shown next to users logged in via the mobile app
++ Save Conversation Plugin is now available for Chatrooms
+
+Enhancements
+
++ Added ability to set height and width of chatbox
++ Added ability to chat with multiple user simultaneously in Hangouts theme
++ Converted message beep to HTML5
++ Added 24 hours date format to Chatrooms and Chat History plugin
++ ChatWith JavaScript API for HTML5 Mobile Web App
++ Optimized JavaScript performance
++ Added setting to disable Mobile Theme
+
+Fixes
+
++ Fixed Chat Now button position in Mobile theme.
++ Fixed the issue for hidden divs overlapping with site's footer
++ Fixed scroll drag issue in Chatrooms
++ Fixed Guest-prefix issue in messages
++ Fixed the issue with delete message functionality in Chatrooms when CometService is enabled
+
+-------------------------------------------------------------
+ CometChat v5.2.0
+-------------------------------------------------------------
+
+Features
+
++ More MemCache options:  APC , Sqllite and WinCache
++ Push Notification support for mobile native apps
++ Desktop Notification (Supported only in chrome browser)
++ Favicon notification support
++ Report and Clear conversation now available even in mobile webapps
++ Added Zoom.us support for better audio/video and screen-sharing experience
++ Added Emoji support
++ Ability to add new smileys through administration panel
++ Added ability to resize and popout lightbox windows
++ New theme (Hangout Theme)
++ Added image and video upload feature in chatrooms for Native App
++ Ads extension now available in Desktop Messenger
+
+Enhancements
+
++ Added compatibility with PHP 5.5 (mysqli support)
++ Separation of Moderators and Users in chatrooms
++ Added message delete functionality for chatrooms
++ Optimized CRON code
++ Enable/Disable one-on-one or chatrooms for mobile webapp through administration panel
++ Added preview thumbnails for uploaded images and videos
++ Added send button in mobile webapp
++ SSL support for ORTC transport
++ Optimized performance of the chat history plugin
++ Now no need to remember ID’s!! Easily add moderators to chatrooms and ban users by single click
++ Added home button for mobile webapp
++ Modules support for lightweight theme
++ Full Screen option in audio/video chat
++ Messages over 1800 characters supported in CometService
++ Separated themes and colors in administration panel
++ Handwrite plugin now uses HTML5
+
+Fixes
+
++ Fixed typing issue in mobile webapp on iPhone Safari browser
++ Fixed login issue to administration panel in IE and Opera
++ Fixed issue with session not getting destroyed on logout (if CometChat HTML code is not added to login/logout website page)
++ Fixed issue with avchat settings
++ HTML5 textbox validation in administration panel
++ Fixed timezone issue
++ Fixed issues with RTL
++ Fixed issue to unban guest users
++ Fixed issue for Desktop Messenger (Report conversation, avchat(opentok, addlive), screenshare, writeboard)
+
+
+
+-------------------------------------------------------------
+ CometChat v5.1.0
+-------------------------------------------------------------
+
+Features
+
++ New support for Memcache (drastic load reduce!)
++ Added support for file caching mechanism alternatively
++ Integration with Realtime.co (third party transport)
++ Ability to execute and customize cronjobs through administration panel
+
+Enhancements
+
++ Mobile tab now works with CometService
++ Desktop Messenger now works with APE server
++ Chat history now works for guests
++ Ability to monitor & log guest messages from administration panel
++ Responsive mobile tab based on mobile device resolution
++ Optimized code for audio/video & broadcast plugin
++ Improved CometService code
+
+Fixes
+
++ No missing messages when using multiple devices
++ Fixed issues when CometChat is used in cross-domain configuration
++ Fixed freezing issue in Mac OS in screensharing plugin
++ Fixed smiles issue in save conversation plugin
++ Fixed issues with handwrite plugin
++ Miscellaneous code & administration panel fixes
+
+-------------------------------------------------------------
+ CometChat v5.0.0
+-------------------------------------------------------------
+
+Features
+
++ Free native mobile app for iOS and Android devices
++ Support for white-labelled mobile apps (i.e. app with your site name,logo, icon, colors)
++ New Broadcast plugin enables your users to broadcast their audio & video to other users
++ New AddLive partnership for audio/video chat and screensharing
++ Ability for guest to change name
+
+Enhancements
+
++ Seamless login for Gtalk chat feature (using Google OAuth2)
++ Friendly upgrade mechanism (no longer removes chatrooms)
++ Ability for moderators to join password-protected rooms
++ CometService is now enabled for chatrooms as well
++ Ability to ban users by IP
++ Ability to modify colors/language of Desktop Messenger & Native App directly via Administration Panel
++ Logs updated to show chatroom logs as well
++ Added "Manage blocked users" option in lightweight chat
++ Code clean-up
+
+Fixes
+
++ Fixed issue of dropped/repeat messages on page reload
++ Security fixes and enhancements
++ Improved handling of special characters in usernames
++ Fixed invite functionality in chatrooms/video-chat
++ Chat history fix for CometService
+
+-------------------------------------------------------------
+ CometChat v4.6.0
+-------------------------------------------------------------
+
+Features
++ Chatrooms support in mobile web apps
++ Kick/ban and moderators features added to chatrooms
++ Guests mode enabled for chatrooms
++ Chat history support for chatrooms
++ Ability to resize plugin windows from Administration Panel
+
+Enhancements
++ Added leaderboard for single player games
++ User avatars added in chatrooms
++ Improved caching mechanism for mobile web app
++ Added sleek scroller in Announcements, Real time translate, Page translate and Twitter modules
++ LinkedIn option added to Share module
++ RED5 and FMS support for screenshare, whiteboard and audio/video chat
+
+Fixes
++ New message notification fix for IE
++ Real time translate and Transliterate fixes for Chatrooms
++ Smilies fix in embedded chatrooms
++ Directory separator issue fix
+
+-------------------------------------------------------------
+ CometChat v4.4.0
+-------------------------------------------------------------
+
+Features
++ Jabber/XMPP support
++ Inline popups for plugins/extensions
++ Desktop Messenger support
++ CometService/BeaconPush/APE enabled for chatrooms
++ Facebook chat login with your own Facebook application keys
++ Enhanced and simplified theming
++ Sleeker scroller
+
+Enhancements
++ Real-time translation now works with CometService (beta)
++ Facebook/Gtalk chat tweaks and fixes
++ Google+ option added to Share module
++ Block plugin does not allow messages to be sent
++ Peer-to-peer option for audio/video chat
++ Re-written Twitter plugin (reduced server load)
++ New admin enhancements in themes & language
++ Groups feature (user categories) for standalone integration
++ New set of smileys :)
++ Improved caching mechanism
+
+Fixes
++ Facebook Fan Page fix
++ Mobile web-app fix
++ open_basedir issue fix
+
+-------------------------------------------------------------
+ CometChat v4.0.0
+-------------------------------------------------------------
+
+Enhancements
++ Improved SSL support
++ Ad extension now accepts Google Adsense code
++ Enhanced and enabled Guests feature
+
+Bug Fixes
++ Transport fixes
++ jQuery 1.6.X compatibility
++ Facebook/Gtalk chat fixes
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+ CometChat v4.0.0 BETA 1
+-------------------------------------------------------------
+
+Features
++ Facebook and Gtalk chat support
++ Android and other mobile platforms generic webapp
++ Single link for chat webapp (auto-detection)
++ Basic Advertisements plugin
++ Guests functionality
++ Ability to select color in chatrooms
++ Report conversations plugin
++ Block user plugin
++ Alternative page translation module
+
+Enhancements
++ Sound notification in chatrooms
++ Improvement in friends list fetching
++ Lazy loading of avatar images to reduce bandwidth usage
++ Enhanced CometService to avoid dropping messages
++ Enabled private announcements/notifications feature
+
+Bug Fixes
++ File transfer plugin fix for file names with spaces
++ Banned words filter fix
++ Duplicate status message fix
++ Long status message fix
+
+-------------------------------------------------------------
+ CometChat v3.0.9
+-------------------------------------------------------------
+
++ Version release cancelled
+
+-------------------------------------------------------------
+ CometChat v3.0.9 BETA
+-------------------------------------------------------------
+
+Features
++ Cross-domain update
+
+-------------------------------------------------------------
+ CometChat v3.0.1
+-------------------------------------------------------------
+
+Features
++ Multi-transport support
++ Cross-domain auto-detect
+
+Bug fixes
++ Alert popup fix
++ Brower compatibility fixes
+
+-------------------------------------------------------------
+ CometChat v3.0.0 RC2
+-------------------------------------------------------------
+
+Features
++ APE Server support
++ Cross-domain support
++ Blackberry web-app
++ Improved video chat
++ Many minor tweaks and fixes
+
+New Modules/Plugins
++ Write-board plugin
+
+Enhancements
++ Auto-connect if network connection fails
++ Speed enhancements in light version
+
+-------------------------------------------------------------
+ CometChat v3.0.0 RC1
+-------------------------------------------------------------
+
+Features
++ Improved Chatroom module (ability to use plugins in chatrooms)
++ Light version of CometChat
++ Improved iPhone web-app
++ Improved CRON functionality
++ Ability to change sound notification
++ JavaScript code optimization
++ Ability to display text next to modules icon
++ Many minor tweaks and fixes
+
+New Modules/Plugins
++ Translate conversations (on-the-fly) module
++ White-board plugin
+
+Admin Features
++ Language management and creation
++ Theme management and creation
++ Ability to remove games based on keywords
++ Embed links for chatrooms and modules
+
+Bug fixes
++ Auto join chatrooms on page change
++ Session destroy fix
+
+-------------------------------------------------------------
+ CometChat v2.0.4
+-------------------------------------------------------------
+
+Features
++ iPhone/iPad web app for Premium/Platinum Edition
++ Improved screensharing plugin (Platinum Edition)
+
+Bug fixes
++ Special characters fix for announcements
++ Create custom tray icon fix
++ Auto linking bug fix
++ Admin session fix
+
+-------------------------------------------------------------
+ CometChat v2.0.3
+-------------------------------------------------------------
+
+Features
++ Ability to update base URL using administration panel
+
+Bug fixes
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+ CometChat v2.0.2
+-------------------------------------------------------------
+
+Features
++ CometService compatible
+
+-------------------------------------------------------------
+ CometChat v2.0.0
+-------------------------------------------------------------
+
+Features
++ Streamlined installation procedure
++ Ability to hide CometChat bar (by user and for non-logged in users)
++ Improved themes
++ Ability to send announcements in real-time
++ Enhanced support for RTL languages
++ Full UTF-8 support
++ Popup notification when user comes online/goes offline
++ Ability for users to disable notification
++ Improved licensing technology
++ Improved support for Internet Explorer 6
++ Improved hyperlinking of domains in messages
++ Improved status messages feature
++ Better notification of new messages when user is away
++ Option to show bar above flash objects
++ Ability to switch between friends and online users
++ JavaScript speed enhancements & optimizations
++ Enhanced JS API
++ Miscellaneous bug fixes
++ Database optimization
++ Improved CRONJOB
++ Advanced administration panel
+
+Plugins
++ Ability transfer files in any format
++ New Screen Sharing plugin
++ Ability to save conversations
++ New smileys plugin
++ New transliterate plugin
+
+Modules
++ Advanced chatrooms module
++ Improved single player games module
++ Improved share this functionaliy
++ Improved Facebook Fan Page
++ Scroll to top module
+
+-------------------------------------------------------------
+ CometChat v1.6.0
+-------------------------------------------------------------
+
+Features
++ Plugins pre-loaded with CometChat
+
+-------------------------------------------------------------
+ CometChat v1.5.123
+-------------------------------------------------------------
+
+Bug fixes
++ Chatrooms functionality
++ Simplified installation process
+
+-------------------------------------------------------------
+ CometChat v1.5.112
+-------------------------------------------------------------
+
+Enhancements
++ Streamlined installation process
+
+Bug fixes
++ YouTube link feature
++ Chatrooms functionality
++ Miscellaneous reported bugs
+
+-------------------------------------------------------------
+ CometChat v1.5.0
+-------------------------------------------------------------
+
+Features
++ Avatar support
++ Gravatar support for sites with no avatars
++ Ability to go to user profile on clicking of name (in chatbox)
++ Youtube video integration
++ Ability to display first name only in chat conversations
++ Overall chat speed enhancements
++ Ability to login by clicking on yellow alert icon
++ Title-bar update when new message arrives
++ Different colors for incoming and outgoing messages
++ Improved synchronization with multiple open windows
++ Plugins/modules support
++ Themes support
+
+Themes
++ Default theme
++ Dark theme
+
+Administration features
++ Spy: View users chatting in real-time!
++ Logs: View conversation logs of users
++ Chatrooms: Ability to specify default chatrooms
+
+Bundled Modules
++ Chatroom module
+
+Bundled Plugins
++ Timestamp Plugin: Display time when messages arrive
++ Send File Plugin: Ability to send files to users
++ Clear Chat History Plugin: Ability to clear chat window
++ View History Plugin: View user chat logs
+
+API
++ chatWith: Allows you to add a link on your page to chat with users (including users not part of friends list)
++ sendMessage: Allows you to send a message to a user (from the logged-in user)
+
+Bug fixes
++ Auto-linking bug fix
++ Better support for Internet Explorer
++ Miscellaneous bug fixes
+
+-------------------------------------------------------------
+ CometChat v1.2
+-------------------------------------------------------------
+
+Fix: 10x Speed Enhancements
+Feature: Custom popup boxes
+
+-------------------------------------------------------------
+ CometChat v1.1
+-------------------------------------------------------------
+
+Feature: Custom icons feature (left-side)
+Feature: Auto-parsing of links
+Feature: Smileys
+Feature: Bad-word filter
+Feature: Internationalization option
+Feature: Sound alerts (user-level disable feature)
+Feature: Auto-popup of boxes feature
+Feature: Added various customization options (fine-tweaking)
+Bug: Charset fix
+Bug: Newline character fix
+
+-------------------------------------------------------------
+ CometChat v1.0.1
+-------------------------------------------------------------
+
+Bug: \' slashes bug
+Bug: Slowing of script due to large number of friends
+
+-------------------------------------------------------------
+ CometChat v1.0.0
+-------------------------------------------------------------
+
+Initial release of script

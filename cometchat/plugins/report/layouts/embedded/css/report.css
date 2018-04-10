@@ -1,0 +1,135 @@
+/*
+* CometChat
+* Copyright (c) 2016 Inscripts - support@cometchat.com | http://www.cometchat.com | http://www.inscripts.com
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_embed'];?>;
+}
+
+
+html, body {
+	overflow: hidden;
+	background: <?php echo $layoutSettings['main_background'];?>;
+	direction: <?php echo $dir;?>;
+	background: white;
+}
+
+.cometchat_wrapper {
+	width: 98%;
+	margin: 0 auto;
+	margin-top: 5px;
+}
+
+.container_title {
+	background-color: <?php echo $layoutSettings['main_background'];?>;
+	color: <?php echo $layoutSettings['text_color'];?>;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_embed'];?>;
+	border-left: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-right: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-top: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	padding: 5px;
+	padding: 5px;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-bottom: 6px;
+}
+
+.container_body {
+	border-left: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-bottom: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-right: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	background-color: white;
+	color: <?php echo $layoutSettings['text_color'];?>;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_embed'];?>;
+	padding: 10px 10px;
+}
+
+#reportbox {
+	width: 466px;
+	height: 115px;
+	border: 1px solid <?php echo $layoutSettings['border_color'];?>;
+}
+
+#send {
+	margin-top: 5px;
+	float: left;
+}
+
+.container_body.embed {
+	border: 0px;
+	padding: 10px;
+}
+
+.container_title.embed {
+	display: none;
+}
+
+.reportbutton {
+	background-color: <?php echo $layoutSettings['primary_color'];?>;
+	color: <?php echo $layoutSettings['color_white'];?>;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_embed'];?>;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 7px;
+	border: 0;
+	outline: 0;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.container_title.webapp {
+	font-size: 13px;
+	height:15%;
+}
+
+.reportbox.webapp {
+	height:250px !important;
+	font-size:16px;
+	width:100% !important;
+}
+
+.reportbutton.webapp {
+	height:20px;
+	width: 100%;
+	font-size:13px;
+}
+
+.send.webapp {
+	margin-top: 0px !important;
+}
+
+.report.webapp {
+	font-size:13px;
+}
+
+.sendwrapper.webapp {
+	position:relative;
+	top:4px;
+}
+
+textarea {
+    resize: none;
+}

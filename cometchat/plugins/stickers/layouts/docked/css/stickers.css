@@ -1,0 +1,122 @@
+/*
+ * CometChat
+ * Copyright (c) 2016 Inscripts - support@cometchat.com | http://www.cometchat.com | http://www.inscripts.com
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+html, body {
+	background: <?php echo $layoutSettings['color_white'];?>;
+	height: 100%;
+	overflow: hidden;
+}
+
+.cometchat_wrapper {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.container_body {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 100%;
+	background-color: <?php echo $layoutSettings['color_white'];?>;
+}
+
+.cometchat_sticker_image{
+	cursor: pointer;
+	float: left;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	width: 80px;
+	height: 80px;
+	padding: 4px;
+	margin: 6px;
+}
+
+.tab {
+	float: left;
+	background: #EEEEEE;
+	background-size: auto 90% !important;
+	color: #333333;
+	text-align: center;
+	cursor: pointer;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 40px;
+}
+
+.tab_length5 {
+	width: 20%;
+}
+
+.tab h2 {
+	line-height: 26px;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: 13px;
+}
+
+.tab:last-child {
+	border-right: none;
+}
+
+.selected {
+	border-bottom: 5px solid #95D4CE;
+}
+
+.selected  h2 {
+	background: white;
+	font-weight: bold;
+}
+
+.stickers {
+	display: none;
+    <?php if($rtl) :?>
+    padding: 5px 0 0 15px;
+    <?php else :?>
+	padding: 5px 0 0 5px;
+    <?php endif;?>
+    height: 100%;
+    background: none !important;
+}
+
+.sticker_selected {
+	display: block !important;
+}
+.sticker_tab_selected{
+	display: block !important;
+	border-bottom: 5px solid #95D4CE;
+}
+.stickers div {
+	cursor:pointer;
+	margin: 3px;
+	float: left;
+}
+
+#tabs_container {
+	width: 100vw;
+	float: left;
+}
+
+.slimScrollDiv {
+	float: left;
+}

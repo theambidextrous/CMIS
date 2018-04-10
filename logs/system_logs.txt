@@ -1,0 +1,110 @@
+<p><strong>Log Date:</strong> 05-02-2018 14:08:09<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/portal/?do=reset<br>
+	<strong>Error Captured:</strong> [SELECT `Email` FROM `mis_portal` WHERE `Email` = 'kipronoglady@gmail.com']
+
+Unknown column 'Email' in 'field list'</p><p><strong>Log Date:</strong> 05-02-2018 15:37:40<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/portal/?do=reset<br>
+	<strong>Error Captured:</strong> [SELECT `Email` FROM `mis_portal` WHERE `Email` = 'kephaodhiambo5@gmail.com']
+
+Unknown column 'Email' in 'field list'</p><p><strong>Log Date:</strong> 05-02-2018 15:38:18<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/portal/?do=reset<br>
+	<strong>Error Captured:</strong> [SELECT `Email` FROM `mis_portal` WHERE `Email` = 'kephaodhiambo5@gmail.com']
+
+Unknown column 'Email' in 'field list'</p><p><strong>Log Date:</strong> 05-02-2018 16:33:39<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/portal/?do=reset<br>
+	<strong>Error Captured:</strong> [SELECT `Email` FROM `mis_portal` WHERE `Email` = 'sammymwa@gmail.com']
+
+Unknown column 'Email' in 'field list'</p><p><strong>Log Date:</strong> 06-02-2018 12:22:49<br>
+	<strong>Error Type:</strong> MySQL DB Error #1064<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/portal/?do=apply&task=add<br>
+	<strong>Error Captured:</strong> [INSERT INTO `mis_faculty_applications` (`FacultyID`, `FacultyEmail`, `UnitsApplied`) VALUES ('FE/FA/145/18','g.wambuimungai@gmail.com','FEMAT,COT005)]
+
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''FEMAT,COT005)' at line 1</p><p><strong>Log Date:</strong> 07-02-2018 12:08:56<br>
+	<strong>Error Type:</strong> MySQL DB Error #1064<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/portal/?do=apply&task=add<br>
+	<strong>Error Captured:</strong> [INSERT INTO `mis_faculty_work_experience` (`StaffID`, `PreviousEmployer`, `PreviousJobTitle`, `Period`, `PreviousRoles`) 
+										VALUES ('FE/FA/151/18','Mount Kenya University','Senior Human Resource Officer','2015-2018','•	Performance Management: Establishing the indicators of Performance Contract Evaluation , determining the Performance Contract results , identifying the challenges facing the implementation of Performance Contracting in the university, providing employees with regular feedback on their performance through the quarterly performance evaluation reports and the comprehensive evaluation done at the end of the contract period, identifying the skills development and the training required to the employee in order to be effective in service delivery.
+•	Recruitment: Developing Terms of References, advertising positions, short listing candidates and interviewing candidates, conducting reference checks and advising successful/unsuccessful candidates, and preparing contracts for new hires. 
+•	Capacity Building: Working with Managers and Team Leaders in the University to build their confidence and capacity to carry out their human resource management duties. 
+•	File Management and Contracts Administration: Maintaining records and compiling statistical reports concerning personnel-related data such as hires, transfers, performance appraisals, and absenteeism rates and Leaves.
+•	Compensation and Benefits Management: Payroll administration, liaising with Coordination team on salary levels for existing and prospective staff consistent with organization market conditions and policies. Administering and keeping information on benefits and compensation Packages up-to-date and on timely manner and manage the external related-vendors. Analyzing and modifying compensation and benefits policies to establish competitive programs and ensure compliance with legal requirements.
+•	Analyzing statistical data and reports to identify and determine causes of personnel problems and turnover and develop recommendations for improvement of University's personnel policies and practices.
+•	Serving as a link between management and employees by handling questions, interpreting and administering contracts, and providing pragmatic and consistent guidance and advice to managers on performance and other human resource issues.
+•	Supporting cultural changes across the University through a variety of different methods, including implementing action plans, following the Staff Survey, enabling managers to more effectively line manage their staff and strongly encouraging managers to take greater responsibility for their staff.  
+•	Ensuring that all Human Resource policies and procedures are regularly reviewed and continue to reflect both up-to-date employment law and best practice.
+•	Reviewing staff awards processes and designing an effective staff award system which recognizes excellent performance.  
+•	Supporting on all compulsory redundancy processes, ensuring compliance with employment law and the University's Redundancy Policy.
+•	Ensuring compliance with health and safety policy and procedures and risk assessments.    
+•	Creating awareness of the University's Equality and Diversity Policy and targets and actively promoting equality of opportunity.
+•	Handling staff grievances and disciplinary concerns
+•	Handling staff grievances and disciplinary concerns on a monthly basis and when need arises 
+')]
+
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 's personnel policies and practices.
+•	Serving as a link between management an' at line 2</p><p><strong>Log Date:</strong> 08-02-2018 13:52:38<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=4<br>
+	<strong>Error Captured:</strong> [SELECT `UID`, `UnitID`, `UName`, `Credit`, `TuitionFee`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `Days`, `RoomID`, `ClassLimit`, `Description`, `CourseID`, `Prerequisites`, `Corequisites`, `YrTrim`, `FacultyID`, `disabledFlag` FROM `mis_units`]
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 12-02-2018 09:28:12<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=4<br>
+	<strong>Error Captured:</strong> [SELECT `UID`, `UnitID`, `UName`, `Credit`, `TuitionFee`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `Days`, `RoomID`, `ClassLimit`, `Description`, `CourseID`, `Prerequisites`, `Corequisites`, `YrTrim`, `FacultyID`, `disabledFlag` FROM `mis_units`]
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 12-02-2018 09:28:30<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=4<br>
+	<strong>Error Captured:</strong> [SELECT `UID`, `UnitID`, `UName`, `Credit`, `TuitionFee`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `Days`, `RoomID`, `ClassLimit`, `Description`, `CourseID`, `Prerequisites`, `Corequisites`, `YrTrim`, `FacultyID`, `disabledFlag` FROM `mis_units`]
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 12-02-2018 09:28:59<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=4<br>
+	<strong>Error Captured:</strong> [SELECT `UID`, `UnitID`, `UName`, `Credit`, `TuitionFee`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `Days`, `RoomID`, `ClassLimit`, `Description`, `CourseID`, `Prerequisites`, `Corequisites`, `YrTrim`, `FacultyID`, `disabledFlag` FROM `mis_units`]
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 12-02-2018 09:31:48<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=4<br>
+	<strong>Error Captured:</strong> [SELECT `UID`, `UnitID`, `UName`, `Credit`, `TuitionFee`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `Days`, `RoomID`, `ClassLimit`, `Description`, `CourseID`, `Prerequisites`, `Corequisites`, `YrTrim`, `FacultyID`, `disabledFlag` FROM `mis_units`]
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 12-02-2018 09:33:53<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=4<br>
+	<strong>Error Captured:</strong> [SELECT `UID`, `UnitID`, `UName`, `Credit`, `TuitionFee`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `Days`, `RoomID`, `ClassLimit`, `Description`, `CourseID`, `Prerequisites`, `Corequisites`, `YrTrim`, `FacultyID`, `disabledFlag` FROM `mis_units`]
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 12-02-2018 09:36:53<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=4<br>
+	<strong>Error Captured:</strong> [SELECT `UID`, `UnitID`, `UName`, `Credit`, `TuitionFee`, `StartDate`, `EndDate`, `StartTime`, `EndTime`, `Days`, `RoomID`, `ClassLimit`, `Description`, `CourseID`, `Prerequisites`, `Corequisites`, `YrTrim`, `FacultyID`, `disabledFlag` FROM `mis_units`]
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 12-02-2018 13:36:48<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=6&task=view&recid=50&action=add<br>
+	<strong>Error Captured:</strong> [UPDATE `mis_units` SET `FacultyID` = 'FE/162/2018' WHERE `UnitID` = 'CFE001']
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 12-02-2018 13:37:57<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=6&task=view&recid=50&action=add<br>
+	<strong>Error Captured:</strong> [UPDATE `mis_units` SET `FacultyID` = 'FE/162/2018' WHERE `UnitID` = 'CFE001']
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 20-02-2018 12:49:01<br>
+	<strong>Error Type:</strong> MySQL DB Error #1054<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/admin/admin.php?tab=6&task=view&recid=50&action=add<br>
+	<strong>Error Captured:</strong> [UPDATE `mis_units` SET `FacultyID` = 'FE/FA/162/18' WHERE `UnitID` = 'COT001']
+
+Unknown column 'FacultyID' in 'field list'</p><p><strong>Log Date:</strong> 01-03-2018 17:02:37<br>
+	<strong>Error Type:</strong> MySQL DB Error #1064<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/portal/?do=apply&task=add<br>
+	<strong>Error Captured:</strong> [INSERT INTO `mis_ac_qualifications` (`StudentID`, `Institution`, `Certificate`, `Period`, `GradeMark`, `EngProficiency`, `EngHelp`, `CertFile`) 
+										VALUES ('FE/COT/181/2018','St. John's Nyamagwa Boys' High School','KCSE','2005-2008','B+','1','0','https://finstockevarsity.com/cmis/uploads/choi-alfonce-nyambane-cert-kcse-01032018170234.pdf')]
+
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 's Nyamagwa Boys' High School','KCSE','2005-2008','B+','1','0','https://finstocke' at line 2</p><p><strong>Log Date:</strong> 01-03-2018 19:44:58<br>
+	<strong>Error Type:</strong> MySQL DB Error #1064<br>
+	<strong>Page:</strong> https://finstockevarsity.com:443/cmis/portal/?do=apply&task=add<br>
+	<strong>Error Captured:</strong> [INSERT INTO `mis_ac_qualifications` (`StudentID`, `Institution`, `Certificate`, `Period`, `GradeMark`, `EngProficiency`, `EngHelp`, `CertFile`) 
+										VALUES ('FE/COT/184/2018','Kenya Methodist University','Bachelor's degree','2011-2013','Second class Honours (Upper division)','1','0','https://finstockevarsity.com/cmis/uploads/kuria-paul-kiarii-cert-bachelors-degree-01032018194457.pdf')]
+
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 's degree','2011-2013','Second class Honours (Upper division)','1','0','https://f' at line 2</p>

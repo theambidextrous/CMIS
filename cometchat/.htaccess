@@ -1,0 +1,82 @@
+<IfModule mod_rewrite.c>
+ RewriteEngine Off
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_URI} ^(.*)/(.*)\.[js|css]? [NC]
+
+	RewriteRule ^(.*?)x_x(.*?)\.js$ %1/js.php?client=$1&cdnparams=$2 [PT,L]
+	RewriteCond %{REQUEST_URI} ^(.*)/(.*)\.[js|css]? [NC]
+	RewriteRule ^(.*?)x_x(.*?)\.css$ %1/css.php?client=$1&cdnparams=$2 [PT,L]
+
+	RewriteRule ^(.*?)x(.*?)\.js$ %1/js.php?client=$1&cdnparams=$2 [PT,L]
+	RewriteCond %{REQUEST_URI} ^(.*)/(.*)\.[js|css]? [NC]
+	RewriteRule ^(.*?)x(.*?)\.css$ %1/css.php?client=$1&cdnparams=$2 [PT,L]
+
+</IfModule>
+<IfModule mod_headers.c>
+ <FilesMatch "\.(js|css|xml|gz|gif|jpg|png|swf|html|svg)$">
+  Header add "Expires" "Mon, 31 Jul 2017 23:30:00 GMT"
+  Header add "Cache-Control" "max-age=31536000"
+  Header append Vary: Accept-Encoding
+ </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+ ExpiresActive On
+ ExpiresByType image/gif A604800
+ ExpiresByType image/png A604800
+ ExpiresByType image/jpeg A604800
+ ExpiresByType application/x-shockwave-flash A604800
+ ExpiresByType image/svg+xml A604800
+</IfModule>
+
+<IfModule mod_headers.c>
+   Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+RewriteEngine On
+RewriteRule .*\.(js|css)$ - [F]
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} /(.*)/desktop/(.*)/? [NC]
+RewriteRule .* %1/extensions/desktop/%2
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} /(.*)/mobile/(.*)/? [NC]
+RewriteRule .* %1/extensions/mobile/%2
+
+RewriteEngine On
+
+## Begin - Rewrite rules to block out some common exploits.
+# If you experience problems on your site block out the operations listed below
+# This attempts to block the most common type of exploit `attempts` to cometchat!
+
+# Block out any script that includes a javascript: in URL.
+RewriteCond %{QUERY_STRING} (javascript:).*(\;) [NC,OR]
+# Block out any script that includes a <script> tag in URL.
+RewriteCond %{QUERY_STRING} (<|%3C)([^s]*s)+cript.*(>|%3E) [NC]
+# Return 403 Forbidden header
+RewriteRule .* - [F]
+#
+## End - Rewrite rules to block out some common exploits.
+
+<IfModule php5_module>
+	php_value post_max_size "16M"
+	php_value upload_max_filesize "16M"
+</IfModule>
+
+# PHP 5, Apache 1 and 2.
+<IfModule mod_php5.c>
+
+# [ disable APC opcode cache for domain
+php_flag apc.cache_by_default Off
+# ]
+
+</IfModule>
+AddType image/svg+xml svg svgz
+AddEncoding gzip svgz

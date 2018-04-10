@@ -1,0 +1,70 @@
+@-moz-keyframes rotate {
+    0    { -moz-transform: rotate(0); } 
+    100% { -moz-transform: rotate(360deg); }  
+}
+
+@-webkit-keyframes rotate {
+    0%    { -webkit-transform: rotate(0); }
+    100% { -webkit-transform: rotate(360deg); } 
+}
+#recordContainer {
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+}
+#recordCircle
+{
+	margin: 0px auto;
+	font-weight: bold;
+	cursor: pointer;
+	width: 60px;
+	height: 60px;
+	z-index: 2;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+div#recordTime span {
+    color: <?php echo $layoutSettings['primary_color'];?>;
+}
+.startRecord {
+	background-color: <?php echo $layoutSettings['primary_color'];?>;
+	color: #000000;
+}
+#recordTime{
+	text-align: center;
+	padding: 4px 0px;
+}
+.stopRecord {
+	background-color: <?php echo $layoutSettings['secondary_color'];?>;
+	color: #000000;
+}
+#recordText {
+	color: #ffffff;
+    padding-top: 35%;
+    font-size: 14px;
+    font-weight: 600;
+}
+#recordCircleOverlay {
+    background-color: #333;
+    width: 80px;
+    min-width: 60px;
+    min-height: 60px;
+	height: 80px;
+    border-radius: 50%;
+    opacity: .2;
+}
+
+#recordCircle,#recordCircleOverlay{
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 55%;
+    transform: translate(-50%, -50%)
+}
+.voicenote_loader{
+    fill:<?php echo $layoutSettings['primary_color'];?>;
+    -moz-animation: 3s rotate infinite linear  ;
+  	-moz-transform-origin: 50% 50%; 
+  	-webkit-animation: 3s rotate infinite linear  ;
+  	-webkit-transform-origin: 50% 50%;  
+}

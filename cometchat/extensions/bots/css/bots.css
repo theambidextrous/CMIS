@@ -1,0 +1,63 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+
+}
+iframe{
+	overflow: hidden;
+}
+.cometchat_userlist_hover, .cometchat_botlist_hover {
+	background-color: <?php echo $layoutSettings['hover_color'];?> !important;
+}
+.cometchat_botlist .cometchat_botcontentname {
+	text-overflow: ellipsis;
+	text-transform: capitalize;
+	max-width: 195px;
+	padding-top: 10px;
+	white-space: nowrap;
+}
+.cometchat_botdisplayname{
+	text-transform: capitalize;
+	padding: 6px 0px 2px 0px;
+	margin-<?php echo $left;?>: 22px;
+	font-size: <?php echo $layoutSettings['font_size_embed'];?>;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	line-height: 16px;
+	max-width: 160px;
+	width: 230px;
+}
+.cometchat_botscontentavatar {
+	display: block;
+	float: <?php echo $left;?>;
+	padding-bottom: 1px;
+	padding-left: 5px;
+	padding-top: 2px;
+	position: relative;
+}
+.cometchat_botscontentavatarimage {
+	height: 40px;
+	width: 40px;
+	position: relative;
+	border-radius: 50%;
+}

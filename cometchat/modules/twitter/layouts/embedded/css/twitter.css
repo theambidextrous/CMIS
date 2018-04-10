@@ -1,0 +1,71 @@
+/*
+ * CometChat
+ * Copyright (c) 2016 Inscripts - support@cometchat.com | http://www.cometchat.com | http://www.inscripts.com
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+html, body {
+	overflow: hidden;
+	background: <?php echo $layoutSettings['color_white'];?>;
+	direction: <?php echo $dir;?>;
+	height:100%;
+}
+
+ul {
+  float: left;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  float: left;
+  margin: 0;
+  padding: 10px;
+}
+
+.cometchat_wrapper {
+	font-weight: normal;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_mid'];?>;
+	color: <?php echo $layoutSettings['text_color'];?>;
+	padding: 0px;
+	height:100%;
+}
+
+.cometchat_wrapper a {
+	color: <?php echo $layoutSettings['text_color'];?>;
+}
+
+small {
+	color: <?php echo $layoutSettings['text_color'];?>;
+	font-size: <?php echo $layoutSettings['font_size_small'];?>;
+}
+
+.followme {
+	float: left;
+	border-right: 1px dotted <?php echo $layoutSettings['border_color'];?>;
+	padding: 10px;
+}
+
+#tweets {
+	padding-right: 5px !important;
+}

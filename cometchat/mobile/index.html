@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<head>
+		<title>CometChat</title>
+		<script>
+			window.onload = function() {
+				var mobileDevice = navigator.userAgent.match(/ipad|ipod|iphone|android|windows ce|blackberry|palm|symbian/i);
+				if ( mobileDevice ) {
+					location.href = '../extensions/mobilewebapp/';
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div id="error"></div>
+	</body>
+</html>

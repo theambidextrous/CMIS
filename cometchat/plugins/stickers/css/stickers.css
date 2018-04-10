@@ -1,0 +1,362 @@
+<?php
+if( $name == 'desktop') {
+	$staticCDNUrl = '';
+} else {
+	$staticCDNUrl = STATIC_CDN_URL;
+}
+?>
+
+/*Bear*/
+.bear_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_1.png)}
+.bear_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_2.png)}
+.bear_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_3.png)}
+.bear_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_4.png)}
+.bear_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_5.png)}
+.bear_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_6.png)}
+.bear_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_7.png)}
+.bear_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_8.png)}
+.bear_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_9.png)}
+.bear_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_10.png)}
+.bear_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_11.png)}
+.bear_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_12.png)}
+.bear_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_13.png)}
+.bear_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_14.png)}
+.bear_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_15.png)}
+.bear_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/bear/bear_16.png)}
+
+/*Geek*/
+.geek_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_1.png)}
+.geek_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_2.png)}
+.geek_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_3.png)}
+.geek_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_4.png)}
+.geek_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_5.png)}
+.geek_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_6.png)}
+.geek_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_7.png)}
+.geek_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_8.png)}
+.geek_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_9.png)}
+.geek_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_10.png)}
+.geek_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_11.png)}
+.geek_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_12.png)}
+.geek_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_13.png)}
+.geek_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_14.png)}
+.geek_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_15.png)}
+.geek_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/geek/geek_16.png)}
+
+/*Gery*/
+.gery_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_1.png)}
+.gery_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_2.png)}
+.gery_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_3.png)}
+.gery_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_4.png)}
+.gery_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_5.png)}
+.gery_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_6.png)}
+.gery_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_7.png)}
+.gery_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_8.png)}
+.gery_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_9.png)}
+.gery_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_10.png)}
+.gery_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_11.png)}
+.gery_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_12.png)}
+.gery_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_13.png)}
+.gery_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_14.png)}
+.gery_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_15.png)}
+.gery_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/gery/gery_16.png)}
+
+/*HappyGhostBundle*/
+.happ_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_1.png)}
+.happ_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_2.png)}
+.happ_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_3.png)}
+.happ_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_4.png)}
+.happ_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_5.png)}
+.happ_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_6.png)}
+.happ_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_7.png)}
+.happ_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_8.png)}
+.happ_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_9.png)}
+.happ_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_10.png)}
+.happ_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_11.png)}
+.happ_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_12.png)}
+.happ_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_13.png)}
+.happ_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_14.png)}
+.happ_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_15.png)}
+.happ_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/happyghost/happ_16.png)}
+
+/*LittleDynoBundle*/
+.litt_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_1.png)}
+.litt_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_2.png)}
+.litt_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_3.png)}
+.litt_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_4.png)}
+.litt_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_5.png)}
+.litt_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_6.png)}
+.litt_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_7.png)}
+.litt_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_8.png)}
+.litt_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_9.png)}
+.litt_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_10.png)}
+.litt_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_11.png)}
+.litt_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_12.png)}
+.litt_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_13.png)}
+.litt_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_14.png)}
+.litt_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_15.png)}
+.litt_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/littledyno/litt_16.png)}
+
+/*Momon*/
+.momo_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_1.png)}
+.momo_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_2.png)}
+.momo_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_3.png)}
+.momo_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_4.png)}
+.momo_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_5.png)}
+.momo_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_6.png)}
+.momo_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_7.png)}
+.momo_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_8.png)}
+.momo_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_9.png)}
+.momo_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_10.png)}
+.momo_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_11.png)}
+.momo_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_12.png)}
+.momo_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_13.png)}
+.momo_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_14.png)}
+.momo_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_15.png)}
+.momo_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/momon/momo_16.png)}
+
+/*Monster*/
+.mons_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_1.png)}
+.mons_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_2.png)}
+.mons_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_3.png)}
+.mons_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_4.png)}
+.mons_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_5.png)}
+.mons_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_6.png)}
+.mons_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_7.png)}
+.mons_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_8.png)}
+.mons_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_9.png)}
+.mons_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_10.png)}
+.mons_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_11.png)}
+.mons_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_12.png)}
+.mons_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_13.png)}
+.mons_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_14.png)}
+.mons_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_15.png)}
+.mons_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/monster/mons_16.png)}
+
+/*Penguin*/
+.peng_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_1.png)}
+.peng_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_2.png)}
+.peng_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_3.png)}
+.peng_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_4.png)}
+.peng_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_5.png)}
+.peng_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_6.png)}
+.peng_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_7.png)}
+.peng_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_8.png)}
+.peng_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_9.png)}
+.peng_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_10.png)}
+.peng_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_11.png)}
+.peng_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_12.png)}
+.peng_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_13.png)}
+.peng_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_14.png)}
+.peng_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_15.png)}
+.peng_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/penguin/peng_16.png)}
+
+/*Pirate*/
+.pira_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_1.png)}
+.pira_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_2.png)}
+.pira_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_3.png)}
+.pira_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_4.png)}
+.pira_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_5.png)}
+.pira_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_6.png)}
+.pira_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_7.png)}
+.pira_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_8.png)}
+.pira_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_9.png)}
+.pira_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_10.png)}
+.pira_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_11.png)}
+.pira_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_12.png)}
+.pira_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_13.png)}
+.pira_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_14.png)}
+.pira_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_15.png)}
+.pira_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/pirate/pira_16.png)}
+
+/*SkaterBoyBundle*/
+.skat_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_1.png)}
+.skat_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_2.png)}
+.skat_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_3.png)}
+.skat_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_4.png)}
+.skat_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_5.png)}
+.skat_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_6.png)}
+.skat_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_7.png)}
+.skat_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_8.png)}
+.skat_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_9.png)}
+.skat_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_10.png)}
+.skat_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_11.png)}
+.skat_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_12.png)}
+.skat_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_13.png)}
+.skat_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_14.png)}
+.skat_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_15.png)}
+.skat_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/skaterboy/skat_16.png)}
+
+/*Vampire*/
+.vamp_1{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_1.png)}
+.vamp_2{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_2.png)}
+.vamp_3{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_3.png)}
+.vamp_4{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_4.png)}
+.vamp_5{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_5.png)}
+.vamp_6{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_6.png)}
+.vamp_7{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_7.png)}
+.vamp_8{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_8.png)}
+.vamp_9{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_9.png)}
+.vamp_10{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_10.png)}
+.vamp_11{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_11.png)}
+.vamp_12{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_12.png)}
+.vamp_13{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_13.png)}
+.vamp_14{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_14.png)}
+.vamp_15{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_15.png)}
+.vamp_16{ background-image: url(<?php echo $staticCDNUrl; ?>plugins/stickers/images/vampire/vamp_16.png)}
+
+/* Slider */
+.slick-slider
+{
+    position: relative;
+
+    display: block;
+
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+        touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list
+{
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    margin: 0 25px;
+    padding: 0;
+}
+.slick-list:focus
+{
+    outline: none;
+}
+.slick-list.dragging
+{
+    cursor: pointer;
+    cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list
+{
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+         -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+.slick-track
+{
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: rgb(216, 216, 216);
+    display: block;
+}
+.slick-track:before,
+.slick-track:after
+{
+    display: table;
+
+    content: '';
+}
+.slick-track:after
+{
+    clear: both;
+}
+.slick-loading .slick-track
+{
+    visibility: hidden;
+}
+
+.slick-slide
+{
+    display: none;
+    float: left;
+    min-height: 1px;
+}
+[dir='rtl'] .slick-slide
+{
+    float: right;
+}
+.slick-slide img
+{
+    display: block;
+}
+.slick-slide.slick-loading img
+{
+    display: none;
+}
+.slick-slide.dragging img
+{
+    pointer-events: none;
+}
+.slick-initialized .slick-slide
+{
+    display: block;
+}
+.slick-loading .slick-slide
+{
+    visibility: hidden;
+}
+.slick-vertical .slick-slide
+{
+    display: block;
+
+    height: auto;
+
+    border: 1px solid transparent;
+}
+.slick-arrow.slick-hidden {
+    display: none;
+}
+.slick-prev,.slick-next {
+    font-size: 0;
+    line-height: 0;
+    top: 0;
+    position: absolute;
+    display: block;
+    width: 25px;
+    height: 100%;
+    padding: 0;
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    z-index: 100;
+    background-color: #D8D8D8;
+    background-size: 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.slick-prev {
+    background-image: url(<?php echo BASE_URL; ?>images/left-arrow.png);
+    background-size: auto 75%;
+    border-bottom: 1px solid #C8C8C8;
+    left: 0;
+}
+.slick-next {
+    background-image: url(<?php echo BASE_URL; ?>images/right-arrow.png);
+    background-size: auto 75%;
+    border-bottom: 1px solid #C8C8C8;
+    right: 0;
+}
+.slick-prev:before, .slick-next:before {
+    font-size: 20px;
+    line-height: 1;
+    opacity: .75;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

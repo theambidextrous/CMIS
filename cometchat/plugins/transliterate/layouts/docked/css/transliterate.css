@@ -1,0 +1,121 @@
+/*
+ * CometChat
+ * Copyright (c) 2016 Inscripts - support@cometchat.com | http://www.cometchat.com | http://www.inscripts.com
+*/
+
+
+html, body {
+	overflow: hidden;
+	background: white;
+	direction: <?php echo $dir;?>;
+}
+
+ul {
+  float: <?php echo $left;?>;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  padding-<?php echo $left;?>: 15px;
+}
+
+
+li:before {
+    background: url("<?php echo STATIC_CDN_URL; ?>layouts/<?php echo $layout;?>/images/bullet.png") no-repeat scroll rgba(0, 0, 0, 0);
+    content: "";
+    height: 10px;
+    position: absolute;
+    left: -8px;
+    top: 2px;
+    width: 10px;
+    background-position: 0 1px;
+    <?php if ($rtl):?>
+    background-position: 0 -8px;
+    right: -13px;
+    left: 0;
+    <?php endif;?>
+}
+
+li {
+  position: relative;
+  float: <?php echo $left;?>;
+  width: 130px;
+  margin: 0;
+  height: 20px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.cometchat_wrapper {
+	width:98%;
+	margin:0 auto;
+	background-color: <?php echo $layoutSettings['light_grey_color'];?>;
+	border-top: 1px solid <?php echo $layoutSettings['border_color'];?>;
+}
+
+.container_title {
+	color: #666;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_mid'];?>;
+	padding: 5px;
+}
+
+.container_body {
+	background-color: <?php echo $layoutSettings['color_white'];?>;
+	color: <?php echo $layoutSettings['color_grey'];?>;
+	padding: 0px 5px;
+	font-weight: normal;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_mid'];?>;
+	height: 100%;
+}
+
+#languages {
+	height: 100%;
+}
+
+#transliteratebox {
+	width: 100%;
+	height: 55px;
+	border: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	margin-top: 10px;
+	font-size: 12px !important;
+}
+
+a {
+	color: <?php echo $layoutSettings['primary_color'];?>;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+#send {
+	margin-top: 5px;
+	float: <?php echo $left;?>
+}
+
+#change {
+	float: right;
+	padding: 0px;
+	margin-top: 12px;
+}
+
+.button {
+	background-color: <?php echo $layoutSettings['primary_color'];?>;
+	color: <?php echo $layoutSettings['color_white'];?>;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_mid'];?>;
+	cursor: pointer;
+	padding: 7px;
+	outline: 0;
+	border: 0;
+	border-radius: 25px;
+	max-width: 90px;
+	width: 75px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+textarea {
+    resize: none;
+}

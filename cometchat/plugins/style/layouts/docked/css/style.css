@@ -1,0 +1,90 @@
+/*
+ * CometChat
+ * Copyright (c) 2016 Inscripts - support@cometchat.com | http://www.cometchat.com | http://www.inscripts.com
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+
+}
+
+html, body {
+	background: <?php echo $layoutSettings['color_white'];?>;
+	direction: <?php echo $dir;?>;
+}
+
+.cometchat_wrapper {
+	width: 98%;
+	margin: 0 auto;
+}
+
+.container_title {
+	background-color: <?php echo $layoutSettings['primary_color'];?>;
+	color: <?php echo $layoutSettings['color_white'];?>;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_small'];?>;
+	border-left: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-right: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-top: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	padding: 5px;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-bottom: 6px;
+}
+
+.container_body {
+	border-left: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-bottom: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-right: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	background-color: <?php echo $layoutSettings['color_white'];?>;
+	color: <?php echo $layoutSettings['dark_grey_color'];?>;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_small'];?>;
+	padding: 5px;
+	padding:20px 10px;
+
+}
+
+.container_body.embed {
+	border: 0px;
+	padding: 6px 10px 10px 10px;
+}
+
+.container_title.embed {
+	display: none;
+}
+
+.container_body .setStyle{
+	width: 33px;
+    height: 33px;
+    margin-right: 2.6px;
+}
+
+.cometchat_colorbox {
+	width: 16px;
+	height: 16px;
+	border-radius: 50px;
+	margin: 2px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.container_body.embed span:nth-last-child(2) {
+
+    border: 1px solid lightgray !important;
+}

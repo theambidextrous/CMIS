@@ -1,0 +1,132 @@
+/*
+* CometChat
+* Copyright (c) 2016 Inscripts - support@cometchat.com | http://www.cometchat.com | http://www.inscripts.com
+*/
+
+.cometchat_ccmobiletab_redirect {
+	background-color: <?php echo $layoutSettings['primary_color'];?>;
+	position:fixed;
+	bottom:25px;
+	right: 20px;
+	padding: 18px 24px;
+	text-align: center;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	color: <?php echo $layoutSettings['color_white'];?>;
+	cursor: pointer;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+    z-index: 99999;
+}
+
+.cometchat_ccmobiletab_redirect span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: 0;
+}
+
+.ccbadge-danger {
+    color: #fff;
+    background-color: #fb0d0c;
+    border:3px solid #fafafa;
+    border-radius: 25px;
+}
+
+.ccbadge {
+    display: inline-block;
+    font-family: sans-serif;
+    font-weight: bolder;
+    padding: 5px 3px;
+    font-size: 51%;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    min-width: 29px;
+}
+
+
+.cometchat_ccmobiletab_tabalert_old {
+	background: none repeat scroll 0 0 #EE397A;
+	border-radius: 10px;
+	color: white;
+	position: absolute;
+	right: 30%;
+	text-shadow: 0px 0px 35px white;
+	text-align: center;
+	text-shadow: none !important;
+	bottom : 90%;
+	padding: 0 10px;
+	line-height: normal;
+	border-width: 4px;
+	border-style: solid;
+	border-color: #D11559;
+}
+
+.cc_overlay{
+	height: 100%;
+	width: 100%;
+	background: #000;
+	opacity: 0.3;
+	position: absolute;
+	top: 0;
+	z-index: 10000;
+}
+
+#mobile_social_login{
+	position: absolute;
+	width: 100%;
+}
+
+#mobile_social_login img.auth_options{
+	position: static;
+	margin: 4% auto;
+}
+
+#mobile_social_login .login_container{
+	position: relative;
+	z-index: 10000;
+	margin: 0px auto;
+	background: #FFF;
+	padding: 5%;
+	border-radius: 3%;
+	box-shadow: 10px 10px 5px #888;
+}
+
+#mobile_social_login img.auth_options:first-child{
+	margin-top: 0px;
+}
+
+#mobile_social_login img.auth_options:last-child{
+	margin-bottom: 0px;
+}
+
+
+/*Right triangle, placed bottom left side slightly in*/
+right.btm-left:after{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 0px;
+  right: auto;
+  top: auto;
+  bottom: -17px;
+  border: 22px solid;
+  border-color: transparent transparent transparent <?php echo $layoutSettings['primary_color'];?>;
+}
+
+.tri-right.btm-left-in:after{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 13px;
+  right: auto;
+  top: auto;
+  bottom: -11px;
+  border: 12px solid;
+  border-color: <?php echo $layoutSettings['primary_color'];?> transparent transparent <?php echo $layoutSettings['primary_color'];?>;
+}

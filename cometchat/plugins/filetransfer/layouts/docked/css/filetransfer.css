@@ -1,0 +1,135 @@
+/*
+ * CometChat
+ * Copyright (c) 2016 Inscripts - support@cometchat.com | http://www.cometchat.com | http://www.inscripts.com
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+
+}
+
+html, body {
+	overflow: hidden;
+	background: <?php echo $layoutSettings['color_white'];?>;
+	direction: <?php echo $dir;?>;
+}
+
+.SI-FILES-STYLIZED label.cabinet
+{
+	width: 110px;
+	height: 30px;
+	display: block;
+	z-index: 1000;
+	position: absolute;
+	bottom: -10px;
+ }
+
+.SI-FILES-STYLIZED label.cabinet input.file
+{
+	position: relative;
+	height: 100%;
+	width: 110px;
+	opacity: 0;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+.cometchat_wrapper {
+	width: 98%;
+	margin: 0 auto;
+	margin-top: 5px;
+}
+
+.container_title {
+	background-color: <?php echo $layoutSettings['primary_color'];?> !important;
+	border-left: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-right: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-top: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	color: <?php echo $layoutSettings['color_white'];?>;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_large'];?>;
+	padding: 5px;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-bottom: 6px;
+}
+
+.container_body {
+	border-left: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-bottom: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	border-right: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	background-color: <?php echo $layoutSettings['color_white'];?>;
+	color: <?php echo $layoutSettings['dark_grey_color'];?>;
+	padding: 5px;
+	font-weight: normal;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_mid'];?>;
+	padding: 10px 10px;
+}
+
+.container_body_1 {
+	padding-bottom:0px;
+}
+
+.container_body_2 {
+	text-decoration: none;
+	color: <?php echo $layoutSettings['dark_grey_color'];?>;
+	display: block;
+	height: 30px;
+	position: relative;
+}
+
+.container_body_3 {
+	position: absolute;
+	width: auto;
+	height: auto;
+	top: 68px;
+	text-align: center;
+	color: <?php echo $layoutSettings['color_white'];?>;
+	font-family: <?php echo $layoutSettings['font_family'];?>;
+	font-size: <?php echo $layoutSettings['font_size_mid'];?>;
+	font-weight: bold;
+	background-color: <?php echo $layoutSettings['primary_color'];?> !important;
+	border: 1px solid <?php echo $layoutSettings['border_color'];?>;
+	cursor: pointer;
+	padding: 5px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.container_body_4 {
+	padding-top: 18px;
+}
+
+.container_body.embed {
+	border: 0px;
+	padding: 5px;
+}
+
+.container_title.embed {
+	display: none;
+}
+
+.container_body_3.embed {
+	top: 35px;
+}
+
+.cometchat_fileupload {
+	display: none;
+}

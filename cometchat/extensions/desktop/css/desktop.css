@@ -1,0 +1,122 @@
+body{
+	height:100%;
+	width: 100%;
+	background-color: <?php echo $login_background; ?>;
+}
+#mainContainer {
+	overflow: hidden;
+	background: white;
+	position: absolute;
+	background-color: <?php echo $login_background; ?>;
+}
+#companyLogoDiv {
+	float: left;
+	width: 100%;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	margin-left: 15px;
+}
+#companyLogoSpan {
+	margin: 0 auto;
+    width: 200px;
+}
+.divBox {
+	float: left;
+	width: 100%;
+	margin:5px auto;
+}
+#forgotPasswordSpan {
+	float: left;
+	width: 100%;
+	text-align: center;
+	font-size: 11px;
+}
+#signInSpan {
+	float: left;
+	width: 100%;
+	text-align: center;
+}
+#username {
+	height: 18px;
+	width: 160px;
+	border: none;
+	color: <?php echo $login_foreground_text; ?>;
+	background-color: <?php echo $login_background; ?>;
+}
+#userNameBox{
+	border: 0px solid #000000;
+    border-bottom-width: 1px;
+    background-color: transparent;
+}
+#userNameSpan {
+	height: 25px;
+	line-height: 25px;
+}
+#password{
+	height: 18px;
+	width: 160px;
+	border: none;
+	color: <?php echo $login_foreground_text; ?>;
+	background-color: <?php echo $login_background; ?>;
+}
+#passwordBox{
+	border: 0px solid #000000;
+    border-bottom-width: 1px;
+    background-color: transparent;
+}
+#passwordSpan {
+	height: 25px;
+	line-height: 25px;
+}
+#signIn {
+	margin: 0 auto;
+	width: 180px;
+	font-weight: bold;
+	border : none;
+	padding: 5px;
+	background-color: <?php echo $login_button_pressed; ?>;
+	color : <?php echo $login_button_text; ?>;
+}
+#loginInfoContainer {
+	margin: 0 auto;
+	width: 180px;
+	height: 226px;
+	font: 15px arial,sans-serif;
+	font-size: 12px;
+	color : <?php echo $login_button_text; ?>;
+}
+.rememberPasswordSpan {
+	margin: 0 auto;
+	float: left;
+	height: 20px;
+
+}
+#signInSpan {
+	float: left;
+	
+	text-align: center;
+	padding: 2px;
+	
+}
+#companyLogoDiv img{
+	margin-left: 6px;
+}
+#clear{
+	margin-bottom: 10px;
+}
+#username,#password,#signIn:focus {
+  outline:none;
+}
+#loadingDiv{
+	display: none;
+	margin-left: 91px;
+}
+#remember,#remPass,#signIn:hover {
+	cursor: pointer;
+}
+#remember{
+	margin-left: 0px;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: <?php echo $login_placeholder; ?>;
+}
