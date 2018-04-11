@@ -11,6 +11,73 @@ Website:		http://www.witstechnologies.co.ke/
 //Import the PHPMailer class into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+//quick notify functions
+function smsphoneformat($tel){
+	$phone =  '';
+	$tel = str_replace(' ', '', $tel);
+	if( substr( $tel, 0, 2 ) === "07" && strlen($tel) == 10 ){
+		return $phone = '+254'.(int)$tel;
+	}elseif( substr( $tel, 0, 4 ) === "2547" && strlen($tel) == 12 ){
+		return $phone = '+'.$tel;
+	}elseif( substr( $tel, 0, 5 ) === "25407" && strlen($tel) == 13 ){
+		$phone = strstr($tel, '0');
+		return	$phone = '+254'.(int)$phone;
+	}elseif( substr( $tel, 0, 6 ) === "+25407" && strlen($tel) == 14 ){
+		$phone = strstr($tel, '0');
+		return $phone = '+254'.(int)$phone;
+	}elseif( substr( $tel, 0, 1 ) === "7" && strlen($tel) == 9 ){
+		return $phone = '+254'.(int)$phone;
+	}elseif( substr( $tel, 0, 5 ) === "+2547" && strlen($tel) == 13 ){
+		return $phone = $tel;
+	}
+}
+function notifypayer($message, $receiver){
+	global $conn;
+	$gateway = new FinstockSMS(SMS_API_USER, SMS_API_KEY);
+	try {$gateway->sendMessage($receiver, $message, "FinEvarsity");}
+	catch ( FinstockSMSException $e ){$ERRORS['MSG'] = $e->getMessage();}
+	$sql = sprintf("INSERT INTO `".DB_PREFIX."sms`(`SmsSubject`, `SMS`, `SentBy`, `SentTo`, `SentFrom`) VALUES ('%s', '%s', '%s', '%s', '%s')", "Fees Payment", $message, "Admissions", $receiver, "FinEvarsity");
+	db_query($sql,DB_NAME,$conn);
+	return true;
+}
+//pesapal functions
+function getPayingUser($params){
+	global $conn;
+ 	$q = "SELECT * FROM `".DB_PREFIX."payment_refs` WHERE `transaction_tracking_id` = '$params[0]'";
+	//$q = "SELECT * FROM `".DB_PREFIX."payment_refs` WHERE 1";
+	//Execute the query
+	$res = db_query($q,DB_NAME,$conn);
+	$return = array();
+	$return = $row = db_fetch_array($res);
+	return $return;
+}
+function updatePayMethod($params){
+	global $conn;
+	$sql = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `pay_method`= '%s' WHERE `student_pay_ref` = '%s' AND `transaction_tracking_id` = '%s'", $params[0], $params[1], $params[2]);
+	db_query($sql,DB_NAME,$conn);
+	return 1;	
+}
+function recordPayment($params){
+	global $conn;
+	$sql = sprintf("INSERT INTO `".DB_PREFIX."payment_refs`(`student_id`, `student_pay_ref`, `transaction_tracking_id`, `payment_amount`, `pay_method`, `stud_tel`, `stud_full_name`, `stud_email`, `pay_type`, `pay_status`) VALUES ('%s', '%s', '%s','%s', '%s', '%s','%s', '%s', '%s','%s')", $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9]);
+	db_query($sql,DB_NAME,$conn);
+}
+function updateStatus($params){
+	global $conn;
+	$sql = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `pay_status`= '%s' WHERE `student_pay_ref` = '%s' AND `transaction_tracking_id` = '%s'", $params[0], $params[1], $params[2]);
+	db_query($sql,DB_NAME,$conn);
+	return 1;
+}
+function updateTrackingID($params){
+	global $conn;
+	$sql = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `transaction_tracking_id`= '%s' WHERE `student_pay_ref` = '%s' AND `pay_status` = '%s'", $params[0], $params[1], $params[2]);
+	db_query($sql,DB_NAME,$conn);
+}
+function removeAbandonedPayment($ref, $status){
+	global $conn;
+	$delDuplicate = sprintf("DELETE FROM `".DB_PREFIX."payment_refs` WHERE `student_pay_ref` = '%s' AND `pay_status` = '%s' AND `transaction_tracking_id` = '' ", $ref, $status);
+	db_query($delDuplicate,DB_NAME,$conn);
+}
 //exam functions
 function recordScore($params){
 	global $conn;

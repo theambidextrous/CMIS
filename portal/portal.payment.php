@@ -25,6 +25,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment page";
 				<?php
 				require_once("$incl_dir/mysqli.functions.php");
 				require_once("$class_dir/class.OAuth.php");
+				require_once("$class_dir/EvarsitySMS.php");
 				//Open database connection
 				$conn = db_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 				
@@ -42,32 +43,27 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment page";
 				$email = $_SESSION['STUD_EMAIL'];
 				$pay_type = ucwords(isset($_GET['paytype'])?$_GET['paytype']:'Registration');
 				$_SESSION['PAY_TYPE'] = $pay_type;
-				$pay_status = 'INCOMPLETE';
+				$pay_status = 'INITIALIZED';
 				$desc = SYSTEM_NAME." Fee Payment";								
-				
+
 				//Get requested payment method
 				$paymentmethod = isset($_GET['paymentmethod'])?$_GET['paymentmethod']:"pesapal";
 				$paymentmethod = strtolower($paymentmethod);
         switch($paymentmethod) {
 					case "pesapal":						
-						//RUN A DELETE FOR ALL NONE-STARTED PAYMENTS FOR THIS USER AND INSERT NEW.
-						$delDuplicate = sprintf("DELETE FROM `".DB_PREFIX."payment_refs` WHERE `student_pay_ref` = '%s' AND `pay_status` = '%s'", $reference, $pay_status);
-						db_query($delDuplicate,DB_NAME,$conn);						
-						$type = "MERCHANT"; //default value = MERCHANT
-						//Save transaction to DB
-						$newPaymentSql = sprintf("INSERT INTO `".DB_PREFIX."payment_refs` (`student_id`, `student_pay_ref`, `transaction_tracking_id`, `payment_amount`, `pay_method`, `stud_tel`, `stud_full_name`, `stud_email`, `pay_type`, `pay_status`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $student_id, $reference, $transaction_tracking_id, $amount, $pay_method, $phonenumber, $full_name, $email, $pay_type, $pay_status);
-						//execute qry
-						db_query($newPaymentSql,DB_NAME,$conn);				  
-						
-						//INITIATE PAYMENT CREDENTIALS
+						//remove abandoned payments.
+						removeAbandonedPayment($reference, $pay_status)	;				
+						$type = "MERCHANT";
+						//initiate a payment in db
+						$params = array($student_id,$reference,$transaction_tracking_id,$amount,$pay_method,$phonenumber,$full_name,$email,$pay_type,$pay_status);
+						recordPayment($params);
+						//initiate payment gateway
 						$token = $params = NULL;
 						$consumer_key = PESAPAL_CONSUMER_KEY;
 						$consumer_secret = PESAPAL_CONSUMER_SECRET;
 						$signature_method = new OAuthSignatureMethod_HMAC_SHA1();
 						$iframelink = PESAPAL_IFRAME_API;						
-						
-						$callback_url = SYSTEM_URL.'/portal/?do=test_return_api&paymentmethod=pesapal'; //redirect url, the page that will handle the response from pesapal.
-						
+						$callback_url = SYSTEM_URL.'/portal/?do=return_api&paymentmethod=pesapal'; //redirect url, the page that will handle the response from pesapal.
 						$post_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><PesapalDirectOrderInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" Amount=\"".$formatted_amount."\" Description=\"".$desc."\" Type=\"".$type."\" Reference=\"".$reference."\" FirstName=\"".$first_name."\" LastName=\"".$last_name."\" Email=\"".$email."\" PhoneNumber=\"".$phonenumber."\" xmlns=\"http://www.pesapal.com\" />";
 						$post_xml = htmlentities($post_xml);
 						$consumer = new OAuthConsumer($consumer_key, $consumer_secret);

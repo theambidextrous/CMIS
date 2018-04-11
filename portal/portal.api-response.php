@@ -25,6 +25,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
           <?php
           require_once("$incl_dir/mysqli.functions.php");
           require_once("$class_dir/class.OAuth.php");
+          require_once("$class_dir/EvarsitySMS.php");
           //Open database connection
           $conn = db_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 					
@@ -42,29 +43,113 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
               $statusrequestAPI = PESAPAL_STATUS_API;
               $methodrequestAPI = PESAPAL_DETAILS_API;
 							$pay_method = "PESAPAL";
-
-              // Parameters sent to you by PesaPal IPN
               $pesapalNotification = $_GET['pesapal_notification_type'];
               $pesapalTrackingId = $_GET['pesapal_transaction_tracking_id'];
               $pesapal_merchant_reference = $_GET['pesapal_merchant_reference'];
+              $params = array ($pesapalTrackingId, $pesapal_merchant_reference, "INITIALIZED" );
+              //update tracking ID
+              updateTrackingID($params);
+              $params = array("PENDING", $pesapal_merchant_reference, $pesapalTrackingId);
+              updateStatus($params);
               $signature_method = new OAuthSignatureMethod_HMAC_SHA1();
-
               if($pesapalNotification == "CHANGE" && $pesapalTrackingId != ''){
-              ///
-              }elseif($pesapalTrackingId != ''){
+                //listen to IPN
                 $token = $params = NULL;
                 $consumer = new OAuthConsumer($consumer_key, $consumer_secret);
-
                 //get transaction status
                 $request_status = OAuthRequest::from_consumer_and_token($consumer, $token, "GET", $statusrequestAPI, $params);
                 $request_status->set_parameter("pesapal_merchant_reference", $pesapal_merchant_reference);
                 $request_status->set_parameter("pesapal_transaction_tracking_id",$pesapalTrackingId);
                 $request_status->sign_request($signature_method, $consumer, $token);
+                //curl
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $request_status);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt($ch, CURLOPT_HEADER, 1);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                if(defined('CURL_PROXY_REQUIRED')) if (CURL_PROXY_REQUIRED == 'True'){
+                  $proxy_tunnel_flag = (defined('CURL_PROXY_TUNNEL_FLAG') && strtoupper(CURL_PROXY_TUNNEL_FLAG) == 'FALSE') ? false : true;
+                  curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, $proxy_tunnel_flag);
+                  curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
+                  curl_setopt($ch, CURLOPT_PROXY, CURL_PROXY_SERVER_DETAILS);
+                }
+                //run curl
+                $response = curl_exec($ch);
+                $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+                $raw_header  = substr($response, 0, $header_size - 4);
+                $headerArray = explode("\r\n\r\n", $raw_header);
+                $header      = $headerArray[count($headerArray) - 1];
+                //extract transaction status
+                $elements = preg_split("/=/",substr($response, $header_size));
+                $status = $elements[1];
+                //close curl
+                curl_close($ch);
+                //get payment method
+                  $request_method = OAuthRequest::from_consumer_and_token($consumer, $token, "GET", $methodrequestAPI, $params);
+                  $request_method->set_parameter("pesapal_merchant_reference", $pesapal_merchant_reference);
+                  $request_method->set_parameter("pesapal_transaction_tracking_id",$pesapalTrackingId);
+                  $request_method->sign_request($signature_method, $consumer, $token);
+                  $ch = curl_init();
+                  curl_setopt($ch, CURLOPT_URL, $request_method);
+                  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                  curl_setopt($ch, CURLOPT_HEADER, 1);
+                  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                  if(defined('CURL_PROXY_REQUIRED')) if (CURL_PROXY_REQUIRED == 'True'){
+                    $proxy_tunnel_flag = (defined('CURL_PROXY_TUNNEL_FLAG') && strtoupper(CURL_PROXY_TUNNEL_FLAG) == 'FALSE') ? false : true;
+                    curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, $proxy_tunnel_flag);
+                    curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
+                    curl_setopt($ch, CURLOPT_PROXY, CURL_PROXY_SERVER_DETAILS);
+                  }
+                  $method_r = curl_exec($ch);
+                  $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+                  $raw_header  = substr($response, 0, $header_size - 4);
+                  $headerArray = explode("\r\n\r\n", $raw_header);
+                  $header      = $headerArray[count($headerArray) - 1];
+                  $element = preg_split("/=/",substr($method_r, $header_size));
+                  $method = $element[1];
+                  $pay_method= explode(",",$method);
+                  $pay_method= $pay_method[1];
+                  curl_close($ch);
+                  //update paymethod
+                  $params = array($pay_method, $pesapal_merchant_reference, $pesapalTrackingId);
+                  updatePayMethod($params);
+                  //notify user on status change
+                  $params = array($pesapalTrackingId);
+                  $amount = getPayingUser($params)['payment_amount'];
+                  $name = getPayingUser($params)['stud_full_name'];
+                  $email = getPayingUser($params)['stud_email'];
+                  $phone = getPayingUser($params)['stud_tel'];
+                  $subject = SYSTEM_NAME." - Payment Status Change";
+                  $content = 'Dear '.$name.',<br> Your payment of KES '.$amount.' to '.SYSTEM_NAME.'  Status has changed to <b>'.$status.'</b>. Thank you for being part of us.<br>'.SYSTEM_NAME.'<br>';
+                  mail_config($email, $name, $subject, $content);
+                //this check is not helping.. db update func required
+                $params = array($status, $pesapal_merchant_reference, $pesapalTrackingId);
+                if(updateStatus($params) == 1)
+                   {
+                      $sms = "Dear ".$name.", Your payment to ".SYSTEM_NAME." has been updated to STATUS '".$status."'. Thank you.";
+                      notifypayer($sms, smsphoneformat($phone));
 
-                //UPDATE PAYMENT STATUS TO PENDING AND ADD TRACKING_ID
-								//$student_pay_ref = $_SESSION['STUD_ID_HASH'];
-								$updateSQL = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `transaction_tracking_id`='%s', `pay_status`='%s' WHERE `student_pay_ref`='%s' AND `pay_status`='%s'", $pesapalTrackingId, 'PENDING', $pesapal_merchant_reference, 'INCOMPLETE');
-                db_query($updateSQL,DB_NAME,$conn);
+                      $resp="pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
+                      ob_start();
+                      echo $resp;
+                      ob_flush();
+                      exit;
+                   }
+              }
+              elseif(!isset($pesapalNotification) && $pesapalTrackingId != ''){
+                $token = $params = NULL;
+                $consumer = new OAuthConsumer($consumer_key, $consumer_secret);
+                //get transaction status
+                $request_status = OAuthRequest::from_consumer_and_token($consumer, $token, "GET", $statusrequestAPI, $params);
+                $request_status->set_parameter("pesapal_merchant_reference", $pesapal_merchant_reference);
+                $request_status->set_parameter("pesapal_transaction_tracking_id",$pesapalTrackingId);
+                $request_status->sign_request($signature_method, $consumer, $token);
+                $params = array ($pesapalTrackingId, $pesapal_merchant_reference, "INITIALIZED" );
+                updateTrackingID($params);
+                $params = array("PENDING", $pesapal_merchant_reference, $pesapalTrackingId);
+                updateStatus($params);
 
                 //REQUEST PAYMENT STATUS FROM PESAPAL
                 $ch = curl_init();
@@ -80,14 +165,11 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
                   curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
                   curl_setopt($ch, CURLOPT_PROXY, CURL_PROXY_SERVER_DETAILS);
                 }
-
                 $response = curl_exec($ch);
-
                 $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
                 $raw_header  = substr($response, 0, $header_size - 4);
                 $headerArray = explode("\r\n\r\n", $raw_header);
                 $header      = $headerArray[count($headerArray) - 1];
-
                 //GET transaction status
                 $elements = preg_split("/=/",substr($response, $header_size));
                 $status = $elements[1];
@@ -128,47 +210,64 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
                   $pay_method= $pay_method[1];
 									curl_close($ch);
                   #############################################################
-                  //BT JUST B4 THAT, CHECK IF THIS PAYMENT IS IN DB ALREADY!!
-                  $checkDuplicateSql = sprintf("SELECT `student_pay_ref` FROM `".DB_PREFIX."payment_refs` WHERE `pay_status` != '%s' AND `pay_status` != '%s' AND `transaction_tracking_id` = '%s'", 'PENDING', 'INCOMPLETE', $pesapalTrackingId);
-                  $result = db_query($checkDuplicateSql,DB_NAME,$conn);
-                  //create success message
-                  $CONFIRM['MSG'] = ConfirmMessage('Your payment '.$status.'. Check your email for further details. <a href="'.PARENT_HOME_URL.'">Click here to go back to the main page</a> or <a href="'.SYSTEM_URL.'">Click here to go back to your dashboard</a>');
+                  $CONFIRM['MSG'] = ConfirmMessage('Your payment\'s status is: <b>'.$status.'</b>. Check your email for further details. <a href="'.PARENT_HOME_URL.'">Click here to go back to the main page</a> or <a href="'.SYSTEM_URL.'">Click here to go back to your dashboard</a>');
                   //see if there is
                   if(db_num_rows($result)>0){                    
                     //go back home                   
                     redirect(PARENT_HOME_URL);
                   }
-                  db_free_result($result);
-
-                  //update db with new status now
-									$updateSQL = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `pay_status` = '%s', `pay_method` = '%s' WHERE `student_pay_ref` = '%s' AND `transaction_tracking_id` = '%s'", $status, $pay_method, $pesapal_merchant_reference, $pesapalTrackingId);
-                  db_query($updateSQL,DB_NAME,$conn);
+                  $params = array($status, $pesapal_merchant_reference, $pesapalTrackingId);
+                  updateStatus($params);
+                  $params = array($pay_method, $pesapal_merchant_reference, $pesapalTrackingId);
+                  updatePayMethod($params);
                 }
-                //reload if payment is pending
-                if($status == "PENDING"){
-									//redirect( "?do=test_return_api&paymentmethod=pesapal&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference" );
-                }
-                //if payment succeded
-                if(db_query && $status != "PENDING" && $status != "FAILED" && $status != "INVALID"){
-                  $resp="pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
+                if($status != "PENDING" && $status != "FAILED" && $status != "INVALID"){
                   $_SESSION['MSG']=$CONFIRM['MSG'];
-                  //redirect to thank you
-                  redirect("?do=thanks");
+                  //email/sms redirect to thank you
+                  $params = array($pesapalTrackingId);
+                  //print_r(getPayingUser($params));
+                  $amount = getPayingUser($params)['payment_amount'];
+                  $name = getPayingUser($params)['stud_full_name'];
+                  $email = getPayingUser($params)['stud_email'];
+                  $phone = getPayingUser($params)['stud_tel'];
+									$subject = SYSTEM_NAME." - Payment Status";
+                  $content = 'Dear '.$name.',<br> Your payment of KES '.$amount.' to '.SYSTEM_NAME.' Status is: <b>'.$status.'</b>. Thank you for being part of us.
+                  <br><b>Payment Details</b>
+                  Name: '.$name.'<br />
+								Email: '.$email.'<br />
+								Phone: '.$phone.'<br />
+								Transaction Ref: '.getPayingUser($params)['student_id'].'</p>
+								<br />
+								<p style="color:#753b01;">Thank you<br /><br />
+								 Accounts & Finance Office,<br />
+								'.SYSTEM_NAME.',<br />
+								'.COMPANY_ADDRESS.'<br />
+								TEL: '.COMPANY_PHONE.'<br />
+								EMAIL: '.INFO_EMAIL.'<br />
+								WEBSITE: '.PARENT_HOME_URL.'</p>
+                  ';
+                  mail_config($email, $name, $subject, $content);
+                  //2. sms
+                  $sms = "Your payment of KES ".$amount." Is in processing. We will update. Thank you.";
+                  notifypayer($sms, smsphoneformat($phone));
+                  echo $CONFIRM['MSG'];
+                  exit;
+                  //redirect("?do=thanks");
                 }
                 //if payment didnt succeed
-                elseif(db_query && $status != "COMPLETED" && $status != "PENDING"){
-                  $resp="pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
-                  //ob_start();
-                  // echo $resp;
-                  //ob_flush();
+                elseif($status != "COMPLETED" && $status != "PENDING"){
                   $ERROR['MSG'] = ErrorMessage('Your payment '.$status.'. Please <a href="?do=register&task=pay" class="btn btn-primary">Go back and try again using a different method</a>');
-                  //email user the failed payment issue
-                  $amount = $_SESSION['AMOUNT'];
-                  $name = $_SESSION['STUD_FULLNAME'];
-									$subject = SYSTEM_NAME." - Payment Failed";
-                  $content = 'Dear '.$name.',<br> Your payment to '.SYSTEM_NAME.' failed. Make sure you try again with alternative payment method.<br>'.SYSTEM_NAME.'<br>';
-                  $email = $_SESSION['STUD_EMAIL'];
+                  //email/SMS user the failed payment issue
+                  $params = array($pesapalTrackingId);
+                  $amount = getPayingUser($params)['payment_amount'];
+                  $name = getPayingUser($params)['stud_full_name'];
+                  $email = getPayingUser($params)['stud_email'];
+                  $phone = getPayingUser($params)['stud_tel'];
+									$subject = SYSTEM_NAME." - Payment Status";
+                  $content = 'Dear '.$name.',<br> Your payment of KES '.$amount.' to '.SYSTEM_NAME.' <b>'.$status.'</b>. Make sure you try again with alternative payment method.<br>'.SYSTEM_NAME.'<br>';
                   mail_config($email, $name, $subject, $content);
+                  $sms = "Dear Admin, ".$name." tried paying but payment failed. click on ".smsphoneformat($phone)." to call and assist them.";
+                  notifypayer($sms, smsphoneformat(COMPANY_PHONE));
                   echo $ERROR['MSG'];
                   exit;
                 }

@@ -361,19 +361,17 @@ $(document).ready(function() {
 										//Execute query
 										db_query($newClientSql,DB_NAME,$conn);
 									}
-									
-									//Create sessions for reg fee payment GATEWAY					  
-									$_SESSION['STUD_ID_HASH'] = $hash_stud;
-									$_SESSION['STUD_ID'] = $FIELDS['StudentID'];
-									$_SESSION['AMOUNT'] = $reg_fee;
-									$_SESSION['STUD_FNAME'] = $FIELDS['firstname'];
-									$_SESSION['STUD_LNAME'] = $FIELDS['surname'];
-									$_SESSION['STUD_EMAIL'] = $FIELDS['emailaddress'];
-									$_SESSION['STUD_TEL'] = $FIELDS['phonenumber'];
-									$_SESSION['COURSE_ID'] = $FIELDS['course'];
-									
-									//Proceed to pay
-									redirect("?do=register&task=pay&token=$Token");
+		//Create sessions for reg fee payment GATEWAY					  
+		$_SESSION['STUD_ID_HASH'] = $hash_stud;
+		$_SESSION['STUD_ID'] = $FIELDS['StudentID'];
+		$_SESSION['AMOUNT'] = $reg_fee;
+		$_SESSION['STUD_FNAME'] = $FIELDS['firstname'];
+		$_SESSION['STUD_LNAME'] = $FIELDS['surname'];
+		$_SESSION['STUD_EMAIL'] = $FIELDS['emailaddress'];
+		$_SESSION['STUD_TEL'] = $FIELDS['phonenumber'];
+		$_SESSION['COURSE_ID'] = $FIELDS['course'];
+		//Proceed to pay
+		redirect("?do=register&task=pay&token=$Token");
 								}				
 								else{
 									$saved = FALSE;
