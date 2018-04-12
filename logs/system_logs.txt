@@ -107,4 +107,9 @@ You have an error in your SQL syntax; check the manual that corresponds to your 
 	<strong>Error Captured:</strong> [INSERT INTO `mis_ac_qualifications` (`StudentID`, `Institution`, `Certificate`, `Period`, `GradeMark`, `EngProficiency`, `EngHelp`, `CertFile`) 
 										VALUES ('FE/COT/184/2018','Kenya Methodist University','Bachelor's degree','2011-2013','Second class Honours (Upper division)','1','0','https://finstockevarsity.com/cmis/uploads/kuria-paul-kiarii-cert-bachelors-degree-01032018194457.pdf')]
 
-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 's degree','2011-2013','Second class Honours (Upper division)','1','0','https://f' at line 2</p>
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 's degree','2011-2013','Second class Honours (Upper division)','1','0','https://f' at line 2</p><p><strong>Log Date:</strong> 12-04-2018 15:29:36<br>
+	<strong>Error Type:</strong> MySQL DB Error #<br>
+	<strong>Page:</strong> http://localhost/cmis/admin/admin.php?dispatcher=exams&task=view&recid=0&examID=1<br>
+	<strong>Error Captured:</strong> [SELECT COUNT(`StudentID`) AS `Total` FROM  `mis_student_exams` WHERE `StudentID` = 'FE/FA/3/18' AND `ExamID` = '1' AND `deletedFlag` = 0]
+
+</p>

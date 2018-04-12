@@ -197,7 +197,7 @@ if(!empty($to_preview)){
 <div class="exam-overlay" id="page-wrap">
 <h1><?php echo getExamName($to_preview['Question'][0]['ExamID']); ?></h1>
 <div>
-<h2 style="color:red;" id="timer"></h1>
+<h2 style="color:black;" id="timer"></h1>
 <h5 style="color:red;" id="notifier"></h5>
 </div>
 <h3><?php echo "Instructions"; ?></h3>
@@ -314,7 +314,7 @@ endforeach;
     })(); 
   }
 
-  setTimer(<?php echo 0.2*60;  ?>, {
+  setTimer(<?php echo (2+ getExamDuration($to_preview['Question'][0]['ExamID']))*60;  ?>, {
     2400: function () { display("notifier", "40 minutes left"); },
      900: function () { display("notifier", "15 to go");        },
      0: function () { display("notifier", "Time is up. You cannot continue, please click on SEND FOR MARKING to finish"); act();}

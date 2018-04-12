@@ -6,6 +6,35 @@ Mobile:			+254721428276
 Email:			sammy@witstechnologies.co.ke
 Website:		http://www.witstechnologies.co.ke/
 *********************************************/
+//quick notifier fncs
+function smsphoneformat($tel){
+	$phone =  '';
+	$tel = str_replace(' ', '', $tel);
+	if( substr( $tel, 0, 2 ) === "07" && strlen($tel) == 10 ){
+		return $phone = '+254'.(int)$tel;
+	}elseif( substr( $tel, 0, 4 ) === "2547" && strlen($tel) == 12 ){
+		return $phone = '+'.$tel;
+	}elseif( substr( $tel, 0, 5 ) === "25407" && strlen($tel) == 13 ){
+		$phone = strstr($tel, '0');
+		return	$phone = '+254'.(int)$phone;
+	}elseif( substr( $tel, 0, 6 ) === "+25407" && strlen($tel) == 14 ){
+		$phone = strstr($tel, '0');
+		return $phone = '+254'.(int)$phone;
+	}elseif( substr( $tel, 0, 1 ) === "7" && strlen($tel) == 9 ){
+		return $phone = '+254'.(int)$phone;
+	}elseif( substr( $tel, 0, 5 ) === "+2547" && strlen($tel) == 13 ){
+		return $phone = $tel;
+	}
+}
+function notifypayer($message, $receiver){
+	global $conn;
+	$gateway = new FinstockSMS(SMS_API_USER, SMS_API_KEY);
+	try {$gateway->sendMessage($receiver, $message, "FinEvarsity");}
+	catch ( FinstockSMSException $e ){$ERRORS['MSG'] = $e->getMessage();}
+	$sql = sprintf("INSERT INTO `".DB_PREFIX."sms`(`SmsSubject`, `SMS`, `SentBy`, `SentTo`, `SentFrom`) VALUES ('%s', '%s', '%s', '%s', '%s')", "Fees Payment", $message, "Admissions", $receiver, "FinEvarsity");
+	db_query($sql,DB_NAME,$conn);
+	return true;
+}
 //SMS FUNCTIONS
 function TrimSentTo($string){
 	$array = explode(",", trim($string));
@@ -127,6 +156,107 @@ function getCleanRecipients($group){
 	}
 }
 //EXAM FUNCTIONS START
+function addStudentExams($student, $exam){
+	global $conn;
+	$q = sprintf("INSERT INTO `".DB_PREFIX."student_exams`(`ExamID`, `StudentID`) VALUES (%d, '%s')", $exam, $student);
+	db_query($q,DB_NAME,$conn);
+	return true;
+}
+function getUnitEnrolledStudents($unitID){
+	global $conn;
+	$row = array();
+	$sql = "SELECT * FROM `".DB_PREFIX."units_registered` WHERE UnitID = '$unitID'";	
+	$resultGet = db_query($sql,DB_NAME,$conn);	
+		while( $rowGet = db_fetch_array($resultGet) ){
+		array_push($row, $rowGet);
+		}
+	return $row;
+}
+function markExamOpen($disabledFlag, $editID){
+	global $conn;
+	$sql = sprintf("UPDATE `".DB_PREFIX."exams` SET `disabledFlag` = %d WHERE `ExamID` = %d", $disabledFlag, $editID);
+	db_query($sql,DB_NAME,$conn);
+	if(db_affected_rows($conn)>0){
+		if($disabledFlag ==0){
+            $_SESSION['MSG'] = ConfirmMessage("Exam has been opened to all students enrolled in this Unit.");
+        }else{
+            $_SESSION['MSG'] = WarnMessage("Exam has been Closed to all students enrolled in this Unit.");
+        }
+	}else{
+		$_SESSION['MSG'] = WarnMessage("No changes made!");
+	}
+	redirect("admin.php?dispatcher=exams");
+}
+function showmodal($modal){
+	return "<script type='text/javascript'>
+	$(document).ready(function(){
+		alert('Updated Successfully');
+	});
+	</script>";
+}
+function isnotified($who, $exam){
+	global $conn;
+	$sqlCount = "SELECT COUNT(`StudentID`) AS `Total` FROM  `".DB_PREFIX."student_exams` WHERE `StudentID` = '$who' AND `ExamID` = '$exam' AND `deletedFlag` = 0";
+		$result = db_query($sqlCount,DB_NAME,$conn);
+		$rowData = db_fetch_array($result);
+		$total = $rowData['Total'];
+		if($total>0){
+			return 'Is Notified';
+		}else{
+			return 'Notify';
+		}
+}
+function isnotifiedS($who, $exam){
+	global $conn;
+	$sqlCount = "SELECT COUNT(`StudentID`) AS `Total` FROM  `".DB_PREFIX."student_exams` WHERE `StudentID` = '$who' AND `ExamID` = '$exam' AND `deletedFlag` = 0";
+		$result = db_query($sqlCount,DB_NAME,$conn);
+		$rowData = db_fetch_array($result);
+		$total = $rowData['Total'];
+		if($total>0){
+			return 'Is Activated';
+		}else{
+			return 'Activate';
+		}
+}
+function activateExam($student, $exam, $member, $number){
+	//is student
+	if($member == "S"){
+		switch($number){
+			case '1':
+			//activate this single student
+			if(isnotified($student, $exam) == "Notify"){
+				addStudentExams($student, $exam);
+				//notify student by sms
+				$message = "Hi ".getStudentData($student)['FName'].", a new exam requiring your attention has been added to your account";
+				notifypayer($message, smsphoneformat(getStudentData($student)['Phone']));
+			}
+			break;
+			case '0':
+			//activate for all students in this unit
+			foreach(getUnitEnrolledStudents(getExamUnit($exam)) as $a):
+				if(isnotified($a['StudentID'], $exam) == "Notify"){
+					addStudentExams($a['StudentID'], $exam);
+					//notify student by sms
+					$message = "Hi ".getStudentData($a['StudentID'])['FName'].", a new exam requiring your attention has been added to your account";
+					notifypayer($message, smsphoneformat(getStudentData($a['StudentID'])['Phone']));
+				}
+			endforeach;
+			markExamOpen(0, $exam);
+			break;
+		}
+	}
+	//is faculty
+	else{
+		//activate this single student
+		if(isnotified($student, $exam) == "Notify"){
+			addStudentExams($student, $exam);
+			//notify student by sms
+			$message = "Dear ".getFacultyName($student).", a new exam has been enabled for your class";
+			notifypayer($message, smsphoneformat(getFacultyPhone($student)));
+		}
+	}
+	return null;
+}
 function getExamQuestions($ExamID){
 	global $conn;
 	
@@ -134,6 +264,15 @@ function getExamQuestions($ExamID){
 	//Execute the query
 	$questions = db_query($resultGet,DB_NAME,$conn);	
 	return $questions;
+}
+function getExamUnit($ExamID){
+	global $conn;
+	
+	$q = sprintf("SELECT ExamUnit FROM `".DB_PREFIX."exams` WHERE `ExamID` = '%s' AND `deletedFlag` = %d", $ExamID, 0);	
+	//Execute the query
+	$res = db_query($q,DB_NAME,$conn);	
+	$row = db_fetch_array($res);
+	return $row['ExamUnit'];
 }
 function getExamFacultyID($exam_unit){
 	global $conn;
@@ -611,6 +750,18 @@ function getFacultyName($FacultyID){
 	}
 	else{
 		return "N/A";
+	}
+}
+function getFacultyPhone($FacultyID){
+	global $conn;
+	
+	$sqlGet = sprintf("SELECT `WPhone` FROM `".DB_PREFIX."faculties` WHERE `FacultyID` = '%s' AND `deletedFlag` = 0", $FacultyID);
+	//Execute the query
+	$resultGet = db_query($sqlGet,DB_NAME,$conn);
+	
+	if(db_num_rows($resultGet)>0){
+		$rowGet = db_fetch_array($resultGet);
+		return $rowGet['WPhone'];
 	}
 }
 // Get Faculty APPLICATION INFO; CV, CL, UNITS

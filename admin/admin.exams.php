@@ -2,6 +2,7 @@
 //Import the PHPMailer class into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+require_once("$class_dir/EvarsitySMS.php");
 ?>
 <script language="javascript" type="text/javascript">
 <!--
@@ -27,7 +28,24 @@ $(document).ready(function() {
 	
 });
 </script>
-
+<div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-labelledby="notify" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="alert-success">Update was successful</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
 <div class="col-lg-12">
 <h1 class="page-header">Exams</h1>
@@ -57,6 +75,37 @@ $(document).ready(function() {
         $LoginID = !empty($_GET['examID'])?$_GET['examID']:"";
         
         switch ($a) {
+        case 'do':
+            $do = !empty($_GET['do'])?$_GET['do']:"";
+            switch($do){
+                case 'activate':
+                $student = $_GET['recid'];
+                $exam = $_GET['examID'];
+                activateExam($student, $exam, "S", "1");
+                redirect("admin.php?dispatcher=exams&task=view&recid=0&examID=1#sub-tabs-3");
+                break;
+                case 'diactivate':
+                break;
+                case 'activate_l':
+                $Faculty = $_GET['recid'];
+                $exam = $_GET['examID'];
+                activateExam($Faculty, $exam, "F", "1");
+                redirect("admin.php?dispatcher=exams&task=view&recid=0&examID=1#sub-tabs-3");
+                $_SESSION['MSG'] = ConfirmMessage("Faculty has been notified");
+                break;
+                case 'diactivate_l':
+                break;
+                case 'activateAll':
+                $student = "default";
+                $exam = $_GET['examID'];
+                activateExam($student, $exam, "S", "0");
+                redirect("admin.php?dispatcher=exams");
+                echo ConfirmMessage("Exam has been updated and students notified");
+                break;
+                case 'diactivateAll':
+                break;
+            }
+            break;
         case "add":
             addrec();
             break;
@@ -70,6 +119,7 @@ $(document).ready(function() {
             deleterec($recid);
             break;
         default:
+            // print_r(getUnitEnrolledStudents("COT003"));
             select();
             break;
         }		
@@ -111,10 +161,9 @@ if ($a == "reset") {
 $res = sql_select();
 $count = sql_getrecordcount();	
 
-if(isset($_GET['enable']) && isset($_GET['eid'])){
+if(isset($_GET['enable']) && isset($_GET['examID'])){
     $disabledFlag = intval(! empty($_GET['enable']))?$_GET['enable']:0;
-    $editID = intval(! empty($_GET['eid']))?$_GET['eid']:0;
-    
+    $editID = intval(! empty($_GET['examID']))?$_GET['examID']:0;
     sql_update_status($disabledFlag, $editID);
 }
 ?>
@@ -152,9 +201,9 @@ $row = db_fetch_array($res);
 <td><?=$row["ExamDuration"]?></td>
 <?php
 if($row['disabledFlag'] == 0){
-echo "<td align=\"center\"><a href=\"admin.php?dispatcher=exams&enable=1&eid=".$row['ExamID']."\" title=\"Click to close ".$row['ExamName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['ExamName']."\"></a> Open to Students</td>";
+echo "<td align=\"center\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/yes.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['ExamName']."\">Open to Students</td>";
 }else{
-echo "<td align=\"center\"><a href=\"admin.php?dispatcher=exams&enable=0&eid=".$row['ExamID']."\" title=\"Click to open ".$row['ExamName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['ExamName']."\"></a> Not Open to Students</td>";
+echo "<td align=\"center\"><a href=\"admin.php?dispatcher=exams&task=do&do=activateAll&enable=0&examID=".$row['ExamID']."\" title=\"Click to open ".$row['ExamName']."\"><img border=\"0\" src=\"".IMAGE_FOLDER."/icons/no.png\" height=\"12\" width=\"12\" alt=\"Disable ".$row['ExamName']."\"></a> Not Open to Students</td>";
 }
 ?>
 <td><a href="admin.php?dispatcher=exams&task=view&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Manage</a> | <a href="admin.php?dispatcher=exams&task=edit&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Edit</a> | <a href="admin.php?dispatcher=exams&task=del&recid=<?=$i ?>&examID=<?=$row['ExamID'] ?>">Delete</a></td>
@@ -537,7 +586,7 @@ global $conn,$class_dir;
             <td>'.$fa['FacultyName'].'</td>
             <td>'.$fa['Email'].'</td>
             <td>'.$fa['MPhone'].'</td>
-            <td><a href="admin.php?dispatcher=exams&task=view&recid='.$fa['FacultyID'].'&examID='.$row['ExamID'].'">Activate</a>
+            <td><a href="admin.php?dispatcher=exams&task=do&do=activate_l&recid='.$fa['FacultyID'].'&examID='.$row['ExamID'].'" onclick="alert("Notified!");">'.isnotified($fa['FacultyID'], $row['ExamID']).'</a>
             </tr>';	
         endforeach;
         echo "</tbody>";
@@ -571,7 +620,7 @@ global $conn,$class_dir;
                 <td>'.$r['Email'].'</td>
                 <td>'.$r['Phone'].'</td>
                 <td>'.$r['Courses'].'</td>
-                <td><a href="admin.php?dispatcher=exams&task=view&recid='.$r['StudentID'].'&examID='.$row['ExamID'].'">Activate</a>
+                <td><a href="admin.php?dispatcher=exams&task=do&do=activate&recid='.$r['StudentID'].'&examID='.$row['ExamID'].'">'.isnotifiedS($r['StudentID'], $row['ExamID']).'</a>
                 </tr>';		
             }
             echo "</tbody>";
