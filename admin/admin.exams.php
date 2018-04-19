@@ -3,6 +3,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require_once("$class_dir/EvarsitySMS.php");
+require_once("$class_dir/phpmailer/src/Exception.php");
+require_once("$class_dir/phpmailer/src/PHPMailer.php");
+require_once("$class_dir/phpmailer/src/SMTP.php");
 ?>
 <script language="javascript" type="text/javascript">
 <!--

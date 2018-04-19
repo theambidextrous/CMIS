@@ -6,7 +6,7 @@ $(document).ready(function() {
 	//Load TinyMCE	
 	tinymce.init({		
 		selector: 'textarea.tinymce',
-		height: 250,
+		height: 150,
 		theme: 'modern',
 		menubar: false,	
 		plugins: [
@@ -198,34 +198,52 @@ function showroweditor($row, $iseditmode, $ERRORS){
 <p class="text-center small"><span class="text-danger">FIELDS MARKED WITH ASTERISKS (*) ARE REQUIRED</span></p>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
     <label for="">Course Department:</label>
     <?php echo sqlOption("SELECT `DeptID`,`DName` FROM `".DB_PREFIX."departments` WHERE `disabledFlag` = 0 AND `deletedFlag` = 0","DeptID",$row['DeptID'],"--Select Department--");?>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
     <label for="">Course ID: <span class="text-danger">*</span></label>
     <input type="text" value="<?=$row['CourseID']; ?>" name="CourseID" class="form-control required" /><span class="text-danger"><?=$ERRORS['CourseID'];?></span>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
     <label for="">Course Type: <span class="text-danger">*</span></label>
 	<?php echo sqlOption("SELECT `TypeID`,`Type` FROM `".DB_PREFIX."course_types` WHERE 1","CourseType",$row['CourseType'],"--Select Course Type--");?>
     </div>
   </div>
+  <div class="col-md-3">
+    <div class="form-group">
+    <label for="Instructor">Course Instructor: <span class="text-danger">*</span></label>
+    <input type="text" value="<?=$row['Instructor']; ?>" name="Instructor" class="form-control required" /><span class="text-danger"><?=$ERRORS['Instructor'];?></span>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-3">
     <div class="form-group">
     <label for="">Course Name: <span class="text-danger">*</span></label>
     <input type="text" value="<?=$row['CName']; ?>" name="CName" class="form-control required" /><span class="text-danger"><?=$ERRORS['CName'];?></span>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-3">
+    <div class="form-group">
+    <label for="ExamBody">Examining Body: <span class="text-danger">*</span></label>
+    <input type="text" value="<?=$row['ExamBody']; ?>" name="ExamBody" class="form-control required" /><span class="text-danger"><?=$ERRORS['ExamBody'];?></span>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+    <label for="CourseDuration">Course Duration (Months): <span class="text-danger">*</span></label>
+    <input type="text" value="<?=$row['CourseDuration']; ?>" name="CourseDuration" class="form-control required" /><span class="text-danger"><?=$ERRORS['CourseDuration'];?></span>
+    </div>
+  </div>
+  <div class="col-md-3">
     <div class="form-group">
     <label for="">Course Level: <span class="text-danger">*</span></label>
     <select class="form-control" <?=$ERRORS['CLevel']?> name="CLevel">
@@ -257,11 +275,13 @@ function showroweditor($row, $iseditmode, $ERRORS){
           var add_button      = $(".add_field_button"); //Add button ID
           
           var x = 1; //initlal text box count
+		  var c = 0
           $(add_button).click(function(e){ //on add input button click
               e.preventDefault();
               if(x < max_fields){ //max input box allowed
                   x++; //text box increment
-                  $(wrapper).append('<div class="row multi-fields"><span class="col-xs-5"><input class="form-control" type="text" name="ApplicableFeeTitle[]" placeholder="Fee Title"></span><span class="col-xs-5"><input class="form-control" type="text" name="ApplicableFeeAmount[]" placeholder="Fee Amount"></span><a href="#" class="remove_field col-xs-2 btn btn-sm btn-danger">X</a></div>'); //add input box
+                  $(wrapper).append('<div class="row multi-fields"><span class="col-xs-5"><input class="form-control" type="text" name="ApplicableFeeTitle['+ c +']" placeholder="Fee Title"></span><span class="col-xs-5"><input class="form-control" type="text" name="ApplicableFeeAmount['+ c +']" placeholder="Fee Amount"></span><a href="#" class="remove_field col-xs-2 btn btn-sm btn-danger">X</a></div>'); //add input box
+				  c++;
               }
           });
           
@@ -270,11 +290,26 @@ function showroweditor($row, $iseditmode, $ERRORS){
           })
       });
       </script>
-      <div class="input-fields-wrapper">        
-        <div class="row multi-fields"><span class="col-xs-5"><input class="form-control" type="text" name="ApplicableFeeTitle[]" placeholder="Fee Title"></span><span class="col-xs-5"><input class="form-control" type="text" name="ApplicableFeeAmount[]" placeholder="Fee Amount"></span><span class="col-xs-2"></span></div>
-        <?php
-        // We do the loop from db here for edit purposes
-		?>
+      <div class="input-fields-wrapper"> 
+	  <?php if( empty(getCourseOtherFees($row['CourseID'])) && !isset($row['CourseID']) ){ ?>       
+			<div class="row multi-fields">
+			<span class="col-xs-5">
+			<input class="form-control" type="text" name="ApplicableFeeTitle[]" placeholder="Fee Title"></span>
+			<span class="col-xs-5">
+			<input class="form-control" type="text" name="ApplicableFeeAmount[]" placeholder="Fee Amount"></span>
+			<span class="col-xs-2"></span>
+			</div>
+	  <?php }elseif(!empty(getCourseOtherFees($row['CourseID'])) && !empty($row['CourseID'])){ 
+		  foreach( getCourseOtherFees($row['CourseID']) as $f): ?>
+		<div class="row multi-fields">
+			<span class="col-xs-5">
+			<input class="form-control" type="text" name="ApplicableFeeTitle[]" value="<?php echo $f['payment_name'] ?>" placeholder="Fee Title"></span>
+			<span class="col-xs-5">
+			<input class="form-control" type="text" name="ApplicableFeeAmount[]" value="<?php echo $f['pay_amount'];?>" placeholder="Fee Amount"></span>
+			<span class="col-xs-2"></span>
+			</div>
+	  <?php endforeach;
+	  } ?>
       </div>
       <a href="#" class="add_field_button">+ Extra Fees</a>
     </div>
@@ -294,6 +329,15 @@ function showroweditor($row, $iseditmode, $ERRORS){
   <textarea class="form-control tinymce" name="Description" rows="10"><?=$row['Description'];?></textarea><span class="text-danger"><?=$ERRORS['Description'];?></span>
   </div>
   
+  <div class="form-group">
+  <label for="">Entry Requirements:</label>
+  <textarea class="form-control tinymce" name="EntryRequirements" rows="10"><?=$row['EntryRequirements'];?></textarea><span class="text-danger"><?=$ERRORS['EntryRequirements'];?></span>
+  </div>
+
+  <div class="form-group">
+  <label for="Faq">Course FAQs:</label>
+  <textarea class="form-control tinymce" name="Faq" rows="10"><?=$row['Faq'];?></textarea><span class="text-danger"><?=$ERRORS['Faq'];?></span>
+  </div>
   </div>
 </div>
 <?php } ?>
@@ -357,11 +401,18 @@ function addrec() {
 		$FIELDS['CourseID'] = secure_string(whitespace_trim(strtoupper($_POST['CourseID'])));
 		$FIELDS['CName'] = secure_string(ucwords($_POST['CName']));
 		$FIELDS['CourseType'] = secure_string($_POST['CourseType']);
-		$FIELDS['CLevel'] = secure_string($_POST['CLevel']);
-		$FIELDS['ApplicableFeeTitle'] = secure_string($_POST['ApplicableFeeTitle']);
-		$FIELDS['ApplicableFeeAmount'] = secure_string($_POST['ApplicableFeeAmount']);		
+		$FIELDS['CLevel'] = secure_string($_POST['CLevel']);		
 		$FIELDS['Outline'] = encode(secure_string($_POST['Outline']));
-		$FIELDS['Description'] = encode(secure_string($_POST['Description']));		
+		$FIELDS['Description'] = encode(secure_string($_POST['Description']));
+		$FIELDS['ExamBody'] = secure_string($_POST['ExamBody']);	
+		$FIELDS['Faq'] = encode(secure_string($_POST['Faq']));
+		$FIELDS['EntryRequirements'] = encode(secure_string($_POST['EntryRequirements']));
+		$FIELDS['CourseDuration'] = secure_string($_POST['CourseDuration']);	
+		$FIELDS['Instructor'] = encode(secure_string($_POST['Instructor']));
+		//FEES
+		$FIELDS['ApplicableFeeTitle'] = $_POST['ApplicableFeeTitle'];
+		$FIELDS['ApplicableFeeAmount'] = $_POST['ApplicableFeeAmount'];		
+		$OtherFees = array_combine($FIELDS['ApplicableFeeTitle'], $FIELDS['ApplicableFeeAmount']);	
 		
 		// Validator data
 		$check = new validator();
@@ -385,13 +436,14 @@ function addrec() {
 			$ERRORS['CName'] = "A course with similar name already exists!";
 		}
 		
-		// check for errors
-		if(sizeof($ERRORS) > 0){
-			$ERRORS['MSG'] = ErrorMessage("ERRORS ENCOUNTERED!");
-		}
-		else{
-			sql_insert($FIELDS);
-		}
+	// check for errors
+	if(sizeof($ERRORS) > 0){
+		$ERRORS['MSG'] = ErrorMessage("ERRORS ENCOUNTERED!");
+	}
+	else{
+	updateCourseOtherFees($FIELDS['CourseID'], $OtherFees);
+	sql_insert($FIELDS);
+	}
 	}
 	
 	$row["DeptID"] = !empty($FIELDS['DeptID'])?$FIELDS['DeptID']:"";
@@ -401,6 +453,11 @@ function addrec() {
 	$row["Outline"] = !empty($FIELDS['Outline'])?decode($FIELDS['Outline']):"";
 	$row["Description"] = !empty($FIELDS['Description'])?decode($FIELDS['Description']):"";
 	$row['CourseType'] = !empty($FIELDS['CourseType'])?$FIELDS['CourseType']:"";
+	$row['ExamBody'] = !empty($FIELDS['ExamBody'])?$FIELDS['ExamBody']:"";
+	$row['Faq'] = !empty($FIELDS['Faq'])?$FIELDS['Faq']:"";
+	$row['EntryRequirements'] = !empty($FIELDS['EntryRequirements'])?$FIELDS['EntryRequirements']:"";
+	$row['CourseDuration'] = !empty($FIELDS['CourseDuration'])?$FIELDS['CourseDuration']:"";
+	$row['Instructor'] = !empty($FIELDS['Instructor'])?$FIELDS['Instructor']:"";
 ?>
 <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=courses">Courses</a></li><li class="active">Add Course</li></ol>
 
@@ -427,7 +484,6 @@ function editrec($recid){
 	// Variables
 	$ERRORS = array();
 	$FIELDS = array();
-	
 	// Commands
 	if(isset($_POST["Edit"])){
 		// Course info
@@ -436,11 +492,18 @@ function editrec($recid){
 		$FIELDS['CourseID'] = secure_string(whitespace_trim(strtoupper($_POST['CourseID'])));
 		$FIELDS['CName'] = secure_string(ucwords($_POST['CName']));
 		$FIELDS['CLevel'] = secure_string($_POST['CLevel']);
-		$FIELDS['ApplicableFeeTitle'] = secure_string($_POST['ApplicableFeeTitle']);
-		$FIELDS['ApplicableFeeAmount'] = secure_string($_POST['ApplicableFeeAmount']);
 		$FIELDS['Outline'] = encode(secure_string($_POST['Outline']));
 		$FIELDS['Description'] = encode(secure_string($_POST['Description']));
-		
+		$FIELDS['ExamBody'] = secure_string($_POST['ExamBody']);	
+		$FIELDS['Faq'] = encode(secure_string($_POST['Faq']));
+		$FIELDS['EntryRequirements'] = encode(secure_string($_POST['EntryRequirements']));
+		$FIELDS['CourseDuration'] = secure_string($_POST['CourseDuration']);	
+		$FIELDS['Instructor'] = encode(secure_string($_POST['Instructor']));
+		//FEES
+		$FIELDS['ApplicableFeeTitle'] = $_POST['ApplicableFeeTitle'];
+		$FIELDS['ApplicableFeeAmount'] = $_POST['ApplicableFeeAmount'];
+		$OtherFees = array_combine($FIELDS['ApplicableFeeTitle'], $FIELDS['ApplicableFeeAmount']);
+		//exit;
 		// Validator data
 		$check = new validator();
 		// validate entry
@@ -456,7 +519,9 @@ function editrec($recid){
 			$ERRORS['MSG'] = ErrorMessage("ERRORS ENCOUNTERED!");
 		}
 		else{
+			updateCourseOtherFees($FIELDS['CourseID'], $OtherFees);
 			sql_update($FIELDS);
+			
 		}
   	}
 	
@@ -465,13 +530,18 @@ function editrec($recid){
 	db_data_seek($res, $recid);
 	$row = db_fetch_array($res); 
 	
-	$row["DeptID"] = !empty($FIELDS['DeptID'])?$FIELDS['DeptID']:$row["DeptID"];
-	$row["CourseID"] = !empty($FIELDS['CourseID'])?$FIELDS['CourseID']:$row["CourseID"];
-	$row["CName"] = !empty($FIELDS['CName'])?$FIELDS['CName']:$row["CName"];
-	$row["CLevel"] = !empty($FIELDS['CLevel'])?$FIELDS['CLevel']:$row["CLevel"];
-	$row["Outline"] = !empty($FIELDS['Outline'])?decode($FIELDS['Outline']):$row["Outline"];
-	$row["Description"] = !empty($FIELDS['Description'])?decode($FIELDS['Description']):$row["Description"];
-	$row['CourseType'] = !empty($FIELDS['CourseType'])?$FIELDS['CourseType']:$row["CourseType"];
+$row["DeptID"] = !empty($FIELDS['DeptID'])?$FIELDS['DeptID']:$row["DeptID"];
+$row['CourseType'] = !empty($FIELDS['CourseType'])?$FIELDS['CourseType']:$row["CourseType"];
+$row["CourseID"] = !empty($FIELDS['CourseID'])?$FIELDS['CourseID']:$row["CourseID"];
+$row["CName"] = !empty($FIELDS['CName'])?$FIELDS['CName']:$row["CName"];
+$row["CLevel"] = !empty($FIELDS['CLevel'])?$FIELDS['CLevel']:$row["CLevel"];
+$row["Outline"] = !empty($FIELDS['Outline'])?decode($FIELDS['Outline']):$row["Outline"];
+$row["Description"] = !empty($FIELDS['Description'])?decode($FIELDS['Description']):$row["Description"];
+$row['ExamBody'] = !empty($FIELDS['ExamBody'])?$FIELDS['ExamBody']:$row["ExamBody"];
+$row['Faq'] = !empty($FIELDS['Faq'])?$FIELDS['Faq']:$row["Faq"];
+$row['EntryRequirements'] = !empty($FIELDS['EntryRequirements'])?$FIELDS['EntryRequirements']:$row['EntryRequirements'];
+$row['CourseDuration'] = !empty($FIELDS['CourseDuration'])?$FIELDS['CourseDuration']:$row['CourseDuration'];
+$row['Instructor'] = !empty($FIELDS['Instructor'])?$FIELDS['Instructor']:$row["Instructor"];
 ?>
 <ol class="breadcrumb"><li><a href="admin.php" title="Dashboard">Dashboard</a></li><li><a href="admin.php?dispatcher=courses">Courses</a></li><li class="active">Edit Course</li></ol>
 <?php showrecnav("edit", $recid, $count); ?>
@@ -530,7 +600,21 @@ function sql_select(){
 	$res = db_query($sql,DB_NAME,$conn);
 	return $res;
 }
-
+function updateFee($course, $feename, $fee){
+	global $conn;
+	$q = "SELECT COUNT(`pay_id`) AS `no` FROM  `".DB_PREFIX."payment_categs` WHERE `type` = 'Fee' AND `assoc_course` LIKE '%$course%' AND payment_name = '$feename' "; 
+	$result = db_query($q,DB_NAME,$conn);
+	$row = db_fetch_array($result);
+	$no = $row['no'];
+	if( $no > 0){
+		$q = "UPDATE `".DB_PREFIX."payment_categs` SET payment_name = '$feename', pay_amount = '$fee' WHERE `type` = 'Fee' AND payment_name = '$feename' AND `assoc_course` LIKE '%$course%'";
+		 db_query($q,DB_NAME,$conn);
+	}else{
+		$q = sprintf("INSERT INTO `".DB_PREFIX."payment_categs`(`type`, `payment_name`, `assoc_course`, `pay_amount`) VALUES ('%s', '%s', '%s', '%s')", "Fee", $feename, $course, $fee);
+		db_query($q,DB_NAME,$conn);
+	}
+	return true;
+}
 function sql_getrecordcount(){
 	global $conn;
 	global $filter;
@@ -551,7 +635,7 @@ function sql_insert($FIELDS){
 	global $conn;
 	
 	//Add new course
-	$sql = sprintf("INSERT INTO `".DB_PREFIX."courses` (`CourseID`,`CName`,`CLevel`,`Description`,`Outline`,`CourseType`, `DeptID`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", $FIELDS['CourseID'], $FIELDS['CName'], $FIELDS['CLevel'], $FIELDS['Description'], $FIELDS['Outline'], $FIELDS['CourseType'], $FIELDS['DeptID']);	
+	$sql = sprintf("INSERT INTO `".DB_PREFIX."courses` (`CourseID`, `CName`, `CLevel`, `Outline`, `Description`, `EntryRequirements`, `CourseDuration`, `Instructor`, `CourseType`, `DeptID`, `ExamBody`, `Faq`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", $FIELDS['CourseID'], $FIELDS['CName'], $FIELDS['CLevel'], $FIELDS['Outline'], $FIELDS['Description'], $FIELDS['EntryRequirements'], $FIELDS['CourseDuration'], $FIELDS['Instructor'], $FIELDS['CourseType'], $FIELDS['DeptID'], $FIELDS['ExamBody'], $FIELDS['Faq']);	
 	db_query($sql,DB_NAME,$conn);
 	
 	//Check if saved
@@ -565,11 +649,10 @@ function sql_insert($FIELDS){
 
 function sql_update($FIELDS){
 	global $conn;
-	
 	//Update course
-	$sql = sprintf("UPDATE `".DB_PREFIX."courses` SET `CourseID` = '%s', `CName` = '%s', `CLevel` = '%s', `Outline` = '%s', `Description` = '%s', `CourseType` = '%s', `DeptID` = '%s' WHERE " .primarykeycondition(). "", $FIELDS['CourseID'], $FIELDS['CName'], $FIELDS['CLevel'], $FIELDS['Outline'], $FIELDS['Description'], $FIELDS['CourseType'], $FIELDS['DeptID']);		
+	$sql = sprintf("UPDATE `".DB_PREFIX."courses` SET `CourseID` = '%s', `CName` = '%s', `CLevel` = '%s', `Outline` = '%s', `Description` = '%s', `EntryRequirements` = '%s', `CourseDuration` = '%s', `Instructor` = '%s', `CourseType` = '%s', `DeptID` = '%s', `ExamBody` = '%s', `Faq` = '%s' WHERE " .primarykeycondition(). "", $FIELDS['CourseID'], $FIELDS['CName'], $FIELDS['CLevel'], $FIELDS['Outline'], $FIELDS['Description'], $FIELDS['EntryRequirements'], $FIELDS['CourseDuration'], $FIELDS['Instructor'], $FIELDS['CourseType'], $FIELDS['DeptID'], $FIELDS['ExamBody'], $FIELDS['Faq']);		
 	db_query($sql,DB_NAME,$conn);
-	
+
 	//Check if updated
 	if(db_affected_rows($conn)){
 		$_SESSION['MSG'] = ConfirmMessage("Course has been updated successfully.");

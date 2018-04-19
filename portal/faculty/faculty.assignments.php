@@ -47,7 +47,7 @@ $(document).ready(function() {
 				if($action == 'Edit' && !empty($UnitID) && !empty($EditID)){
 					$collapse = 'in';
 					
-					$sqlGetAssignments = sprintf("SELECT `UnitID`,`Title`,`Description`,`Credits`,`DateDue` FROM `".DB_PREFIX."assignments` WHERE `UID` = %d", $EditID);
+					$sqlGetAssignments = sprintf("SELECT * FROM `".DB_PREFIX."assignments` WHERE `UID` = %d", $EditID);
 					//run the query
 					$resGetAssignments = db_query($sqlGetAssignments,DB_NAME,$conn);
 					$rowGetAssignments = db_fetch_array($resGetAssignments);						
@@ -64,13 +64,15 @@ $(document).ready(function() {
 					}
 					
 					if(isset($_POST['Edit']) && !empty($EditID)){
+						//tell them that assignment is been updated
 						$sqlEditAssignment = sprintf("UPDATE `".DB_PREFIX."assignments` SET `UnitID`='%s', `Title`='%s', `Description`='%s', `Credits`='%s', `DateDue`='%s' WHERE `UID`=%d", $UnitID, $Title, $EncodedDescription, $Credits, $dbDateDue, $EditID);
 						
 						//Execute the query or die if there is a problem
 						db_query($sqlEditAssignment,DB_NAME,$conn);
 						
 						//Check if saved
-						if(db_affected_rows($conn)){								
+						if(db_affected_rows($conn)){	
+							manageAssignment($UnitID, 1);							
 							redirect("?tab=5&task=coursework&unitid=$UnitID&update=true");
 						}else{
 							echo ErrorMessage("Failed to update the selected assignment.");
@@ -88,12 +90,13 @@ $(document).ready(function() {
 					$dbDateDue = db_fixdate($DateDue);
 					
 					$sqlAddAssignment = sprintf("INSERT INTO `".DB_PREFIX."assignments` (`UnitID`,`Title`,`Description`,`Credits`,`DateDue`) VALUES ('%s','%s','%s','%s','%s')", $UnitID, $Title, $EncodedDescription, $Credits, $dbDateDue);
-					
+					//tell them that assignment is been added
 					//Execute the query or die if there is a problem
 					db_query($sqlAddAssignment,DB_NAME,$conn);
 					
 					//Check if saved
-					if(db_affected_rows($conn)){							
+					if(db_affected_rows($conn)){	
+						manageAssignment($UnitID, 0);						
 						echo ConfirmMessage("New assignment has been added successfully.");
 					}else{
 						echo ErrorMessage("Failed to add a new assignment.");
@@ -147,14 +150,14 @@ $(document).ready(function() {
 				<?php
 				$sqlGetAssignments = sprintf("SELECT * FROM `".DB_PREFIX."assignments` WHERE `UnitID` = '%s' AND `deletedFlag` = %d ORDER BY `DateDue` ASC", $UnitID, 0);
 				//Execute the query or die if there is a problem
-				$resultGetAssignments = db_query($sqlGetAssignments,DB_NAME,$conn);
+				$resGetAssignments = db_query($sqlGetAssignments,DB_NAME,$conn);
 				
 				//check if any rows returned
-				if(db_num_rows($resultGetAssignments)>0){
+				if(db_num_rows($resGetAssignments)>0){
 					$count = 1;
 					$expired = 0;
 					echo '<div class="panel-group" id="accordion">';
-					while($assignment = db_fetch_array($resultGetAssignments)){
+					while($assignment = db_fetch_array($resGetAssignments)){
 						$date_today = new DateTime();
 						$date_due = new DateTime($assignment['DateDue']);						
 						$diff = (int)$date_today->diff($date_due)->format("%r%a");
@@ -201,7 +204,44 @@ $(document).ready(function() {
 										<h3>Assignment Content</h3>
 										<?php echo decode($assignment['Description']); ?>
 										<h3>Assignment Submissions</h3>
-										<p></p>
+										<?php
+										$sqlGetAssignmentsUploaded = sprintf("SELECT `StudentID`,`UploadPath`,`DateUploaded`,`Status`,`FacultyID` FROM `".DB_PREFIX."assignment_uploads` WHERE `AssignmentID` = %d", $assignment['UID']);
+										
+										//Execute the query or die if there is a problem
+										$resGetAssignmentsUploaded = db_query($sqlGetAssignmentsUploaded,DB_NAME,$conn);
+										
+										//check if any rows returned
+										if(db_num_rows($resGetAssignmentsUploaded)>0){
+											?>
+											<table width="100%" class="display table table-striped table-bordered table-hover">
+												<thead>
+													<tr>
+														<td>Student ID</td>														
+														<td>Date Uploaded</td>
+														<td>Accessed By</td>
+														<td>Status</td>
+														<td>Actions</td>
+													</tr>
+												</thead>
+												<tbody>
+												<?php
+												while($upload = db_fetch_array($resGetAssignmentsUploaded)){
+													echo "<tr>
+													<td>".getStudentName($upload['StudentID'])."</td>													
+													<td>".fixdatetime($upload['DateUploaded'])."</td>
+													<td>".$upload['FacultyID']."</td>
+													<td>".$upload['Status']."</td>
+													<td><a href=\"".$upload['UploadPath']."\" class=\"btn btn-sm btn-info\">Download</a>&nbsp;<a href=\"#\" class=\"btn btn-sm btn-success\">Assign Grade</a></td>
+													</tr>";
+												}
+												?>
+												</tbody>
+											</table>
+											<?php
+										}else{
+											echo "<p>No assignments have been uploaded yet</p>";
+										}
+										?>
 									</div>
 								</div>
 							</div>															

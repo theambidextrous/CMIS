@@ -12,6 +12,60 @@ Website:		http://www.witstechnologies.co.ke/
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 //quick notify functions
+function manageAssignment($unit, $is){
+	switch($is){
+		//is add
+		case 0:
+			foreach(getUnitEnrolledStudents($unit) as $a):
+				//notify student by sms
+				$message = "Dear Student, a new assignment requiring your attention has been added to your Finstock portal account";
+				//sms
+				notifypayer($message, smsphoneformat(getStudentData($a['StudentID'])['Phone']));
+				//email
+				mail_config(getStudentData($a['StudentID'])['Email'], getStudentData($a['StudentID'])['FName'], "New Finstock Assignment", $message);
+			endforeach;
+		break;
+		//is edit
+		case 1:
+		foreach(getUnitEnrolledStudents($unit) as $a):
+			//notify student by sms
+			$message = "Dear Student, a previously added assignment has been amended, please login to view changes";
+			//sms
+			notifypayer($message, smsphoneformat(getStudentData($a['StudentID'])['Phone']));
+			//email
+			mail_config(getStudentData($a['StudentID'])['Email'], getStudentData($a['StudentID'])['FName'], "Assignment Edited", $message);
+		endforeach;
+		break;
+	}
+	return true;
+}
+function getStudentData($StudentID){
+	global $conn;
+	
+	$sqlGet = sprintf("SELECT * FROM `".DB_PREFIX."students` WHERE `StudentID` = '%s'", $StudentID);
+	//Execute the query
+	$resultGet = db_query($sqlGet,DB_NAME,$conn);	
+	$data = array();
+	if(db_num_rows($resultGet)>0){
+		while( $rowGet = db_fetch_array($resultGet) ){
+		$data = $rowGet;
+		}
+		return $data;
+	}
+	else{
+		return NULL;
+	}
+}
+function getUnitEnrolledStudents($unitID){
+	global $conn;
+	$row = array();
+	$sql = "SELECT * FROM `".DB_PREFIX."units_registered` WHERE UnitID = '$unitID'";	
+	$resultGet = db_query($sql,DB_NAME,$conn);	
+		while( $rowGet = db_fetch_array($resultGet) ){
+		array_push($row, $rowGet);
+		}
+	return $row;
+}
 function smsphoneformat($tel){
 	$phone =  '';
 	$tel = str_replace(' ', '', $tel);

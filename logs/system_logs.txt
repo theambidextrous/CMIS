@@ -112,4 +112,19 @@ You have an error in your SQL syntax; check the manual that corresponds to your 
 	<strong>Page:</strong> http://localhost/cmis/admin/admin.php?dispatcher=exams&task=view&recid=0&examID=1<br>
 	<strong>Error Captured:</strong> [SELECT COUNT(`StudentID`) AS `Total` FROM  `mis_student_exams` WHERE `StudentID` = 'FE/FA/3/18' AND `ExamID` = '1' AND `deletedFlag` = 0]
 
-</p>
+</p><p><strong>Log Date:</strong> 16-04-2018 09:06:08<br>
+	<strong>Error Type:</strong> MySQL DB Error #1146<br>
+	<strong>Page:</strong> http://localhost/CMIS/admin/admin.php?dispatcher=courses&task=edit&recid=0<br>
+	<strong>Error Captured:</strong> [SELECT `TypeID`,`Type` FROM `mis_course_types` WHERE 1]
+
+Table 'finstoc1_portal.mis_course_types' doesn't exist</p><p><strong>Log Date:</strong> 16-04-2018 09:06:33<br>
+	<strong>Error Type:</strong> MySQL DB Error #1146<br>
+	<strong>Page:</strong> http://localhost/CMIS/admin/admin.php?dispatcher=courses&task=edit&recid=0<br>
+	<strong>Error Captured:</strong> [SELECT `TypeID`,`Type` FROM `mis_course_types` WHERE 1]
+
+Table 'finstoc1_portal.mis_course_types' doesn't exist</p><p><strong>Log Date:</strong> 16-04-2018 09:09:08<br>
+	<strong>Error Type:</strong> MySQL DB Error #1146<br>
+	<strong>Page:</strong> http://localhost/CMIS/admin/admin.php?dispatcher=courses&task=edit&recid=0<br>
+	<strong>Error Captured:</strong> [SELECT `TypeID`,`Type` FROM `mis_course_types` WHERE 1]
+
+Table 'finstoc1_portal.mis_course_types' doesn't exist</p>

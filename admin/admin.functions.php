@@ -6,7 +6,61 @@ Mobile:			+254721428276
 Email:			sammy@witstechnologies.co.ke
 Website:		http://www.witstechnologies.co.ke/
 *********************************************/
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+//courses utilities functions
+function getCourseOtherFees($course){
+	global $conn;
+	$sql = "SELECT * FROM `".DB_PREFIX."payment_categs` WHERE type = 'Fee' AND assoc_course LIKE '%$course%'";
+	$Fees = [];
+	$res = db_query($sql,DB_NAME,$conn);
+	while($row = db_fetch_array($res)){
+		array_push($Fees, $row);
+	}
+	return $Fees;
+}
+function updateCourseOtherFees($course, $Fees){
+	global $conn;
+		foreach( $Fees as $name => $fee):
+			updateFee($course, $name, $fee);	
+		endforeach;
+	return true;
+}
 //quick notifier fncs
+function mail_config($email, $name, $subject, $content){
+	$mail = new PHPMailer;
+	$body = preg_replace('/\\\\/','', $content); //Strip backslashes
+	
+	switch(MAILER){
+		case 'smtp':		
+		$mail->isSMTP(); // telling the class to use SMTP
+		$mail->SMTPDebug = 0;
+		$mail->SMTPAuth = SMTP_AUTH; // enable SMTP authentication
+		$mail->SMTPSecure = SMTP_SECU; // sets the prefix to the servier
+		$mail->Host = SMTP_HOST; // SMTP server
+		$mail->Port = SMTP_PORT; // set the SMTP port for the HOST server
+		$mail->Username = SMTP_USER;
+		$mail->Password = SMTP_PASS;
+		break;
+		case 'sendmail':
+		$mail->isSendmail(); // telling the class to use SendMail transport
+		break;
+		case 'mail':
+		$mail->isMail(); // telling the class to use mail function
+		break;
+	}
+	$mail->setFrom(MAILER_FROM_EMAIL, MAILER_FROM_NAME);
+	$mail->addReplyTo(INFO_EMAIL, INFO_NAME);
+	$mail->addAddress($email, $name);
+	$mail->addBCC(INFO_EMAIL, INFO_NAME);
+	$mail->Subject = $subject;
+	$mail->msgHTML($body);
+	$mail->isHTML(true); // send as HTML
+	$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+	if (!$mail->send()) {
+		return "Mailer Error: " . $mail->ErrorInfo;
+	}
+}
 function smsphoneformat($tel){
 	$phone =  '';
 	$tel = str_replace(' ', '', $tel);
@@ -228,7 +282,10 @@ function activateExam($student, $exam, $member, $number){
 				addStudentExams($student, $exam);
 				//notify student by sms
 				$message = "Hi ".getStudentData($student)['FName'].", a new exam requiring your attention has been added to your account";
+				//sms
 				notifypayer($message, smsphoneformat(getStudentData($student)['Phone']));
+				//email
+				mail_config(getStudentData($student)['Email'], getStudentData($student)['FName'], "New Finstock Exam", $message);
 			}
 			break;
 			case '0':
@@ -238,7 +295,10 @@ function activateExam($student, $exam, $member, $number){
 					addStudentExams($a['StudentID'], $exam);
 					//notify student by sms
 					$message = "Hi ".getStudentData($a['StudentID'])['FName'].", a new exam requiring your attention has been added to your account";
+					//sms
 					notifypayer($message, smsphoneformat(getStudentData($a['StudentID'])['Phone']));
+					//email
+					mail_config(getStudentData($a['StudentID'])['Email'], getStudentData($a['StudentID'])['FName'], "New Finstock Exam", $message);
 				}
 			endforeach;
 			markExamOpen(0, $exam);
