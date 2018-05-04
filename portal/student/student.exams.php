@@ -294,7 +294,7 @@ endforeach;
     var absoluteSeconds = Math.floor(seconds);
     var s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
 
-    return 'Minutes: ' + h + ' Seconds:  ' + m + '  Timer: ' + s;
+    return 'Minutes: ' + h + ' Seconds:  ' + m + ' ;
   }
   function setTimer( remain, actions ) {
     var remain = remain*60000;

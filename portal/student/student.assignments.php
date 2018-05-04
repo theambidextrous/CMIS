@@ -158,7 +158,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Assignments";
               ?>							
                 <div class="panel panel-<?php echo $class; ?>">
                   <div class="panel-heading">
-                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>" title="Click here to toggle collapse">(<?php echo $assignment['UnitID']; ?>) - <?php echo $assignment['Title']; ?></a> 
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>" title="Click here to toggle collapse">(<?php echo $assignment['UnitID']; ?>) - <?php echo $assignment['Title']; ?></a> 
                     <span class="right" style="float:right;">
                     <small class="text-<?php echo $class; ?>"><?php echo $due.timeago($assignment['DateDue']); ?></small>
                     <?php if(!$expired){ ?>

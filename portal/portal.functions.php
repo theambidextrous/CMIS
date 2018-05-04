@@ -11,29 +11,74 @@ Website:		http://www.witstechnologies.co.ke/
 //Import the PHPMailer class into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+//faculty exams functions
+function checkMarked($StudentID, $ExamID){
+	global $conn;
+	$sql = sprintf("SELECT COUNT(`UID`) as cnt FROM `".DB_PREFIX."student_exams` WHERE `StudentID` = '%s' AND `ExamID` = %d  AND `IsMarked` != ''", $StudentID, $ExamID);
+		$res = db_query($sql,DB_NAME,$conn);
+		$row = db_fetch_array($res);
+		if($row['cnt'] > 0){
+			return '<i style="color:Green;" class="fa fa-check"></i>';
+		}else{
+			return '<i style="color:Orange;" class="fa fa-times"></i>';
+		}
+}
+function getTutorUnits($Tutor){
+	global $conn;
+	
+	if( !empty($Tutor) && isset($Tutor) ){		
+		$sql = sprintf("SELECT DISTINCT `UnitID` FROM `".DB_PREFIX."units_tutors` WHERE `FacultyID` = '%s' AND `Status` = %d", $Tutor, 1);
+		$res = db_query($sql,DB_NAME,$conn);
+		$units = array();
+		$exams = array();
+		while($row = db_fetch_array($res)){
+			array_push($units, $row);
+		}
+
+		foreach( $units as $u):
+			array_push($exams, getTutorExams($u['UnitID']));
+		endforeach;
+
+			return $exams;
+	}else{
+		return 0;
+	}
+}
+function getTutorExams($TutorUnit){
+	global $conn;
+	
+	if( !empty($TutorUnit) && isset($TutorUnit) ){		
+		$sql = "SELECT `ExamID` FROM `".DB_PREFIX."exams` WHERE `ExamUnit` = '$TutorUnit' AND disabledFlag = 0 AND deletedFlag = 0";
+		$res = db_query($sql,DB_NAME,$conn);
+		$exams = array();
+		while($row = db_fetch_array($res)){
+			array_push($exams, $row);
+		}
+		return $exams;
+	}else{
+		return 0;
+	}
+}
 //quick notify functions
-function manageAssignment($unit, $is){
+function manageAssignment($unit, $is, $message){
 	switch($is){
 		//is add
 		case 0:
+			//notify student by sms
 			foreach(getUnitEnrolledStudents($unit) as $a):
-				//notify student by sms
-				$message = "Dear Student, a new assignment requiring your attention has been added to your Finstock portal account";
 				//sms
 				notifypayer($message, smsphoneformat(getStudentData($a['StudentID'])['Phone']));
 				//email
-				mail_config(getStudentData($a['StudentID'])['Email'], getStudentData($a['StudentID'])['FName'], "New Finstock Assignment", $message);
+				mail_config(getStudentData($a['StudentID'])['Email'], getStudentData($a['StudentID'])['FName'], "Evarsity E-learning Update", $message);
 			endforeach;
 		break;
 		//is edit
 		case 1:
 		foreach(getUnitEnrolledStudents($unit) as $a):
-			//notify student by sms
-			$message = "Dear Student, a previously added assignment has been amended, please login to view changes";
 			//sms
 			notifypayer($message, smsphoneformat(getStudentData($a['StudentID'])['Phone']));
 			//email
-			mail_config(getStudentData($a['StudentID'])['Email'], getStudentData($a['StudentID'])['FName'], "Assignment Edited", $message);
+			mail_config(getStudentData($a['StudentID'])['Email'], getStudentData($a['StudentID'])['FName'], "Evarsity E-learning Update", $message);
 		endforeach;
 		break;
 	}
@@ -133,6 +178,61 @@ function removeAbandonedPayment($ref, $status){
 	db_query($delDuplicate,DB_NAME,$conn);
 }
 //exam functions
+function updateScore($params, $arr){
+	global $conn;
+	
+	db_query(sprintf("UPDATE `".DB_PREFIX."student_exams` SET `ExamScore`= '%s', `IsMarked`= '%s', `TutorComment`='%s' WHERE `StudentID` = '%s' AND `ExamID` = %d", $params[2],$params[3],$arr,$params[1],$params[0]),DB_NAME,$conn);
+
+	redirect($params[4]);
+}
+function sanitizeJson($json){
+	for ($i = 0; $i <= 31; ++$i) { 
+		$json = str_replace(chr($i), "", $json); 
+	}
+	$json = str_replace(chr(127), "", $json);
+	if (0 === strpos(bin2hex($json), 'efbbbf')) {
+	   $json = substr($json, 3);
+	}
+	$json = strip_tags($json);
+	$json = json_decode( $json, true);
+	return $json;
+}
+function getQuestionName($examID, $qID){
+	global $conn;
+	$resultGet = sprintf("SELECT * FROM `".DB_PREFIX."exam_questions` WHERE `ExamID` = %d AND `QuestionID` = %d AND `disabledFlag` = 0 AND `deletedFlag` = 0 ", $examID, $qID);	
+	$Q = db_query($resultGet,DB_NAME,$conn);
+	$r = array();
+	while( $row = db_fetch_array($Q) ){
+		array_push( $r, $row);
+	}	
+	return $r;
+}
+function getStudentSatforExam($ExamID){
+	global $conn;
+	$sqlGet = sprintf("SELECT * FROM `".DB_PREFIX."student_exams` WHERE `ExamID` = %d AND `Status` = 'Completed'", $ExamID);
+	//Execute the query
+	$resultGet = db_query($sqlGet,DB_NAME,$conn);
+	$they = array();
+	if(db_num_rows($resultGet)>0){
+		while($rowGet = db_fetch_array($resultGet)){
+		array_push($they, $rowGet);
+		}	
+	}
+	return $they;
+}
+function getFacultyExamsDetails($ExamID){
+	global $conn;
+	$sqlGet = sprintf("SELECT * FROM `".DB_PREFIX."exams` WHERE `ExamID` = %d AND `deletedFlag` = %d AND disabledFlag = 0", $ExamID,0);
+	//Execute the query
+	$resultGet = db_query($sqlGet,DB_NAME,$conn);
+	$Exams = [];
+	if(db_num_rows($resultGet)>0){
+		while($rowGet = db_fetch_array($resultGet)){
+		array_push($Exams, $rowGet);
+		}	
+	}
+	return $Exams;
+}
 function recordScore($params){
 	global $conn;
 	
@@ -182,7 +282,7 @@ function dateFixedFromat($string){
 }
 function getExamQuestions($ExamID){
 	global $conn;
-	
+
 	// $resultGet = sprintf("SELECT * FROM `".DB_PREFIX."exam_questions` WHERE `QuestionType` = 'Closed' AND `ExamID` = '%s' AND `deletedFlag` = %d", $ExamID, 0);	
 	$resultGet = sprintf("SELECT * FROM `".DB_PREFIX."exam_questions` WHERE `ExamID` = '%s' AND `deletedFlag` = %d", $ExamID, 0);
 	//Execute the query
@@ -254,10 +354,9 @@ function clearsessionscookies() {
   setcookie("usrpassword", "",time()-60*60*24*100, "/");
 }
 //
-function activeSession(){
+function activeSession($time = 7200){
 	// Session killer after a given period of inactive login
-	$inactive = 7200; // Set timeout period in seconds i.e.(1800secs = 30min)
-
+	$inactive = $time; // Set timeout period in seconds i.e.(1800secs = 30min)
 	if(isset($_SESSION['usrTimeout'])) {
 		$session_life = time() - $_SESSION['usrTimeout'];
 		if($session_life > $inactive) {
@@ -493,17 +592,27 @@ function markLoggedout(){
   	require_once("$incl_dir/mysqli.functions.php");
   	//Open database connection
   	$conn = db_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
-	
 	$username = isset($_SESSION['usrusername'])?$_SESSION['usrusername']:"";
-	
 	if(!empty($username)){
 		//Set the query
-		$query = sprintf("UPDATE `".DB_PREFIX."portal` SET `LoggedIn` = %d WHERE `LoginID` = '%s'", 0, $username);
+		$query = sprintf("UPDATE `".DB_PREFIX."portal` SET `LoggedIn` = %d, `LogoutDate`= NOW() WHERE `LoginID` = '%s'", 0, $username);
 		//run the query
 		db_query($query,DB_NAME,$conn);
 	}
 	//Close the database connection	
 	db_close($conn);
+}
+function autoExit($time, $class_dir){
+	return '
+	<script>
+	$(document).ready(function(){
+		setInterval(function(){
+				$.get("'.$class_dir.'/autoExit.php", function(data){
+				if(data==0) window.location.href="'.SYSTEM_URL.'";
+				});
+			},'.$time.'*60*1000);
+		});
+		</script>';
 }
 //Verify if old password is correct before password reset
 function verifyOldPassword($LoginID,$OldPassword){	

@@ -127,4 +127,9 @@ Table 'finstoc1_portal.mis_course_types' doesn't exist</p><p><strong>Log Date:</
 	<strong>Page:</strong> http://localhost/CMIS/admin/admin.php?dispatcher=courses&task=edit&recid=0<br>
 	<strong>Error Captured:</strong> [SELECT `TypeID`,`Type` FROM `mis_course_types` WHERE 1]
 
-Table 'finstoc1_portal.mis_course_types' doesn't exist</p>
+Table 'finstoc1_portal.mis_course_types' doesn't exist</p><p><strong>Log Date:</strong> 27-04-2018 09:45:44<br>
+	<strong>Error Type:</strong> MySQL DB Error #<br>
+	<strong>Page:</strong> http://localhost/cmis/portal/?do=login&url=<br>
+	<strong>Error Captured:</strong> [SELECT `UID`,`UserType`,`LoginID`,`Password` FROM `mis_portal` WHERE `LoginID` = '' AND `disabledFlag` = 0 AND `deletedFlag` = 0 AND `ApprovedFlag` = 1 AND `LoggedIn` = 0]
+
+</p>

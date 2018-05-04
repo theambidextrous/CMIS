@@ -50,6 +50,8 @@ break;
 break;
 	case 4: $menu4 = "active";
 break;
+	case 10: $menu4 = "active";
+break;
 	case 5: $menu5 = "active";
 break;
 	case 6: $menu6 = "active";
@@ -122,6 +124,13 @@ $(document).ready(function() {
 
 });
 //
+$(document).ready(function(){
+		setInterval(function(){
+				$.get("<?php echo $class_dir; ?>/autoExit.php", function(data){
+				});
+			},<?php echo $time;?>*60*1000);
+		});
+		//
 function comfirmDelete(){
 	return confirm("This operation will DELETE the selected records. Are you sure you want to delete?");
 }
@@ -207,6 +216,7 @@ function checkAll(field){
           </li>
           <li><a href="?tab=3" class="<?=$menu3?>"><i class="fa fa-table fa-fw"></i> Lectures</a></li>
           <li><a href="?tab=4" class="<?=$menu4?>"><i class="fa fa-calendar fa-fw"></i> Calendar</a></li>
+					<li><a href="?tab=10" class="<?=$menu10?>"><i class="fa fa-book fa-fw"></i> Exams</a></li>
           <li><a href="?tab=5" class="<?=$menu5?>"><i class="fa fa-edit fa-fw"></i> Assignments</a></li>
           <li><a href="?tab=6" class="<?=$menu6?>"><i class="fa fa-bell fa-fw"></i> Attendance</a></li>
           <li><a href="?tab=7" class="<?=$menu7?>"><i class="fa fa-comments fa-fw"></i> Messages</a></li>
@@ -241,6 +251,9 @@ function checkAll(field){
 	  break;
 	  case 3:
 	  	require_once('faculty.lectures.php');
+		break;
+		case 10:
+	  	require_once('faculty.exams.php');
 	  break;
 	  case 4:
 	  	require_once('faculty.calendar.php');

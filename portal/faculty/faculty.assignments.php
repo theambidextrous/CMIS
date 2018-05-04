@@ -33,7 +33,8 @@ $(document).ready(function() {
     <div class="cms-contents-grey">
       <!--Begin Forms-->        
       <?php
-      //Required
+	  //Required
+			require_once("$class_dir/EvarsitySMS.php");
 			$EditID = !empty($_GET['eid'])?$_GET['eid']:0;
       		$UnitID = !empty($_GET['UnitID'])?$_GET['UnitID']:$_SESSION['UnitID'];
 			if(!empty($UnitID)){
@@ -47,7 +48,7 @@ $(document).ready(function() {
 				if($action == 'Edit' && !empty($UnitID) && !empty($EditID)){
 					$collapse = 'in';
 					
-					$sqlGetAssignments = sprintf("SELECT * FROM `".DB_PREFIX."assignments` WHERE `UID` = %d", $EditID);
+					$sqlGetAssignments = sprintf("SELECT `UnitID`,`Title`,`Description`,`Credits`,`DateDue` FROM `".DB_PREFIX."assignments` WHERE `UID` = %d", $EditID);
 					//run the query
 					$resGetAssignments = db_query($sqlGetAssignments,DB_NAME,$conn);
 					$rowGetAssignments = db_fetch_array($resGetAssignments);						
@@ -64,15 +65,16 @@ $(document).ready(function() {
 					}
 					
 					if(isset($_POST['Edit']) && !empty($EditID)){
-						//tell them that assignment is been updated
 						$sqlEditAssignment = sprintf("UPDATE `".DB_PREFIX."assignments` SET `UnitID`='%s', `Title`='%s', `Description`='%s', `Credits`='%s', `DateDue`='%s' WHERE `UID`=%d", $UnitID, $Title, $EncodedDescription, $Credits, $dbDateDue, $EditID);
 						
 						//Execute the query or die if there is a problem
 						db_query($sqlEditAssignment,DB_NAME,$conn);
 						
 						//Check if saved
-						if(db_affected_rows($conn)){	
-							manageAssignment($UnitID, 1);							
+						if(db_affected_rows($conn)){
+							//notify
+							manageAssignment($UnitID, 1);
+							//gotot								
 							redirect("?tab=5&task=coursework&unitid=$UnitID&update=true");
 						}else{
 							echo ErrorMessage("Failed to update the selected assignment.");
@@ -90,13 +92,15 @@ $(document).ready(function() {
 					$dbDateDue = db_fixdate($DateDue);
 					
 					$sqlAddAssignment = sprintf("INSERT INTO `".DB_PREFIX."assignments` (`UnitID`,`Title`,`Description`,`Credits`,`DateDue`) VALUES ('%s','%s','%s','%s','%s')", $UnitID, $Title, $EncodedDescription, $Credits, $dbDateDue);
-					//tell them that assignment is been added
+					
 					//Execute the query or die if there is a problem
 					db_query($sqlAddAssignment,DB_NAME,$conn);
 					
 					//Check if saved
 					if(db_affected_rows($conn)){	
-						manageAssignment($UnitID, 0);						
+						//notify
+						manageAssignment($UnitID, 0);
+						//goto						
 						echo ConfirmMessage("New assignment has been added successfully.");
 					}else{
 						echo ErrorMessage("Failed to add a new assignment.");
