@@ -81,6 +81,9 @@ exit;
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">Upcoming Exams</h1>
+    <?php $io = new IORating("FE234", "UNIT002", "Lesson001", "sv", DB_NAME, $conn);
+    echo $io ->LaunchModal("Rate lesson"); 
+    ?>
   </div>
   <!-- /.col-lg-12 -->
 </div>

@@ -151,6 +151,7 @@ function clean_string($string){
 	//return preg_replace('/[ \t]+/', ' ', $string);
 	return preg_replace('/[ \t]+/', ' ', preg_replace('/\s*$^\s*/m', "\n", $string));
 }
+
 // Performs explode() on a string with the given delimiter and trims all whitespace for the elements
 function explode_trim($str, $delimiter = ',') { 
     if ( is_string($delimiter) ) { 

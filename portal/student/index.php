@@ -16,7 +16,10 @@ include "$incl_dir/config.php";
 require_once("$incl_dir/mysqli.functions.php");
 require_once("$incl_dir/functions.php");
 require_once('../portal.functions.php');
+//rating
+require_once("$class_dir/IO/IO.Rating.class.php");
 
+//mailer
 require_once("$class_dir/phpmailer/src/Exception.php");
 require_once("$class_dir/phpmailer/src/PHPMailer.php");
 require_once("$class_dir/phpmailer/src/SMTP.php");
@@ -29,7 +32,6 @@ if(checkLoggedin() && !empty($_SESSION['usrusername'])){
 
 //Open database connection
 $conn = db_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
-
 //Get Student ID from the login session
 $EditID = !empty($_SESSION['usrusername'])?$_SESSION['usrusername']:"";
 
@@ -64,9 +66,46 @@ break;
 }
 
 add_header();
+//echo (new IORating("FE234", "UNIT002", "Lesson001", "sv", DB_NAME, $conn))->SearchDB($conn);
 ?>
+<style>
+ .rating {
+            float:left;
+            width:300px;
+        }
+        .rating span { float:right; position:relative; }
+        .rating span input {
+            position:absolute;
+            top:0px;
+            left:0px;
+            opacity:0;
+        }
+        .rating span label {
+            display:inline-block;
+            width:30px;
+            height:30px;
+            text-align:center;
+            color:#FFF;
+            background:#ccc;
+            font-size:30px;
+            margin-right:2px;
+            line-height:30px;
+            border-radius:50%;
+            -webkit-border-radius:50%;
+        }
+        .rating span:hover ~ span label,
+        .rating span:hover label,
+        .rating span.checked label,
+        .rating span.checked ~ span label {
+            background:#F90;
+            color:#FFF;
+        }
+				.img-thumbnail {
+				max-width: 100%;
+				height: 50px!important;
+		}
+</style>
 <script>
-<!--
 //JQuery Functions
 $(document).ready(function() {
 	// International Phone format with validator
@@ -150,8 +189,23 @@ function checkAll(field){
 }
 
 //-->
+$(document).ready(function(){
+//  Check Radio-box
+    $(".rating input:radio").attr("checked", false);
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    });
+
+    $('input:radio').change(
+    function(){
+        var userRating = this.value;
+        //alert(userRating);
+    }); 
+});
 </script>
 <div class="wrapper">
+<?php echo (new IORating("FE234", "UNIT002", "Lesson001", "sv", DB_NAME, $conn))->CeateSurveyModal(); ?>
   <!-- Navigation -->
   <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="navbar-header">
@@ -163,7 +217,6 @@ function checkAll(field){
       </button>
       <a class="navbar-brand" href="#"><img src="<?=SYSTEM_LOGO_URL?>" class="img-responsive"></a>
     </div>
-    
     <div class="text-right navbar-top-date"><?=date('l, F j, Y');?> | Logged in as: <strong><?=$student['StudentID'];?></strong></div>
     
     <ul class="nav navbar-top-links navbar-right">

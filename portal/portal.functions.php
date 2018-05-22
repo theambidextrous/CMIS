@@ -59,6 +59,16 @@ function getTutorExams($TutorUnit){
 		return 0;
 	}
 }
+function SearchDB(){
+	global $conn;
+	$a = "SELECT * FROM `mis_surveys` WHERE 1";
+	$res = db_query($a, DB_NAME, $conn) or die(mysqli_error($connection));
+	$a = array();
+	while($row = db_fetch_array($res)){
+		array_push($a, $row);
+	}
+	return $a;
+}
 //quick notify functions
 function manageAssignment($unit, $is, $message){
 	switch($is){
