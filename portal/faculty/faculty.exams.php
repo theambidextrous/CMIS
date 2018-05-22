@@ -123,7 +123,7 @@ body{
       //final score
       $sc = array_sum($credits) + $score;
       $openq = array_sum($credits);
-      $path = '?tab=10&task=view&paper='.$exam;
+      $path = '?dispatcher=exams&task=view&paper='.$exam;
       $params = array($exam, $student, $sc, $openq, $path);
       //combine all
       $result = array_map(function ($q, $c, $co) {
@@ -172,7 +172,7 @@ body{
           echo '<td>'.getFacultyExamsDetails($nobody['ExamID'])[0]['ExamDate'].'</td>';
           echo '<td>'.getFacultyExamsDetails($nobody['ExamID'])[0]['ExamDeadline'].'</td>';
           echo '<td>'.getFacultyExamsDetails($nobody['ExamID'])[0]['ExamDuration'].'</td>';
-          echo '<td><a href="?tab=10&task=view&paper='.$nobody['ExamID'].'">Open</a></td>';
+          echo '<td><a href="?dispatcher=exams&task=view&paper='.$nobody['ExamID'].'">Open</a></td>';
           echo '</tr>';
           endforeach;
           echo '

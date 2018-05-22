@@ -41,13 +41,12 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment page";
 				$last_name = secure_string($_SESSION['STUD_LNAME']);
 				$full_name = secure_string($_SESSION['STUD_FNAME'].' '.$_SESSION['STUD_LNAME']);
 				$email = $_SESSION['STUD_EMAIL'];
-				$pay_type = ucwords(isset($_GET['paytype'])?$_GET['paytype']:'Registration');
-				$_SESSION['PAY_TYPE'] = $pay_type;
+				$pay_type = isset($_SESSION['PAY_TYPE'])?$_SESSION['PAY_TYPE']:'Registration';
 				$pay_status = 'INITIALIZED';
 				$desc = SYSTEM_NAME." Fee Payment";								
 
 				//Get requested payment method
-				$paymentmethod = isset($_GET['paymentmethod'])?$_GET['paymentmethod']:"pesapal";
+				$paymentmethod = isset($_GET['paymentmethod'])?$_GET['paymentmethod']:"";
 				$paymentmethod = strtolower($paymentmethod);
         switch($paymentmethod) {
 					case "pesapal":						
@@ -146,13 +145,11 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment page";
 							<h3>Select a payment method</h3>
 							<p>We support the following payment methods. Click on your preferred payment method:</p>
 							
-							<div class="row">
-								<!--
+							<div class="row">								
 								<div class="col-md-6">
 									<h3>Lipa na M-Pesa</h3>
 									<a href="?do=payment&paymentmethod=mpesa&paytype=<?php echo $pay_type; ?>" title="Click to pay with M-Pesa"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/lipa-na-mpesa.png" alt="Lina na M-Pesa"></a>
 								</div>
-								-->
 								<div class="col-md-6">
 									<h3>PesaPal Payment</h3>
 									<a href="?do=payment&paymentmethod=pesapal&paytype=<?php echo $pay_type; ?>" title="Click to pay with PesaPal"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/pesapal.jpg" alt="PesaPal Payment"></a>

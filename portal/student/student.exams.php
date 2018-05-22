@@ -81,9 +81,6 @@ exit;
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">Upcoming Exams</h1>
-    <?php $io = new IORating("FE234", "UNIT002", "Lesson001", "sv", DB_NAME, $conn);
-    echo $io ->LaunchModal("Rate lesson"); 
-    ?>
   </div>
   <!-- /.col-lg-12 -->
 </div>
@@ -118,6 +115,7 @@ exit;
             <th>Exam Deadline</th>
             <th>Exam Duration</th>
             <th>Instructions</th>
+            <th>Total Credits</th>
             <?php if($paper['Status'] != 'PENDING' && $paper['Status'] != 'OPEN'){ ?>
             <th>Score</th>
             <?php } ?>
@@ -128,12 +126,13 @@ exit;
 			<td><?php echo getStudentExamsDetails($paper['ExamID'])[0]['ExamID']; ?></td>
 			<td><?php echo getStudentExamsDetails($paper['ExamID'])[0]['ExamCourse']; ?></td>
 			<td><?php echo getStudentExamsDetails($paper['ExamID'])[0]['ExamUnit']; ?></td>
-			<td><?php echo dateFixedFromat(getStudentExamsDetails($paper['ExamID'])[0]['ExamDate']); ?></td>
-			<td><?php echo dateFixedFromat(getStudentExamsDetails($paper['ExamID'])[0]['ExamDeadline']); ?></td>
+			<td><?php echo db_fixdate(getStudentExamsDetails($paper['ExamID'])[0]['ExamDate']); ?></td>
+			<td><?php echo db_fixdate(getStudentExamsDetails($paper['ExamID'])[0]['ExamDeadline']); ?></td>
 			<td><?php echo getStudentExamsDetails($paper['ExamID'])[0]['ExamDuration'].' Minutes'; ?></td>
 			<td><?php echo getStudentExamsDetails($paper['ExamID'])[0]['ExamInstructions']; ?></td>
+      <td><?php echo getExamCredits($paper['ExamID']); ?></td>
             <?php if($paper['Status'] != 'PENDING' && $paper['Status'] != 'OPEN'){ ?>
-            <td><?php echo $paper['ExamScore']; ?></td>
+            <td><?php echo $paper['ExamScore'].'/'.getExamCredits($paper['ExamID']); ?></td>
             <?php } ?>
 			</tr>
 		  </tbody>
@@ -200,7 +199,7 @@ if(!empty($to_preview)){
 <div class="exam-overlay" id="page-wrap">
 <h1><?php echo getExamName($to_preview['Question'][0]['ExamID']); ?></h1>
 <div>
-<h2 style="color:black;" id="timer"></h1>
+<h2 style="color:Orange;" id="timer"></h1>
 <h5 style="color:red;" id="notifier"></h5>
 </div>
 <h3><?php echo "Instructions"; ?></h3>
@@ -297,7 +296,7 @@ endforeach;
     var absoluteSeconds = Math.floor(seconds);
     var s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
 
-    return 'Minutes: ' + h + ' Seconds:  ' + m + ' ;
+    return 'You have ' + h + ' minutes and ' + m + ' seconds remaining. 2min to read instructions';
   }
   function setTimer( remain, actions ) {
     var remain = remain*60000;

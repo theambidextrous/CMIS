@@ -24,7 +24,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Faculty | My Dashboard";
           </div>
         </div>
       </div>
-      <a href="?tab=2">
+      <a href="?dispatcher=departments">
       <div class="panel-footer"> <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>
@@ -42,7 +42,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Faculty | My Dashboard";
           </div>
         </div>
       </div>
-      <a href="?tab=3">
+      <a href="?dispatcher=lectures">
       <div class="panel-footer"> <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>
@@ -60,7 +60,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Faculty | My Dashboard";
           </div>
         </div>
       </div>
-      <a href="?tab=6">
+      <a href="?dispatcher=attendance">
       <div class="panel-footer"> <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>
@@ -78,7 +78,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Faculty | My Dashboard";
           </div>
         </div>
       </div>
-      <a href="?tab=7">
+      <a href="?dispatcher=messages">
       <div class="panel-footer"> <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>

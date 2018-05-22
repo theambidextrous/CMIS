@@ -12,6 +12,13 @@ Website:		http://www.witstechnologies.co.ke/
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 //faculty exams functions
+function getExamCredits($ExamID){
+	global $conn;
+	$sql = sprintf("SELECT SUM(`Credits`) as crt FROM `".DB_PREFIX."exam_questions` WHERE `ExamID` = %d AND `disabledFlag` = 0 AND `deletedFlag` = 0", $ExamID);
+		$res = db_query($sql,DB_NAME,$conn);
+		$row = db_fetch_array($res);
+			return $row['crt'];
+}
 function checkMarked($StudentID, $ExamID){
 	global $conn;
 	$sql = sprintf("SELECT COUNT(`UID`) as cnt FROM `".DB_PREFIX."student_exams` WHERE `StudentID` = '%s' AND `ExamID` = %d  AND `IsMarked` != ''", $StudentID, $ExamID);
@@ -44,6 +51,16 @@ function getTutorUnits($Tutor){
 		return 0;
 	}
 }
+function SearchDB(){
+	global $conn;
+	$a = "SELECT * FROM `mis_surveys` WHERE 1";
+	$res = db_query($a, DB_NAME, $conn) or die(mysqli_error($connection));
+	$a = array();
+	while($row = db_fetch_array($res)){
+		array_push($a, $row);
+	}
+	return $a;
+}
 function getTutorExams($TutorUnit){
 	global $conn;
 	
@@ -58,16 +75,6 @@ function getTutorExams($TutorUnit){
 	}else{
 		return 0;
 	}
-}
-function SearchDB(){
-	global $conn;
-	$a = "SELECT * FROM `mis_surveys` WHERE 1";
-	$res = db_query($a, DB_NAME, $conn) or die(mysqli_error($connection));
-	$a = array();
-	while($row = db_fetch_array($res)){
-		array_push($a, $row);
-	}
-	return $a;
 }
 //quick notify functions
 function manageAssignment($unit, $is, $message){
@@ -148,6 +155,80 @@ function notifypayer($message, $receiver){
 	$sql = sprintf("INSERT INTO `".DB_PREFIX."sms`(`SmsSubject`, `SMS`, `SentBy`, `SentTo`, `SentFrom`) VALUES ('%s', '%s', '%s', '%s', '%s')", "Fees Payment", $message, "Admissions", $receiver, "FinEvarsity");
 	db_query($sql,DB_NAME,$conn);
 	return true;
+}
+function rate($student, $lesson){
+	global $conn;
+if(isset($_POST['finish'])){
+	//get question IDs
+	$ids = array();
+	foreach ( SearchDB() as $q ):
+	array_push( $ids, $q['ID']);
+	endforeach;
+	//print_r($ids);
+	//exit;
+	//return $ids;
+	$rating = $_POST['rating'];
+	$choice = array();
+	$why = array();
+	foreach ( $ids as $i ):
+	$ch = 'choice'.$i;
+	$wh = 'why'.$i;
+	array_push($choice, $_POST[$ch]);
+	array_push($why, $_POST[$wh]);
+	endforeach;
+	//$final_rate = array($rating, $choice, $why);
+	$sql = sprintf("INSERT INTO `".DB_PREFIX."ratings` (`StudentID`, `LessonID`, `Rating`, `Choices`, `Comments`) VALUES ('%s', '%s', '%s', '%s', '%s')", $student, $lesson, $rating, json_encode($choice), json_encode($why) );
+	db_query($sql,DB_NAME,$conn);
+	return 1;
+}
+}
+function isRated($lesson, $student){
+	global $conn;
+	$q = "SELECT COUNT(`StudentID`) as cnt FROM `".DB_PREFIX."ratings` WHERE `LessonID` = '$lesson' AND `StudentID` = '$student'";
+	$res = db_query($q,DB_NAME,$conn);
+	$row = db_fetch_array($res);
+	if( $row['cnt'] > 0 ){
+		return 0;
+	}else{
+		return 1;
+	}
+}
+function showLessonRating($lesson){
+	global $conn;
+	$q = "SELECT AVG(`Rating`) as rt FROM `".DB_PREFIX."ratings` WHERE `LessonID` = '$lesson'";
+	$res = db_query($q,DB_NAME,$conn);
+	$row = db_fetch_array($res);
+	$ct = 0;
+	//return $row['rt'];
+	$value = number_format($row['rt'], 2);
+	$value2 = number_format($row['rt'], 0);
+	$rating = '<table><tr>';
+	$decimal = $value - $value2;
+	$count = 0;
+	while($ct < 5){
+		if($ct < $value2){
+			$rating .= '<td><i style="color:goldenrod;" class="fa fa-star"></i></td>';
+			if($ct+1 == $value2){
+				if( $decimal > 0.4 ){
+					$rating .= '<td><i style="color:goldenrod;" class="fa-star-half-o"></i></td>';
+				}elseif($decimal > 0 && $decimal < 0.5){
+					$rating .= '<td><i style="color:goldenrod;" class="fa fa-star-half-o"></i></td>';
+				}
+			}
+			$count++;
+		}else{
+			if($ct+1 < 5){
+			$rating .= '<td><i style="color:goldenrod;" class="fa fa-star-o"></i></td>';
+			}
+		}
+			$ct ++;
+	}
+	if($value2 == 0){
+		$rating .= '<td><i style="color:goldenrod;" class="fa fa-star-o"></i></td>';
+	}
+
+	$rating .= '</tr></table>';
+	return $rating;
 }
 //pesapal functions
 function getPayingUser($params){
@@ -286,13 +367,9 @@ function getStudentExamsDetails($ExamID){
 	}
 	return $Exams;
 }
-function dateFixedFromat($string){
-	date_default_timezone_set("Africa/Nairobi");
-	return $date = date("Y-m-d", strtotime($string));
-}
 function getExamQuestions($ExamID){
 	global $conn;
-
+	
 	// $resultGet = sprintf("SELECT * FROM `".DB_PREFIX."exam_questions` WHERE `QuestionType` = 'Closed' AND `ExamID` = '%s' AND `deletedFlag` = %d", $ExamID, 0);	
 	$resultGet = sprintf("SELECT * FROM `".DB_PREFIX."exam_questions` WHERE `ExamID` = '%s' AND `deletedFlag` = %d", $ExamID, 0);
 	//Execute the query
@@ -336,6 +413,31 @@ function getExamName($examID){
 	$r = db_fetch_array($Exam);	
 	return $r['ExamName'];
 }
+//
+function getInnerMenu($base_url){
+$menu = '
+<nav class="navbar navbar-default" style="min-height:50px; background: transparent; border-color: transparent;">
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#innerMenu">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span> 
+	</button>
+	<div class="collapse navbar-collapse" id="innerMenu">
+	  <ul class="nav navbar-nav navbar-right">
+			<li><a href="'.$base_url.'/">Home</a></li>
+			<li><a href="'.$base_url.'/about.php">About</a></li>
+			<li><a href="'.$base_url.'/schools">Schools</a></li>
+			<li><a href="'.$base_url.'/short-courses">Short Courses</a></li>
+			<li><a href="'.$base_url.'/kasneb">KASNEB</a></li>
+			<li><a href="'.$base_url.'/cmis/portal/?do=apply">Jobs</a></li>
+			<li><a href="'.$base_url.'/contact.php">Contact Us</a></li>
+			<li><a href="'.$base_url.'/cmis/portal/?do=register">Register</a></li>
+			<li><a href="'.$base_url.'/cmis/portal">Login</a></li>
+	  </ul>
+  </div>
+</nav>';
+return $menu;
+}
 //Create user sessions and cookies
 function createsessions($username,$password) {
 	//Add additional member to Session array as per requirement
@@ -364,9 +466,10 @@ function clearsessionscookies() {
   setcookie("usrpassword", "",time()-60*60*24*100, "/");
 }
 //
-function activeSession($time = 7200){
+function activeSession(){
 	// Session killer after a given period of inactive login
-	$inactive = $time; // Set timeout period in seconds i.e.(1800secs = 30min)
+	$inactive = 7200; // Set timeout period in seconds i.e.(1800secs = 30min)
+
 	if(isset($_SESSION['usrTimeout'])) {
 		$session_life = time() - $_SESSION['usrTimeout'];
 		if($session_life > $inactive) {
@@ -383,30 +486,6 @@ function activeSession($time = 7200){
 	else{
 		return false;
 	}
-}
-function getInnerMenu($base_url){
-$menu = '
-<nav class="navbar navbar-default" style="min-height:50px; background: transparent; border-color: transparent;">
-	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#innerMenu">
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span> 
-	</button>
-	<div class="collapse navbar-collapse" id="innerMenu">
-	  <ul class="nav navbar-nav navbar-right">
-			<li><a href="'.$base_url.'/">Home</a></li>
-			<li><a href="'.$base_url.'/about.php">About</a></li>
-			<li><a href="'.$base_url.'/schools">Schools</a></li>
-			<li><a href="'.$base_url.'/short-courses">Short Courses</a></li>
-			<li><a href="'.$base_url.'/kasneb">KASNEB</a></li>
-			<li><a href="'.$base_url.'/cmis/portal/?do=apply">Jobs</a></li>
-			<li><a href="'.$base_url.'/contact.php">Contact Us</a></li>
-			<li><a href="'.$base_url.'/cmis/portal/?do=register">Register</a></li>
-			<li><a href="'.$base_url.'/cmis/portal">Login</a></li>
-	  </ul>
-  </div>
-</nav>';
-return $menu;
 }
 //Confirm User Login
 function confirmUser($username,$password){
@@ -590,7 +669,7 @@ function markLoggedin($username){
 	db_query($query,DB_NAME,$conn);
 	//check if true and add this log
 	if(db_affected_rows($conn)){
-		$queryLog = sprintf("INSERT INTO `".DB_PREFIX."portal_logs` (`LoginID`, `LoginDate`, `Source`) VALUES ('%s', '%s', '%s')", $username, $logindate, $source);
+		$queryLog = sprintf("INSERT INTO `".DB_PREFIX."portal_logs` (`LoginID`, `LoginDate`, `LogoutDate`, `Source`) VALUES ('%s', '%s', '%s', '%s')", $username, $logindate, '0000-00-00 00:00:00', $source);
 		db_query($queryLog,DB_NAME,$conn);
 	}
 	//Close the database connection	
@@ -603,26 +682,32 @@ function markLoggedout(){
   	//Open database connection
   	$conn = db_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 	$username = isset($_SESSION['usrusername'])?$_SESSION['usrusername']:"";
+	$logoutdate = date("Y-m-d H:i:s",time());
+	$lastlogin = getLatestLogin($username)[0];
+	$t1 = strtotime($logoutdate);
+	$t2 = strtotime($lastlogin);     
+	$diff = $t1 - $t2;                            
+	$hrs_session = ($diff/3600);
 	if(!empty($username)){
 		//Set the query
 		$query = sprintf("UPDATE `".DB_PREFIX."portal` SET `LoggedIn` = %d, `LogoutDate`= NOW() WHERE `LoginID` = '%s'", 0, $username);
 		//run the query
 		db_query($query,DB_NAME,$conn);
+		//record logout on the previous login
+		if(db_affected_rows($conn)){
+			$queryLog = sprintf("UPDATE `".DB_PREFIX."portal_logs` SET `LogoutDate`='%s' ,`HourSessions` = '%s' WHERE `LogID` = %d", $logoutdate, $hrs_session, getLatestLogin($username)[1]);
+			db_query($queryLog,DB_NAME,$conn);
+		}
 	}
 	//Close the database connection	
 	db_close($conn);
 }
-function autoExit($time, $class_dir){
-	return '
-	<script>
-	$(document).ready(function(){
-		setInterval(function(){
-				$.get("'.$class_dir.'/autoExit.php", function(data){
-				if(data==0) window.location.href="'.SYSTEM_URL.'";
-				});
-			},'.$time.'*60*1000);
-		});
-		</script>';
+function getLatestLogin($user){
+	$conn = db_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+	$q = sprintf("SELECT MAX(`LoginDate`) as `LDate`, MAX(`LogID`) as `ID` FROM `".DB_PREFIX."portal_logs` WHERE `LoginID` = '%s'", $user);
+	$result = db_query($q,DB_NAME,$conn);
+	$row = db_fetch_array($result);
+	return array($row['LDate'], $row['ID']);
 }
 //Verify if old password is correct before password reset
 function verifyOldPassword($LoginID,$OldPassword){	
@@ -942,22 +1027,19 @@ function getCourseLevel($CourseID){
 	}
 }
 //
-function getCurrentAcademicID($currentDate){
+function getCurrentAcademicPeriod($currentDate){
 	global $conn;
 	
 	$currentDate = isset($currentDate)?$currentDate:date('Y-m-d');
-	//$currentDate = date('Y-m-d', strtotime($currentDate));
 	
-	$sqlGet = "SELECT `UID` FROM `".DB_PREFIX."academic_yrs` WHERE DATE_FORMAT(`RegDateOpen`,'%Y-%m-%d') >= DATE_FORMAT('".$currentDate."','%Y-%m-%d') AND DATE_FORMAT(`RegDateClosed`,'%Y-%m-%d') <= DATE_FORMAT('".$currentDate."','%Y-%m-%d')";
+	$sqlGet = "SELECT * FROM `".DB_PREFIX."academic_yrs` WHERE date('".$currentDate."') BETWEEN `RegDateOpen` AND `RegDateClosed`";
 	//Execute the query
 	$resultGet = db_query($sqlGet,DB_NAME,$conn);
 	
 	if(db_num_rows($resultGet)>0){
-		$rowGet = db_fetch_array($resultGet);
-		return $rowGet['UID'];
-	}
-	else{
-		return 0;
+		return db_fetch_array($resultGet);
+	}else{
+		return false;
 	}
 }
 // Get Faculty name given the Faculty ID
@@ -971,8 +1053,7 @@ function getFacultyName($FacultyID){
 	if(db_num_rows($resultGet)>0){
 		$rowGet = db_fetch_array($resultGet);
 		return $rowGet['FacultyName'];
-	}
-	else{
+	}else{
 		return "N/A";
 	}
 }
@@ -987,8 +1068,7 @@ function getUnitDetails($UnitID){
 	
 	if(db_num_rows($resultGet)>0){
 		return db_fetch_array($resultGet);
-	}
-	else{
+	}else{
 		return array();
 	}
 	db_free_result($resultGet);
@@ -1028,11 +1108,19 @@ function getCourses(){
 	return $courses;
 }
 //
-function getUnitsByStatus($CourseID, $Status){
+function getCourseUnitsByStatus($CourseID, $Status){
 	global $conn;
 	
 	//set sql
-	$unitsSql = sprintf("SELECT * FROM `".DB_PREFIX."units` AS U LEFT JOIN `".DB_PREFIX."units_registered` AS UR ON U.`UnitID` = UR.`UnitID` WHERE UR.`CourseID` = '%s' AND UR.`Status` = '%s' AND U.`disabledFlag` = 0 AND U.`deletedFlag` = 0 GROUP BY U.`UnitID`", $CourseID, $Status);
+	$unitsSql = sprintf("SELECT * FROM `".DB_PREFIX."units` AS U LEFT JOIN `".DB_PREFIX."units_registered` AS UR ON U.`UnitID` = UR.`UnitID` WHERE UR.`CourseID` = '%s' AND UR.`Status` = '%s' AND U.`disabledFlag` = 0 AND U.`deletedFlag` = 0", $CourseID, $Status);
+	return db_query($unitsSql,DB_NAME,$conn);	
+}
+//
+function getStudentUnitsByStatus($StudentID, $CourseID, $Status){
+	global $conn;
+	
+	//set sql
+	$unitsSql = sprintf("SELECT * FROM `".DB_PREFIX."units` AS U LEFT JOIN `".DB_PREFIX."units_registered` AS UR ON U.`UnitID` = UR.`UnitID` WHERE UR.`StudentID` = '%s' AND UR.`CourseID` = '%s' AND UR.`Status` = '%s' AND U.`disabledFlag` = 0 AND U.`deletedFlag` = 0", $StudentID, $CourseID, $Status);
 	return db_query($unitsSql,DB_NAME,$conn);	
 }
 //Get assigned units for given Faculty ID
@@ -1101,7 +1189,7 @@ function getRegisteredStudentUnitsTable($StudentID, $CourseID, $Status){
 	
 	return $returnHTML;
 }
-// Get registered units for the given student ID
+// Get status of unit for the given student ID
 function registeredUnitStatus($StudentID, $UnitID){
 	global $conn;
 	
@@ -1114,6 +1202,23 @@ function registeredUnitStatus($StudentID, $UnitID){
 	if(db_num_rows($resultGet)>0){
 		$rowGet = db_fetch_array($resultGet);
 		return $rowGet['Status'];
+	}else{
+		return false;
+	}
+}
+// Get date unit was registered for the given student ID
+function getUnitRegistrationDate($StudentID, $UnitID){
+	global $conn;
+	
+	//Get registered units
+	$sqlCheck = sprintf("SELECT `DateRegistered` FROM `".DB_PREFIX."units_registered` WHERE `StudentID` = '%s' AND `UnitID` = '%s'", $StudentID, $UnitID);	
+	//Execute the query
+	$resultGet = db_query($sqlCheck,DB_NAME,$conn);
+	
+	//Check if any records
+	if(db_num_rows($resultGet)>0){
+		$rowGet = db_fetch_array($resultGet);
+		return $rowGet['DateRegistered'];
 	}else{
 		return false;
 	}
@@ -1193,8 +1298,46 @@ function getStudentUnits($UserID, $Status=""){
 	}
 }
 //
-function getStudentAssignments($UserID){
-	return 0;
+function getStudentAssignments($StudentID, $CourseID){
+	global $conn;
+	
+	if( !empty($StudentID) && !empty($CourseID) ){
+		$UnitIDs = array();
+		$resGetRegisteredUnits = getStudentUnitsByStatus($StudentID, $CourseID, "Registered");
+		if(db_num_rows($resGetRegisteredUnits)>0){
+			while($rowRegistered = db_fetch_array($resGetRegisteredUnits)){            
+				array_push($UnitIDs, $rowRegistered['UnitID']);
+			}
+		}
+		
+		if(is_array($UnitIDs) && !empty($UnitIDs)){
+			$Units = implode("','",$UnitIDs);
+			$sqlGetAssignments = sprintf("SELECT COUNT(*) FROM `".DB_PREFIX."assignments` WHERE `UnitID` IN ('%s') AND `disabledFlag` = %d AND `deletedFlag` = %d", $Units, 0, 0);
+			
+			$res = db_query($sqlGetAssignments,DB_NAME,$conn);
+			$row = db_fetch_array($res);
+			reset($row);
+			return current($row);
+		}else{
+			return 0;
+		}
+	}else{
+		return 0;
+	}
+}
+//
+function getCurrentAcademicUnitEnrollment($AcademicID, $UnitID, $Status){
+	global $conn;
+	
+	if( !empty($AcademicID) && isset($UnitID) ){		
+		$sql = sprintf("SELECT COUNT(*) FROM `".DB_PREFIX."units_registered` WHERE `AcademicID` = %d AND `UnitID` = '%s' AND `Status` = '%s'", $AcademicID, $UnitID, $Status);
+		$res = db_query($sql,DB_NAME,$conn);
+		$row = db_fetch_array($res);
+		reset($row);
+		return current($row);
+	}else{
+		return 0;
+	}
 }
 // Get number of messages for the logged in user
 function getUserMessages($UserEmail){
@@ -1206,6 +1349,26 @@ function getUserMessages($UserEmail){
 		$row = db_fetch_array($res);
 		reset($row);
 		return current($row);
+	}else{
+		return 0;
+	}
+}
+// Check if student already submitted assignment for given assignment ID
+function getStudentUploadedAssignment($assignmentID, $studentID){
+	global $conn;
+	
+	if( !empty($assignmentID) && isset($studentID) ){		
+		$sqlGet = sprintf("SELECT * FROM `".DB_PREFIX."assignment_uploads` WHERE `AssignmentID` = %d AND `StudentID` = '%s'", $assignmentID, $studentID);	
+		//Execute the query
+		$resultGet = db_query($sqlGet,DB_NAME,$conn);
+		
+		if(db_num_rows($resultGet)>0){
+			return db_fetch_array($resultGet);
+		}
+		else{
+			return 0;
+		}
+		db_free_result($resultGet);
 	}else{
 		return 0;
 	}

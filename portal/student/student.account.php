@@ -58,7 +58,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Account";
 									<p><strong>Phone: </strong><?=$student['Phone']?></p>
 									<p><strong>Address: </strong><?=$student['Address']." ".$student['City']?></p>
 									<p><strong>Registration Date: </strong><?=fixdatelong($student['RegDate'])?></p>
-									<p><a class="btn btn-primary" href="?tab=8?task=edit">Edit Profile</a></p>
+									<p><a class="btn btn-primary" href="?dispatcher=account?task=edit">Edit Profile</a></p>
 								</div>
 							</div>
 						</div>
@@ -174,7 +174,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Account";
 						}
 					}
 					?>
-				<form id="editform" name="Edit" method="post" action="?tab=8&amp;task=<?=$task?>" enctype="multipart/form-data">
+				<form id="editform" name="Edit" method="post" action="?dispatcher=account&amp;task=<?=$task?>" enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-lg-12">
 							<p>Please confirm your details below and update where necesary.</p>
@@ -333,7 +333,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Account";
 						}
 					}
 					?>
-				<form id="resetform" name="Reset" method="post" action="?tab=8&amp;task=<?=$task?>">
+				<form id="resetform" name="Reset" method="post" action="?dispatcher=account&amp;task=<?=$task?>">
 					<div class="row">
 						<div class="col-lg-12">
 							<p>To reset your password, please fill in the following fields.</p>

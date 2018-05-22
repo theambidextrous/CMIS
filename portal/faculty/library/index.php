@@ -1,5 +1,7 @@
- <?php
- $_SESSION['logged'] = "admin";
+<?php
+require_once('../../../includes/config.php');
+
+$_SESSION['logged'] = "admin";
 $lang = 'en';
 
 // Auth with login/password (set true/false to enable/disable it)
@@ -32,18 +34,18 @@ $edit_files = true;
 $send_mail = true;
 
 // Send files though mail
-$toMailId = "info@finstockevarsity.com"; //yourmailid@mail.com
+$toMailId = INFO_EMAIL; //yourmailid@mail.com
 
 // Default timezone for date() and time() - http://php.net/manual/en/timezones.php
 $default_timezone = 'Africa/Nairobi'; // UTC
 
 // Root path for file manager
-$root_path = $_SERVER['DOCUMENT_ROOT'].'/cmis/e-library';
+$root_path = SYS_PATH.DIRECTORY_SEPARATOR.'e-library';
 
 // Root url for links in file manager.Relative to $http_host. Variants: '', 'path/to/subfolder'
 // Will not working if $root_path will be outside of server document root
-$tree_url = $_SERVER['DOCUMENT_ROOT'].'/cmis/e-library';
-$root_url = '/cmis/e-library';
+$tree_url = SYS_PATH.DIRECTORY_SEPARATOR.'e-library';
+$root_url = 'cmis'.DIRECTORY_SEPARATOR.'e-library';
 
 // Server hostname. Can set manually if wrong
 $http_host = $_SERVER['HTTP_HOST'];
@@ -152,7 +154,7 @@ if ($use_auth) {
         fm_show_message();
         ?>
         <div class="path login-form">
-                <img src="https://finstockevarsity.com/cmis/images/logo.png" alt="E-library" style="margin:20px;">
+                <img src="<?php echo SYSTEM_LOGO_URL; ?>" alt="E-library" style="margin:20px;">
             <form action="" method="post">
                 <label for="fm_usr"></label><input type="text" id="fm_usr" name="fm_usr" value="" placeholder="library ID" required><br>
                 <label for="fm_pwd"></label><input type="password" id="fm_pwd" name="fm_pwd" value="" placeholder="Library pass" required><br>
@@ -1612,7 +1614,7 @@ function php_file_tree_dir($directory, $first_call = true) {
 				} else {
 					// File
                     $ext = fm_get_file_icon_class($this_file);
-                    $path = str_replace($_SERVER['DOCUMENT_ROOT'],"",$directory);
+                    $path = str_replace(SYS_PATH,"",$directory);
 					$link = "?p="."../../$path" ."&view=".urlencode($this_file);
 					$php_file_tree .= "<li class=\"pft-file\"><a href=\"$link\"> <i class=\"$ext\"></i>" . htmlspecialchars($this_file) . "</a></li>";
 				}

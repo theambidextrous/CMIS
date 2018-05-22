@@ -232,13 +232,13 @@ $(document).ready(function() {
 								Error_alertAdmin("PHP Mailer","Failed to send new message-".$MailERR,$ErrPage,$Email);
 								//Display Warning Message
 								$_SESSION['MSG'] = AttentionMessage("The message was saved successfully but the system failed to send your email to the specified recipients. However, once they login to the system, they should be able to see the message under the messages tab on their dashboard.");
-								redirect("?tab=7&folder=$folder");
+								redirect("?dispatcher=messages&folder=$folder");
 							}else{
 								$sent = true;
 								//Display Confirmation Message
 								$CONFIRM['MSG'] = ConfirmMessage("Message sent successfully");
 								$_SESSION['MSG'] = $CONFIRM['MSG'];
-								redirect("?tab=7&folder=$folder");
+								redirect("?dispatcher=messages&folder=$folder");
 							}
 						}
 						else{
@@ -330,7 +330,7 @@ $(document).ready(function() {
 				}
 				else{
 				?>
-				<form class="form-horizontal" name="NewMessage" method="post" action="?tab=7&amp;folder=<?=$folder?>&amp;action=6&amp;task=<?=$task?>&amp;eid=<?=$editID?>" enctype="multipart/form-data">
+				<form class="form-horizontal" name="NewMessage" method="post" action="?dispatcher=messages&amp;folder=<?=$folder?>&amp;action=6&amp;task=<?=$task?>&amp;eid=<?=$editID?>" enctype="multipart/form-data">
 					<p class="text-center"><?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG'];?></p>
 					<p class="text-center"><strong><?=strtoupper($task)?> MESSAGE</strong></p>
 					<p class="text-center"><span class="text-danger">FIELDS MARKED WITH ASTERISKS (*) ARE REQUIRED</span></p>
@@ -447,7 +447,7 @@ $(document).ready(function() {
 					<td colspan="2" valign="top"><div class="message-body-display"><?=decode($Message)?></div></td>
 				</tr>
 				<tr>
-					<td align="center" colspan="2"><div class="btn-group"><a class="btn btn-default" href="?tab=7&amp;task=view&amp;folder=<?=$folder?>">Back</a> <a class="btn btn-default" href="?tab=7&amp;task=reply&amp;eid=<?=$editID?>&amp;folder=<?=$folder?>">Reply</a> <a class="btn btn-default" href="?tab=7&amp;task=replyall&amp;eid=<?=$editID?>&amp;folder=<?=$folder?>">Reply All</a> <a class="btn btn-default" href="?tab=7&amp;task=delete&amp;eid=<?=$editID?>&amp;folder=<?=$folder?>">Delete</a></div></td>
+					<td align="center" colspan="2"><div class="btn-group"><a class="btn btn-default" href="?dispatcher=messages&amp;task=view&amp;folder=<?=$folder?>">Back</a> <a class="btn btn-default" href="?dispatcher=messages&amp;task=reply&amp;eid=<?=$editID?>&amp;folder=<?=$folder?>">Reply</a> <a class="btn btn-default" href="?dispatcher=messages&amp;task=replyall&amp;eid=<?=$editID?>&amp;folder=<?=$folder?>">Reply All</a> <a class="btn btn-default" href="?dispatcher=messages&amp;task=delete&amp;eid=<?=$editID?>&amp;folder=<?=$folder?>">Delete</a></div></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -469,16 +469,16 @@ $(document).ready(function() {
 					  $deleted = true;
 					  //Display Confirmation Message
 					  $_SESSION['MSG'] = ConfirmMessage("Message moved to trash successfully");
-					  redirect("?tab=7&folder=$folder");
+					  redirect("?dispatcher=messages&folder=$folder");
 				  }else{
 					  $deleted = false;
 				  }
 			  }
 			  //If redirect fails
 			  if($deleted){
-				  echo ConfirmMessage("Message deleted successfully. <a href=\"?tab=7&folder=$folder\">Click here to go back to messages</a>");
+				  echo ConfirmMessage("Message deleted successfully. <a href=\"?dispatcher=messages&folder=$folder\">Click here to go back to messages</a>");
 			  }else{
-				  echo ErrorMessage("Failed to delete message. <a href=\"?tab=7&folder=$folder\">Click here to go back to messages</a> and try again.");
+				  echo ErrorMessage("Failed to delete message. <a href=\"?dispatcher=messages&folder=$folder\">Click here to go back to messages</a> and try again.");
 			  }
 		  break;
 		  case "view":		
@@ -510,7 +510,7 @@ $(document).ready(function() {
 			  ?>
 			<div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>
 			<div class="quick-nav btn-group">
-				<a class="btn btn-primary" href="?tab=7&task=new">Add Message</a>
+				<a class="btn btn-primary" href="?dispatcher=messages&task=new">Add Message</a>
 			</div>
 			<div style="float:right;">
 				<form class="form-inline" role="form">
@@ -518,8 +518,8 @@ $(document).ready(function() {
 						<label for="folder">Select Folder:</label>
 						<select name="jumpFolder" id="jumpFolder" onchange="MM_jumpMenu('parent',this,0)" class="form-control">
 							<?php if($folder == "outbox") $folder2 = ' selected="selected"'; else $folder1 = ' selected="selected"';?>
-							<option<?=$folder1?> value="?tab=7&amp;task=view&amp;folder=inbox">Inbox</option>
-							<option<?=$folder2?> value="?tab=7&amp;task=view&amp;folder=outbox">Outbox</option>
+							<option<?=$folder1?> value="?dispatcher=messages&amp;task=view&amp;folder=inbox">Inbox</option>
+							<option<?=$folder2?> value="?dispatcher=messages&amp;task=view&amp;folder=outbox">Outbox</option>
 						</select>
 					</div>
 				</form>
@@ -555,7 +555,7 @@ $(document).ready(function() {
 								}else{
 									echo "<td>".$message['ToAdd']." ".$message['CcAdd']."</td>";
 								}
-								echo "<td><a href=\"?tab=7&task=display&amp;eid=".$message['UID']."&folder=$folder\" title=\"Click to view message\">".$message['Subject']."</a></td>
+								echo "<td><a href=\"?dispatcher=messages&task=display&amp;eid=".$message['UID']."&folder=$folder\" title=\"Click to view message\">".$message['Subject']."</a></td>
 								<td>".$message['Type']."</td>";
 								echo "<td align=\"center\"><input type=\"checkbox\" id=\"actionID\" name=\"actionID[]\" value=\"".$message['UID']."\"></td>";
 								echo "</tr>";

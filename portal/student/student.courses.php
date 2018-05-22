@@ -2,6 +2,7 @@
 //Import the PHPMailer class into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+$io = new IORating($student['StudentID'], $UnitID, $row['Title'], "modal", DB_NAME, $conn);
 ?>
 <script>
 <!--//
@@ -40,13 +41,13 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 							<h3>Course Fees</h3>
 							<p><?=getCourseFeesStructure($CourseID, $student['StudyMode']);?></p>
 							<h3>Course Outline</h3>
-							<p><?=$Course['Outline'];?></p>
+							<p><?=decode($Course['Outline']);?></p>
 							<h3>Course Description</h3>
-							<p><?=$Course['Description'];?></p>
-							<p><a class="btn btn-default" href="?tab=2&task=courseunits&CourseID=<?=$CourseID;?>">View Course Units</a></p>
+							<p><?=decode($Course['Description']);?></p>
+							<p><a class="btn btn-default" href="?dispatcher=courses&task=courseunits&CourseID=<?=$CourseID;?>">View Course Units</a></p>
 						</div>
 						<?php
-						$resGetPendingUnits = getUnitsByStatus($CourseID, "Pending");				
+						$resGetPendingUnits = getStudentUnitsByStatus($student['StudentID'], $CourseID, "Pending");				
 						//check if any rows returned
 						if(db_num_rows($resGetPendingUnits)>0){						
 							?>
@@ -63,7 +64,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 									while($rowPending = db_fetch_array($resGetPendingUnits)){						
 										echo "<tr>
 										<td>".$rowPending['UnitID']."</td>
-										<td><a href=\"?tab=2&task=unitdetails&CourseID=".$CourseID."&UnitID=".$rowPending['UnitID']."\" title=\"View unit details\">".$rowPending['UName']."</a></td>
+										<td><a href=\"?dispatcher=courses&task=unitdetails&CourseID=".$CourseID."&UnitID=".$rowPending['UnitID']."\" title=\"View unit details\">".$rowPending['UName']."</a></td>
 										</tr>";
 									}
 									?>
@@ -72,7 +73,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 							<?php
 						}
 						
-						$resGetRegisteredUnits = getUnitsByStatus($CourseID, "Registered");				
+						$resGetRegisteredUnits = getStudentUnitsByStatus($student['StudentID'], $CourseID, "Registered");				
 						//check if any rows returned
 						if(db_num_rows($resGetRegisteredUnits)>0){
 							?>
@@ -92,7 +93,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 										while($rowRegistered = db_fetch_array($resGetRegisteredUnits)){					
 											echo "<tr>
 											<td>".$rowRegistered['UnitID']."</td>
-											<td><a href=\"?tab=2&task=unitdetails&CourseID=".$CourseID."&UnitID=".$rowRegistered['UnitID']."\" title=\"View unit details\">".$rowRegistered['UName']."</a></td>
+											<td><a href=\"?dispatcher=courses&task=unitdetails&CourseID=".$CourseID."&UnitID=".$rowRegistered['UnitID']."\" title=\"View unit details\">".$rowRegistered['UName']."</a></td>
 											<td>".$rowRegistered['Days']."</td>
 											<td>".$rowRegistered['StartTime']." &mdash; ".$rowRegistered['EndTime']."</td>
 											<td>".$rowRegistered['RoomID']."</td>
@@ -103,7 +104,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 							</table>
 							<?php
 						}else{
-							echo '<p>You have not registered for any units.<br><a class="btn btn-sm btn-primary" href="?tab=2&task=register&CourseID='.$CourseID.'">Register Now</a></p>';
+							echo '<p>You have not registered for any units.<br><a class="btn btn-sm btn-primary" href="?dispatcher=courses&task=register&CourseID='.$CourseID.'">Register Now</a></p>';
 						}
 					}
 				break;		  
@@ -111,21 +112,28 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 					$UnitID = !empty($_GET['UnitID'])?$_GET['UnitID']:"";
 					if(!empty($UnitID)){
 						$Unit = getUnitDetails($UnitID);
+						$DateUnitRegistered = getUnitRegistrationDate($student['StudentID'], $UnitID);
+						$CurrentAcademicPeriod = getCurrentAcademicPeriod( db_fixdate($DateUnitRegistered) );
+						$AcademicID = $CurrentAcademicPeriod['UID'];
+						$UnitEnrollment = getCurrentAcademicUnitEnrollment($AcademicID, $UnitID, 'Registered');
 						echo "<h2>Unit Details</h2>";
 						echo '<h3 class="text-uppercase text-primary">'. $Unit['UName'] .' <span class="small text-muted">'. $UnitID .'</span></h3>';
 						?>
 						<div class="UnitDetails">
 							<h3>Meeting Details</h3>
-							<p><strong>Dates:</strong><?=$Unit['StartDate']?>&mdash;<?=$Unit['EndDate']?><br>
-								<strong>Days:</strong><?=$Unit['Days']?><br>
-								<strong>Time:</strong><?=$Unit['StartTime']?>&mdash;<?=$Unit['EndTime']?><br>
-								<strong>Building/Room:</strong><?=$Unit['RoomID']?><br>
-								<strong>Instructor:</strong><?=getFacultyName($Unit['FacultyID'])?>
+							<p><strong>Dates: </strong><?=fixdatelong($Unit['StartDate'])?> &mdash; <?=fixdatelong($Unit['EndDate'])?><br>
+								<strong>Days: </strong><?=$Unit['Days']?><br>
+								<strong>Time: </strong><?=$Unit['StartTime']?> &mdash; <?=$Unit['EndTime']?><br>
+								<strong>Building/Room: </strong><?=$Unit['RoomID']?><br>
+								<strong>Instructors: </strong><?=getUnitTutors($UnitID)?>
 							</p>
 							<h3>Seat Availability</h3>
-							<p><strong>Size:</strong><?=$Unit['ClassLimit']?><br>
-								<strong>Enrolled: </strong> 0 <strong>Seats Remaining:</strong> 50<br>
-								<strong>Status:</strong> Open</p>
+							<p><strong>Size: </strong><?=$Unit['ClassLimit']?><br>
+								<strong>Enrolled: </strong><?=$UnitEnrollment?> <strong>Seats Remaining: </strong><?=$Unit['ClassLimit']-$UnitEnrollment?><br>
+								<strong>Academic: </strong><?=$CurrentAcademicPeriod['AcName']?><br>
+								<strong>Term: </strong><?=$CurrentAcademicPeriod['AcTerm']?><br>
+								<strong>Term Period: </strong><?=fixdatelong($CurrentAcademicPeriod['DateStart'])?> &mdash; <?=fixdatelong($CurrentAcademicPeriod['DateEnd'])?>
+							</p>
 							<h3>Tuition Fee (Approximate)</h3>
 							<p><?=$Unit['TuitionFee']?></p>
 							<h3>Course Level</h3>
@@ -157,7 +165,11 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 								?>							
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>"><?php echo $row['Title']; ?></a></h4>
+											<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>"><?php echo $row['Title']; ?></a>
+											<div class="pull-right">
+											<?php echo showLessonRating($row['LID']);?>
+											</div>
+											</h4>
 										</div>
 										<div id="collapse<?php echo $count; ?>" class="panel-collapse collapse">
 											<div class="panel-body">
@@ -165,12 +177,23 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 											<?php echo $row['Description']; ?>
 											<h3>Lesson Content</h3>
 											<?php echo decode($row['UploadContent']); ?>
+											<p style="padding:20px;">
+											<?php
+											rate($student['StudentID'], $row['LID']);
+											if( isRated($row['LID'], $student['StudentID']) == 1 ){
+												echo $io ->LaunchModal("Rate lesson");
+											}else{
+												echo $io ->Rated("You already rated this lesson");
+											}
+												?>
+											</p>
 											</div>
 										</div>
 									</div>															
 								<?php
 								++$count;
 							}
+
 							echo '</div>';
 						}
 					}else{
@@ -183,7 +206,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 						//Register script
 						$SelectedUnitIDs = array();
 						$DateRegistered = date('Y-m-d');
-						$$AcademicID = getCurrentAcademicID($DateRegistered);
+						$CurrentAcademicPeriod = getCurrentAcademicPeriod($DateRegistered);
+						$AcademicID = $CurrentAcademicPeriod['UID'];
 						if(isset($_POST['REGISTER']) && isset($_POST['UnitID'])){	
 							foreach($_POST['UnitID'] as $SelectedUnitID){
 								//Check if this student has already registered for this unit
@@ -196,7 +220,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 								}
 							}
 							
-							$resGetRegisteredUnits = getUnitsByStatus($CourseID, "Registered");
+							$resGetRegisteredUnits = getStudentUnitsByStatus($student['StudentID'], $CourseID, "Registered");
 							if(db_num_rows($resGetRegisteredUnits)>0){
 								while($rowRegistered = db_fetch_array($resGetRegisteredUnits)){
 									$Total = $Total+$rowRegistered['TuitionFee'];
@@ -263,12 +287,12 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 								$_SESSION['MSG'] = ConfirmMessage("Selected units have been submitted for registration");
 							}else{
 								$_SESSION['MSG'] = ConfirmMessage("Selected units have been submitted for registration. Check your email to the fee break down.");
-							}														
+							}
 						}
 						//End short scripts
 						
 						//set sql
-						$unitsSql = sprintf("SELECT * FROM `".DB_PREFIX."units` WHERE `CourseID` = '%s' AND `disabledFlag` = 0 AND `deletedFlag` = 0 ORDER BY  `YrTrim` ASC", $CourseID);
+						$unitsSql = sprintf("SELECT * FROM `".DB_PREFIX."units` WHERE `CourseID` = '%s' AND `disabledFlag` = 0 AND `deletedFlag` = 0 ORDER BY `YrTrim` ASC", $CourseID);
 						
 						echo "<h2>Course Registration</h2>";
 						echo '<h3 class="text-uppercase text-primary">'. $Course['CName'] .' <span class="small text-muted">'. $CourseID .'</span></h3>';
@@ -291,9 +315,9 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 						</script>
 						<div class="CourseUnits">
 							<p><strong>Units available for this course</strong></p>
-							<p>Registration period is currently open until date()</p>
+							<p>Registration period is currently open until <?php echo fixdatelong($CurrentAcademicPeriod['RegDateClosed']); ?></p>
 							<div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>
-							<form name="RegisterUnitsForm" method="post" action="?tab=2&task=register&CourseID=<?=$CourseID;?>">
+							<form name="RegisterUnitsForm" method="post" action="?dispatcher=courses&task=register&CourseID=<?=$CourseID;?>">
 								<input type="hidden" name="CourseID" value="<?=$CourseID;?>">
 								<table width="100%" class="display table table-striped table-bordered table-hover">
 									<thead>
@@ -302,7 +326,6 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 											<th>UnitID</th>
 											<th>Unit Name</th>
 											<th>Tuition Fee</th>
-											<th>Instructor</th>
 											<th>Year/Semester</th>
 											<th class="no-sort text-center"><input type="checkbox" name="UnitIDs" title="Check All" onclick="checkSelUnits(document.getElementsByName('UnitID[]'));" value="" /></th>
 										</tr>
@@ -317,10 +340,9 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 												while($row = db_fetch_array($resultGetUnits)){
 														echo "<tr>
 														<td>".$count."</td>
-														<td><a href='?tab=2&task=unitdetails&UnitID=".$row['UnitID']."'>".$row['UnitID']."</a></td>
+														<td><a href='?dispatcher=courses&task=unitdetails&UnitID=".$row['UnitID']."'>".$row['UnitID']."</a></td>
 														<td>".$row['UName']."</td>
 														<td>".$row['TuitionFee']."</td>
-														<td>".getFacultyName($row['FacultyID'])."</td>
 														<td>".get_year_trimesters($row['YrTrim'])."</td>";
 														echo "<td align=\"center\">";
 														$RegUnit = registeredUnitStatus($student['StudentID'], $row['UnitID']);
@@ -337,31 +359,43 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 										?>
 									</tbody>
 								</table>
-								<input type="submit" name="REGISTER" value="REGISTER" class="btn btn-danger">
+								<input type="submit" name="REGISTER" value="REGISTER NOW" class="btn btn-danger">
 							</form>
 							
-							<h3>Registered units and tuition fees</h3>
-							<p>You can drop until before</p>
-							<table width="100%" class="display table table-striped table-bordered table-hover">
-							<tbody>							
 							<?php
 							$Total = 0;
 							floatval($Total);							
-							$resGetRegisteredUnits = getUnitsByStatus($CourseID, "Registered");
+							$resGetRegisteredUnits = getStudentUnitsByStatus($student['StudentID'], $CourseID, "Registered");
 							if(db_num_rows($resGetRegisteredUnits)>0){
+								?>
+								<h3>Registered units and tuition fees</h3>
+								<p>You can drop until before <?php echo fixdatelong($CurrentAcademicPeriod['DateStart']); ?></p>
+								<table width="100%" class="table table-striped table-bordered table-hover">
+								<thead>
+								<th>Unit Name</th>
+								<th style="text-align:right;">Tuition Fee</th>								
+								</thead>
+								<tbody>
+								<?php
 								while($rowRegistered = db_fetch_array($resGetRegisteredUnits)){
-									echo "<tr><td>".$rowRegistered['UName']."</td><td>".number_format($rowRegistered['TuitionFee'], 2)."</td></tr>";
+									echo "<tr>
+									<td>".$rowRegistered['UName']."</td>
+									<td style=\"text-align:right;\">".number_format($rowRegistered['TuitionFee'], 2)."</td>
+									</tr>";
 									$Total = $Total+$rowRegistered['TuitionFee'];
-								}
+								}							
+								?>
+								</tbody>
+								<tfoot>
+								<tr>
+								<th style="text-align:right;" colspan="">Total</th>
+								<th style="text-align:right;"><?php echo number_format($Total, 2); ?></th>
+								</tr>
+								</tfoot>
+								</table>
+								<?php
 							}
-							?>							
-							<tr>
-							<td align="right" colspan="">Total</td>
-							<td align="right"><?php echo number_format($Total, 2); ?></td>
-							</tr>
-							</tbody>
-							</table>
-							
+							?>
 						</div>
 						<?php
 					}else{
@@ -378,7 +412,6 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 						echo '<h3 class="text-uppercase text-primary">'. $Course['CName'] .' <span class="small text-muted">'. $CourseID .'</span></h3>';
 						?>
 						<div class="CourseWork">
-							<h3>Course Units</h3>
 							<div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>
 							<table width="100%" class="display table table-striped table-bordered table-hover">
 								<thead>
@@ -387,7 +420,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 										<th>UnitID</th>
 										<th>Unit Name</th>
 										<th>Tuition Fee</th>
-										<th>Instructor</th>
+										<th>Instructors</th>
 										<th>Year/Semester</th>
 										<th>Status</th>
 									</tr>
@@ -402,10 +435,10 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 									while($row = db_fetch_array($resultGetUnits)){
 										echo "<tr>
 										<td>".$count."</td>
-										<td><a href='?tab=2&task=unitdetails&UnitID=".$row['UnitID']."'>".$row['UnitID']."</a></td>
+										<td><a href='?dispatcher=courses&task=unitdetails&UnitID=".$row['UnitID']."'>".$row['UnitID']."</a></td>
 										<td>".$row['UName']."</td>
 										<td>".$row['TuitionFee']."</td>
-										<td>".getFacultyName($row['FacultyID'])."</td>
+										<td>".getUnitTutors($row['UnitID'])."</td>
 										<td>".get_year_trimesters($row['YrTrim'])."</td>";
 										echo "<td align=\"center\">";
 										$RegUnit = registeredUnitStatus($student['StudentID'], $row['UnitID']);
@@ -433,8 +466,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 						echo "<h2>Course Work</h2>";
 						echo '<h3 class="text-uppercase text-primary">'. $Course['CName'] .' <span class="small text-muted">'. $CourseID .'</span></h3>';												
 						?>
-						<div class="CourseWork">							
-							<p><strong>Course Work</strong></p>
+						<div class="CourseWork">
 							<div id="hideMsg"><?php if(isset($_SESSION['MSG'])) echo $_SESSION['MSG'];?></div>
 							<table width="100%" class="display table table-striped table-bordered table-hover">
 								<thead>
@@ -443,13 +475,13 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 										<th>Unit ID</th>
 										<th>Unit Name</th>
 										<th>Credit</th>
-										<th>Lecturer</th>
+										<th>Instructors</th>
 										<th>Lessons</th>
 									</tr>
 								</thead>
 								<tbody>
 								<?php
-								$resultGetRegesteredUnits = getUnitsByStatus($CourseID, 'Registered');
+								$resultGetRegesteredUnits = getStudentUnitsByStatus($student['StudentID'], $CourseID, 'Registered');
 								if(db_num_rows($resultGetRegesteredUnits)>0){
 									$count = 1;				
 									while($row = db_fetch_array($resultGetRegesteredUnits)){
@@ -459,7 +491,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 										<td>".$row['UName']."</td>
 										<td>".$row['Credit']."</td>
 										<td>".getUnitTutors($row['UnitID'])."</td>
-										<td><a href='?tab=2&task=unitlessons&UnitID=".$row['UnitID']."'>View lessons</a></td>
+										<td><a href='?dispatcher=courses&task=unitlessons&UnitID=".$row['UnitID']."'>View lessons</a></td>
 										</td>
 										</tr>";
 										++$count;
@@ -487,16 +519,16 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Courses";
 							?>							
 							<div class="CourseDetails">
 								<h3>Course Outline</h3>
-								<p><?=$Course['Outline'];?></p>
+								<p><?=decode($Course['Outline']);?></p>
 								<h3>Course Description</h3>
-								<p><?=$Course['Description'];?></p>
-								<p> <a class="btn btn-default" href="?tab=2&task=courseunits&CourseID=<?=$CourseID;?>">View Units</a> <a class="btn btn-default" href="?tab=2&task=register&CourseID=<?=$CourseID;?>">Register Now</a> <a class="btn btn-default" href="?tab=2&task=coursework&CourseID=<?=$CourseID;?>">Course Work</a> </p>
+								<p><?=decode($Course['Description']);?></p>
+								<p> <a class="btn btn-default" href="?dispatcher=courses&task=courseunits&CourseID=<?=$CourseID;?>">View Units</a> <a class="btn btn-default" href="?dispatcher=courses&task=register&CourseID=<?=$CourseID;?>">Register Now</a> <a class="btn btn-default" href="?dispatcher=courses&task=coursework&CourseID=<?=$CourseID;?>">Course Work</a> </p>
 							</div>
 							<?php
 						}
 						echo '</div>';
 					}else{
-						echo "<p>You have not registered for any courses.</p>";
+						echo '<p>You have not registered for any courses.</p>';
 					}
         break;
       }

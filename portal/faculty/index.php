@@ -21,7 +21,9 @@ require_once("$class_dir/phpmailer/src/Exception.php");
 require_once("$class_dir/phpmailer/src/PHPMailer.php");
 require_once("$class_dir/phpmailer/src/SMTP.php");
 
-$tab = intval(! empty($_GET['tab']))?$_GET['tab']:1;
+$dispatcher = isset($_GET['dispatcher'])?$_GET['dispatcher']:"dashboard";
+$nav[$dispatcher] = "active";
+
 $_SESSION['UnitID'] = isset($_GET['UnitID'])?$_GET['UnitID']:$_SESSION['UnitID'];
 $UnitID = $_SESSION['UnitID'];
 
@@ -41,28 +43,7 @@ $_SESSION['CALENDAR_EVENTS'] = !empty($_SESSION['CALENDAR_EVENTS'])?$_SESSION['C
 //array_push($_SESSION['CALENDAR_EVENTS'], array('title' => 'Happy Birthday', 'start' => '2018-03-30'));
 //array_push($_SESSION['CALENDAR_EVENTS'], array('title' => 'New Day', 'start' => '2018-03-20'));
 
-switch ($tab) {
-	case 1: $menu1 = "active";
-break;
-	case 2: $menu2 = "active";
-break;
-	case 3: $menu3 = "active";
-break;
-	case 4: $menu4 = "active";
-break;
-	case 10: $menu4 = "active";
-break;
-	case 5: $menu5 = "active";
-break;
-	case 6: $menu6 = "active";
-break;
-	case 7: $menu7 = "active";
-break;
-	case 8: $menu8 = "active";
-break;
-	case 9: $menu9 = "active";	
-}
-
+//Add header
 add_header();
 ?>
 <script>
@@ -124,13 +105,6 @@ $(document).ready(function() {
 
 });
 //
-$(document).ready(function(){
-		setInterval(function(){
-				$.get("<?php echo $class_dir; ?>/autoExit.php", function(data){
-				});
-			},<?php echo $time;?>*60*1000);
-		});
-		//
 function comfirmDelete(){
 	return confirm("This operation will DELETE the selected records. Are you sure you want to delete?");
 }
@@ -172,9 +146,9 @@ function checkAll(field){
           <i class="fa fa-bars fa-fw"></i> Select Lecture <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-lectures">
-          <?php echo list_faculty_lectures_nav($faculty['FacultyID'],$tab); ?>
+          <?php echo list_faculty_lectures_nav($faculty['FacultyID'],$dispatcher); ?>
           <li>
-            <a class="text-center" href="?tab=3"><strong>View All Lectures</strong><i class="fa fa-angle-right"></i></a>
+            <a class="text-center" href="?dispatcher=lectures"><strong>View All Lectures</strong><i class="fa fa-angle-right"></i></a>
           </li>
         </ul>
       </li>
@@ -185,7 +159,7 @@ function checkAll(field){
         <ul class="dropdown-menu dropdown-messages">
 		  <?php echo list_message_snapshots($faculty['Email']); ?>
           <li>
-            <a class="text-center" href="?tab=7"><strong>Read All Messages</strong><i class="fa fa-angle-right"></i></a>
+            <a class="text-center" href="?dispatcher=messages"><strong>Read All Messages</strong><i class="fa fa-angle-right"></i></a>
           </li>
         </ul>
         <!-- /.dropdown-messages -->
@@ -196,7 +170,7 @@ function checkAll(field){
           <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">                        
-          <li><a href="?tab=9&task=view"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
+          <li><a href="?dispatcher=account&task=view"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
           <li><a href="../?do=logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
         </ul>
         <!-- /.dropdown-user -->
@@ -208,25 +182,26 @@ function checkAll(field){
     <div class="navbar-default sidebar" role="navigation">
       <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
-          <li><a href="?tab=1" class="<?=$menu1?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
+          <li><a href="?dispatcher=dashboard" class="<?=$nav['dashboard']?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
           <li>
-            <a href="#" class="<?=$menu2?>"><i class="fa fa-sitemap fa-fw"></i> Departments<span class="fa arrow"></span></a>
+            <a href="#" class="<?=$nav['departments']?>"><i class="fa fa-sitemap fa-fw"></i> Departments<span class="fa arrow"></span></a>
             <?=list_lecture_depts_nav($faculty['Departments']);?>
             <!-- /.nav-second-level -->
           </li>
-          <li><a href="?tab=3" class="<?=$menu3?>"><i class="fa fa-table fa-fw"></i> Lectures</a></li>
-          <li><a href="?tab=4" class="<?=$menu4?>"><i class="fa fa-calendar fa-fw"></i> Calendar</a></li>
-					<li><a href="?tab=10" class="<?=$menu10?>"><i class="fa fa-book fa-fw"></i> Exams</a></li>
-          <li><a href="?tab=5" class="<?=$menu5?>"><i class="fa fa-edit fa-fw"></i> Assignments</a></li>
-          <li><a href="?tab=6" class="<?=$menu6?>"><i class="fa fa-bell fa-fw"></i> Attendance</a></li>
-          <li><a href="?tab=7" class="<?=$menu7?>"><i class="fa fa-comments fa-fw"></i> Messages</a></li>
-          <li><a href="?tab=8" class="<?=$menu8?>"><i class="fa fa-file fa-fw"></i> Resources</a></li>
+          <li><a href="?dispatcher=lectures" class="<?=$nav['lectures']?>"><i class="fa fa-table fa-fw"></i> Lectures</a></li>
+          <li><a href="?dispatcher=calendar" class="<?=$nav['calendar']?>"><i class="fa fa-calendar fa-fw"></i> Calendar</a></li>
+					<li><a href="?dispatcher=exams" class="<?=$nav['exams']?>"><i class="fa fa-book fa-fw"></i> Exams</a></li>
+          <li><a href="?dispatcher=assignments" class="<?=$nav['assignments']?>"><i class="fa fa-edit fa-fw"></i> Assignments</a></li>
+          <li><a href="?dispatcher=attendance" class="<?=$nav['attendance']?>"><i class="fa fa-bell fa-fw"></i> Attendance</a></li>
+          <li><a href="?dispatcher=messages" class="<?=$nav['messages']?>"><i class="fa fa-comments fa-fw"></i> Messages</a></li>
+          <li><a href="?dispatcher=files" class="<?=$nav['files']?>"><i class="fa fa-file fa-fw"></i> Resources</a></li>
+					<li><a href="?dispatcher=forum" class="<?=$nav['forum']?>"><i class="fa fa-clipboard fa-fw"></i> Forum Board</a></li>
           <li>
-            <a href="#" class="<?=$menu9?>"><i class="fa fa-user fa-fw"></i> Account<span class="fa arrow"></span></a>
+            <a href="#" class="<?=$nav['account']?>"><i class="fa fa-user fa-fw"></i> Account<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
-              <li><a href="?tab=9&task=view">View Profile</a></li>
-              <li><a href="?tab=9&task=edit">Edit Profile</a></li>
-              <li><a href="?tab=9&task=reset">Change Password</a></li>
+              <li><a href="?dispatcher=account&task=view">View Profile</a></li>
+              <li><a href="?dispatcher=account&task=edit">Edit Profile</a></li>
+              <li><a href="?dispatcher=account&task=reset">Change Password</a></li>
             </ul>
             <!-- /.nav-second-level -->
           </li>
@@ -241,36 +216,38 @@ function checkAll(field){
   <!-- page wrapper -->
   <div id="page-wrapper">
 	<?php
-	$tab = intval(! empty($_GET['tab']))?$_GET['tab']:0;
-	switch ($tab) {		
-	  case 1:
+	switch ($dispatcher) {
+	  case "dashboard":
 	  	require_once('faculty.dashboard.php');
 	  break;
-	  case 2:
+	  case "departments":
 	  	require_once('faculty.departments.php');
 	  break;
-	  case 3:
+	  case "lectures":
 	  	require_once('faculty.lectures.php');
+	  break;
+	  case "calendar":
+	  	require_once('faculty.calendar.php');
 		break;
-		case 10:
+		case "exams":
 	  	require_once('faculty.exams.php');
 	  break;
-	  case 4:
-	  	require_once('faculty.calendar.php');
-	  break;
-	  case 5:
+	  case "assignments":
 	  	require_once('faculty.assignments.php');
 	  break;
-	  case 6:
+	  case "attendance":
 	  	require_once('faculty.attendance.php');
 	  break;
-	  case 7:
+	  case "messages":
 	  	require_once('faculty.messages.php');
 	  break;
-	  case 8:
+	  case "files":
 	  	require_once('faculty.files.php');
 	  break;
-	  case 9:
+		case "forum":
+	  	require_once('faculty.forum.php');
+	  break;
+	  case "account":
 	  	require_once('faculty.account.php');
 	  break;
 	  default:
@@ -283,8 +260,8 @@ function checkAll(field){
 </div>
 <!-- /#wrapper -->
 <?php 
+//Add footer
 add_footer();
-
 //Close connection
 db_close($conn);
 }else{

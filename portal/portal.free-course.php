@@ -200,11 +200,11 @@ $(document).ready(function() {
 							if(empty($FIELDS['identityno']))
 							$ERRORS['identityno'] = "ID/Passport number is required";
 							// validate "identityimage" upload file
-							if(empty($IndentityPhotoFileTemp) || !in_array($_FILES["identityimage"]["type"], $allowed_mimes) || $_FILES["identityimage"]["size"] > 800000)
-							$ERRORS['identityimage'] = "Uploaded file must be a supported image or document not greater than 800KB";
+							if(empty($IndentityPhotoFileTemp) || !in_array($_FILES["identityimage"]["type"], $allowed_mimes) || $_FILES["identityimage"]["size"] > 2000000)
+							$ERRORS['identityimage'] = "Uploaded file must be a supported image or document not greater than 2MB";
 							// validate "passportphoto" upload file
-							if(empty($PhotoFileTemp) || !in_array($_FILES["passportphoto"]["type"], $allowed_mimes) || $_FILES["passportphoto"]["size"] > 800000)
-							$ERRORS['passportphoto'] = "Uploaded photo must be a supported image or document not greater than 800KB";
+							if(empty($PhotoFileTemp) || !in_array($_FILES["passportphoto"]["type"], $allowed_mimes) || $_FILES["passportphoto"]["size"] > 2000000)
+							$ERRORS['passportphoto'] = "Uploaded photo must be a supported image or document not greater than 2MB";
 							// validate "course" field
 							if($FIELDS['course'] == "None")
 							$ERRORS['course'] = "Please select the course you want to persue";	

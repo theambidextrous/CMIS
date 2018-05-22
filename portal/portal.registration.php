@@ -235,11 +235,11 @@ $(document).ready(function() {
 							if(empty($FIELDS['identityno']))
 							$ERRORS['identityno'] = "ID/Passport number is required";
 							// validate "identityimage" upload file
-							if(empty($IndentityPhotoFileTemp) || !in_array($_FILES["identityimage"]["type"], $allowed_mimes) || $_FILES["identityimage"]["size"] > 800000)
-							$ERRORS['identityimage'] = "Uploaded file must be a supported image or document not greater than 800KB";
+							if(empty($IndentityPhotoFileTemp) || !in_array($_FILES["identityimage"]["type"], $allowed_mimes) || $_FILES["identityimage"]["size"] > 2000000)
+							$ERRORS['identityimage'] = "Uploaded file must be a supported image or document not greater than 2MB";
 							// validate "passportphoto" upload file
-							if(empty($PhotoFileTemp) || !in_array($_FILES["passportphoto"]["type"], $allowed_mimes) || $_FILES["passportphoto"]["size"] > 800000)
-							$ERRORS['passportphoto'] = "Uploaded photo must be a supported image or document not greater than 800KB";
+							if(empty($PhotoFileTemp) || !in_array($_FILES["passportphoto"]["type"], $allowed_mimes) || $_FILES["passportphoto"]["size"] > 2000000)
+							$ERRORS['passportphoto'] = "Uploaded photo must be a supported image or document not greater than 2MB";
 							// validate "course" field
 							if($FIELDS['course'] == "None")
 							$ERRORS['course'] = "Please select the course you want to persue";	
@@ -361,17 +361,19 @@ $(document).ready(function() {
 										//Execute query
 										db_query($newClientSql,DB_NAME,$conn);
 									}
-		//Create sessions for reg fee payment GATEWAY					  
-		$_SESSION['STUD_ID_HASH'] = $hash_stud;
-		$_SESSION['STUD_ID'] = $FIELDS['StudentID'];
-		$_SESSION['AMOUNT'] = $reg_fee;
-		$_SESSION['STUD_FNAME'] = $FIELDS['firstname'];
-		$_SESSION['STUD_LNAME'] = $FIELDS['surname'];
-		$_SESSION['STUD_EMAIL'] = $FIELDS['emailaddress'];
-		$_SESSION['STUD_TEL'] = $FIELDS['phonenumber'];
-		$_SESSION['COURSE_ID'] = $FIELDS['course'];
-		//Proceed to pay
-		redirect("?do=register&task=pay&token=$Token");
+									
+									//Create sessions for reg fee payment GATEWAY					  
+									$_SESSION['STUD_ID_HASH'] = $hash_stud;
+									$_SESSION['STUD_ID'] = $FIELDS['StudentID'];
+									$_SESSION['AMOUNT'] = $reg_fee;
+									$_SESSION['STUD_FNAME'] = $FIELDS['firstname'];
+									$_SESSION['STUD_LNAME'] = $FIELDS['surname'];
+									$_SESSION['STUD_EMAIL'] = $FIELDS['emailaddress'];
+									$_SESSION['STUD_TEL'] = $FIELDS['phonenumber'];
+									$_SESSION['COURSE_ID'] = $FIELDS['course'];
+									
+									//Proceed to pay
+									redirect("?do=register&task=pay&token=$Token");
 								}				
 								else{
 									$saved = FALSE;
@@ -730,49 +732,45 @@ $(document).ready(function() {
 						</div>
 						<?php
 						}
-					break;
-					case "pay":
-						?>
-						<div class="col-md-12">
-							<h2>You are about to pay Ksh.<?php echo $_SESSION['AMOUNT']; ?></h2>
-							<h3>Select a payment method</h3>
-							<p>We support the following payment methods. Click on your preferred payment method:</p>
-							
-							<div class="row">
-								<!--
-								<div class="col-md-6">
-									<h3>Lipa na MPesa</h3>
-									<a href="?do=payment&paymentmethod=mpesa&paytype=Registration" title="Click to pay with MPesa"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/lipa-na-mpesa.png" alt="Lina na MPesa"></a>
-								</div>
-								-->
-								<div class="col-md-6">
-									<h3>PesaPal Payment</h3>
-									<a href="?do=payment&paymentmethod=pesapal&paytype=Registration" title="Click to pay with PesaPal"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/pesapal.jpg" alt="PesaPal Payment"></a>
+						break;
+						case "pay":
+							?>
+							<div class="col-md-12">
+								<h2>You are about to pay Ksh.<?php echo $_SESSION['AMOUNT']; ?></h2>
+								<h3>Select a payment method</h3>
+								<p>We support the following payment methods. Click on your preferred payment method:</p>
+								
+								<div class="row">
+									<div class="col-md-6">
+										<h3>Lipa na MPesa</h3>
+										<a href="?do=payment&paymentmethod=mpesa&paytype=Registration" title="Click to pay with MPesa"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/lipa-na-mpesa.png" alt="Lina na MPesa"></a>
+									</div>
+									<div class="col-md-6">
+										<h3>PesaPal Payment</h3>
+										<a href="?do=payment&paymentmethod=pesapal&paytype=Registration" title="Click to pay with PesaPal"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/pesapal.jpg" alt="PesaPal Payment"></a>
+									</div>
 								</div>
 							</div>
+							<?php
+						break;
+						case "recover":					
+						?>
+						<!-- Step 4 -->
+						<div id="step-4" class="form-sec">
+							<div id="hideMsg"><?php if(sizeof($_SESSION['message'])>0) echo $_SESSION['message']; ?></div>
+							<p>Your account is already registered with us. We can help you regain access to your account by choosing one of the following options.</p>
+							<ul>
+								<li><a href="?do=reset">Forgot your password? Click here to request a password reset.</a></li>
+								<li><a href="?do=login">You registered but did not pay registration fee? Click here to make payment now.</a></li>
+								<li><a href="?do=login">You registered and paid registration fee but did not receive instructions on how to access the portal? Click here for assistance.</a></li>
+								<li><a href="#">For any other help, please contact us.</a></li>
+							</ul>
 						</div>
 						<?php
-					break;
-					case "recover":					
-					?>
-					<!-- Step 4 -->
-					<div id="step-4" class="form-sec">
-						<div id="hideMsg">
-							<?php if(sizeof($_SESSION['message'])>0) echo $_SESSION['message']; ?>
-						</div>
-						<p>Your account is already registered with us. We can help you regain access to your account by choosing one of the following options.</p>
-						<ul>
-						  <li><a href="?do=reset">Forgot your password? Click here to request a password reset.</a></li>
-							<li><a href="?do=login">You registered but did not pay registration fee? Click here to make payment now.</a></li>
-							<li><a href="?do=login">You registered and paid registration fee but did not receive instructions on how to access the portal? Click here for assistance.</a></li>
-							<li><a href="#">For any other help, please contact us.</a></li>
-						</ul>
-					</div>
-					<?php
-					break;
-					default:
-						echo ErrorMessage("Invalid request! The system failed to process your request. If the problem persists, please contact us.");
-					break;
+						break;
+						default:
+							echo ErrorMessage("Invalid request! The system failed to process your request. If the problem persists, please contact us.");
+						break;
 					}
 					
 					//Close connection

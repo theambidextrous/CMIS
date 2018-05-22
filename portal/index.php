@@ -87,6 +87,9 @@ break;
 case "free":
 	require_once('portal.free-course.php');
 break;
+case "shortcourse":
+	//require_once('portal.free-course.php?option=shortcourse');
+break;
 case "login": 
     $username = isset($_POST["LoginID"])?trim($_POST["LoginID"]):""; 
     $password = isset($_POST["LoginPass"])?trim($_POST["LoginPass"]):"";

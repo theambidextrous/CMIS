@@ -33,6 +33,7 @@ $(document).ready(function() {
     <div class="cms-contents-grey">
       <!--Begin Forms-->
       <?php
+			require_once("$class_dir/EvarsitySMS.php");
 			$EditID = !empty($_GET['eid'])?$_GET['eid']:0;
       $UnitID = !empty($_GET['unitid'])?$_GET['unitid']:"";			
       //Fetch unit details
@@ -132,8 +133,10 @@ $(document).ready(function() {
 							db_query($sqlEditLesson,DB_NAME,$conn);
 							
 							//Check if saved
-							if(db_affected_rows($conn)){								
-								redirect("?tab=3&task=coursework&unitid=$UnitID&update=true");
+							if(db_affected_rows($conn)){
+								$message = "Dear Student, your course unit (".$UnitID.") lesson contents have been updated by your tutor, please login at ".SYSTEM_URL." to see changes.";
+								manageAssignment($UnitID, 1, $message);							
+								redirect("?dispatcher=lectures&task=coursework&unitid=$UnitID&update=true");
 							}else{
 								echo ErrorMessage("Failed to update the selected lesson.");
 							}
@@ -161,7 +164,10 @@ $(document).ready(function() {
 						db_query($sqlAddLesson,DB_NAME,$conn);
 						
 						//Check if saved
-						if(db_affected_rows($conn)){							
+						if(db_affected_rows($conn)){	
+							//notify
+							$message = "Dear Student, your course unit (".$UnitID.") has a new lesson, please login at ".SYSTEM_URL." to view notes.";
+							manageAssignment($UnitID, 0, $message);
 							echo ConfirmMessage("New lesson has been added successfully.");
 						}else{
 							echo ErrorMessage("Failed to add a new lesson.");
@@ -218,6 +224,7 @@ $(document).ready(function() {
 
 								<div class="form-group">
 								  <input type="submit" name="<?=$action;?>" value="<?=$action;?> Lesson" class="btn btn-primary">
+									<input type="button" name="Cancel" value="Cancel" onclick="javascript:location.href='?dispatcher=lectures'" class="btn btn-default">
 								</div>
 								
 							</div>							
@@ -239,13 +246,13 @@ $(document).ready(function() {
 									<div class="panel-heading">
 										<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>" title="Click here to toggle collapse"><?php echo $row['Title']; ?></a> 
 										<span class="right" style="float:right;">
-										<a href="?tab=3&task=coursework&action=edit&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Edit this lesson"><i class="fa fa-edit"></i></a>&nbsp;
+										<a href="?dispatcher=lectures&task=coursework&action=edit&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Edit this lesson"><i class="fa fa-edit"></i></a>&nbsp;
 										<?php if($row['disabledFlag'] == 0){?>
-										<a href="?tab=3&task=coursework&action=hide&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Hide from students"><i class="fa fa-eye-slash"></i></a>&nbsp;
+										<a href="?dispatcher=lectures&task=coursework&action=hide&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Hide from students"><i class="fa fa-eye-slash"></i></a>&nbsp;
 										<?php }else{ ?>
-										<a href="?tab=3&task=coursework&action=show&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Show from students"><i class="fa fa-eye"></i></a> &nbsp;
+										<a href="?dispatcher=lectures&task=coursework&action=show&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Show from students"><i class="fa fa-eye"></i></a> &nbsp;
 										<?php } ?>
-										<a href="?tab=3&task=coursework&action=remove&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Remove this lesson"><i class="fa fa-trash"></i></a>
+										<a href="?dispatcher=lectures&task=coursework&action=remove&unitid=<?php echo $row['UnitID']; ?>&eid=<?php echo $row['LID']; ?>" title="Remove this lesson"><i class="fa fa-trash"></i></a>
 										</span></h4>
 										
 									</div>
@@ -276,7 +283,7 @@ $(document).ready(function() {
 							echo "<h2>".$unit['UnitID']."</h2>";
 							echo "<h3 class=\"text-uppercase text-primary\">".$unit['UName']."</h3>";
 							echo "<p>".$unit['Description']."</p>";
-							echo "<p align=\"right\"><a href=\"?tab=3&task=view&unitid=".$unit['UnitID']."\">View Unit Details</a> | <a href=\"?tab=3&task=coursework&unitid=".$unit['UnitID']."\">Add Coursework</a> | <a href=\"?tab=5&UnitID=".$unit['UnitID']."\">Add Assignment</a> | <a href=\"?tab=3&task=attendance&unitid=".$unit['UnitID']."\">Check Attendance</a></p><hr>";
+							echo "<p align=\"right\"><a href=\"?dispatcher=lectures&task=view&unitid=".$unit['UnitID']."\">View Unit Details</a> | <a href=\"?dispatcher=lectures&task=coursework&unitid=".$unit['UnitID']."\">Add Coursework</a> | <a href=\"?dispatcher=assignments&UnitID=".$unit['UnitID']."\">Add Assignment</a> | <a href=\"?dispatcher=lectures&task=attendance&unitid=".$unit['UnitID']."\">Check Attendance</a></p><hr>";
 							echo "</div>";
 						}
 					}else{

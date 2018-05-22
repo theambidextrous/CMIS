@@ -128,7 +128,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
                 $params = array($status, $pesapal_merchant_reference, $pesapalTrackingId);
                 if(updateStatus($params) == 1)
                    {
-                      $sms = "Dear ".$name.", Your payment to ".SYSTEM_NAME." has been updated to STATUS '".$status."'. Thank you.";
+                      $sms = secure_string("Dear ".$name.", Your payment to ".SYSTEM_NAME." has been updated to STATUS '".$status."'. Thank you.");
                       notifypayer($sms, smsphoneformat($phone));
 
                       $resp="pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
@@ -358,7 +358,14 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Portal | Secure Payment Confirmation"
 								//Save update to DB	for different responses
 								if($status){
 									$updateSQL = sprintf("UPDATE `".DB_PREFIX."payment_refs` SET `pay_status` = '%s', `pay_method` = '%s' WHERE `student_pay_ref` = '%s' AND `transaction_tracking_id` = '%s'", $status, $pay_method, $data['MerchantRequestID'], $data['CheckoutRequestID']);
-									db_query($updateSQL,DB_NAME,$conn);	
+									db_query($updateSQL,DB_NAME,$conn);
+									
+									//temporary
+									$amount = !empty($_SESSION['AMOUNT'])?$_SESSION['AMOUNT']:0;
+									$formatted_amount = number_format($amount, 2);//format amount to 2 decimal places
+									$phonenumber = !empty($_SESSION['STUD_TEL'])?$_SESSION['STUD_TEL']:'';
+									$sms = "Your payment of KES ".$formatted_amount." to ".SYSTEM_NAME." was updated with status ".$status.". Thank you.";
+                  notifypayer($sms, smsphoneformat($phonenumber));
 									
 									$_SESSION['MSG']=$CONFIRM['MSG'];
 									if($redirect){

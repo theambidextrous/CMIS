@@ -24,7 +24,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
           </div>
         </div>
       </div>
-      <a href="?tab=2">
+      <a href="?dispatcher=courses">
       <div class="panel-footer"> <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>
@@ -42,7 +42,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
           </div>
         </div>
       </div>
-      <a href="?tab=3">
+      <a href="?dispatcher=calendar">
       <div class="panel-footer"> <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>
@@ -55,12 +55,12 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
         <div class="row">
           <div class="col-xs-3"> <i class="fa fa-edit fa-5x"></i> </div>
           <div class="col-xs-9 text-right">
-            <div class="huge"><?php echo getStudentAssignments($student['StudentID']); ?></div>
+            <div class="huge"><?php echo getStudentAssignments($student['StudentID'], $CourseID); ?></div>
             <div>Assignments</div>
           </div>
         </div>
       </div>
-      <a href="?tab=6">
+      <a href="?dispatcher=files">
       <div class="panel-footer"> <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>
@@ -78,7 +78,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
           </div>
         </div>
       </div>
-      <a href="?tab=5">
+      <a href="?dispatcher=attendance">
       <div class="panel-footer"> <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>
@@ -148,7 +148,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
           $TotalDue = $TotalCourseFee - $TotalPaid;
         }
 				
-        //Create sessions for reg fee payment GATEWAY	
+        //Create sessions for reg fee payment GATEWAY
+				$_SESSION['PAY_TYPE'] = "Fee";
         $_SESSION['STUD_ID_HASH'] = md5($student['StudentID']);;
 				$_SESSION['STUD_ID'] = $student['StudentID'];
 				$_SESSION['STUD_FNAME'] = $student['FName'];
@@ -174,7 +175,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Dashboard";
 							}
 					}
 					//proceed to pay
-					echo redirect('../?do=payment&paytype=fee');
+					echo redirect('../?do=payment');
         }
         //echo '<h4>Total Fees for your: '. getPaymentStatus($TotalCourseFee, $TotalPaid) .'</h4>';
 				echo '<h4>Payment Status: '. getPaymentStatus($TotalCourseFee, $TotalPaid) .'</h4>';

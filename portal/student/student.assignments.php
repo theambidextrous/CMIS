@@ -41,8 +41,8 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Assignments";
 
             //Validate
             // validate "passportphoto" upload file
-            if(empty($AssignmentTemp) || !in_array($_FILES["Assignment"]["type"], $allowed_mimes) || $_FILES["Assignment"]["size"] > 800000)
-            $ERRORS['Assignment'] = "Uploaded assignment must be a supported document type not greater than 800KB";
+            if(empty($AssignmentTemp) || !in_array($_FILES["Assignment"]["type"], $allowed_mimes) || $_FILES["Assignment"]["size"] > 1000000)
+            $ERRORS['Assignment'] = "Uploaded assignment must be a supported document type not greater than 1MB";
             
             if(sizeof($ERRORS) > 0){
               $ERRORS['MSG'] = ErrorMessage("PLEASE CORRECT HIGHLIGHTED FIELDS!");
@@ -88,7 +88,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Assignments";
           <div class="panel-body">
             <div class="row">							
               <div class="col-md-12">
-              
+              	<div id="hideMsg"><?php if(isset($ERRORS['MSG'])) echo $ERRORS['MSG'];?></div>
                 <div class="form-group">
                   <label for="">Upload: <span class="text-danger">*</span></label>
                   <input type="file" name="Assignment" class="form-control required"><span class="text-danger"><?=$ERRORS['Assignment'];?></span>
@@ -110,7 +110,7 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Assignments";
 				</form>
         <?php
         $UnitIDs = array();
-        $resGetRegisteredUnits = getUnitsByStatus($CourseID, "Registered");
+				$resGetRegisteredUnits = getStudentUnitsByStatus($student['StudentID'], $CourseID, "Registered");
 
         if(db_num_rows($resGetRegisteredUnits)>0){
           while($rowRegistered = db_fetch_array($resGetRegisteredUnits)){            
@@ -130,7 +130,10 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Assignments";
             $expired = 0;
             echo '<div class="panel-group" id="accordion">';
             while($assignment = db_fetch_array($resultGetAssignments)){
-              //Show due date
+              //Check if already submitted
+							$uploadedAssignment = getStudentUploadedAssignment($assignment['UID'], $student['StudentID']);
+							$uploaded = empty($uploadedAssignment)?0:1;
+							//Show due date
               $date_today = new DateTime();
               $date_due = new DateTime($assignment['DateDue']);						
               $diff = (int)$date_today->diff($date_due)->format("%r%a");
@@ -158,12 +161,15 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Assignments";
               ?>							
                 <div class="panel panel-<?php echo $class; ?>">
                   <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>" title="Click here to toggle collapse">(<?php echo $assignment['UnitID']; ?>) - <?php echo $assignment['Title']; ?></a> 
+                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $count; ?>" title="Click here to toggle collapse">(<?php echo $assignment['UnitID']; ?>) - <?php echo $assignment['Title']; ?></a> 
                     <span class="right" style="float:right;">
                     <small class="text-<?php echo $class; ?>"><?php echo $due.timeago($assignment['DateDue']); ?></small>
-                    <?php if(!$expired){ ?>
-                    <a href="?tab=4&action=upload&unitid=<?php echo $assignment['UnitID']; ?>&eid=<?php echo $assignment['UID']; ?>" title="Upload assignment"><i class="fa fa-upload"></i></a>
+                    <?php if(!$expired && !$uploaded){ ?>
+                    <a href="?dispatcher=assignments&action=upload&unitid=<?php echo $assignment['UnitID']; ?>&eid=<?php echo $assignment['UID']; ?>" title="Upload assignment"><i class="fa fa-upload"></i></a>
+                    <?php }elseif($expired && !$uploaded){ ?>
+                    <i class="fa fa-times"></i>
+                    <?php }elseif($uploaded){ ?>
+                    <i class="fa fa-check"></i>
                     <?php } ?>
                     </span></h4>
                     
@@ -176,7 +182,19 @@ document.title = "<?=SYSTEM_SHORT_NAME?> - Student | My Assignments";
                       <h3>Assignment Content</h3>
                       <?php echo decode($assignment['Description']); ?>
                       <h3>Upload Status</h3>
-                      <p>Assignment not uploaded</p>
+                      <?php
+											if($uploaded){
+												echo '<p class="text-success">Assignment uploaded on '.fixdatetimelong($uploadedAssignment['DateUploaded']).'<br>';
+												if($uploadedAssignment['Status'] == 'Graded'){
+													echo 'Assignment accessed by '.getFacultyName($uploadedAssignment['FacultyID']).' and graded on '.fixdatetimelong($uploadedAssignment['DateGraded']).'<br>';
+													echo '<strong>Grade attained: '.$uploadedAssignment['GradeAttained'].' out of '.$assignment['Credits'].'</strong>';
+												}else{
+													echo 'Assignment not yet graded';
+												}
+												echo '</p>';
+											}else
+												echo '<p class="text-danger">Assignment not uploaded</p>';
+											?>											
                     </div>
                   </div>
                 </div>															

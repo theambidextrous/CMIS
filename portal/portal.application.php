@@ -82,14 +82,13 @@ $(document).ready(function() {
 					Experience Level: Entry level <br>
 					Experience Length: 1 year </p>
 					
-					<h2>Job Description</h2>
-					
+					<h2>Job Description</h2>					
 					<p>1. To prepare schemes of work and  lesson  plans for online lecturing<br>
 					2. To lecture students on self selected courses using online tutorial aids such as Videos, Pdfs, Chats.<br>
 					3. To administer CATS, Quizzes and assignments online<br>
 					4. To administer exams online</p>
-					<h2>Requirements</h2>
 					
+					<h2>Requirements</h2>					
 					<p>1. Be a diploma holder for you to qualify to lecture certificate students in your area of study<br>
 					2. Be a degree holder for you to qualify to lecture certificate and diploma students in your area of study<br>
 					</div>
@@ -101,14 +100,30 @@ $(document).ready(function() {
 					3. Be a Masters holder for you to qualify to lecture certificate, diploma and degree  students in your area of study <br>
 					4. Be a Ph.D holder for you to qualify to lecture certificate, diploma, degree, Masters and Ph.D  students in your area of study<br> 
 					
-					<h2>Extra Requirements</h2>
-					
+					<h2>Extra Requirements</h2>					
 					<p>1. Have a Certified Online Trainer (COT) qualification from Finstock Evarsity.</p>
 					
 					<h2>Compensation</h2>
-					
-					<p>The compensation rate is kes 1000 (usd 10) per hour per unit for short courses, international courses, HRMPEB courses.   The compensation rate is kes 500 ( usd 5)  per hour per unit for KASNEB courses and school programs (Diplomas and Certificates).</p>
-
+					<p>Finstock Evarsity has made improvements to compensation rates  to be given to our partners/lecturers as a sign of our long term commitment and appreciation of the value they are adding to us and our students!.</span>
+						<br><br><i>Effective, 30th of April 2018,</i> the new rates will be as follows;<br><br>
+						<b>For Certificate, Diploma and KASNEB Courses (ongoing)</b><br>
+						The rate has increased from KES 500 (USD 5) to KES 1250 (USD 12.5) broken down as follows;<br><br>
+						i) Kes 500 (USD 5) for an hour of lecturing. Lecturing includes engaging students through uploading notes, chatting, forums, emailing, and video 
+						conferencing.<br>
+						ii) Kes 500 (USD 5) per hour for content preparation and assessments/exams generation.<br> 
+						iii) Kes 250 (USD 2.5) per hour for marking essay and open ended exams. <br><br>
+						For instance, one hour of student engagement will be compensated as follows;
+						<b><i>500/= (for lecturing) +500/= (content preparation and assessment generation) +250/= (exam marking) = KES 1250 (USD 12.5) per hour.</i></b><br><br>
+						<b>For international courses (ongoing)</b><br>
+						1000/= (for lecturing) +1000/= (content preparation and assessment generation) = KES 2000 (USD 20) per hour. <br><br>
+						<b>For Undergraduates Degrees (Forthcoming)</b><br>
+						1000/= (for lecturing) +1000/= (content preparation and assessment generation) +500/= (exam marking) = KES 2500 (USD 25)  per hour.<br><br>
+						<b>For Masters Degrees (Forthcoming)</b><br>
+						1500/= (for lecturing) +1500/= (content preparation and assessment generation) +500/= (exam marking) = KES 3500 (USD 35)   per hour.<br><br>
+						<b>For Doctorate Degrees (Forthcoming)</b><br>
+						2000/= (for lecturing) +2000/= (content preparation and assessment generation) +1000/= (exam marking) = KES 5000 (USD 50) per hour<br><br>
+						The system will automatically record the hours of engagement and you can generate an activity report at your convenience. To request for payment, lecturers are expected to generate an automatic invoice  from the system. The invoice will have detailed number of hours that were spent during lecturing engagements  and amount to be claimed. More details about the invoice and payment module will be communicated in the course of the month.</p>
+								
 					<h2>Apply Now</h2>
 					<style>
 					p{text-align: justify;}
@@ -117,10 +132,11 @@ $(document).ready(function() {
 					<h4>Application Instructions</h4>
 					<p>*At the end of this application, you will be asked whether you have a "<b>Certificate in Online Training</b>" from Finstock Evarsity. If you respond "yes", you will be requested to attach the certificate.</p>
 					<p>*If you attach the certificate, you will automatically be allocated a faculty number and your application will be successful.</p>
-					<p>*If you do not have the certificate, you will be asked whether you wish to apply and be trained on how to lecture online.  Should you choose "<b>yes</b>", you will be enrolled for the 10 hour course, to be undertaken at your convenience. At the same time, you shall be admitted as a member of faculty. </p>
-					<p>*Please note that this job offer guarantees to engage you for a minimum 10 hours at a rate of kes 1000  (Usd 10) or a minimum of 15 hours at a rate of  kes 500 ( usd 5) to enable you to recoup your training costs under the Certified Online Trainer course. </p>
-					<p>*A course application fee of KES 1000 will be required in order to complete your application and process your student details.</p>
-					<p>*Should you be unwilling to undergo the COT certification training, the application will still be successful,and you will be allocated a faculty number. However, we cannot guarantee your ability to implement online training in our platform.</p>
+					<p>*If you do not have the certificate, you will be asked whether you wish to undergo the Certified Online Training Course. Should you choose "yes", you will be enrolled for the 10 hour course, and you will be required to complete the course within 1 week (minimum) and 3 months (maximum). At the same time, you shall be admitted as a member of faculty. You shall therefore have a dual capacity ( lecturer and student). </p>
+					<p>*The  Certified Online Training Course costs KES 10,000 (USD 10) plus KES 1,000 application fee (USD 1) and has 5 units only.</p>
+					<p>*Please note that this job offer guarantees to engage you until you recoup your training costs under the Certified Online Trainer course and even much more</p>
+					<p>*The job offer is guaranteed provided you have the basic requirements to lecture and also the extra requirement of a <b>Certificate in Online Training</b> from <b>Finstock Evarsity.</b></p>
+					<!-- <p>*Should you be unwilling to undergo the COT certification training, the application will still be successful,and you will be allocated a faculty number. However, we cannot guarantee your ability to implement online training in our platform.</p> -->
 					<div class="reg-wizard">
 						<div id="reg-step-1" class="col-xs-3 reg-wizard-step active">
 							<div class="text-center reg-wizard-stepnum">Step 1</div>
@@ -293,16 +309,16 @@ $(document).ready(function() {
 							if(empty($FIELDS['identityno']))
 							$ERRORS['identityno'] = "ID/Passport number is required";
 							// validate "cv" upload file
-							if(empty($cvTemp) || !in_array($_FILES["cv"]["type"], $allowed_mimes) || $_FILES["cv"]["size"] > 800000)
-							$ERRORS['cv'] = "Uploaded file must be a supported image or document not greater than 800KB";
+							if(empty($cvTemp) || !in_array($_FILES["cv"]["type"], $allowed_mimes) || $_FILES["cv"]["size"] > 2000000)
+							$ERRORS['cv'] = "Uploaded file must be a supported image or document not greater than 2MB";
 							// validate "coverletter" upload file
-							if(empty($coverletterTemp) || !in_array($_FILES["coverletter"]["type"], $allowed_mimes) || $_FILES["coverletter"]["size"] > 800000)
-							$ERRORS['coverletter'] = "Uploaded photo must be a supported image or document not greater than 800KB";
-							if(empty($IndentityPhotoFileTemp) || !in_array($_FILES["identityimage"]["type"], $allowed_mimes) || $_FILES["identityimage"]["size"] > 800000)
-							$ERRORS['identityimage'] = "Uploaded file must be a supported image or document not greater than 800KB";
+							if(empty($coverletterTemp) || !in_array($_FILES["coverletter"]["type"], $allowed_mimes) || $_FILES["coverletter"]["size"] > 2000000)
+							$ERRORS['coverletter'] = "Uploaded photo must be a supported image or document not greater than 2MB";
+							if(empty($IndentityPhotoFileTemp) || !in_array($_FILES["identityimage"]["type"], $allowed_mimes) || $_FILES["identityimage"]["size"] > 2000000)
+							$ERRORS['identityimage'] = "Uploaded file must be a supported image or document not greater than 2MB";
 							// validate "passportphoto" upload file
-							if(empty($PhotoFileTemp) || !in_array($_FILES["passportphoto"]["type"], $allowed_mimes) || $_FILES["passportphoto"]["size"] > 800000)
-							$ERRORS['passportphoto'] = "Uploaded photo must be a supported image or document not greater than 800KB";
+							if(empty($PhotoFileTemp) || !in_array($_FILES["passportphoto"]["type"], $allowed_mimes) || $_FILES["passportphoto"]["size"] > 2000000)
+							$ERRORS['passportphoto'] = "Uploaded photo must be a supported image or document not greater than 2MB";
 							// validate "cot" field
 							if($FIELDS['cot'] == "")
 							$ERRORS['cot'] = "Please select one";	
@@ -436,24 +452,18 @@ $(document).ready(function() {
 								
 								//Add new as staff
 								$FIELDS['Title'] = "Mr/Ms";
-								$newStaffSql = sprintf("INSERT INTO `".DB_PREFIX."faculties` (`FacultyID`, `Title`, `FName`, `MName`, `LName`, `Gender`, `DOB`, `Email`, `WPhone`, `MPhone`, `Address`, `City`, `State`, `PostCode`, `Country`, `CotCertified`, `RequestedCot`, `PassportPhoto`, `CotCert`, `IdentityImage`) 
-								VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', %d, %d, '%s', '%s', '%s')", 
-								$FIELDS['StaffID'], $FIELDS['Title'], $FIELDS['firstname'], $FIELDS['middlename'], $FIELDS['surname'], $FIELDS['gender'], $FIELDS['dbDob'], $FIELDS['emailaddress'], $FIELDS['phonenumber'], $FIELDS['phonenumber'], $FIELDS['physicaladdress'], $FIELDS['city'], $FIELDS['state'], $FIELDS['postalcode'], $FIELDS['citizenship'], $FIELDS['cot'], $FIELDS['pursue'], $FIELDS['passportphoto'], $CotCertPath, $FIELDS['identityimage']);
+								$newStaffSql = sprintf("INSERT INTO `".DB_PREFIX."faculties` (`FacultyID`, `Title`, `FName`, `MName`, `LName`, `Gender`, `DOB`, `Email`, `WPhone`, `MPhone`, `Address`, `City`, `State`, `PostCode`, `Country`, `CotCertified`, `RequestedCot`, `PassportPhoto`, `CotCert`, `IdentityImage`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%d,%d,'%s','%s','%s')", $FIELDS['StaffID'], $FIELDS['Title'], $FIELDS['firstname'], $FIELDS['middlename'], $FIELDS['surname'], $FIELDS['gender'], $FIELDS['dbDob'], $FIELDS['emailaddress'], $FIELDS['phonenumber'], $FIELDS['phonenumber'], $FIELDS['physicaladdress'], $FIELDS['city'], $FIELDS['state'], $FIELDS['postalcode'], $FIELDS['citizenship'], $FIELDS['cot'], $FIELDS['pursue'], $FIELDS['passportphoto'], $CotCertPath, $FIELDS['identityimage']);
 								db_query($newStaffSql,DB_NAME,$conn);
 
 							//add to faculty applications db\
 							$newStaffSql = sprintf("INSERT INTO `".DB_PREFIX."faculty_applications` (`FacultyID`, `FacultyEmail`, `CV`, `CoverLetter`, `UnitsApplied`) VALUES ('%s','%s','%s','%s','%s')", $FIELDS['StaffID'], $FIELDS['emailaddress'], $FIELDS['cv'], $FIELDS['coverletter'], $FIELDS['course']);
 							db_query($newStaffSql,DB_NAME,$conn);
 								
-								//Add new as student if is_yes pursuer cot
-								if($FIELDS['cot']==0 && $FIELDS['pursue']==1){
-									$FIELDS['course']="COT";
-									$FIELDS['trim']= "1/1";
-								$newStudentSql = sprintf("INSERT INTO `".DB_PREFIX."students` 
-								(`StudentID`, `FName`, `MName`, `LName`, `Phone`, `Email`, `DOB`, `Gender`, `Address`, `City`, `State`, `PostCode`, `Country`, `IdentityNumber`, `IdentityImage`, `PassportPhoto`, `Courses`, `YrTrim`) 
-								VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", 
-								$FIELDS['StudentID'], $FIELDS['firstname'], $FIELDS['middlename'], $FIELDS['surname'], $FIELDS['phonenumber'], $FIELDS['emailaddress'], $FIELDS['dbDob'], $FIELDS['gender'], $FIELDS['physicaladdress'], 
-								$FIELDS['city'], $FIELDS['state'], $FIELDS['postalcode'], $FIELDS['citizenship'], $FIELDS['identityno'], $FIELDS['identityimage'], $FIELDS['passportphoto'], $FIELDS['course'], $FIELDS['trim']);								
+							//Add new as student if is_yes pursuer cot
+							if($FIELDS['cot']==0 && $FIELDS['pursue']==1){								
+								$FIELDS['course']="COT";
+								$FIELDS['trim']= "1/1";
+								$newStudentSql = sprintf("INSERT INTO `".DB_PREFIX."students` (`StudentID`, `FName`, `MName`, `LName`, `Phone`, `Email`, `DOB`, `Gender`, `Address`, `City`, `State`, `PostCode`, `Country`, `IdentityNumber`, `IdentityImage`, `PassportPhoto`, `Courses`, `YrTrim`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $FIELDS['StudentID'], $FIELDS['firstname'], $FIELDS['middlename'], $FIELDS['surname'], $FIELDS['phonenumber'], $FIELDS['emailaddress'], $FIELDS['dbDob'], $FIELDS['gender'], $FIELDS['physicaladdress'], $FIELDS['city'], $FIELDS['state'], $FIELDS['postalcode'], $FIELDS['citizenship'], $FIELDS['identityno'], $FIELDS['identityimage'], $FIELDS['passportphoto'], $FIELDS['course'], $FIELDS['trim']);
 								db_query($newStudentSql,DB_NAME,$conn);
 							 }
 								
@@ -497,20 +507,20 @@ $(document).ready(function() {
 									}
 									//Create sessions for reg fee payment GATEWAY if want to do cot
 									if($FIELDS['cot']==0 && $FIELDS['pursue']==1){					  
-									$_SESSION['STUD_ID_HASH'] = $hash_stud;
-									$_SESSION['STUD_ID'] = $FIELDS['StudentID'];
-									$_SESSION['AMOUNT'] = $reg_fee;
-									$_SESSION['STUD_FNAME'] = $FIELDS['firstname'];
-									$_SESSION['STUD_LNAME'] = $FIELDS['surname'];
-									$_SESSION['STUD_EMAIL'] = $FIELDS['emailaddress'];
-									$_SESSION['STUD_TEL'] = $FIELDS['phonenumber'];
-									$_SESSION['COURSE_ID'] = $FIELDS['course'];
-									
-									//Proceed to pay
-									redirect("?do=apply&task=pay&token=$Token");
+										$_SESSION['STUD_ID_HASH'] = $hash_stud;
+										$_SESSION['STUD_ID'] = $FIELDS['StudentID'];
+										$_SESSION['AMOUNT'] = $reg_fee;
+										$_SESSION['STUD_FNAME'] = $FIELDS['firstname'];
+										$_SESSION['STUD_LNAME'] = $FIELDS['surname'];
+										$_SESSION['STUD_EMAIL'] = $FIELDS['emailaddress'];
+										$_SESSION['STUD_TEL'] = $FIELDS['phonenumber'];
+										$_SESSION['COURSE_ID'] = $FIELDS['course'];
+										
+										//Proceed to pay
+										redirect("?do=apply&task=pay&token=$Token");
 
 									}else{
-									    echo '<script>alert("Application Sent!");</script>';
+										echo '<script>alert("Application Sent!");</script>';
 										redirect(PARENT_HOME_URL);
 									}
 								}				
@@ -523,366 +533,366 @@ $(document).ready(function() {
 						
 						if(!$saved){
 						?>
-					<div class="col-md-12">
-						<div id="hideMsg">
-							<?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG']; ?>
-						</div>
-						<!--  -->
-						<form id="applicationForm" name="application-form" method="post" action="?do=apply&amp;task=<?=$task?>" enctype="multipart/form-data">
-							<!-- Step 1 -->
-							<div id="step-1" class="form-sec">
-								<h2 class="text-primary">Personal Information</h2>
-								<div class="row">
-									<div class="form-group col-sm-4">
-										<label for="surname" class="">Surname <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="text" class="form-control required" name="surname" id="surname" value="<?=$FIELDS['surname'];?>">
-										<span class="text-danger"><?=$ERRORS['surname'];?></span>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="firstname" class="">First Name <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="text" class="form-control required" name="firstname" id="firstname" value="<?=$FIELDS['firstname'];?>">
-										<span class="text-danger"><?=$ERRORS['firstname'];?></span>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="middlename" class="">Middle Name <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="text" class="form-control required" name="middlename" id="middlename" value="<?=$FIELDS['middlename'];?>">
-										<span class="text-danger"><?=$ERRORS['middlename'];?></span>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-sm-4">
-										<label for="phonenumber" class="">Phone/Mobile No. <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="tel" class="form-control" autocomplete="off" name="phonenumber" id="phonenumber" value="<?=$FIELDS['phonenumber'];?>">
-										<span id="validate-msg" class="text-danger"><?=$ERRORS['phonenumber'];?></span>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="emailaddress" class="">Email Address <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="email" class="form-control required email" name="emailaddress" id="emailaddress" value="<?=$FIELDS['emailaddress'];?>">
-										<span class="text-danger"><?=$ERRORS['emailaddress'];?></span>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="verifyemailaddress" class="">Verify Email <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="email" class="form-control required email" name="verifyemailaddress" id="verifyemailaddress" value="<?=$FIELDS['verifyemailaddress'];?>">
-										<span class="text-danger"><?=$ERRORS['verifyemailaddress'];?></span>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-sm-4">
-										<label for="dob" class="">DoB <abbr class="text-danger" title="Date of birth is">*</abbr></label>
-										<input type="text" class="form-control required date" name="dob" id="dob" value="<?=fixdatepicker($FIELDS['dob']);?>">
-										<span class="text-danger"><?=$ERRORS['dob'];?></span>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="citizenship" class="">Citizenship <abbr class="text-danger" title="required">*</abbr></label>
-										<select name="citizenship" class="form-control required">
-											<option value="None">--Select--</option>
-											<?php
-												foreach(list_countries() as $k => $v){													
-													if($k == $FIELDS['citizenship']){
-														$select = 'selected="selected"';
-													}
-													else{
-														$select = "";
-													}
-													echo "<option $select value=\"$k\">$v</option>";
-												}
-												?>
-										</select>
-										<span class="text-danger"><?=$ERRORS['citizenship'];?></span>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="physicaladdress" class="">Physical Address <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="text" class="form-control required" name="physicaladdress" id="physicaladdress" value="<?=$FIELDS['physicaladdress'];?>">
-										<span class="text-danger"><?=$ERRORS['physicaladdress'];?></span>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-sm-4">
-										<label for="city" class="">City/Town <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="text" class="form-control required" name="city" id="city" value="<?=$FIELDS['city'];?>">
-										<span class="text-danger"><?=$ERRORS['city'];?></span>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="state" class="">State/County <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="text" class="form-control required" name="state" id="state" value="<?=$FIELDS['state'];?>">
-										<span class="text-danger"><?=$ERRORS['state'];?></span>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="postalcode" class="">Postal Code <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="text" class="form-control required" name="postalcode" id="postalcode" value="<?=$FIELDS['postalcode'];?>">
-										<span class="text-danger"><?=$ERRORS['postalcode'];?></span>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-sm-6">
-										<label for="identityno" class="">ID/Passport No. <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="text" class="form-control required" name="identityno" id="identityno" value="<?=$FIELDS['identityno'];?>">
-										<span class="text-danger"><?=$ERRORS['identityno'];?></span>
-									</div>
-									<div class="form-group col-sm-6">
-										<label for="gender" class="">Gender <abbr class="text-danger" title="required">*</abbr></label>
-										<select name="gender" class="form-control required">
-											<option value="None">--Select--</option>
-											<?php
-												foreach(list_gender_status() as $k => $v){												
-													if($k == $FIELDS['gender']){
-														$select = 'selected="selected"';
-													}
-													else{
-														$select = "";
-													}
-													echo "<option $select value=\"$k\">$v</option>";
-												}
-												?>
-										</select>
-										<span class="text-danger"><?=$ERRORS['gender'];?></span>
-									</div>
-								</div>
-								<div class="row">
-										<div class="form-group col-sm-6">
-											<label for="identityimage" class="">Upload a scanned copy of the original ID/passport <abbr class="text-danger" title="required">*</abbr></label>
-											<input type="file" class="form-control required" name="identityimage" id="identityimage" accept="image/*,application/pdf">
-											<span class="text-danger"><?=$ERRORS['identityimage'];?></span>
-										</div>
-										<div class="form-group col-sm-6">
-											<label for="passportphoto" class="">Upload a scanned copy of your passport size photograph (1" x 1") <abbr class="text-danger" title="required">*</abbr></label>
-											<input type="file" class="form-control required" name="passportphoto" id="passportphoto" accept="image/*,application/pdf">
-											<span class="text-danger"><?=$ERRORS['passportphoto'];?></span>
-										</div>
-									</div>
-								<div class="row">
-									<div class="form-group col-sm-6">
-										<label for="cv" class="">Upload your CV(pdf) <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="file" class="form-control required" name="cv" id="cv" accept="application/pdf">
-										<span class="text-danger"><?=$ERRORS['cv'];?></span>
-									</div>
-									<div class="form-group col-sm-6">
-										<label for="coverletter" class="">Upload your Cover letter(pdf) <abbr class="text-danger" title="required">*</abbr></label>
-										<input type="file" class="form-control required" name="coverletter" id="coverletter" accept="application/pdf">
-										<span class="text-danger"><?=$ERRORS['coverletter'];?></span>
-									</div>
-								</div>
-								<div class="form-group">
-									<button type="button" id="go-login" class="btn btn-default btn-lg" onclick="javascript:location.href='https://finstockevarsity.com/'">Exit Application</button>
-									<button type="button" id="go-step-2" class="btn btn-info btn-lg">Academic & Work Experience</button>
-								</div>
+						<div class="col-md-12">
+							<div id="hideMsg">
+								<?php if(sizeof($ERRORS['MSG'])>0) echo $ERRORS['MSG']; ?>
 							</div>
-							<!-- Step 2 -->
-							<div id="step-2" class="form-sec" style="display:none;">
-								<h2 class="text-primary">Academic & Work Experience</h2> <h4>1. Academic Qualifications</h4>
-								<div class="row">
-									<div class="col-sm-12">
-										<table class="table table-responsive" id="ac_qualifications">
-											<thead>
-												<tr>
-													<th style="width:20%"><label for="institution" class="">Institution Attended <abbr class="text-danger" title="required">*</abbr></label></th>
-													<th style="width:20%"><label for="certificate" class="">Certificate Attained <abbr class="text-danger" title="required">*</abbr></label></th>
-													<th style="width:20%"><label for="fromtoyear" class="">From - To Year <abbr class="text-danger" title="required">*</abbr></label></th>
-													<th style="width:20%"><label for="grademark" class="">Grade/Mark Attained <abbr class="text-danger" title="required">*</abbr></label></th>
-													<th style="width:20%"><label for="grademark" class="">Upload Certificate <abbr class="text-danger" title="required">*</abbr></label></th>
-												</tr>
-											</thead>
-											<tbody class="qualifications">
+							<!--  -->
+							<form id="applicationForm" name="application-form" method="post" action="?do=apply&amp;task=<?=$task?>" enctype="multipart/form-data">
+								<!-- Step 1 -->
+								<div id="step-1" class="form-sec">
+									<h2 class="text-primary">Personal Information</h2>
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="surname" class="">Surname <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="text" class="form-control required" name="surname" id="surname" value="<?=$FIELDS['surname'];?>">
+											<span class="text-danger"><?=$ERRORS['surname'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="firstname" class="">First Name <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="text" class="form-control required" name="firstname" id="firstname" value="<?=$FIELDS['firstname'];?>">
+											<span class="text-danger"><?=$ERRORS['firstname'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="middlename" class="">Middle Name <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="text" class="form-control required" name="middlename" id="middlename" value="<?=$FIELDS['middlename'];?>">
+											<span class="text-danger"><?=$ERRORS['middlename'];?></span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="phonenumber" class="">Phone/Mobile No. <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="tel" class="form-control" autocomplete="off" name="phonenumber" id="phonenumber" value="<?=$FIELDS['phonenumber'];?>">
+											<span id="validate-msg" class="text-danger"><?=$ERRORS['phonenumber'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="emailaddress" class="">Email Address <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="email" class="form-control required email" name="emailaddress" id="emailaddress" value="<?=$FIELDS['emailaddress'];?>">
+											<span class="text-danger"><?=$ERRORS['emailaddress'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="verifyemailaddress" class="">Verify Email <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="email" class="form-control required email" name="verifyemailaddress" id="verifyemailaddress" value="<?=$FIELDS['verifyemailaddress'];?>">
+											<span class="text-danger"><?=$ERRORS['verifyemailaddress'];?></span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="dob" class="">DoB <abbr class="text-danger" title="Date of birth is">*</abbr></label>
+											<input type="text" class="form-control required date" name="dob" id="dob" value="<?=fixdatepicker($FIELDS['dob']);?>">
+											<span class="text-danger"><?=$ERRORS['dob'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="citizenship" class="">Citizenship <abbr class="text-danger" title="required">*</abbr></label>
+											<select name="citizenship" class="form-control required">
+												<option value="None">--Select--</option>
 												<?php
-													$count = !empty($FIELDS['institution'])?count($FIELDS['institution']):1;
+													foreach(list_countries() as $k => $v){													
+														if($k == $FIELDS['citizenship']){
+															$select = 'selected="selected"';
+														}
+														else{
+															$select = "";
+														}
+														echo "<option $select value=\"$k\">$v</option>";
+													}
+													?>
+											</select>
+											<span class="text-danger"><?=$ERRORS['citizenship'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="physicaladdress" class="">Physical Address <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="text" class="form-control required" name="physicaladdress" id="physicaladdress" value="<?=$FIELDS['physicaladdress'];?>">
+											<span class="text-danger"><?=$ERRORS['physicaladdress'];?></span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="city" class="">City/Town <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="text" class="form-control required" name="city" id="city" value="<?=$FIELDS['city'];?>">
+											<span class="text-danger"><?=$ERRORS['city'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="state" class="">State/County <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="text" class="form-control required" name="state" id="state" value="<?=$FIELDS['state'];?>">
+											<span class="text-danger"><?=$ERRORS['state'];?></span>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="postalcode" class="">Postal Code <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="text" class="form-control required" name="postalcode" id="postalcode" value="<?=$FIELDS['postalcode'];?>">
+											<span class="text-danger"><?=$ERRORS['postalcode'];?></span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-sm-6">
+											<label for="identityno" class="">ID/Passport No. <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="text" class="form-control required" name="identityno" id="identityno" value="<?=$FIELDS['identityno'];?>">
+											<span class="text-danger"><?=$ERRORS['identityno'];?></span>
+										</div>
+										<div class="form-group col-sm-6">
+											<label for="gender" class="">Gender <abbr class="text-danger" title="required">*</abbr></label>
+											<select name="gender" class="form-control required">
+												<option value="None">--Select--</option>
+												<?php
+													foreach(list_gender_status() as $k => $v){												
+														if($k == $FIELDS['gender']){
+															$select = 'selected="selected"';
+														}
+														else{
+															$select = "";
+														}
+														echo "<option $select value=\"$k\">$v</option>";
+													}
+													?>
+											</select>
+											<span class="text-danger"><?=$ERRORS['gender'];?></span>
+										</div>
+									</div>
+									<div class="row">
+											<div class="form-group col-sm-6">
+												<label for="identityimage" class="">Upload a scanned copy of the original ID/passport <abbr class="text-danger" title="required">*</abbr></label>
+												<input type="file" class="form-control required" name="identityimage" id="identityimage" accept="image/*,application/pdf">
+												<span class="text-danger"><?=$ERRORS['identityimage'];?></span>
+											</div>
+											<div class="form-group col-sm-6">
+												<label for="passportphoto" class="">Upload a scanned copy of your passport size photograph (1" x 1") <abbr class="text-danger" title="required">*</abbr></label>
+												<input type="file" class="form-control required" name="passportphoto" id="passportphoto" accept="image/*,application/pdf">
+												<span class="text-danger"><?=$ERRORS['passportphoto'];?></span>
+											</div>
+										</div>
+									<div class="row">
+										<div class="form-group col-sm-6">
+											<label for="cv" class="">Upload your CV(pdf) <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="file" class="form-control required" name="cv" id="cv" accept="application/pdf">
+											<span class="text-danger"><?=$ERRORS['cv'];?></span>
+										</div>
+										<div class="form-group col-sm-6">
+											<label for="coverletter" class="">Upload your Cover letter(pdf) <abbr class="text-danger" title="required">*</abbr></label>
+											<input type="file" class="form-control required" name="coverletter" id="coverletter" accept="application/pdf">
+											<span class="text-danger"><?=$ERRORS['coverletter'];?></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<button type="button" id="go-login" class="btn btn-default btn-lg" onclick="javascript:location.href='https://finstockevarsity.com/'">Exit Application</button>
+										<button type="button" id="go-step-2" class="btn btn-info btn-lg">Academic & Work Experience</button>
+									</div>
+								</div>
+								<!-- Step 2 -->
+								<div id="step-2" class="form-sec" style="display:none;">
+									<h2 class="text-primary">Academic & Work Experience</h2> <h4>1. Academic Qualifications</h4>
+									<div class="row">
+										<div class="col-sm-12">
+											<table class="table table-responsive" id="ac_qualifications">
+												<thead>
+													<tr>
+														<th style="width:20%"><label for="institution" class="">Institution Attended <abbr class="text-danger" title="required">*</abbr></label></th>
+														<th style="width:20%"><label for="certificate" class="">Certificate Attained <abbr class="text-danger" title="required">*</abbr></label></th>
+														<th style="width:20%"><label for="fromtoyear" class="">From - To Year <abbr class="text-danger" title="required">*</abbr></label></th>
+														<th style="width:20%"><label for="grademark" class="">Grade/Mark Attained <abbr class="text-danger" title="required">*</abbr></label></th>
+														<th style="width:20%"><label for="grademark" class="">Upload Certificate <abbr class="text-danger" title="required">*</abbr></label></th>
+													</tr>
+												</thead>
+												<tbody class="qualifications">
+													  <?php
+														$count = !empty($FIELDS['institution'])?count($FIELDS['institution']):1;
+														for($i = 0; $i < $count; $i++){
+														?>
+														<tr class="qualification">
+															<td class="form-group"><input type="text" class="form-control required" name="institution[0]" id="institution_0" value="<?=$FIELDS["institution"][$i]?>" placeholder="Institution name"></td>
+															<td class="form-group"><input type="text" class="form-control required" name="certificate[0]" id="certificate_0" value="<?=$FIELDS["certificate"][$i]?>" placeholder="Certificate awarded"></td>
+															<td class="form-group"><div class="row">
+																	<div class="col-sm-6">
+																		<input type="text" class="form-control required" name="fromyear[0]" id="fromyear_0" value="<?=$FIELDS["fromyear"][$i]?>" placeholder="From year">
+																	</div>
+																	<div class="col-sm-6">
+																		<input type="text" class="form-control required" name="toyear[0]" id="toyear_0" value="<?=$FIELDS["toyear"][$i]?>" placeholder="To year">
+																	</div>
+																</div></td>
+															<td class="form-group"><input type="text" class="form-control required" name="grade[0]" id="grade_0" value="<?=$FIELDS["grade"][$i]?>" placeholder="Grade/mark"></td>
+															<td class="form-group"><input type="file" class="form-control required" name="certfile[0]" id="certfile_0" value="<?=$FIELDS["certfile"][$i]?>" accept="image/*,application/pdf"></td>
+														</tr>
+														<?php
+														}
+														?>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="5"><a href="#" class="add_row btn btn-success btn-sm">Add Qualification</a> <a href="#" class="remove_rows btn btn-danger btn-sm">Remove selected row(s)</a></td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</div>
+									<h4>2. Work Experience</h4>
+									<div class="row">
+										<div class="col-sm-12">
+											<table class="table table-responsive" id="job_experience">
+												<thead>
+													<tr>
+														<th style="width:20%"><label for="institution" class="">Employer/Company Name <abbr class="text-danger" title="required">*</abbr></label></th>
+														<th style="width:20%"><label for="certificate" class="">Job position/Title <abbr class="text-danger" title="required">*</abbr></label></th>
+														<th style="width:20%"><label for="fromtoyear" class="">Year From - Year To<abbr class="text-danger" title="required">*</abbr></label></th>
+														<th style="width:20%"><label for="grademark" class="">Describe your roles <abbr class="text-danger" title="required">*</abbr></label></th>
+														<!-- <th style="width:20%"><label for="grademark" class="">Upload Certificate <abbr class="text-danger" title="required">*</abbr></label></th> --> 
+													</tr>
+												</thead>
+												<tbody class="qualifications">
+													<?php
+													$count = !empty($FIELDS['employer'])?count($FIELDS['employer']):1;
 													for($i = 0; $i < $count; $i++){
 													?>
-													<tr class="qualification">
-														<td class="form-group"><input type="text" class="form-control required" name="institution[0]" id="institution_0" value="<?=$FIELDS["institution"][$i]?>" placeholder="Institution name"></td>
-														<td class="form-group"><input type="text" class="form-control required" name="certificate[0]" id="certificate_0" value="<?=$FIELDS["certificate"][$i]?>" placeholder="Certificate awarded"></td>
+													<tr class="experience">
+														<td class="form-group"><input type="text" class="form-control required" name="employer[0]" id="employer_0" value="<?=$FIELDS["employer"][$i]?>" placeholder="Employer name"></td>
+														<td class="form-group"><input type="text" class="form-control required" name="job_title[0]" id="job_title_0" value="<?=$FIELDS["job_title"][$i]?>" placeholder="Job title"></td>
 														<td class="form-group"><div class="row">
 																<div class="col-sm-6">
-																	<input type="text" class="form-control required" name="fromyear[0]" id="fromyear_0" value="<?=$FIELDS["fromyear"][$i]?>" placeholder="From year">
+																	<input type="text" class="form-control required" name="fromyr[0]" id="fromyr_0" value="<?=$FIELDS["fromyr"][$i]?>" placeholder="From year">
 																</div>
 																<div class="col-sm-6">
-																	<input type="text" class="form-control required" name="toyear[0]" id="toyear_0" value="<?=$FIELDS["toyear"][$i]?>" placeholder="To year">
+																	<input type="text" class="form-control required" name="toyr[0]" id="toyr_0" value="<?=$FIELDS["toyr"][$i]?>" placeholder="To year">
 																</div>
 															</div></td>
-														<td class="form-group"><input type="text" class="form-control required" name="grade[0]" id="grade_0" value="<?=$FIELDS["grade"][$i]?>" placeholder="Grade/mark"></td>
-														<td class="form-group"><input type="file" class="form-control required" name="certfile[0]" id="certfile_0" value="<?=$FIELDS["certfile"][$i]?>" accept="image/*,application/pdf"></td>
+														<td class="form-group"><textarea class="form-control required" name="roles[0]" id="roles_0" value="<?=$FIELDS["roles"][$i]?>" placeholder="Job Roles"></textarea></td>
 													</tr>
 													<?php
 													}
 													?>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="5"><a href="#" class="add_row btn btn-success btn-sm">Add Qualification</a> <a href="#" class="remove_rows btn btn-danger btn-sm">Remove selected row(s)</a></td>
-												</tr>
-											</tfoot>
-										</table>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="5"><a href="#" class="add_row1 btn btn-success btn-sm">Add Work Experience</a> <a href="#" class="remove_rows1 btn btn-danger btn-sm">Remove selected row(s)</a></td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
 									</div>
-								</div>
-								<h4>2. Work Experience</h4>
-								<div class="row">
-									<div class="col-sm-12">
-										<table class="table table-responsive" id="job_experience">
-											<thead>
-												<tr>
-													<th style="width:20%"><label for="institution" class="">Employer/Company Name <abbr class="text-danger" title="required">*</abbr></label></th>
-													<th style="width:20%"><label for="certificate" class="">Job position/Title <abbr class="text-danger" title="required">*</abbr></label></th>
-													<th style="width:20%"><label for="fromtoyear" class="">Year From - Year To<abbr class="text-danger" title="required">*</abbr></label></th>
-													<th style="width:20%"><label for="grademark" class="">Describe your roles <abbr class="text-danger" title="required">*</abbr></label></th>
-													<!-- <th style="width:20%"><label for="grademark" class="">Upload Certificate <abbr class="text-danger" title="required">*</abbr></label></th> --> 
-												</tr>
-											</thead>
-											<tbody class="qualifications">
-												<?php
-												$count = !empty($FIELDS['employer'])?count($FIELDS['employer']):1;
-												for($i = 0; $i < $count; $i++){
-												?>
-												<tr class="experience">
-													<td class="form-group"><input type="text" class="form-control required" name="employer[0]" id="employer_0" value="<?=$FIELDS["employer"][$i]?>" placeholder="Employer name"></td>
-													<td class="form-group"><input type="text" class="form-control required" name="job_title[0]" id="job_title_0" value="<?=$FIELDS["job_title"][$i]?>" placeholder="Job title"></td>
-													<td class="form-group"><div class="row">
-															<div class="col-sm-6">
-																<input type="text" class="form-control required" name="fromyr[0]" id="fromyr_0" value="<?=$FIELDS["fromyr"][$i]?>" placeholder="From year">
-															</div>
-															<div class="col-sm-6">
-																<input type="text" class="form-control required" name="toyr[0]" id="toyr_0" value="<?=$FIELDS["toyr"][$i]?>" placeholder="To year">
-															</div>
-														</div></td>
-													<td class="form-group"><textarea class="form-control required" name="roles[0]" id="roles_0" value="<?=$FIELDS["roles"][$i]?>" placeholder="Job Roles"></textarea></td>
-												</tr>
-												<?php
-												}
-												?>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="5"><a href="#" class="add_row1 btn btn-success btn-sm">Add Work Experience</a> <a href="#" class="remove_rows1 btn btn-danger btn-sm">Remove selected row(s)</a></td>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-sm-12">
-										<label for="course" class="">Select unit(s) applying to teach under each course below: <abbr class="text-danger" title="required">*</abbr></label> <br>
-										<!-- multiselect new  --> 
-										<script type="text/javascript">
-										$(document).ready(function() {
-											$('#units-select').multiselect({
-												enableCollapsibleOptGroups: true,
-												enableFiltering: true,
-												disableIfEmpty: true,
-												buttonWidth: '100%'
+									<div class="row">
+										<div class="form-group col-sm-12">
+											<label for="course" class="">Select unit(s) applying to teach under each course below: <abbr class="text-danger" title="required">*</abbr></label> <br>
+											<!-- multiselect new  --> 
+											<script type="text/javascript">
+											$(document).ready(function() {
+												$('#units-select').multiselect({
+													enableCollapsibleOptGroups: true,
+													enableFiltering: true,
+													disableIfEmpty: true,
+													buttonWidth: '100%'
+												});
 											});
-										});
-										</script>
-										<select id="units-select" name="course[]" multiple="multiple" class="form-control">
-											<?php 
-											// loop in courses
-											foreach(getCourses() as $c): 
-												//get units for each course
-												$units = (getCourseUnits($c['CourseID']));
-												//make sure to display only courses with units
-												if(!empty($units)){
-													?>
-												<optgroup label="<?= $c['CName'] ?>">
+											</script>
+											<select id="units-select" name="course[]" multiple="multiple" class="form-control">
 												<?php 
-													foreach($units as $u):
-														echo '<option value="'.$u['UnitID'].'">'.$u['UName'].'</option>';
-													endforeach;
-													?>
-												</optgroup>
-												<?php 
-												}
-											endforeach; ?>
-										</select>
-										<!-- end multselect --> 
-										<span class="text-danger"><?=$ERRORS['course'];?></span>
+												// loop in courses
+												foreach(getCourses() as $c): 
+													//get units for each course
+													$units = (getCourseUnits($c['CourseID']));
+													//make sure to display only courses with units
+													if(!empty($units)){
+														?>
+													<optgroup label="<?= $c['CName'] ?>">
+													<?php 
+														foreach($units as $u):
+															echo '<option value="'.$u['UnitID'].'">'.$u['UName'].'</option>';
+														endforeach;
+														?>
+													</optgroup>
+													<?php 
+													}
+												endforeach; ?>
+											</select>
+											<!-- end multselect --> 
+											<span class="text-danger"><?=$ERRORS['course'];?></span>
+										</div>
+										<!-- </div> -->
 									</div>
-									<!-- </div> -->
-								</div>
-								<div class="row">
-									<div class="form-group col-sm-4">
-										<label for="cot" class="">Do you have a certification in online Training? <abbr class="text-danger" title="required">*</abbr></label>
-										<select name="cot" id="cot" class="form-control">
-											<?php
-											foreach(list_yesno_status() as $k => $v){												
-												if($k == $FIELDS['cot']){
-													$select = 'selected="selected"';
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="cot" class="">Do you have a certification in online Training? <abbr class="text-danger" title="required">*</abbr></label>
+											<select name="cot" id="cot" class="form-control">
+												<?php
+												foreach(list_yesno_status() as $k => $v){												
+													if($k == $FIELDS['cot']){
+														$select = 'selected="selected"';
+													}
+													else{
+														$select = "";
+													}
+													echo "<option $select value=\"$k\">$v</option>";
 												}
-												else{
-													$select = "";
-												}
-												echo "<option $select value=\"$k\">$v</option>";
-											}
-											?>
-										</select>
-										<span class="text-danger"><?=$ERRORS['cot'];?></span>
-									</div>
-									<div class="form-group col-sm-8" id="requirecot">
-										<label for="sponsor" class=""><h6>If no, you will be registered to study this course with us at the end of this application</h6> </label>
-										<div class="row">
-											<div class="col-sm-6">
-												<input type="radio" name="pursue" value="1" checked>
-												<label for="cot" class="">Yes, I would like to pursue COT</label>
+												?>
+											</select>
+											<span class="text-danger"><?=$ERRORS['cot'];?></span>
+										</div>
+										<div class="form-group col-sm-8" id="requirecot">
+											<label for="sponsor" class=""><h6>If no, you will be registered to study this course with us at the end of this application</h6> </label>
+											<div class="row">
+												<div class="col-sm-6">
+													<input type="radio" name="pursue" value="1" checked>
+													<label for="cot" class="">Yes, I would like to pursue COT</label>
+												</div>
+												<div class="col-sm-6">
+													<input type="radio" name="pursue" value="0" >
+													<label for="cot" class="">No, I don't want to pursue COT</label>
+												</div>
 											</div>
-											<div class="col-sm-6">
-												<input type="radio" name="pursue" value="0" >
-												<label for="cot" class="">No, I don't want to pursue COT</label>
+										</div>
+										<div class="form-group col-sm-8" id="CotCert" style="display:none;">
+											<label for="sponsor" class=""><h6>If Yes, Upload Your Certificate below</h6> </label>
+											<div class="row">
+												<div class="col-sm-12">
+													<input type="file" name="CotCert">
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="form-group col-sm-8" id="CotCert" style="display:none;">
-										<label for="sponsor" class=""><h6>If Yes, Upload Your Certificate below</h6> </label>
-										<div class="row">
-											<div class="col-sm-12">
-												<input type="file" name="CotCert">
-											</div>
+									<div class="form-group">
+										<button type="button" id="back-step-1" class="btn btn-info btn-lg">Personal Information</button>
+										<button type="submit" id="go-step-3" class="btn btn-info btn-lg">Additional Information & Confirm</button>
+									</div>
+								</div>
+								<!-- Step 3 -->
+								<div id="step-3" class="form-sec" style="display:none">
+									<h2 class="text-primary">Additional Information & Confirm</h2> <h4>Additional Information</h4>
+									<div class="form-group">
+										<label for="source" class="">How did you learn about us (please tick all that apply): </label>
+										<div class="checkbox">
+											<label><input type="checkbox" name="source[]" value="Evarsity website">Evarsity website</label> <label><input type="checkbox" name="source[]" value="Evarsity prospectus">Evarsity prospectus</label> <label><input type="checkbox" name="source[]" value="Colleague">Colleague</label> <label><input type="checkbox" name="source[]" value="Friend/family">Friend/family</label> <label><input type="checkbox" name="source[]" value="Poster/banner">Poster/banner</label> <label><input type="checkbox" name="source[]" value="Facebook">Facebook</label> <label><input type="checkbox" name="source[]" value="Twitter">Twitter</label> <label><input type="checkbox" name="source[]" value="Google">Google</label>
 										</div>
 									</div>
-								</div>
-								<div class="form-group">
-									<button type="button" id="back-step-1" class="btn btn-info btn-lg">Personal Information</button>
-									<button type="submit" id="go-step-3" class="btn btn-info btn-lg">Additional Information & Confirm</button>
-								</div>
-							</div>
-							<!-- Step 3 -->
-							<div id="step-3" class="form-sec" style="display:none">
-								<h2 class="text-primary">Additional Information & Confirm</h2> <h4>Additional Information</h4>
-								<div class="form-group">
-									<label for="source" class="">How did you learn about us (please tick all that apply): </label>
-									<div class="checkbox">
-										<label><input type="checkbox" name="source[]" value="Evarsity website">Evarsity website</label> <label><input type="checkbox" name="source[]" value="Evarsity prospectus">Evarsity prospectus</label> <label><input type="checkbox" name="source[]" value="Colleague">Colleague</label> <label><input type="checkbox" name="source[]" value="Friend/family">Friend/family</label> <label><input type="checkbox" name="source[]" value="Poster/banner">Poster/banner</label> <label><input type="checkbox" name="source[]" value="Facebook">Facebook</label> <label><input type="checkbox" name="source[]" value="Twitter">Twitter</label> <label><input type="checkbox" name="source[]" value="Google">Google</label>
+									<div class="row">
+										<div class="form-group col-sm-6">
+											<label for="othersource" class="">Others (please specify) </label>
+											<input type="text" class="form-control" name="othersource" id="othersource" value="<?=$FIELDS["othersource"]?>">
+										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-sm-6">
-										<label for="othersource" class="">Others (please specify) </label>
-										<input type="text" class="form-control" name="othersource" id="othersource" value="<?=$FIELDS["othersource"]?>">
-									</div>
-								</div>
-								<h4>Confirm <span class="text-danger">*</span></h4>
-								<div class="form-group checkbox">
-									<label for="declaration" class="">
-										<input type="checkbox" name="declaration" id="declaration" value="1" class="required">
-										I have confirmed that the information I have given herein is correct.</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
-								</div>
-								<h4>Email use Consent <span class="text-danger">*</span></h4>
+									<h4>Confirm <span class="text-danger">*</span></h4>
 									<div class="form-group checkbox">
 										<label for="declaration" class="">
-										<input type="checkbox" checked name="offers" id="offers" value="1" class="">
-										Keep me posted about Finstock Evarsity Products</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
+											<input type="checkbox" name="declaration" id="declaration" value="1" class="required">
+											I have confirmed that the information I have given herein is correct.</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
 									</div>
-								<div class="form-group">
-									<label for="securitycode">Security Code: <span class="text-danger">*</span></label>
-									<?=recaptcha_get_html();?>
-									<span class="text-danger"><?=$ERRORS['reCaptcha']?></span>
+									<h4>Email use Consent <span class="text-danger">*</span></h4>
+										<div class="form-group checkbox">
+											<label for="declaration" class="">
+											<input type="checkbox" checked name="offers" id="offers" value="1" class="">
+											Keep me posted about Finstock Evarsity Products</label> <span class="text-danger"><?=$ERRORS['declaration'];?></span>
+										</div>
+									<div class="form-group">
+										<label for="securitycode">Security Code: <span class="text-danger">*</span></label>
+										<?=recaptcha_get_html();?>
+										<span class="text-danger"><?=$ERRORS['reCaptcha']?></span>
+									</div>
+									<div class="form-group">
+										<button type="button" id="back-step-2" class="btn btn-info btn-lg">Academic & Work Experience</button>
+										<button type="submit" class="btn btn-primary btn-lg" name="load" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Registration">Complete Application</button>
+									</div>
 								</div>
-								<div class="form-group">
-									<button type="button" id="back-step-2" class="btn btn-info btn-lg">Academic & Work Experience</button>
-									<button type="submit" class="btn btn-primary btn-lg" name="load" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Registration">Complete Application</button>
-								</div>
-							</div>
-						</form>
-					</div>
-					<?php
+							</form>
+						</div>
+						<?php
 						}
-					break;
-					case "pay":
+						break;
+						case "pay":
 						?>
 						<div class="col-md-12">
 							<h2>You are about to pay Ksh.<?php echo $_SESSION['AMOUNT']; ?></h2>
@@ -890,23 +900,21 @@ $(document).ready(function() {
 							<p>We support the following payment methods. Click on your preferred payment method:</p>
 							
 							<div class="row">
-								<!--
 								<div class="col-md-6">
 									<h3>Lipa na MPesa</h3>
 									<a href="?do=payment&paymentmethod=mpesa&paytype=Registration" title="Click to pay with MPesa"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/lipa-na-mpesa.png" alt="Lina na MPesa"></a>
 								</div>
-								-->
 								<div class="col-md-6">
 									<h3>PesaPal Payment</h3>
 									<a href="?do=payment&paymentmethod=pesapal&paytype=Registration" title="Click to pay with PesaPal"><img class="img-responsive" style="max-width:260px;" src="<?php echo IMAGE_FOLDER; ?>/payment_methods/pesapal.jpg" alt="PesaPal Payment"></a>
 								</div>
 							</div>
 						</div>
-						<?
-					break;
-					default:
-						echo ErrorMessage("Invalid request! The system failed to process your request. If the problem persists, please contact us.");
-					break;
+						<?php
+						break;
+						default:
+							echo ErrorMessage("Invalid request! The system failed to process your request. If the problem persists, please contact us.");
+						break;
 					}
 					
 					//Close connection
