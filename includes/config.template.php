@@ -84,7 +84,7 @@ define('PESAPAL_IFRAME_API', 'https://www.pesapal.com/api/PostPesapalDirectOrder
 define('PESAPAL_STATUS_API', 'https://www.pesapal.com/api/querypaymentstatus');
 define('PESAPAL_DETAILS_API', 'https://www.pesapal.com/api/QueryPaymentDetails');
 #MPESA API Details
-define("MPESA_API_ENV","live/demo"); // Either "sandbox" or "live"
+define("MPESA_API_ENV","live/demo/test"); // Either "sandbox" or "live"
 define("MPESA_CONSUMER_KEY","key");
 define("MPESA_CONSUMER_SECRET","secret");
 define("MPESA_SHORTCODE","Pay bill number");
